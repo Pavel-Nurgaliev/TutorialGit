@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-asds asdasdadada
-=======
-asdsdfdfdfdfdf
->>>>>>> d10550b (Changed a1.txt)
