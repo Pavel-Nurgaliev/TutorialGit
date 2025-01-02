@@ -1,0 +1,343 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.intro {
+    padding: 48px 0 61px 0;
+    height: 800px;
+    background: url('../img/main_bg.jpg') center center/cover no-repeat;
+}
+
+.container {
+    position: relative;
+    width: 1140px;
+    margin: 0 auto;
+}
+
+.logo .logo_img {
+    display: block;
+    margin: 0 auto;
+}
+
+.logo .logo_text {
+    color: #FFFFFF;
+    font-family: Roboto;
+    font-size: 15px;
+    line-height: 24px;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 1;
+}
+
+h1 {
+    margin-top: 52px;
+}
+
+.title {
+    color: #F9BF3B;
+    font-family: Roboto;
+    font-size: 41px;
+    line-height: 41px;
+    font-weight: 1;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.intro h2 {
+    margin: 20px auto;
+}
+
+.simple .title_big {
+    color: #FFFFFF;
+    font-family: "Roboto - Black";
+    font-size: 80px;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.intro .intro_text {
+    margin-top: 22px;
+    padding: 0 13px;
+    font-family: Roboto;
+    color: #FFFFFF;
+    font-size: 21px;
+    font-weight: 300;
+    line-height: 28px;
+    text-align: center;
+}
+
+.intro .intro_text span {
+    color: #F9BF3B;
+    font-family: "Roboto - Bold";
+    font-weight: 700;
+}
+
+.intro .intro_btn,
+.gifts .gifts_btn {
+    display: block;
+    width: 313px;
+    height: 72px;
+    margin: 0px auto;
+    margin-top: 72px;
+    box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.18);
+    border: 4px solid rgba(0, 0, 0, 0.23);
+    background-image: linear-gradient(to top, #2798b9 0%, #3ab6da 100%);
+
+    color: #FFFFFF;
+    font-family: "Roboto Condensed";
+    font-size: 21px;
+    font-weight: 400;
+    line-height: 24px;
+    text-transform: uppercase;
+    cursor: pointer;
+    outline: none;
+}
+
+.intro .intro_info {
+    margin-top: 70px;
+}
+
+.intro .intro_info .intro_info_text {
+    color: #FFFFFF;
+    font-family: "Roboto - Thin";
+    font-size: 15px;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.intro .intro_info .intro_info_img {
+    display: block;
+    margin: 0 auto;
+    margin-top: 5px;
+}
+
+.waiting {
+    min-height: 604px;
+    background-color: #EFEFEF;
+    padding: 81px 0 75px 0;
+}
+
+.waiting .waiting_header,
+.ending .ending_header {
+    text-align: center;
+    color: #252525;
+    font-family: Roboto;
+    font-size: 30px;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.waiting .waiting_divider,
+.ending .ending_divider {
+    width: 217px;
+    height: 4px;
+    background-color: #f9bf3b;
+    margin: 0px auto;
+    margin-top: 18px;
+}
+
+.waiting .waiting_subheader {
+    color: #4a4a4a;
+    font-family: Roboto;
+    font-size: 23px;
+    font-weight: 400;
+    margin-top: 17px;
+    text-align: center;
+}
+
+.waiting .waiting_wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 45px;
+}
+
+.waiting .waiting_wrapper .waiting_item {
+    width: 339px;
+    text-align: center;
+}
+
+.waiting .waiting_wrapper .waiting_item .waiting_img {
+    width: 100%;
+}
+
+.waiting .waiting_wrapper .waiting_item .waiting_descr {
+    color: #4a4a4a;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 21px;
+}
+
+.optimization {
+    min-height: 550px;
+    padding: 102px 0 107px 0;
+}
+
+.optimization .optimization_header {
+    margin-left: 391px;
+    color: #299cbd;
+    font-family: "Roboto - Black";
+    font-size: 30px;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.optimization .optimization_text {
+    margin-left: 391px;
+    color: #4a4a4a;
+    font-family: Roboto;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 27px;
+    font-family: "Roboto Light";
+}
+
+.optimization .optimization_text span {
+    font-weight: 700;
+    font-family: "Roboto Bold";
+}
+
+.optimization img {
+    position: absolute;
+    top: -54px;
+    left: -240px;
+    z-index: -1;
+}
+
+.ending {
+    min-height: 447px;
+    padding: 86px 0 79px 0;
+    background: url('../img/second_bg.png');
+}
+
+.ending .ending_header {
+    color: #FFFFFF;
+}
+
+.ending .ending_wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 41px;
+}
+
+.ending .ending_item {
+    width: 204px;
+}
+
+.ending .ending_round {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 115px;
+    height: 115px;
+    background-color: #b4e2ff;
+    border-radius: 100%;
+}
+
+.ending .ending_description {
+    margin-top: 45px;
+    text-align: center;
+    color: #efefef;
+    font-family: Roboto;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 20px;
+}
+
+.gifts {
+    padding: 85px 380px 88px 380px;
+    min-height: 631px;
+    background-color: #EFEFEF;
+}
+
+.gifts .gifts_img {
+    display: block;
+    margin: 0 auto;
+}
+
+.gifts .gifts_text {
+    margin-top: 45px;
+    text-align: center;
+    color: #000000;
+    font-family: Roboto;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 20px;
+}
+
+.first_course {
+    min-height: 480px;
+}
+
+.first_course .first_course_img {
+    margin: 0 auto;
+    margin-top: 89px;
+    display: block;
+}
+
+.first_course h1 {
+    margin-top: 36px;
+    text-align: center;
+    color: #000000;
+    font-family: Roboto;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 30px;
+    transform: uppercase;
+}
+
+.first_course .first_course_eventtime {
+    margin-top: 30px;
+    font-size: 36px;
+    font-family: Roboto;
+    font-weight: 900;
+    line-height: 36px;
+    letter-spacing: 0px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #299CBD;
+}
+
+.first_course .first_course_header {
+    margin-top: 24px;
+    font-size: 30px;
+    font-family: Roboto;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.first_course .first_course_place_notification {
+    margin-top: 25px;
+    font-size: 23px;
+    font-family: Roboto;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0px;
+    text-align: center;
+}
+
+.footer_info {
+    padding: 100px;
+    background-color: #000000;
+    min-height: 169px;
+}
+
+.footer_info .footer_text {
+    color: #888888;
+    font-size: 15px;
+    font-family: Roboto;
+    font-weight: 300;
+    line-height: 21px;
+    letter-spacing: 0px;
+    text-align: center;
+}
