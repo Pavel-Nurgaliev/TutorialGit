@@ -1,4 +1,5 @@
 using BethanysPieShop.Models;
+using BethanysPieShop.Models.ShoppingCart;
 using BethanysPieShop.Models.DbInitializer;
 using BethanysPieShop.Models.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,10 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IPieRepository, PieRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IShoppingCart, ShoppingCart>(sp=>ShoppingCart.GetCart(sp));
+
+builder.Services.AddSession();
+builder.Services.AddHttpContextAccessor();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -20,6 +25,7 @@ builder.Services.AddDbContext<BethanysPieShopDbContext>(options =>
 var app = builder.Build();
 
 app.UseStaticFiles();
+app.UseSession();
 
 if (app.Environment.IsDevelopment())
 {

@@ -6,7 +6,10 @@
         <div class="card-body pie-button">
             <h4 class="d-grid">
             </h4>
-
+            <a class="btn btn-secondary"
+               asp-controller="ShoppingCart"
+               asp-action="AddToShoppingCart"
+               asp-route-pieId="@Model.PieId">Add to cart</a>
             <div class="d-flex justify-content-between mt-2">
                 <h2 class="text-start">
                     <a asp-controller="Pie"
