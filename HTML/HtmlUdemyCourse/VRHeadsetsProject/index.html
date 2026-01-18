@@ -9,8 +9,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <title>VR Store</title>
 </head>
 
 <body>
@@ -28,35 +28,35 @@
                     <li><a href="">About us</a></li>
                     <li><a href="">Promotions</a></li>
                     <li><a href="">Newsletter</a></li>
+                    <li class="menu-icon"><img src="/image/menu_icon.png" alt=""></li>
                 </ul>
             </nav>
         </div>
     </header>
-
-    <section class="Hero">
-        <img src="/image/Hero_Desktop.jpg" alt="">
-
+    <section class="hero">
+        <picture>
+            <source media="(max-width: 576px)" srcset="/image/Hero_Mobile.jpg">
+            <source media="(max-width: 960px)" srcset="/image/Hero_Tablet.jpg">
+            <source media="(max-width: 1400px)" srcset="/image/Hero_Desktop.jpg">
+            <img src="/image/Hero_Large_Desktop.jpg" alt="">
+        </picture>
         <div class="hero-content">
             <div class="container">
-                <h1>Dicover our line of VR Headsets</h1>
+                <h1>Discover our line of VR Headsets</h1>
                 <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
-                <button>View Headsets</button>
+                <button>VIEW HEADSETS</button>
             </div>
         </div>
     </section>
-
     <section class="best-sellers">
-        <h1>Best Sellers</h1>
+        <h2>Best Sellers</h2>
+        <hr class="blue-line">
+        </hr>
+        <div class="best-sellers-slider">
 
-        <div class="blue-line"></div>
-
-        <div class="product-slider">
             <div class="container">
-                <div class="product">
-                    <span class="badge" aria-label="New product">New</span>
-                    <div class="picture">
-                        <img src="/image/vr1.jpg" alt="">
-                    </div>
+                <article class="product-card new">
+                    <img src="/image/vr1.jpg" alt="">
                     <div class="product-info">
                         <div class="item-link">
                             <a href="">Smart Watches,</a>
@@ -68,12 +68,8 @@
                         <div class="price"><span>US$ 6.99</span></div>
                         <button>Add to bag</button>
                     </div>
-                </div>
-                <div class="product">
-                    <span class="badge" aria-label="New product">New</span>
-                    <div class="picture">
-                        <img src="/image/vr2.jpg" alt="">
-                    </div>
+                </article>
+                <article class="product-card new"><img src="/image/vr2.jpg" alt="">
                     <div class="product-info">
                         <div class="item-link">
                             <a href="">Headphones,</a>
@@ -82,16 +78,12 @@
                         </div>
 
                         <h3>Noise Cancelling Headphone</h3>
-                        <div class="price">
-                            <span>US$ 18.49</span>
-                        </div>
+                        <div class="price"><span>US$ 18.49</span></div>
                         <button>Add to bag</button>
                     </div>
-                </div>
-                <div class="product">
-                    <div class="picture">
-                        <img src="/image/vr3.jpg" alt="">
-                    </div>
+                </article>
+                <article class="product-card">
+                    <img src="/image/vr3.jpg" alt="">
                     <div class="product-info">
                         <div class="item-link">
                             <a href="">Cameras,</a>
@@ -101,27 +93,28 @@
 
                         <h3>Canon Digital SLR EOS Rebel T6</h3>
                         <div class="price">
-                            <div class="red-price">
-                                <span>US$ 396.89</span>
-                            </div>
-                            &nbsp
-                            <div class="before">
-                                <span>US$ 18.49</span>
-                            </div>
+                            <div class="price-discount">US$ 396.89</div>
+                            <div class="price-expired"><del>US$ 18.49</del></div>
                         </div>
                         <button>Add to bag</button>
                     </div>
-                </div>
+                </article>
             </div>
         </div>
     </section>
 
-    <section class="signup">
-        <h2>Newsletter signup</h2>
-        <p>Subscribe now and don't miss a single deal!</p>
-        <div class="subscribe-box">
-            <input type="email" placeholder="Your email..."></input>
-            <button>sucscribe</button>
+    <section class="newsletter">
+        <div class="newsletter-area">
+            <div class="container">
+                <h3>Newsletter signup</h3>
+                <p>Subscribe now and don't miss a single deal!</p>
+                <div class="form">
+                    <input type="email" placeholder="Your email...">
+                    <button type="submit">
+                        SUBSCRIBE
+                    </button>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -129,8 +122,8 @@
         <div class="footer-menu">
             <div class="container">
                 <div class="footer-column">
-                    <h3>Categories</h3>
                     <ul>
+                        <h3>Categories</h3>
                         <li><a href="">Watches</a></li>
                         <li><a href="">Cameras</a></li>
                         <li><a href="">Phones</a></li>
@@ -139,8 +132,8 @@
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3>About us</h3>
                     <ul>
+                        <h3>About us</h3>
                         <li><a href="">Our Story</a></li>
                         <li><a href="">Press</a></li>
                         <li><a href="">Blog</a></li>
@@ -149,18 +142,18 @@
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3>Social Media</h3>
                     <ul>
+                        <h3>Social Media</h3>
                         <li><a href="">Facebook</a></li>
-                        <li><a href="">Facebook</a></li>
+                        <li><a href="">Linkedin</a></li>
                         <li><a href="">Instagram</a></li>
                         <li><a href="">Twitter</a></li>
-                        <li><a href="">Twitter</a></li>
+                        <li><a href="">YouTube</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3>Customer Service</h3>
                     <ul>
+                        <h3>Customer Service</h3>
                         <li><a href="">Live Chat</a></li>
                         <li><a href="">Contact Us</a></li>
                         <li><a href="">Terms & Conditions</a></li>
@@ -170,7 +163,7 @@
                 </div>
             </div>
         </div>
-        <p class="coppy-right-info">2020 © All Rights Reserved</p>
+        <p class="coppy-right-info">2020 &copy; All Rights Reserved</p>
     </footer>
 </body>
 
