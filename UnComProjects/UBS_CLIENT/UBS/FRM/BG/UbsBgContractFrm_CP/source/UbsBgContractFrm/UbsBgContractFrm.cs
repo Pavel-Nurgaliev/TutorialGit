@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using UbsService;
@@ -40,7 +40,13 @@ namespace UbsBusiness
         private const string AddByFrameContrantCommand = "ADD_BY_FRAME_CONTRACT";
         private const string AddByFramePrepareCommand = "ADD_BY_FRAME_PREPARE";
 
-        private const string UbsCounterGuarantType = "UBS_COUNTER_GUARANT";
+        private const string UbsCounterGuarantTypeCommand = "UBS_COUNTER_GUARANT";
+
+        private const string ActionUbsBgFrameContractList = "UBS_BG_FRAME_CONTRACT_LIST";
+        private const string ActionUbsBgListModel = "UBS_BG_LIST_MODEL";
+        private const string ActionUbsBgListAgent = "UBS_BG_LIST_AGENT";
+        private const string ActionUbsCommonListClient = "UBS_COMMON_LIST_CLIENT";
+        private const string ActionUbsBgListContract = "UBS_BG_LIST_CONTRACT";
         #endregion
         #region Блок объявления переменных
 
@@ -68,6 +74,7 @@ namespace UbsBusiness
         private int m_idAgent;
         private int m_idPrincipal;
         private int m_idBeneficiar;
+        private int m_idPrevContract;
         private object[,] m_arrRates;
         private bool m_isInitCurrencyBonus;
         private object m_arrPeriodPay;
@@ -1262,7 +1269,7 @@ namespace UbsBusiness
         {
             EnabledCmdControl(false);
 
-            object[] ids = this.Ubs_ActionRun("UBS_BG_FRAME_CONTRACT_LIST", this, true) as object[];
+            object[] ids = this.Ubs_ActionRun(ActionUbsBgFrameContractList, this, true) as object[];
 
             if (ids != null && ids.Length > 0)
             {
@@ -1308,7 +1315,7 @@ namespace UbsBusiness
         {
             EnabledCmdControl(false);
 
-            object[] ids = this.Ubs_ActionRun("UBS_BG_LIST_MODEL", this, true) as object[];
+            object[] ids = this.Ubs_ActionRun(ActionUbsBgListModel, this, true) as object[];
 
             if (ids != null && ids.Length > 0)
             {
@@ -1322,7 +1329,7 @@ namespace UbsBusiness
         {
             EnabledCmdControl(false);
 
-            object[] ids = this.Ubs_ActionRun("UBS_BG_LIST_AGENT", this, true) as object[];
+            object[] ids = this.Ubs_ActionRun(ActionUbsBgListAgent, this, true) as object[];
 
             if (ids != null && ids.Length > 0)
             {
@@ -1366,6 +1373,70 @@ namespace UbsBusiness
 
                 txtAgent.Text = Convert.ToString(base.IUbsChannel.ParamOut("Наименование"));
             }
+
+            EnabledCmdControl(true);
+        }
+
+        private void btnAgentDel_Click(object sender, EventArgs e)
+        {
+            m_idAgent = 0;
+            txtAgent.Text = string.Empty;
+            txtNumAgent.Text = string.Empty;
+            dateAgent.Text = string.Empty;
+            dateReward.Text = string.Empty;
+            dateAdjustment.Text = string.Empty;
+            costAmount.DecimalValue = 0m;
+            paidAmount.DecimalValue = 0m;
+            transAmount.DecimalValue = 0m;
+            dateReward.Enabled = false;
+            costAmount.Enabled = false;
+        }
+
+        private void linkPrincipal_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            EnabledCmdControl(false);
+
+            object[] ids = this.Ubs_ActionRun(ActionUbsCommonListClient, this, true) as object[];
+
+            if (ids != null && ids.Length > 0)
+            {
+                m_idPrincipal = Convert.ToInt32(ids[0]);
+
+                base.IUbsChannel.ParamIn("ID", m_idPrincipal);
+
+                base.IUbsChannel.Run("BGReadClientById");
+
+                txtPrincipal.Text = Convert.ToString(base.IUbsChannel.ParamOut("Наименование"));
+
+                linkBeneficiar.Focus();
+            }
+
+            EnabledCmdControl(true);
+        }
+        private void linkBeneficiar_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            EnabledCmdControl(false);
+
+            object[] ids = this.Ubs_ActionRun(ActionUbsCommonListClient, this, true) as object[];
+
+            if (ids != null && ids.Length > 0)
+            {
+                m_idBeneficiar = Convert.ToInt32(ids[0]);
+                m_arrDetailsBeneficiar = null;
+
+                base.IUbsChannel.ParamIn("ID", m_idBeneficiar);
+
+                base.IUbsChannel.Run("BGReadClientById");
+
+                txtBeneficiar.Text = Convert.ToString(base.IUbsChannel.ParamOut("Наименование"));
+
+                if (linkGarant.Enabled)
+                    linkGarant.Focus();
+                else
+                    txtNumberGarant.Focus();
+            }
+
+            EnabledCmdControl(true);
         }
         private void EnabledCmdControl(bool isEnabled)
         {
@@ -1375,7 +1446,7 @@ namespace UbsBusiness
             {
                 btnManualBenificiar.Enabled = isEnabled;
             }
-            if (m_modelType == UbsCounterGuarantType)
+            if (m_modelType == UbsCounterGuarantTypeCommand)
             {
                 linkGarant.Enabled = isEnabled;
             }
@@ -1412,7 +1483,7 @@ namespace UbsBusiness
         }
         private void ubsBgContractFrm_Ubs_ActionRunBegin(object sender, UbsActionRunEventArgs args)
         {
-            if (args.Action == "UBS_BG_LIST_AGENT")
+            if (args.Action == ActionUbsBgListAgent)
             {
                 args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
                     new KeyValuePair<string, object>("наименование", "Состояние"),
@@ -1422,7 +1493,7 @@ namespace UbsBusiness
 
                 args.IUbs.Run("UbsItemsRefresh", null);
             }
-            else if (args.Action == "UBS_BG_LIST_MODEL")
+            else if (args.Action == ActionUbsBgListModel)
             {
                 args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
                     new KeyValuePair<string, object>("наименование", "Состояние"),
@@ -1449,7 +1520,7 @@ namespace UbsBusiness
 
                 args.IUbs.Run("UbsItemsRefresh", null);
             }
-            else if (args.Action == "UBS_BG_FRAME_CONTRACT_LIST")
+            else if (args.Action == ActionUbsBgFrameContractList)
             {
                 args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
                     new KeyValuePair<string, object>("наименование", "Состояние"),
@@ -1461,5 +1532,57 @@ namespace UbsBusiness
             }
         }
         private bool IsCmbValutaEnabled() => (m_idState == 4 && m_idFrameContract == 0);
+
+        private void linkGarant_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            EnabledCmdControl(false);
+
+            object[] ids = this.Ubs_ActionRun(ActionUbsCommonListClient, this, true) as object[];
+
+            if (ids != null && ids.Length > 0)
+            {
+                m_idGarant = Convert.ToInt32(ids[0]);
+
+                base.IUbsChannel.ParamIn("ID", m_idGarant);
+
+                base.IUbsChannel.Run("BGReadClientById");
+
+                txtGarant.Text = Convert.ToString(base.IUbsChannel.ParamOut("Наименование"));
+
+                txtNumberGarant.Focus();
+            }
+
+            EnabledCmdControl(true);
+        }
+
+        private void linkPreviousContract_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            EnabledCmdControl(false);
+
+            object[] ids = this.Ubs_ActionRun(ActionUbsBgListContract, this, true) as object[];
+
+            if (ids != null && ids.Length > 0)
+            {
+                m_idPrevContract = Convert.ToInt32(ids[0]);
+
+                base.IUbsChannel.ParamIn("IdPrevContract", m_idPrevContract);
+
+                base.IUbsChannel.Run("BGReadPreviuosContract");
+
+                txtPreviousContract.Text = Convert.ToString(base.IUbsChannel.ParamOut("InfoPrevContract"));
+
+                if (tabControl.TabPages.Count > 2 && tabControl.TabPages[2].Enabled)
+                {
+                    tabControl.SelectedIndex = 2;
+                    cmbPortfolio.Focus();
+                }
+                else if (tabControl.TabPages.Count > 3)
+                {
+                    tabControl.SelectedIndex = 3;
+                }
+            }
+
+            EnabledCmdControl(true);
+        }
     }
 }

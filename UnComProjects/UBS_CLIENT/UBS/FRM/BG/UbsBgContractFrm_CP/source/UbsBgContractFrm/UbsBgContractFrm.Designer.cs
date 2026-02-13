@@ -400,6 +400,7 @@ namespace UbsBusiness
             this.linkPreviousContract.TabIndex = 32;
             this.linkPreviousContract.TabStop = true;
             this.linkPreviousContract.Text = "Прежний договор гарантии";
+            this.linkPreviousContract.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkPreviousContract_LinkClicked);
             // 
             // cmbNumberDiv
             // 
@@ -743,6 +744,7 @@ namespace UbsBusiness
             this.linkGarant.TabIndex = 6;
             this.linkGarant.TabStop = true;
             this.linkGarant.Text = "Гарант";
+            this.linkGarant.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkGarant_LinkClicked);
             // 
             // txtBeneficiar
             // 
@@ -761,6 +763,7 @@ namespace UbsBusiness
             this.linkBeneficiar.TabIndex = 3;
             this.linkBeneficiar.TabStop = true;
             this.linkBeneficiar.Text = "Бенефициар";
+            this.linkBeneficiar.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkBeneficiar_LinkClicked);
             // 
             // datePrincipal
             // 
@@ -798,6 +801,7 @@ namespace UbsBusiness
             this.linkPrincipal.TabIndex = 1;
             this.linkPrincipal.TabStop = true;
             this.linkPrincipal.Text = "Принципал";
+            this.linkPrincipal.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkPrincipal_LinkClicked);
             // 
             // transAmount
             // 
@@ -896,6 +900,7 @@ namespace UbsBusiness
             this.btnAgentDel.TabIndex = 13;
             this.btnAgentDel.Text = "X";
             this.btnAgentDel.UseVisualStyleBackColor = true;
+            this.btnAgentDel.Click += new System.EventHandler(this.btnAgentDel_Click);
             // 
             // linkAgent
             // 
