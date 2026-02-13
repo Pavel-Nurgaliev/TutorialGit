@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Windows.Forms;
 using UbsService;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.AxHost;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace UbsBusiness
 {
@@ -52,7 +48,6 @@ namespace UbsBusiness
 
         private object[] m_itemArray;
 
-
         private int m_idContract;
         private int m_idContractCopy;
         private int m_idFrameContract;
@@ -85,7 +80,7 @@ namespace UbsBusiness
         private DateTime m_dateBeginFrameContract;
         private DateTime m_dateEndFrameContract;
         private object[,] m_termsFrameContract;
-        private object m_limitSaldoFrameContract;
+        private decimal m_limitSaldoFrameContract;
         private object[,] m_arrGuarant;
         private int m_idContractCover;
         private DateTime m_dateBegin;
@@ -94,7 +89,6 @@ namespace UbsBusiness
         private string m_typePayFeeGuarant;
         private object[,] m_arrIntervalGuarant;
         private int m_setRekvBen;
-        private object[] m_kindsWhere;
 
         #endregion
 
@@ -832,7 +826,7 @@ namespace UbsBusiness
                     m_dateBeginFrameContract = Convert.ToDateTime(paramOut["Дата начала действия рамочного договора"]);
                     m_dateEndFrameContract = Convert.ToDateTime(paramOut["Дата окончания действия рамочного договора"]);
                     m_termsFrameContract = paramOut["Срок гарантии рамочного договора"] as object[,];
-                    m_limitSaldoFrameContract = paramOut["Остаток лимита рамочного договора"];
+                    m_limitSaldoFrameContract = Convert.ToDecimal(paramOut["Остаток лимита рамочного договора"]);
                     m_issueEndDate = Convert.ToDateTime(paramOut["Дата окончания выдачи"]);
                     m_divisionFrameContract = Convert.ToInt32(paramOut["Отделение рамочного договора"]);
 
@@ -1272,92 +1266,25 @@ namespace UbsBusiness
 
             if (ids != null && ids.Length > 0)
             {
+                m_idFrameContract = Convert.ToInt32(ids[0]);
 
+                base.IUbsChannel.ParamIn("ID", m_idFrameContract);
+
+                base.IUbsChannel.Run("BGReadFrameContractById");
+
+                txtFrameContract.Text = Convert.ToString(base.IUbsChannel.ParamOut("Наименование"));
+                m_dateBeginFrameContract = Convert.ToDateTime(base.IUbsChannel.ParamOut("Дата начала действия рамочного договора"));
+                m_dateEndFrameContract = Convert.ToDateTime(base.IUbsChannel.ParamOut("Дата окончания действия рамочного договора"));
+                m_termsFrameContract = base.IUbsChannel.ParamOut("Срок гарантии рамочного договора") as object[,];
+                m_limitSaldoFrameContract = Convert.ToDecimal(base.IUbsChannel.ParamOut("Остаток лимита"));
+                m_issueEndDate = Convert.ToDateTime(base.IUbsChannel.ParamOut("Дата окончания выдачи"));
+                m_divisionFrameContract = Convert.ToInt32(base.IUbsChannel.ParamOut("Номер отделения"));
+
+                SetInfoByFrameContract();
+
+                linkModel.Focus();
             }
         }
-        private void ubsBgContractFrm_Ubs_ActionRunBegin(object sender, UbsActionRunEventArgs args)
-        {
-            if (args.Action == "UBS_BG_LIST_AGENT")
-            {
-                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
-                    new KeyValuePair<string, object>("наименование", "Состояние"),
-                    new KeyValuePair<string, object>("значение по умолчанию", "Открыт"),
-                    new KeyValuePair<string, object>("условие по умолчанию", "="),
-                    new KeyValuePair<string, object>("скрытый", false) }));
-
-                args.IUbs.Run("UbsItemsRefresh", null);
-            }
-            else if (args.Action == "UBS_BG_LIST_MODEL")
-            {
-                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
-                    new KeyValuePair<string, object>("наименование", "Состояние"),
-                    new KeyValuePair<string, object>("значение по умолчанию", "0"),
-                    new KeyValuePair<string, object>("условие по умолчанию", "="),
-                    new KeyValuePair<string, object>("скрытый", false) }));
-
-                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
-                    new KeyValuePair<string, object>("наименование", "Вид гарантии"),
-                    new KeyValuePair<string, object>("значение по умолчанию", m_kindsWhere),
-                    new KeyValuePair<string, object>("условие по умолчанию", "один из"),
-                    new KeyValuePair<string, object>("скрытый", false) }));
-
-                args.IUbs.Run("UbsItemsRefresh", null);
-            }
-            else if (args.Action == "UBS_BG_FRAME_CONTRACT_LIST")
-            {
-                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
-                    new KeyValuePair<string, object>("наименование", "Состояние"),
-                    new KeyValuePair<string, object>("значение по умолчанию", "0"),
-                    new KeyValuePair<string, object>("условие по умолчанию", "="),
-                    new KeyValuePair<string, object>("скрытый", false) }));
-
-                args.IUbs.Run("UbsItemsRefresh", null);
-            }
-        }
-        private void EnabledCmdControl(bool isEnabled)
-        {
-            linkBeneficiar.Enabled = isEnabled;
-
-            if (m_idState != 0 && m_idState != 2)
-            {
-                btnManualBenificiar.Enabled = isEnabled;
-            }
-            if (m_modelType == UbsCounterGuarantType)
-            {
-                linkGarant.Enabled = isEnabled;
-            }
-
-            linkModel.Enabled = isEnabled;
-            linkAgent.Enabled = isEnabled;
-            linkPreviousContract.Enabled = isEnabled;
-
-            if (m_idFrameContract == 0)
-            {
-                txtPrincipal.Enabled = isEnabled;
-            }
-            if (linkFrameContract.Visible)
-            {
-                linkFrameContract.Enabled = isEnabled;
-            }
-            if (btnFrameContractDel.Visible)
-            {
-                btnFrameContractDel.Enabled = isEnabled;
-            }
-            if (linkAgent.Visible)
-            {
-                linkAgent.Enabled = isEnabled;
-            }
-            if (btnAgentDel.Visible)
-            {
-                btnAgentDel.Enabled = isEnabled;
-            }
-
-            if (m_setRekvBen == 1)
-            {
-                btnManualBenificiar.Enabled = false;
-            }
-        }
-
         private void btnFrameContractDel_Click(object sender, EventArgs e)
         {
             m_idFrameContract = 0;
@@ -1377,8 +1304,6 @@ namespace UbsBusiness
             tabPage1.Enabled = true;
         }
 
-        private bool IsCmbValutaEnabled() => (m_idState == 4 && m_idFrameContract == 0);
-
         private void linkModel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             EnabledCmdControl(false);
@@ -1387,22 +1312,12 @@ namespace UbsBusiness
 
             if (ids != null && ids.Length > 0)
             {
-                if (m_idFrameContract > 0 && m_termsFrameContract != null)
-                {
-                    var kinds = new object[m_termsFrameContract.GetLength(0)];
+                m_idModel = Convert.ToInt32(ids[0]);
 
-                    for (int i = 0; i < m_termsFrameContract.GetLength(0); i++)
-                    {
-                        kinds[i] = m_termsFrameContract[i, 0];
-                    }
-
-                    m_kindsWhere = kinds;
-                }
             }
 
             EnabledCmdControl(true);
         }
-
         private void linkAgent_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             EnabledCmdControl(false);
@@ -1452,5 +1367,99 @@ namespace UbsBusiness
                 txtAgent.Text = Convert.ToString(base.IUbsChannel.ParamOut("Наименование"));
             }
         }
+        private void EnabledCmdControl(bool isEnabled)
+        {
+            linkBeneficiar.Enabled = isEnabled;
+
+            if (m_idState != 0 && m_idState != 2)
+            {
+                btnManualBenificiar.Enabled = isEnabled;
+            }
+            if (m_modelType == UbsCounterGuarantType)
+            {
+                linkGarant.Enabled = isEnabled;
+            }
+
+            linkModel.Enabled = isEnabled;
+            linkAgent.Enabled = isEnabled;
+            linkPreviousContract.Enabled = isEnabled;
+
+            if (m_idFrameContract == 0)
+            {
+                txtPrincipal.Enabled = isEnabled;
+            }
+            if (linkFrameContract.Visible)
+            {
+                linkFrameContract.Enabled = isEnabled;
+            }
+            if (btnFrameContractDel.Visible)
+            {
+                btnFrameContractDel.Enabled = isEnabled;
+            }
+            if (linkAgent.Visible)
+            {
+                linkAgent.Enabled = isEnabled;
+            }
+            if (btnAgentDel.Visible)
+            {
+                btnAgentDel.Enabled = isEnabled;
+            }
+
+            if (m_setRekvBen == 1)
+            {
+                btnManualBenificiar.Enabled = false;
+            }
+        }
+        private void ubsBgContractFrm_Ubs_ActionRunBegin(object sender, UbsActionRunEventArgs args)
+        {
+            if (args.Action == "UBS_BG_LIST_AGENT")
+            {
+                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                    new KeyValuePair<string, object>("наименование", "Состояние"),
+                    new KeyValuePair<string, object>("значение по умолчанию", "Открыт"),
+                    new KeyValuePair<string, object>("условие по умолчанию", "="),
+                    new KeyValuePair<string, object>("скрытый", false) }));
+
+                args.IUbs.Run("UbsItemsRefresh", null);
+            }
+            else if (args.Action == "UBS_BG_LIST_MODEL")
+            {
+                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                    new KeyValuePair<string, object>("наименование", "Состояние"),
+                    new KeyValuePair<string, object>("значение по умолчанию", "0"),
+                    new KeyValuePair<string, object>("условие по умолчанию", "="),
+                    new KeyValuePair<string, object>("скрытый", true) }));
+
+                if (m_idFrameContract > 0 && m_termsFrameContract != null)
+                {
+                    var kinds = new object[m_termsFrameContract.GetLength(0)];
+
+                    for (int i = 0; i < m_termsFrameContract.GetLength(0); i++)
+                    {
+                        kinds[i] = m_termsFrameContract[i, 0];
+                    }
+
+                    args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                    new KeyValuePair<string, object>("наименование", "Вид гарантии"),
+                    new KeyValuePair<string, object>("значение по умолчанию", kinds),
+                    new KeyValuePair<string, object>("условие по умолчанию", "один из"),
+                    new KeyValuePair<string, object>("скрытый", false) }));
+                }
+
+
+                args.IUbs.Run("UbsItemsRefresh", null);
+            }
+            else if (args.Action == "UBS_BG_FRAME_CONTRACT_LIST")
+            {
+                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                    new KeyValuePair<string, object>("наименование", "Состояние"),
+                    new KeyValuePair<string, object>("значение по умолчанию", "0"),
+                    new KeyValuePair<string, object>("условие по умолчанию", "="),
+                    new KeyValuePair<string, object>("скрытый", false) }));
+
+                args.IUbs.Run("UbsItemsRefresh", null);
+            }
+        }
+        private bool IsCmbValutaEnabled() => (m_idState == 4 && m_idFrameContract == 0);
     }
 }
