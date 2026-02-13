@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Windows.Forms;
 using UbsService;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.AxHost;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace UbsBusiness
 {
@@ -44,14 +40,19 @@ namespace UbsBusiness
         private const string AddByFrameContrantCommand = "ADD_BY_FRAME_CONTRACT";
         private const string AddByFramePrepareCommand = "ADD_BY_FRAME_PREPARE";
 
-        private const string UbsCounterGuarantType = "UBS_COUNTER_GUARANT";
+        private const string UbsCounterGuarantTypeCommand = "UBS_COUNTER_GUARANT";
+
+        private const string ActionUbsBgFrameContractList = "UBS_BG_FRAME_CONTRACT_LIST";
+        private const string ActionUbsBgListModel = "UBS_BG_LIST_MODEL";
+        private const string ActionUbsBgListAgent = "UBS_BG_LIST_AGENT";
+        private const string ActionUbsCommonListClient = "UBS_COMMON_LIST_CLIENT";
+        private const string ActionUbsBgListContract = "UBS_BG_LIST_CONTRACT";
         #endregion
         #region Блок объявления переменных
 
         private string m_command = "";
 
         private object[] m_itemArray;
-
 
         private int m_idContract;
         private int m_idContractCopy;
@@ -73,6 +74,7 @@ namespace UbsBusiness
         private int m_idAgent;
         private int m_idPrincipal;
         private int m_idBeneficiar;
+        private int m_idPrevContract;
         private object[,] m_arrRates;
         private bool m_isInitCurrencyBonus;
         private object m_arrPeriodPay;
@@ -85,7 +87,7 @@ namespace UbsBusiness
         private DateTime m_dateBeginFrameContract;
         private DateTime m_dateEndFrameContract;
         private object[,] m_termsFrameContract;
-        private object m_limitSaldoFrameContract;
+        private decimal m_limitSaldoFrameContract;
         private object[,] m_arrGuarant;
         private int m_idContractCover;
         private DateTime m_dateBegin;
@@ -94,7 +96,8 @@ namespace UbsBusiness
         private string m_typePayFeeGuarant;
         private object[,] m_arrIntervalGuarant;
         private int m_setRekvBen;
-        private object[] m_kindsWhere;
+        private object[,] m_arrCountry;
+        private object[,] m_arrTypeObject;
 
         #endregion
 
@@ -832,7 +835,7 @@ namespace UbsBusiness
                     m_dateBeginFrameContract = Convert.ToDateTime(paramOut["Дата начала действия рамочного договора"]);
                     m_dateEndFrameContract = Convert.ToDateTime(paramOut["Дата окончания действия рамочного договора"]);
                     m_termsFrameContract = paramOut["Срок гарантии рамочного договора"] as object[,];
-                    m_limitSaldoFrameContract = paramOut["Остаток лимита рамочного договора"];
+                    m_limitSaldoFrameContract = Convert.ToDecimal(paramOut["Остаток лимита рамочного договора"]);
                     m_issueEndDate = Convert.ToDateTime(paramOut["Дата окончания выдачи"]);
                     m_divisionFrameContract = Convert.ToInt32(paramOut["Отделение рамочного договора"]);
 
@@ -1268,96 +1271,29 @@ namespace UbsBusiness
         {
             EnabledCmdControl(false);
 
-            object[] ids = this.Ubs_ActionRun("UBS_BG_FRAME_CONTRACT_LIST", this, true) as object[];
+            object[] ids = this.Ubs_ActionRun(ActionUbsBgFrameContractList, this, true) as object[];
 
             if (ids != null && ids.Length > 0)
             {
+                m_idFrameContract = Convert.ToInt32(ids[0]);
 
+                base.IUbsChannel.ParamIn("ID", m_idFrameContract);
+
+                base.IUbsChannel.Run("BGReadFrameContractById");
+
+                txtFrameContract.Text = Convert.ToString(base.IUbsChannel.ParamOut("Наименование"));
+                m_dateBeginFrameContract = Convert.ToDateTime(base.IUbsChannel.ParamOut("Дата начала действия рамочного договора"));
+                m_dateEndFrameContract = Convert.ToDateTime(base.IUbsChannel.ParamOut("Дата окончания действия рамочного договора"));
+                m_termsFrameContract = base.IUbsChannel.ParamOut("Срок гарантии рамочного договора") as object[,];
+                m_limitSaldoFrameContract = Convert.ToDecimal(base.IUbsChannel.ParamOut("Остаток лимита"));
+                m_issueEndDate = Convert.ToDateTime(base.IUbsChannel.ParamOut("Дата окончания выдачи"));
+                m_divisionFrameContract = Convert.ToInt32(base.IUbsChannel.ParamOut("Номер отделения"));
+
+                SetInfoByFrameContract();
+
+                linkModel.Focus();
             }
         }
-        private void ubsBgContractFrm_Ubs_ActionRunBegin(object sender, UbsActionRunEventArgs args)
-        {
-            if (args.Action == "UBS_BG_LIST_AGENT")
-            {
-                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
-                    new KeyValuePair<string, object>("наименование", "Состояние"),
-                    new KeyValuePair<string, object>("значение по умолчанию", "Открыт"),
-                    new KeyValuePair<string, object>("условие по умолчанию", "="),
-                    new KeyValuePair<string, object>("скрытый", false) }));
-
-                args.IUbs.Run("UbsItemsRefresh", null);
-            }
-            else if (args.Action == "UBS_BG_LIST_MODEL")
-            {
-                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
-                    new KeyValuePair<string, object>("наименование", "Состояние"),
-                    new KeyValuePair<string, object>("значение по умолчанию", "0"),
-                    new KeyValuePair<string, object>("условие по умолчанию", "="),
-                    new KeyValuePair<string, object>("скрытый", false) }));
-
-                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
-                    new KeyValuePair<string, object>("наименование", "Вид гарантии"),
-                    new KeyValuePair<string, object>("значение по умолчанию", m_kindsWhere),
-                    new KeyValuePair<string, object>("условие по умолчанию", "один из"),
-                    new KeyValuePair<string, object>("скрытый", false) }));
-
-                args.IUbs.Run("UbsItemsRefresh", null);
-            }
-            else if (args.Action == "UBS_BG_FRAME_CONTRACT_LIST")
-            {
-                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
-                    new KeyValuePair<string, object>("наименование", "Состояние"),
-                    new KeyValuePair<string, object>("значение по умолчанию", "0"),
-                    new KeyValuePair<string, object>("условие по умолчанию", "="),
-                    new KeyValuePair<string, object>("скрытый", false) }));
-
-                args.IUbs.Run("UbsItemsRefresh", null);
-            }
-        }
-        private void EnabledCmdControl(bool isEnabled)
-        {
-            linkBeneficiar.Enabled = isEnabled;
-
-            if (m_idState != 0 && m_idState != 2)
-            {
-                btnManualBenificiar.Enabled = isEnabled;
-            }
-            if (m_modelType == UbsCounterGuarantType)
-            {
-                linkGarant.Enabled = isEnabled;
-            }
-
-            linkModel.Enabled = isEnabled;
-            linkAgent.Enabled = isEnabled;
-            linkPreviousContract.Enabled = isEnabled;
-
-            if (m_idFrameContract == 0)
-            {
-                txtPrincipal.Enabled = isEnabled;
-            }
-            if (linkFrameContract.Visible)
-            {
-                linkFrameContract.Enabled = isEnabled;
-            }
-            if (btnFrameContractDel.Visible)
-            {
-                btnFrameContractDel.Enabled = isEnabled;
-            }
-            if (linkAgent.Visible)
-            {
-                linkAgent.Enabled = isEnabled;
-            }
-            if (btnAgentDel.Visible)
-            {
-                btnAgentDel.Enabled = isEnabled;
-            }
-
-            if (m_setRekvBen == 1)
-            {
-                btnManualBenificiar.Enabled = false;
-            }
-        }
-
         private void btnFrameContractDel_Click(object sender, EventArgs e)
         {
             m_idFrameContract = 0;
@@ -1377,37 +1313,25 @@ namespace UbsBusiness
             tabPage1.Enabled = true;
         }
 
-        private bool IsCmbValutaEnabled() => (m_idState == 4 && m_idFrameContract == 0);
-
         private void linkModel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             EnabledCmdControl(false);
 
-            object[] ids = this.Ubs_ActionRun("UBS_BG_LIST_MODEL", this, true) as object[];
+            object[] ids = this.Ubs_ActionRun(ActionUbsBgListModel, this, true) as object[];
 
             if (ids != null && ids.Length > 0)
             {
-                if (m_idFrameContract > 0 && m_termsFrameContract != null)
-                {
-                    var kinds = new object[m_termsFrameContract.GetLength(0)];
+                m_idModel = Convert.ToInt32(ids[0]);
 
-                    for (int i = 0; i < m_termsFrameContract.GetLength(0); i++)
-                    {
-                        kinds[i] = m_termsFrameContract[i, 0];
-                    }
-
-                    m_kindsWhere = kinds;
-                }
             }
 
             EnabledCmdControl(true);
         }
-
         private void linkAgent_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             EnabledCmdControl(false);
 
-            object[] ids = this.Ubs_ActionRun("UBS_BG_LIST_AGENT", this, true) as object[];
+            object[] ids = this.Ubs_ActionRun(ActionUbsBgListAgent, this, true) as object[];
 
             if (ids != null && ids.Length > 0)
             {
@@ -1450,6 +1374,416 @@ namespace UbsBusiness
                 base.IUbsChannel.Run("BGReadClientById");
 
                 txtAgent.Text = Convert.ToString(base.IUbsChannel.ParamOut("Наименование"));
+            }
+
+            EnabledCmdControl(true);
+        }
+
+        private void btnAgentDel_Click(object sender, EventArgs e)
+        {
+            m_idAgent = 0;
+            txtAgent.Text = string.Empty;
+            txtNumAgent.Text = string.Empty;
+            dateAgent.Text = string.Empty;
+            dateReward.Text = string.Empty;
+            dateAdjustment.Text = string.Empty;
+            costAmount.DecimalValue = 0m;
+            paidAmount.DecimalValue = 0m;
+            transAmount.DecimalValue = 0m;
+            dateReward.Enabled = false;
+            costAmount.Enabled = false;
+        }
+
+        private void linkPrincipal_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            EnabledCmdControl(false);
+
+            object[] ids = this.Ubs_ActionRun(ActionUbsCommonListClient, this, true) as object[];
+
+            if (ids != null && ids.Length > 0)
+            {
+                m_idPrincipal = Convert.ToInt32(ids[0]);
+
+                base.IUbsChannel.ParamIn("ID", m_idPrincipal);
+
+                base.IUbsChannel.Run("BGReadClientById");
+
+                txtPrincipal.Text = Convert.ToString(base.IUbsChannel.ParamOut("Наименование"));
+
+                linkBeneficiar.Focus();
+            }
+
+            EnabledCmdControl(true);
+        }
+        private void linkBeneficiar_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            EnabledCmdControl(false);
+
+            object[] ids = this.Ubs_ActionRun(ActionUbsCommonListClient, this, true) as object[];
+
+            if (ids != null && ids.Length > 0)
+            {
+                m_idBeneficiar = Convert.ToInt32(ids[0]);
+                m_arrDetailsBeneficiar = null;
+
+                base.IUbsChannel.ParamIn("ID", m_idBeneficiar);
+
+                base.IUbsChannel.Run("BGReadClientById");
+
+                txtBeneficiar.Text = Convert.ToString(base.IUbsChannel.ParamOut("Наименование"));
+
+                if (linkGarant.Enabled)
+                    linkGarant.Focus();
+                else
+                    txtNumberGarant.Focus();
+            }
+
+            EnabledCmdControl(true);
+        }
+        private void EnabledCmdControl(bool isEnabled)
+        {
+            linkBeneficiar.Enabled = isEnabled;
+
+            if (m_idState != 0 && m_idState != 2)
+            {
+                btnManualBenificiar.Enabled = isEnabled;
+            }
+            if (m_modelType == UbsCounterGuarantTypeCommand)
+            {
+                linkGarant.Enabled = isEnabled;
+            }
+
+            linkModel.Enabled = isEnabled;
+            linkAgent.Enabled = isEnabled;
+            linkPreviousContract.Enabled = isEnabled;
+
+            if (m_idFrameContract == 0)
+            {
+                txtPrincipal.Enabled = isEnabled;
+            }
+            if (linkFrameContract.Visible)
+            {
+                linkFrameContract.Enabled = isEnabled;
+            }
+            if (btnFrameContractDel.Visible)
+            {
+                btnFrameContractDel.Enabled = isEnabled;
+            }
+            if (linkAgent.Visible)
+            {
+                linkAgent.Enabled = isEnabled;
+            }
+            if (btnAgentDel.Visible)
+            {
+                btnAgentDel.Enabled = isEnabled;
+            }
+
+            if (m_setRekvBen == 1)
+            {
+                btnManualBenificiar.Enabled = false;
+            }
+        }
+        private void ubsBgContractFrm_Ubs_ActionRunBegin(object sender, UbsActionRunEventArgs args)
+        {
+            if (args.Action == ActionUbsBgListAgent)
+            {
+                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                    new KeyValuePair<string, object>("наименование", "Состояние"),
+                    new KeyValuePair<string, object>("значение по умолчанию", "Открыт"),
+                    new KeyValuePair<string, object>("условие по умолчанию", "="),
+                    new KeyValuePair<string, object>("скрытый", false) }));
+
+                args.IUbs.Run("UbsItemsRefresh", null);
+            }
+            else if (args.Action == ActionUbsBgListModel)
+            {
+                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                    new KeyValuePair<string, object>("наименование", "Состояние"),
+                    new KeyValuePair<string, object>("значение по умолчанию", "0"),
+                    new KeyValuePair<string, object>("условие по умолчанию", "="),
+                    new KeyValuePair<string, object>("скрытый", true) }));
+
+                if (m_idFrameContract > 0 && m_termsFrameContract != null)
+                {
+                    var kinds = new object[m_termsFrameContract.GetLength(0)];
+
+                    for (int i = 0; i < m_termsFrameContract.GetLength(0); i++)
+                    {
+                        kinds[i] = m_termsFrameContract[i, 0];
+                    }
+
+                    args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                    new KeyValuePair<string, object>("наименование", "Вид гарантии"),
+                    new KeyValuePair<string, object>("значение по умолчанию", kinds),
+                    new KeyValuePair<string, object>("условие по умолчанию", "один из"),
+                    new KeyValuePair<string, object>("скрытый", false) }));
+                }
+
+
+                args.IUbs.Run("UbsItemsRefresh", null);
+            }
+            else if (args.Action == ActionUbsBgFrameContractList)
+            {
+                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                    new KeyValuePair<string, object>("наименование", "Состояние"),
+                    new KeyValuePair<string, object>("значение по умолчанию", "0"),
+                    new KeyValuePair<string, object>("условие по умолчанию", "="),
+                    new KeyValuePair<string, object>("скрытый", false) }));
+
+                args.IUbs.Run("UbsItemsRefresh", null);
+            }
+        }
+        private bool IsCmbValutaEnabled() => (m_idState == 4 && m_idFrameContract == 0);
+
+        private void linkGarant_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            EnabledCmdControl(false);
+
+            object[] ids = this.Ubs_ActionRun(ActionUbsCommonListClient, this, true) as object[];
+
+            if (ids != null && ids.Length > 0)
+            {
+                m_idGarant = Convert.ToInt32(ids[0]);
+
+                base.IUbsChannel.ParamIn("ID", m_idGarant);
+
+                base.IUbsChannel.Run("BGReadClientById");
+
+                txtGarant.Text = Convert.ToString(base.IUbsChannel.ParamOut("Наименование"));
+
+                txtNumberGarant.Focus();
+            }
+
+            EnabledCmdControl(true);
+        }
+
+        private void linkPreviousContract_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            EnabledCmdControl(false);
+
+            object[] ids = this.Ubs_ActionRun(ActionUbsBgListContract, this, true) as object[];
+
+            if (ids != null && ids.Length > 0)
+            {
+                m_idPrevContract = Convert.ToInt32(ids[0]);
+
+                base.IUbsChannel.ParamIn("IdPrevContract", m_idPrevContract);
+
+                base.IUbsChannel.Run("BGReadPreviuosContract");
+
+                txtPreviousContract.Text = Convert.ToString(base.IUbsChannel.ParamOut("InfoPrevContract"));
+
+                if (tabControl.TabPages.Count > 2 && tabControl.TabPages[2].Enabled)
+                {
+                    tabControl.SelectedIndex = 2;
+                    cmbPortfolio.Focus();
+                }
+                else if (tabControl.TabPages.Count > 3)
+                {
+                    tabControl.SelectedIndex = 3;
+                }
+            }
+
+            EnabledCmdControl(true);
+        }
+
+        private void btnManualBenificiar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var form = new UbsBgDetailsBenificiarFrm();
+
+                var paramIn = new UbsParam();
+
+                if (m_arrCountry == null)
+                {
+                    paramIn.Value("Тип данных", "Страны");
+
+                    base.IUbsChannel.ParamsInParam = paramIn;
+
+                    base.IUbsChannel.Run("GetAddressData");
+                    m_arrCountry = base.IUbsChannel.ParamOut("Данные") as object[,];
+
+                    if (m_arrCountry != null)
+                    {
+                        for (int i = 0; i < m_arrCountry.GetLength(0); i++)
+                        {
+                            form.CbCodeCountry.Items.Add(m_arrCountry[i, 0]);
+                            form.CbCountry.Items.Add(m_arrCountry[i, 1]);
+                        }
+
+                        form.arrCountry = m_arrCountry;
+                        form.CodeCountryValue = "643";
+                    }
+                }
+                else
+                {
+                    form.arrCountry = m_arrCountry;
+
+                    if (form.CbCodeCountry.Items.Count == 0)
+                    {
+                        for (int i = 0; i < m_arrCountry.GetLength(0); i++)
+                        {
+                            form.CbCodeCountry.Items.Add(m_arrCountry[i, 0]);
+                            form.CbCountry.Items.Add(m_arrCountry[i, 1]);
+                        }
+                    }
+                    form.CodeCountryValue = "643";
+                }
+
+                if (m_arrTypeObject == null)
+                {
+                    paramIn.Clear();
+
+                    paramIn.Value("Тип данных", "Типы объектов");
+                    paramIn.Value("Код страны", "643");
+                    paramIn.Value("Условия получения данных", paramIn.Items);
+
+                    base.IUbsChannel.ParamsInParam = paramIn;
+
+                    base.IUbsChannel.Run("GetAddressData");
+                    m_arrTypeObject = base.IUbsChannel.ParamOut("Данные") as object[,];
+                    form.arrTypeObject = m_arrTypeObject;
+                }
+                else
+                {
+                    form.arrTypeObject = m_arrTypeObject;
+                }
+
+                if (m_arrTypeObject != null && form.CodeCountryValue == "643" &&
+                    form.CbTypeRegion.Items.Count == 0 && form.CbTypeArea.Items.Count == 0 &&
+                    form.CbTypeCity.Items.Count == 0 && form.CbTypeSettl.Items.Count == 0 &&
+                    form.CbTypeStreet.Items.Count == 0 && form.CbTypeHome.Items.Count == 0 &&
+                    form.CbTypeHousing.Items.Count == 0 && form.CbTypeFlat.Items.Count == 0)
+                {
+                    for (int i = 0; i < m_arrTypeObject.GetLength(0); i++)
+                    {
+                        int typeId = Convert.ToInt32(m_arrTypeObject[i, 0]);
+                        string typeName = Convert.ToString(m_arrTypeObject[i, 1]);
+
+                        switch (typeId)
+                        {
+                            case 1:
+                                form.CbTypeRegion.Items.Add(typeName);
+                                break;
+                            case 2:
+                                form.CbTypeArea.Items.Add(typeName);
+                                break;
+                            case 3:
+                                form.CbTypeCity.Items.Add(typeName);
+                                break;
+                            case 4:
+                                form.CbTypeSettl.Items.Add(typeName);
+                                break;
+                            case 5:
+                                form.CbTypeStreet.Items.Add(typeName);
+                                break;
+                            case 6:
+                                form.CbTypeHome.Items.Add(typeName);
+                                break;
+                            case 7:
+                                form.CbTypeHousing.Items.Add(typeName);
+                                break;
+                            case 8:
+                                form.CbTypeFlat.Items.Add(typeName);
+                                break;
+                        }
+                    }
+                }
+
+                if (m_arrDetailsBeneficiar != null && m_arrDetailsBeneficiar.GetLength(0) > 0)
+                {
+                    form.NameValue = Convert.ToString(m_arrDetailsBeneficiar[0, 0]);
+                    form.INNValue = Convert.ToString(m_arrDetailsBeneficiar[0, 1]);
+
+                    object[,] arrAddress = m_arrDetailsBeneficiar[0, 2] as object[,];
+                    if (arrAddress != null && arrAddress.GetLength(0) > 0)
+                    {
+                        form.IndexValue = Convert.ToString(arrAddress[0, 0]);
+                        form.CodeCountryValue = Convert.ToString(arrAddress[0, 1]);
+                        form.TypeRegionValue = Convert.ToString(arrAddress[0, 2]);
+                        form.RegionValue = Convert.ToString(arrAddress[0, 3]);
+                        form.TypeAreaValue = Convert.ToString(arrAddress[0, 4]);
+                        form.AreaValue = Convert.ToString(arrAddress[0, 5]);
+                        form.TypeCityValue = Convert.ToString(arrAddress[0, 6]);
+                        form.CityValue = Convert.ToString(arrAddress[0, 7]);
+                        form.TypeSettlValue = Convert.ToString(arrAddress[0, 8]);
+                        form.SettlValue = Convert.ToString(arrAddress[0, 9]);
+                        form.TypeStreetValue = Convert.ToString(arrAddress[0, 10]);
+                        form.StreetValue = Convert.ToString(arrAddress[0, 11]);
+                        form.TypeHomeValue = Convert.ToString(arrAddress[0, 12]);
+                        form.HomeValue = Convert.ToString(arrAddress[0, 13]);
+                        form.TypeHousingValue = Convert.ToString(arrAddress[0, 14]);
+                        form.HousingValue = Convert.ToString(arrAddress[0, 15]);
+                        form.TypeFlatValue = Convert.ToString(arrAddress[0, 16]);
+                        form.FlatValue = Convert.ToString(arrAddress[0, 17]);
+                    }
+                }
+                else
+                {
+                    form.NameValue = string.Empty;
+                    form.INNValue = string.Empty;
+                    form.IndexValue = string.Empty;
+                    form.CodeCountryValue = "643";
+                    form.TypeRegionValue = string.Empty;
+                    form.RegionValue = string.Empty;
+                    form.TypeAreaValue = string.Empty;
+                    form.AreaValue = string.Empty;
+                    form.TypeCityValue = string.Empty;
+                    form.CityValue = string.Empty;
+                    form.TypeSettlValue = string.Empty;
+                    form.SettlValue = string.Empty;
+                    form.TypeStreetValue = string.Empty;
+                    form.StreetValue = string.Empty;
+                    form.TypeHomeValue = string.Empty;
+                    form.HomeValue = string.Empty;
+                    form.TypeHousingValue = string.Empty;
+                    form.HousingValue = string.Empty;
+                    form.TypeFlatValue = string.Empty;
+                    form.FlatValue = string.Empty;
+                }
+
+                form.ShowDialog(this);
+
+                if (form.ApplyClicked)
+                {
+                    m_idBeneficiar = 0;
+
+                    txtBeneficiar.Text = form.NameValue;
+
+                    var arrDetails = new object[1, 3];
+                    arrDetails[0, 0] = form.NameValue;
+                    arrDetails[0, 1] = form.INNValue;
+
+                    var arrAddress = new object[1, 18];
+                    arrAddress[0, 0] = form.IndexValue;
+                    arrAddress[0, 1] = form.CodeCountryValue;
+                    arrAddress[0, 2] = form.TypeRegionValue;
+                    arrAddress[0, 3] = form.RegionValue;
+                    arrAddress[0, 4] = form.TypeAreaValue;
+                    arrAddress[0, 5] = form.AreaValue;
+                    arrAddress[0, 6] = form.TypeCityValue;
+                    arrAddress[0, 7] = form.CityValue;
+                    arrAddress[0, 8] = form.TypeSettlValue;
+                    arrAddress[0, 9] = form.SettlValue;
+                    arrAddress[0, 10] = form.TypeStreetValue;
+                    arrAddress[0, 11] = form.StreetValue;
+                    arrAddress[0, 12] = form.TypeHomeValue;
+                    arrAddress[0, 13] = form.HomeValue;
+                    arrAddress[0, 14] = form.TypeHousingValue;
+                    arrAddress[0, 15] = form.HousingValue;
+                    arrAddress[0, 16] = form.TypeFlatValue;
+                    arrAddress[0, 17] = form.FlatValue;
+
+                    arrDetails[0, 2] = arrAddress;
+                    m_arrDetailsBeneficiar = arrDetails;
+                }
+
+                form.Dispose();
+            }
+            catch (Exception ex)
+            {
+                base.Ubs_ShowError(ex);
             }
         }
     }
