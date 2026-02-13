@@ -1,0 +1,739 @@
+VERSION 5.00
+Object = "{0A45DB48-BD0D-11D2-8D14-00104B9E072A}#2.0#0"; "sstabs2.ocx"
+Object = "{A9609DF2-7123-4FAA-8347-2AEEE0D8C251}#1.3#0"; "UbsInfo.ocx"
+Object = "{9D55898C-2E5D-42AA-A662-D60C8218C8DD}#1.0#0"; "UbsProp.dll"
+Object = "{654DF6AF-C9A1-4D4E-89AC-9F01D9B7C3ED}#1.9#0"; "UbsChlCtrl.ocx"
+Begin VB.UserDocument GuarModel_ud 
+   ClientHeight    =   4410
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   7350
+   HScrollSmallChange=   225
+   KeyPreview      =   -1  'True
+   ScaleHeight     =   4410
+   ScaleWidth      =   7350
+   VScrollSmallChange=   225
+   Begin VB.CommandButton cmdSave 
+      Caption         =   "Сохранить"
+      Height          =   375
+      Left            =   4800
+      TabIndex        =   5
+      Top             =   3900
+      Width           =   1155
+   End
+   Begin VB.CommandButton cmdExit 
+      Caption         =   "Выход"
+      Height          =   375
+      Left            =   6120
+      TabIndex        =   6
+      Top             =   3900
+      Width           =   1155
+   End
+   Begin UbsInfo32.Info Info 
+      Height          =   315
+      Left            =   180
+      Top             =   3960
+      Width           =   1815
+      _ExtentX        =   3201
+      _ExtentY        =   556
+      Caption         =   "Данные сохранены!"
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   204
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+   End
+   Begin ActiveTabs.SSActiveTabs SSActiveTabs1 
+      Height          =   3735
+      Left            =   0
+      TabIndex        =   7
+      Top             =   0
+      Width           =   7305
+      _ExtentX        =   12885
+      _ExtentY        =   6588
+      _Version        =   131083
+      TabCount        =   2
+      TagVariant      =   ""
+      Tabs            =   "GuarModel_ud.dox":0000
+      Begin ActiveTabs.SSActiveTabPanel SSActiveTabPanel2 
+         Height          =   3345
+         Left            =   -99969
+         TabIndex        =   8
+         Top             =   360
+         Width           =   7245
+         _ExtentX        =   12779
+         _ExtentY        =   5900
+         _Version        =   131083
+         TabGuid         =   "GuarModel_ud.dox":008D
+         Begin UBSPROPLibCtl.UbsControlProperty ucpParam 
+            Height          =   2895
+            Left            =   0
+            OleObjectBlob   =   "GuarModel_ud.dox":00B5
+            TabIndex        =   4
+            Top             =   0
+            Width           =   7215
+         End
+      End
+      Begin ActiveTabs.SSActiveTabPanel SSActiveTabPanel1 
+         Height          =   3345
+         Left            =   30
+         TabIndex        =   9
+         Top             =   360
+         Width           =   7245
+         _ExtentX        =   12779
+         _ExtentY        =   5900
+         _Version        =   131083
+         TabGuid         =   "GuarModel_ud.dox":00E5
+         Begin VB.ComboBox cmbClientType 
+            Height          =   315
+            Left            =   2460
+            Style           =   2  'Dropdown List
+            TabIndex        =   15
+            Top             =   2820
+            Width           =   2895
+         End
+         Begin VB.TextBox txtMeaning 
+            Height          =   315
+            Left            =   2460
+            MaxLength       =   255
+            TabIndex        =   0
+            Top             =   240
+            Width           =   4695
+         End
+         Begin VB.ComboBox cmbPattern 
+            Height          =   315
+            Left            =   2460
+            Style           =   2  'Dropdown List
+            TabIndex        =   1
+            Top             =   900
+            Width           =   4695
+         End
+         Begin VB.ComboBox cmbExecut 
+            Height          =   315
+            Left            =   2460
+            Style           =   2  'Dropdown List
+            TabIndex        =   2
+            Top             =   1560
+            Width           =   4695
+         End
+         Begin VB.ComboBox cmbState 
+            Height          =   315
+            ItemData        =   "GuarModel_ud.dox":010D
+            Left            =   2460
+            List            =   "GuarModel_ud.dox":010F
+            Style           =   2  'Dropdown List
+            TabIndex        =   3
+            Top             =   2220
+            Width           =   2895
+         End
+         Begin VB.Label Label5 
+            Alignment       =   1  'Right Justify
+            Caption         =   "Тип клиента"
+            Height          =   195
+            Left            =   60
+            TabIndex        =   14
+            Top             =   2880
+            Width           =   2220
+         End
+         Begin VB.Label Label1 
+            Alignment       =   1  'Right Justify
+            Caption         =   "Наименование"
+            Height          =   195
+            Left            =   60
+            TabIndex        =   13
+            Top             =   300
+            Width           =   2220
+         End
+         Begin VB.Label Label2 
+            Alignment       =   1  'Right Justify
+            Caption         =   "Шаблон"
+            Height          =   195
+            Left            =   60
+            TabIndex        =   12
+            Top             =   960
+            Width           =   2220
+         End
+         Begin VB.Label Label3 
+            Alignment       =   1  'Right Justify
+            Caption         =   "Ответственный исполнитель"
+            Height          =   195
+            Left            =   60
+            TabIndex        =   11
+            Top             =   1620
+            Width           =   2220
+         End
+         Begin VB.Label Label4 
+            Alignment       =   1  'Right Justify
+            Caption         =   "Состояние"
+            Height          =   195
+            Left            =   60
+            TabIndex        =   10
+            Top             =   2280
+            Width           =   2220
+         End
+      End
+   End
+   Begin UbsChlCtrl.UbsChannel UbsChannel 
+      Left            =   3180
+      Top             =   3840
+      _ExtentX        =   873
+      _ExtentY        =   873
+   End
+End
+Attribute VB_Name = "GuarModel_ud"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Option Explicit
+Implements UBSChild
+Dim NumWin As Integer, NumParentWindow As Integer, NumChildWin As Integer
+Dim Parent As UBSParrent
+Dim StrCommand As String
+Dim objErr As Object, objInterfaces As Object
+Dim idObject As String
+Dim objFormParam As Object
+Dim bNeedRefreshGrid As Boolean, bParentWindowClose As Boolean
+Dim objFocusCtrl As Object
+Dim objParamIn As Object, objParamOut As Object
+Dim blnAddFlChanged As Boolean
+Dim objStub As Object
+Dim ActiveControl As Object
+Dim arrState As Variant, arrPattern As Variant, arrExecut As Variant, arrIdPattern As Variant, arrTypeClient As Variant
+Dim LoadParam As String
+Dim blnFlag As Boolean
+Dim objArray As Object
+
+Private Sub cmbPattern_Click()
+On Error GoTo ErrorCode
+    
+    If Not blnFlag Then
+       objParamIn.Parameter("Шаблон") = arrIdPattern(1, cmbPattern.ListIndex)
+       UbsChannel.Run "GuarModelInitUcp", objParamIn, objParamOut
+       DoEvents
+       ucpParam.Refresh
+    End If
+    
+    Exit Sub
+ErrorCode:
+    objErr.UbsErrMsg "cmbPattern_Click", "ошибка выполнения"
+End Sub
+
+Private Sub cmdExit_Click()
+    Parent.CloseWindow NumWin
+End Sub
+
+Private Property Get UBSChild_ActualParameter() As Variant
+'
+End Property
+
+Private Property Get UBSChild_Height() As Integer
+    UBSChild_Height = 4410
+End Property
+
+Private Property Let UBSChild_HeightBrowser(ByVal RHS As Variant)
+    If RHS < 4410 Then RHS = 4410
+
+    SSActiveTabs1.Height = RHS - 600
+    SSActiveTabPanel1.Height = RHS - 600
+    SSActiveTabPanel2.Height = RHS - 600
+    ucpParam.Height = RHS - 1100
+    cmdExit.Top = RHS - 500
+    cmdSave.Top = RHS - 500
+    Info.Top = RHS - 500
+End Property
+
+Private Property Get UBSChild_ImageList(Key As String) As Object
+    Key = "CARD"
+End Property
+
+Private Property Get UBSChild_IsExistParam(ByVal NameParam As String) As Boolean
+    UBSChild_IsExistParam = objFormParam.ExistParameter(NameParam)
+End Property
+
+Private Sub UBSChild_NotifyCloseWindow(ByVal NumWindow As Integer)
+    If NumParentWindow <> 0 And NumParentWindow = NumWindow Then
+         bParentWindowClose = True
+        'Если закрываемое окно - родительское и оно не пришпилено вызвать процедуру закрытия окна
+         cmdExit_Click
+    End If
+End Sub
+
+Private Sub UBSChild_NotifyFixWindow(ByVal NumWindow As Variant, ByVal FixState As Boolean)
+     If NumWindow = NumWin And FixState Then
+        'Если пришпиливают наше окно
+         NumParentWindow = 0
+     End If
+ End Sub
+
+Private Property Let UBSChild_NumWindow(ByVal RHS As Integer)
+    NumWin = RHS
+End Property
+
+Private Property Let UBSChild_ParamInfo(ByVal NameParam As String, ByVal RHS As Variant)
+On Error GoTo ErrorCode
+    Dim ItemArray As Variant
+    Dim lngId As Long
+    
+    If Not objFormParam.ExistParameter(NameParam) Then
+       objErr.UbsErrRaise "Проверка поддержки параметров", _
+       "Параметер '" & NameParam & "' не поддерживается"
+    End If
+
+    LoadParam = NameParam
+
+    Select Case NameParam
+       Case "InitParamForm"
+          Initialize
+
+          NumParentWindow = RHS(0)
+          ItemArray = RHS(1)
+          StrCommand = RHS(2)
+          idObject = 0
+          
+          If Not IsEmpty(ItemArray) Then
+             idObject = ItemArray(0)
+          End If
+
+          If Not IsEmpty(StrCommand) And StrCommand = "Edit" Then
+             If idObject = 0 Or IsEmpty(idObject) Then
+                
+                MsgBox "Не выбран типовой договор!", vbCritical, "Типовой договор обеспечения"
+                
+                If CheckParamForClose(NameParam) Then
+                   cmdExit_Click
+                   Exit Property
+                End If
+             End If
+          End If
+          
+          InitChannel
+          InitDoc
+          
+          Parent.WindowDraw(NumWin) = True
+          If StrCommand = "Edit" Then
+          txtMeaning.Enabled = False
+          cmbExecut.SetFocus
+          Else
+          txtMeaning.SetFocus
+          End If
+       
+          objInterfaces.NextCtrl
+          objInterfaces.PrevCtrl
+      
+       Case "SetFocus"
+          If Not objFocusCtrl Is Nothing Then
+'             If Not (objFocusCtrl.Name = "SSActiveTabs1" Or _
+'                   objFocusCtrl.Name = "cmdSave" Or _
+'                   objFocusCtrl.Name = "cmdExit") Then
+'                SSActiveTabs1.SelectedTab = SSActiveTabs1.TabFromControl(objFocusCtrl)
+'             End If
+             On Error Resume Next
+             objFocusCtrl.SetFocus
+             On Error GoTo ErrorCode
+          End If
+       Case "LostFocus"
+          If Not UserDocument.ActiveControl Is Nothing Then
+          Set objFocusCtrl = UserDocument.ActiveControl
+          End If
+    End Select
+  
+    Exit Property
+ErrorCode:
+     objErr.UbsErrMsg "UBSChild_ParamInfo", "ошибка выполнения"
+    If CheckParamForClose(NameParam) Then
+         cmdExit_Click
+     End If
+End Property
+
+Private Property Get UBSChild_ParamInfo(ByVal NameParam As String) As Variant
+    If NameParam = "WaitShow" Then
+       UBSChild_ParamInfo = True
+    End If
+End Property
+
+Private Property Let UBSChild_Parrent(ByVal RHS As Object)
+    Set Parent = RHS
+End Property
+
+Private Property Let UBSChild_RunParameter(ByVal RHS As String)
+'
+End Property
+Private Function CheckParamForClose(ByVal NameParam As String) As Boolean
+    CheckParamForClose = False
+    If NameParam = "LoadFromMenu" Or _
+       NameParam = "InitParamForm" Or _
+       NameParam = "InitParamGrid" Then
+       CheckParamForClose = True
+    End If
+End Function
+
+Private Property Get UBSChild_Sizable() As Boolean
+    UBSChild_Sizable = True
+End Property
+
+Private Property Get UBSChild_TitleWindow() As String
+    UBSChild_TitleWindow = "Типовой договор обеспечения"
+End Property
+
+Private Property Get UBSChild_Width() As Integer
+    UBSChild_Width = 7380
+End Property
+
+Private Property Let UBSChild_WidthBrowser(ByVal RHS As Variant)
+    If RHS < 7380 Then RHS = 7380
+
+    SSActiveTabs1.Width = RHS - 120
+    SSActiveTabPanel1.Width = RHS - 200
+    SSActiveTabPanel2.Width = RHS - 200
+    ucpParam.Width = RHS - 345
+    cmdExit.Left = RHS - 1395
+    cmdSave.Left = RHS - 2655
+    Info.Left = SSActiveTabPanel1.Left + 50
+    
+End Property
+
+Private Sub ArrayParam()
+    objFormParam.Parameter("WaitShow") = True
+    objFormParam.Parameter("InitParamForm") = True
+    objFormParam.Parameter("SetFocus") = True
+    objFormParam.Parameter("LostFocus") = True
+    'objFormParam.Parameter("InitParamGrid") = True
+End Sub
+
+Private Sub cmdSave_Click()
+On Error GoTo ErrorCode
+    cmdSave.Enabled = False
+    cmdExit.Enabled = False
+   
+    If Not Check() Then
+       Exit Sub
+    End If
+   
+    bNeedRefreshGrid = True
+    objParamIn.ClearParameters
+    objParamOut.ClearParameters
+    
+    objParamIn.Parameter("StrCommand") = StrCommand
+    objParamIn.Parameter("Наименование") = txtMeaning.Text
+    objParamIn.Parameter("Шаблон") = arrIdPattern(1, cmbPattern.ListIndex)
+    objParamIn.Parameter("ОИ") = cmbExecut.ItemData(cmbExecut.ListIndex)
+    objParamIn.Parameter("Состояние") = Val(cmbState.ListIndex)
+    'objParamIn.Parameter("Тип клиента") = IIf(cmbClientType.ListIndex>0, cmbClientType.ItemData(cmbClientType.ListIndex), 0)
+	
+    If cmbClientType.ListIndex > 0 Then
+		objParamIn.Parameter("Тип клиента") = cmbClientType.ItemData(cmbClientType.ListIndex)
+	Else
+		objParamIn.Parameter("Тип клиента") = 0
+	End If
+
+    UbsChannel.Run "GuarModelEdit", objParamIn, objParamOut
+    
+    If objParamOut.ExistParameter("Error") Then
+       MsgBox objParamOut.Parameter("Error"), vbCritical, "Типовой договор обеспечения"
+       cmdSave.Enabled = True
+       cmdExit.Enabled = True
+       Exit Sub
+    End If
+
+    If Not StrCommand = "Edit" Then
+       StrCommand = "Edit"
+    End If
+    
+    blnAddFlChanged = False
+    Info.Caption = "Данные сохранены!"
+    Info.Show
+
+    cmbPattern.Enabled = False
+    
+    cmdSave.Enabled = True
+    cmdExit.Enabled = True
+    
+    cmdExit.SetFocus
+    
+    Exit Sub
+ErrorCode:
+    objErr.UbsErrMsg "cmdSave_Click", "ошибка выполнения"
+    cmdSave.Enabled = True
+    cmdExit.Enabled = True
+End Sub
+
+Private Sub ucpParam_KeyPress(ByVal nKeyCode As Integer)
+    Select Case nKeyCode
+       Case 13                              'Enter
+          nKeyCode = 0
+          If ucpParam.PropertyCurrentIndex = ucpParam.PropertyCount - 1 Then
+             objInterfaces.NextCtrl
+          End If
+       Case 27                              'Esc
+          nKeyCode = 0
+          If Not ucpParam.PropertyCurrentIndex = 1 Then
+              SSActiveTabs1.SelectedTab = 1
+              objInterfaces.GoToCtrl cmbState
+          End If
+'          objInterfaces.PrevCtrl        'SendKeys "+{TAB}"
+       End Select
+End Sub
+
+Private Sub UserDocument_Hide()
+On Error GoTo ErrorCode
+    
+    objStub.ReleaseUbsChannel
+    Set objErr = Nothing
+    Set objInterfaces = Nothing
+    Set objFormParam = Nothing
+    Set objFocusCtrl = Nothing
+    Set objParamIn = Nothing
+    Set objParamOut = Nothing
+    Set objStub = Nothing
+
+    If Not bParentWindowClose And Parent.IsExistParam(NumParentWindow, "NeedRefreshGrid") = True Then
+        Parent.ParamInfo(NumParentWindow, "NeedRefreshGrid") = bNeedRefreshGrid
+    End If
+    
+    Exit Sub
+ErrorCode:
+    objErr.UbsErrMsg "UserDocument_Hide", "ошибка выполнения"
+End Sub
+
+Private Sub UserDocument_Initialize()
+    Set objStub = CreateObject("UbsAddFiledsStub.IUbsAddFiledsStub")
+    Set objFormParam = CreateObject("ToolPubs.IUbsParam")
+    ArrayParam
+End Sub
+
+Private Sub Initialize()
+    Set objErr = CreateObject("ToolPubs.IUbsError")
+    Set objInterfaces = CreateObject("ToolPubs.Interfaces")
+    Set objArray = CreateObject("Lib1.IUbsArray")
+End Sub
+
+Private Sub InitDoc()
+On Error GoTo ErrorCode
+
+    Set objStub.UbsChannel = UbsChannel
+
+    Dim q As Integer
+
+    objParamIn.ClearParameters
+    objParamOut.ClearParameters
+
+    UbsChannel.Run "GuarModelInit", objParamIn, objParamOut
+
+    blnFlag = True
+
+    If IsArray(objParamOut.Parameter("Шаблоны")) Then
+       arrPattern = objParamOut.Parameter("Шаблоны")
+    
+       ReDim arrIdPattern(1, UBound(arrPattern, 2))
+    
+       For q = 0 To UBound(arrPattern, 2)
+          cmbPattern.AddItem (arrPattern(1, q))
+          arrIdPattern(0, q) = q
+          arrIdPattern(1, q) = (arrPattern(0, q))
+       Next q
+       cmbPattern.ListIndex = 0
+    Else
+       MsgBox "Массив шаблонов пуст!", vbCritical, "Типовой договор обеспечения"
+       If CheckParamForClose(LoadParam) Then
+          cmdExit_Click
+          Exit Sub
+       End If
+    End If
+    
+	arrTypeClient = objParamOut.Parameter("Типы клиентов")
+	
+    blnFlag = False
+
+    'Инициализация комбобокса
+    If IsArray(objParamOut.Parameter("ОИ")) Then
+       arrExecut = objParamOut.Parameter("ОИ")
+       For q = 0 To UBound(arrExecut, 2)
+          cmbExecut.AddItem (arrExecut(1, q))
+          cmbExecut.ItemData(q) = arrExecut(0, q)
+       Next q
+       cmbExecut.ListIndex = 0
+    Else
+       MsgBox "Массив ответственных исполнителей пуст!", vbCritical, "Типовой договор обеспечения"
+       If CheckParamForClose(LoadParam) Then
+          cmdExit_Click
+          Exit Sub
+       End If
+    End If
+ 
+    'Инициализация комбобокса
+    If IsArray(objParamOut.Parameter("Состояния")) Then
+       arrState = objParamOut.Parameter("Состояния")
+       For q = 0 To UBound(arrState, 2)
+          cmbState.AddItem (arrState(1, q))
+          cmbState.ItemData(q) = (arrState(0, q))
+       Next q
+       cmbState.ListIndex = 0
+    Else
+       MsgBox "Массив состояний пуст!", vbCritical, "Типовой договор обеспечения"
+       If CheckParamForClose(LoadParam) Then
+          cmdExit_Click
+          Exit Sub
+       End If
+    End If
+
+    cmbPattern_Click
+
+    If StrCommand = "Edit" Then
+       objParamIn.ClearParameters
+       objParamOut.ClearParameters
+       
+       objParamIn.Parameter("Id") = Val(idObject)
+       
+       UbsChannel.Run "GuarModelRead", objParamIn, objParamOut
+       
+       txtMeaning.Text = objParamOut.Parameter("Наименование")
+       objInterfaces.SetFocusCombo cmbExecut, objParamOut.Parameter("ОИ")
+       cmbState.ListIndex = objParamOut.Parameter("Состояние")
+       For q = 0 To UBound(arrIdPattern, 2)
+          If arrIdPattern(1, q) = objParamOut.Parameter("Шаблон") Then
+             cmbPattern.ListIndex = q
+          End If
+       Next q
+     
+       cmbPattern.Enabled = False
+    End If
+	
+	Dim clType
+	clType = IIf(objParamOut.ExistParameter("Тип клиента"), CInt(objParamOut.Parameter("Тип клиента")), 0)
+    Call InitCmdClientType(arrTypeClient, CInt(clType))
+    objInterfaces.SetFocusCombo cmbClientType, CLng(clType)
+    ucpParam.UbsAddFields = objStub
+    ucpParam.Refresh
+
+    Exit Sub
+ErrorCode:
+    objErr.UbsErrMsg "InitDoc", "ошибка выполнения"
+End Sub
+
+Private Sub InitCmdClientType(arrTypeClient As Variant, clType As Integer)
+        Dim q
+		Dim tmpArrTypeClient
+		If StrCommand = "Edit" And clType = 0 Then
+           ReDim tmpArrTypeClient(1, 0)
+           
+           tmpArrTypeClient(0, 0) = 0
+           tmpArrTypeClient(1, 0) = ""
+           
+           objArray.AConcatenate tmpArrTypeClient, arrTypeClient
+		   
+		   arrTypeClient = tmpArrTypeClient
+        End If
+		
+        If IsArray(arrTypeClient) Then
+           For q = 0 To UBound(arrTypeClient, 2)
+               cmbClientType.AddItem (arrTypeClient(1, q))
+               cmbClientType.ItemData(q) = arrTypeClient(0, q)
+           Next q
+                
+           cmbClientType.ListIndex = 0
+        Else
+           MsgBox "Массив типов клиента пуст!", vbCritical, "Типовой договор обеспечения"
+           If CheckParamForClose(LoadParam) Then
+              cmdExit_Click
+              Exit Sub
+           End If
+        End If
+End Sub
+
+Private Sub UserDocument_KeyDown(KeyCode As Integer, Shift As Integer)
+    If Shift = 2 And KeyCode = vbKeyTab Then
+       Set objFocusCtrl = UserDocument.ActiveControl
+       Parent.LoaderParamInfo(0, "NextWindow") = NumWin
+    End If
+End Sub
+
+Private Sub UserDocument_KeyPress(KeyAscii As Integer)
+    Select Case (KeyAscii)
+       Case 13                              'Enter
+          KeyAscii = 0
+                     
+          Select Case (UserDocument.ActiveControl.Name)
+              Case "cmbState"
+                 If Not ucpParam.PropertyCount = 0 Then
+                    SSActiveTabs1.SelectedTab = 2
+                    objInterfaces.GoToCtrl ucpParam
+                 Else
+                    objInterfaces.GoToCtrl cmdSave
+                 End If
+              Case Else
+                 objInterfaces.NextCtrl
+          End Select
+       
+       Case 27                              'Esc
+          KeyAscii = 0
+
+          Select Case (UserDocument.ActiveControl.Name)
+              Case "cmdExit"
+                 If Not ucpParam.PropertyCount = 0 Then
+                    SSActiveTabs1.SelectedTab = 2
+                    objInterfaces.GoToCtrl ucpParam
+                 Else
+                    objInterfaces.GoToCtrl cmdSave
+                 End If
+              Case "cmdSave"
+                 If Not ucpParam.PropertyCount = 0 Then
+                    SSActiveTabs1.SelectedTab = 2
+                    objInterfaces.GoToCtrl ucpParam
+                 Else
+                    SSActiveTabs1.SelectedTab = 1
+                    objInterfaces.GoToCtrl cmbState
+                 End If
+              Case "txtMeaning"
+                 objInterfaces.GoToCtrl cmdExit
+              Case Else
+                 objInterfaces.PrevCtrl
+          End Select
+
+    End Select
+End Sub
+
+Private Function Check() As Boolean
+
+    Check = False
+    If Len(txtMeaning.Text) < 1 Then
+       MsgBox "Задайте наименование.", vbExclamation, "Типовой договор обеспечения"
+ 
+       cmdSave.Enabled = True
+       cmdExit.Enabled = True
+ 
+       SSActiveTabs1.SelectedTab = 1
+       txtMeaning.SetFocus
+       Exit Function
+    End If
+
+    Check = True
+End Function
+
+Private Sub ucpParam_TextChange()
+On Error GoTo ErrorCode
+    blnAddFlChanged = True
+    Exit Sub
+ErrorCode:
+    objErr.UbsErrMsg "ucpParam_TextChange", "ошибка выполнения"
+End Sub
+
+Private Sub InitChannel()
+On Error GoTo ErrorCode
+
+    UbsChannel.HostAddress = Parent.LoaderParamInfo(NumWin, "HostAddress")
+    UbsChannel.UserGUID = Parent.LoaderParamInfo(NumWin, "GuidSession")
+    UbsChannel.ParentHwnd = UserDocument.hWnd
+    UbsChannel.LoadResource = "VBS:UBS_VBD\GUAR\GuarModel.vbs"
+
+    Set objParamIn = CreateObject("ToolPubs.IUbsParam")
+    Set objParamOut = CreateObject("ToolPubs.IUbsParam")
+
+    Exit Sub
+ErrorCode:
+    objErr.UbsErrMsg "InitChannel", "ошибка выполнения"
+End Sub

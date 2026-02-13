@@ -1,0 +1,362 @@
+[Root]
+Most Recent Package=Internet Package
+
+
+[Package|Internet Package 1|Root]
+SubWizProgID=PDWizard.InetCABPkgSubWiz
+BuildFolder=\\Developer-04\tmp\BASIC\BG_CONTRACT\package
+
+[Package|Internet Package 1|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Internet Package 1|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Internet Package 1|Files Found]
+
+[Package|Internet Package 1|Files Released]
+UbsGrCtl.ocx=
+UbsChlCtrl.ocx=
+UbsInfo.ocx=
+sstbars2.ocx=
+UbsGrid.dll=
+UbsProp.dll=
+UbsCtrl.dll=
+
+[Package|Internet Package 1|Missing Dependency Information]
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsGrCtl.ocx=
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsChlCtrl.ocx=
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsInfo.ocx=
+C:\Sheridan\ActiveListBar\SSLstBar.ocx=
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsGrid.dll=
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsProp.dll=
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsCtrl.dll=
+C:\Program Files\UniSAB\ActiveX\Ubs\UBSParrents.dll=
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsCtrlV.dll=
+C:\Program Files\UniSAB\ActiveX\Ubs\UBSChilds.dll=
+C:\WINDOWS\system32\SPLITTER.OCX=
+C:\WINDOWS\system32\SSLstBar.ocx=
+C:\Program Files\Sheridan\ActiveListBar\SSLstBar.ocx=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsGrCtl.ocx=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsChlCtrl.ocx=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsInfo.ocx=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsGrid.dll=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsProp.dll=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsCtrl.dll=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UBSParrents.dll=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsCtrlV.dll=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UBSChilds.dll=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsAdrCtrl.ocx=
+C:\UBS_CLIENT\ActiveX\Ubs\UbsCtrl.dll=
+C:\UBS_CLIENT\ActiveX\Ubs\UbsGrCtl.ocx=
+C:\UBS_CLIENT\ActiveX\Ubs\UbsGrid.dll=
+
+[Package|Internet Package 1|Out-of-Date Dependency Information]
+C:\WINDOWS\system32\MSCOMCTL.OCX=
+
+[Package|Internet Package 1|Files Added]
+
+[Package|Internet Package 1|Files Removed]
+c:\windows\system32\mscomctl.ocx=
+c:\windows\system32\msstdfmt.dll=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\msvcrt.dll=
+c:\sheridan\activethreed\splitter.ocx=
+c:\sheridan\activelistbar\sslstbar.ocx=
+c:\program files\sheridan\activetoolbarsplus\sstabs2.ocx=
+c:\program files\sheridan\activetoolbarsplus\sstbars2.ocx=
+c:\sheridan\activethreed\threed20.ocx=
+c:\program files\unisab\activex\ubs\ubschilds.dll=
+c:\program files\unisab\activex\ubs\ubschlctrl.ocx=
+c:\program files\unisab\activex\ubs\ubsctrl.dll=
+c:\program files\unisab\activex\ubs\ubsctrlv.dll=
+c:\program files\unisab\activex\ubs\ubsgrctl.ocx=
+c:\program files\unisab\activex\ubs\ubsgrid.dll=
+c:\program files\unisab\activex\ubs\ubsinfo.ocx=
+c:\program files\unisab\activex\ubs\ubsparrents.dll=
+c:\program files\unisab\activex\ubs\ubsprop.dll=
+c:\windows\system32\msvbvm60.dll=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\oleaut32.dll=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\olepro32.dll=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\asycfilt.dll=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\stdole2.tlb=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
+c:\windows\system32\splitter.ocx=
+c:\windows\system32\sslstbar.ocx=
+c:\windows\system32\sspng.dll=
+c:\windows\system32\sstabs2.ocx=
+c:\program files\sheridan\activethreed1\splitter.ocx=
+c:\program files\sheridan\activelistbar\sslstbar.ocx=
+c:\program files\sheridan\activethreed\splitter.ocx=
+c:\programdata\unisab\activex\ubs\ubschilds.dll=
+c:\programdata\unisab\activex\ubs\ubschlctrl.ocx=
+c:\programdata\unisab\activex\ubs\ubsctrl.dll=
+c:\programdata\unisab\activex\ubs\ubsctrlv.dll=
+c:\programdata\unisab\activex\ubs\ubsgrctl.ocx=
+c:\programdata\unisab\activex\ubs\ubsgrid.dll=
+c:\programdata\unisab\activex\ubs\ubsinfo.ocx=
+c:\programdata\unisab\activex\ubs\ubsparrents.dll=
+c:\programdata\unisab\activex\ubs\ubsprop.dll=
+c:\programdata\unisab\activex\ubs\ubsadrctrl.ocx=
+c:\ubs_client\activex\ubs\ubsctrl.dll=
+c:\ubs_client\activex\ubs\ubschlctrl.ocx=
+c:\ubs_client\activex\ubs\ubsgrctl.ocx=
+c:\ubs_client\activex\ubs\ubsgrid.dll=
+\\store-02\users\отдел программирования\романов.в\new folder\support\ubschlctrl.ocx=
+\\store-02\users\отдел программирования\романов.в\vb\rfu\ubsadrctrl.ocx=
+c:\programdata\unisab\ubs\vbd\common\ubschlctrl.ocx=
+\\store-02\users\отдел программирования\дрокин\ubsadrctrl\ubsadrctrl.ocx=
+c:\programdata\unisab\ubs\vbd\ogo\ubschlctrl.ocx=
+
+[Package|Internet Package 1|Files In Project]
+C:\WINDOWS\system32\msvbvm60.dll=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT.DLL=No
+C:\WINDOWS\system32\MSCOMCTL.OCX=No
+C:\Program Files\Sheridan\ActiveToolBarsPlus\sstbars2.ocx=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UBSChilds.dll=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsCtrlV.dll=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UBSParrents.dll=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsProp.dll=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsInfo.ocx=No
+C:\Program Files\Sheridan\ActiveToolBarsPlus\sstabs2.ocx=No
+C:\Program Files\Sheridan\ActiveListBar\SSLstBar.ocx=No
+C:\Program Files\Sheridan\ActiveThreed\SPLITTER.OCX=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsCtrl.dll=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsAdrCtrl.ocx=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsGrid.dll=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsChlCtrl.ocx=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsGrCtl.ocx=No
+\\Developer-04\tmp\BASIC\BG_CONTRACT\BG_CONTRACT.dll=Yes
+
+[Package|Internet Package 1|Configure Registry Files]
+Applicable=No
+
+[Package|Internet Package 1|Configure Remote Servers]
+Applicable=No
+
+[Package|Internet Package 1|Install Locations]
+
+[Package|Internet Package 1|Configure Shared Files]
+Applicable=
+
+[Package|Internet Package 1|ComponentInfo]
+BG_CONTRACT.dll=thiscab
+UbsChlCtrl.ocx=thiscab
+UbsAdrCtrl.ocx=thiscab
+
+[Package|Internet Package 1|ObjectInfo]
+BGContract=false;false
+BG_Contract_=true;true
+
+[Package|Internet Package 1|Package]
+PackageFolder=\\Developer-04\tmp\BASIC\BG_CONTRACT\package
+ProjectFolder=\\Developer-04\tmp\BASIC\BG_CONTRACT
+ServerSideCab=\\Developer-04\tmp\BASIC\BG_CONTRACT\package\BG_CONTRACT.CAB
+File1=\\Developer-04\tmp\BASIC\BG_CONTRACT\package\BG_CONTRACT.CAB
+File2=\\Developer-04\tmp\BASIC\BG_CONTRACT\package\BG_Contract_.VBD
+File3=\\Developer-04\tmp\BASIC\BG_CONTRACT\package\BG_CONTRACT.HTM
+Handler1=PDWizard.WebPostDplySubWiz
+Handler2=PDWizard.FolderDplySubWiz
+
+
+[Package|Internet Package|Root]
+SubWizProgID=PDWizard.InetCABPkgSubWiz
+BuildFolder=Z:\Ерискин\UBS_CLIENT\_UBS\VBD\BG\BG_CONTRACT\Package
+
+[Package|Internet Package|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Internet Package|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Internet Package|Files Found]
+
+[Package|Internet Package|Files Released]
+UbsGrCtl.ocx=
+UbsChlCtrl.ocx=
+UbsInfo.ocx=
+sstbars2.ocx=
+UbsGrid.dll=
+UbsProp.dll=
+UbsCtrl.dll=
+
+[Package|Internet Package|Missing Dependency Information]
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsGrCtl.ocx=
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsChlCtrl.ocx=
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsInfo.ocx=
+C:\Sheridan\ActiveListBar\SSLstBar.ocx=
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsGrid.dll=
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsProp.dll=
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsCtrl.dll=
+C:\Program Files\UniSAB\ActiveX\Ubs\UBSParrents.dll=
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsCtrlV.dll=
+C:\Program Files\UniSAB\ActiveX\Ubs\UBSChilds.dll=
+C:\WINDOWS\system32\SPLITTER.OCX=
+C:\WINDOWS\system32\SSLstBar.ocx=
+C:\Program Files\Sheridan\ActiveListBar\SSLstBar.ocx=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsGrCtl.ocx=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsChlCtrl.ocx=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsInfo.ocx=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsGrid.dll=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsProp.dll=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsCtrl.dll=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UBSParrents.dll=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsCtrlV.dll=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UBSChilds.dll=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsAdrCtrl.ocx=
+C:\UBS_CLIENT\ActiveX\Ubs\UbsCtrl.dll=
+C:\UBS_CLIENT\ActiveX\Ubs\UbsGrCtl.ocx=
+C:\UBS_CLIENT\ActiveX\Ubs\UbsGrid.dll=
+\\Develop\project\Щербаков\UBS_CLIENT\_ActiveX\_Ubs\UbsAdrCtrl\UbsAdrCtrl.ocx=
+C:\ProgramData\UniSAB\ActiveX\Ubs\sstabs2.ocx=
+
+[Package|Internet Package|Out-of-Date Dependency Information]
+C:\WINDOWS\system32\MSCOMCTL.OCX=
+
+[Package|Internet Package|Files Added]
+
+[Package|Internet Package|Files Removed]
+c:\windows\system32\mscomctl.ocx=
+c:\windows\system32\msstdfmt.dll=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\msvcrt.dll=
+c:\sheridan\activethreed\splitter.ocx=
+c:\sheridan\activelistbar\sslstbar.ocx=
+c:\program files\sheridan\activetoolbarsplus\sstabs2.ocx=
+c:\program files\sheridan\activetoolbarsplus\sstbars2.ocx=
+c:\sheridan\activethreed\threed20.ocx=
+c:\program files\unisab\activex\ubs\ubschilds.dll=
+c:\program files\unisab\activex\ubs\ubschlctrl.ocx=
+c:\program files\unisab\activex\ubs\ubsctrl.dll=
+c:\program files\unisab\activex\ubs\ubsctrlv.dll=
+c:\program files\unisab\activex\ubs\ubsgrctl.ocx=
+c:\program files\unisab\activex\ubs\ubsgrid.dll=
+c:\program files\unisab\activex\ubs\ubsinfo.ocx=
+c:\program files\unisab\activex\ubs\ubsparrents.dll=
+c:\program files\unisab\activex\ubs\ubsprop.dll=
+c:\windows\system32\msvbvm60.dll=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\oleaut32.dll=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\olepro32.dll=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\asycfilt.dll=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\stdole2.tlb=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
+c:\windows\system32\splitter.ocx=
+c:\windows\system32\sslstbar.ocx=
+c:\windows\system32\sspng.dll=
+c:\windows\system32\sstabs2.ocx=
+c:\program files\sheridan\activethreed1\splitter.ocx=
+c:\program files\sheridan\activelistbar\sslstbar.ocx=
+c:\program files\sheridan\activethreed\splitter.ocx=
+c:\programdata\unisab\activex\ubs\ubschilds.dll=
+c:\programdata\unisab\activex\ubs\ubschlctrl.ocx=
+c:\programdata\unisab\activex\ubs\ubsctrl.dll=
+c:\programdata\unisab\activex\ubs\ubsctrlv.dll=
+c:\programdata\unisab\activex\ubs\ubsgrctl.ocx=
+c:\programdata\unisab\activex\ubs\ubsgrid.dll=
+c:\programdata\unisab\activex\ubs\ubsinfo.ocx=
+c:\programdata\unisab\activex\ubs\ubsparrents.dll=
+c:\programdata\unisab\activex\ubs\ubsprop.dll=
+c:\programdata\unisab\activex\ubs\ubsadrctrl.ocx=
+c:\ubs_client\activex\ubs\ubsctrl.dll=
+c:\ubs_client\activex\ubs\ubschlctrl.ocx=
+c:\ubs_client\activex\ubs\ubsgrctl.ocx=
+c:\ubs_client\activex\ubs\ubsgrid.dll=
+\\store-02\users\отдел программирования\романов.в\new folder\support\ubschlctrl.ocx=
+\\store-02\users\отдел программирования\романов.в\vb\rfu\ubsadrctrl.ocx=
+c:\programdata\unisab\ubs\vbd\common\ubschlctrl.ocx=
+\\store-02\users\отдел программирования\дрокин\ubsadrctrl\ubsadrctrl.ocx=
+c:\programdata\unisab\ubs\vbd\ogo\ubschlctrl.ocx=
+\\programm-99\_users\ubs_client\ubschlctrl\ubschlctrl.ocx=
+c:\windows\syswow64\mscomctl.ocx=
+c:\program files (x86)\microsoft visual studio\vb98\wizards\pdwizard\redist\msvcrt.dll=
+c:\windows\syswow64\splitter.ocx=
+c:\windows\syswow64\sslstbar.ocx=
+c:\windows\syswow64\sspng.dll=
+c:\windows\syswow64\sstabs2.ocx=
+c:\program files (x86)\sheridan\activetoolbarsplus\sstbars2.ocx=
+c:\program files (x86)\microsoft visual studio\vb98\wizards\pdwizard\redist\oleaut32.dll=
+c:\program files (x86)\microsoft visual studio\vb98\wizards\pdwizard\redist\olepro32.dll=
+c:\program files (x86)\microsoft visual studio\vb98\wizards\pdwizard\redist\asycfilt.dll=
+c:\program files (x86)\microsoft visual studio\vb98\wizards\pdwizard\redist\stdole2.tlb=
+c:\program files (x86)\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
+c:\ubs_nt\ubs_client\ubsprop.dll=
+\\develop\project\щербаков\ubs_client\_activex\_ubs\ubsgrctl\ubsgrctl.ocx=
+\\develop\project\щербаков\ubs_client\_activex\_ubs\ubsadrctrl\ubsadrctrl.ocx=
+c:\programdata\unisab\activex\ubs\sstabs2.ocx=
+\\develop\project\щербаков\ubs_client\_activex\_ubs\ubsgrctl\b\ubsgrctl\ubsgrctl.ocx=
+\\develop\project\нидельский\vbd\ubsadrctrl\ubsadrctrl.ocx=
+
+[Package|Internet Package|Files In Project]
+C:\WINDOWS\system32\msvbvm60.dll=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UBSChilds.dll=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsCtrlV.dll=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UBSParrents.dll=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsInfo.ocx=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsCtrl.dll=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsGrid.dll=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsChlCtrl.ocx=No
+C:\Program Files (x86)\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=No
+C:\Program Files (x86)\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=No
+C:\Program Files (x86)\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=No
+C:\Program Files (x86)\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=No
+C:\Program Files (x86)\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=No
+C:\Program Files (x86)\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT.DLL=No
+C:\Windows\SysWOW64\SSLstBar.ocx=No
+C:\Windows\SysWOW64\SSPng.dll=No
+C:\Program Files (x86)\Sheridan\ActiveToolBarsPlus\sstbars2.ocx=No
+C:\Windows\SysWOW64\SPLITTER.OCX=No
+C:\Windows\SysWOW64\mscomctl.OCX=No
+C:\UBS_NT\UBS_CLIENT\UbsProp.dll=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\sstabs2.ocx=No
+\\Develop\project\Щербаков\UBS_CLIENT\_ActiveX\_Ubs\UbsGrCtl\b\UbsGrCtl\UbsGrCtl.ocx=No
+Z:\Ерискин\UBS_CLIENT\_UBS\VBD\BG\BG_CONTRACT\BG_CONTRACT.dll=Yes
+\\develop\PROJECT\Нидельский\VBD\UbsAdrCtrl\UbsAdrCtrl.ocx=No
+
+[Package|Internet Package|Configure Registry Files]
+Applicable=No
+
+[Package|Internet Package|Configure Remote Servers]
+Applicable=No
+
+[Package|Internet Package|Install Locations]
+
+[Package|Internet Package|Configure Shared Files]
+Applicable=
+
+[Package|Internet Package|ComponentInfo]
+BG_CONTRACT.dll=thiscab
+UbsChlCtrl.ocx=thiscab
+UbsAdrCtrl.ocx=thiscab
+msvbvm60.dll=http://activex.microsoft.com/controls/vb6/VBRun60.cab
+OLEAUT32.DLL=http://activex.microsoft.com/controls/vb6/VBRun60.cab
+OLEPRO32.DLL=http://activex.microsoft.com/controls/vb6/VBRun60.cab
+ASYCFILT.DLL=http://activex.microsoft.com/controls/vb6/VBRun60.cab
+STDOLE2.TLB=http://activex.microsoft.com/controls/vb6/VBRun60.cab
+COMCAT.DLL=http://activex.microsoft.com/controls/vb6/VBRun60.cab
+sstabs2.ocx=thiscab
+MSVCRT.DLL=thiscab
+SSLstBar.ocx=http://www.shersoft.com/download/cabs/SSLSTBAR.CAB
+SSPng.dll=thiscab
+sstbars2.ocx=http://www.shersoft.com/download/cabs/SSTBARS2.CAB
+SPLITTER.OCX=http://www.shersoft.com/download/cabs/SPLITTER.CAB
+mscomctl.OCX=http://activex.microsoft.com/controls/vb6/MSComCtl.cab
+UbsGrCtl.ocx=thiscab
+
+[Package|Internet Package|ObjectInfo]
+BGContract=false;false
+BG_Contract_=true;true
+
+[Package|Internet Package|Package]
+PackageFolder=Z:\Ерискин\UBS_CLIENT\_UBS\VBD\BG\BG_CONTRACT\Package
+ProjectFolder=Z:\Ерискин\UBS_CLIENT\_UBS\VBD\BG\BG_CONTRACT
+ServerSideCab=Z:\Ерискин\UBS_CLIENT\_UBS\VBD\BG\BG_CONTRACT\Package\BG_CONTRACT.CAB
+File1=Z:\Ерискин\UBS_CLIENT\_UBS\VBD\BG\BG_CONTRACT\Package\BG_CONTRACT.CAB
+File2=Z:\Ерискин\UBS_CLIENT\_UBS\VBD\BG\BG_CONTRACT\Package\BG_Contract_.VBD
+File3=Z:\Ерискин\UBS_CLIENT\_UBS\VBD\BG\BG_CONTRACT\Package\BG_CONTRACT.HTM
+Handler1=PDWizard.WebPostDplySubWiz
+Handler2=PDWizard.FolderDplySubWiz

@@ -1,0 +1,54 @@
+;INF file for BG_CONTRACT.dll
+;DestDir can be 10 for Windows directory, 11 for Windows\System(32) directory, or left blank for the Occache directory.
+
+[version]
+signature="$CHICAGO$"
+AdvancedINF=2.0
+
+[DefaultInstall]
+CopyFiles=install.files
+RegisterOCXs=RegisterFiles
+AddReg=AddToRegistry
+
+[RInstallApplicationFiles]
+CopyFiles=install.files
+RegisterOCXs=RegisterFiles
+AddReg=AddToRegistry
+[DestinationDirs]
+install.files=11
+
+[SourceDisksNames]
+1=%DiskName%,BG_CONTRACT.CAB,1
+
+[Add.Code]
+BG_CONTRACT.dll=BG_CONTRACT.dll
+
+[install.files]
+BG_CONTRACT.dll=BG_CONTRACT.dll
+
+[SourceDisksFiles]
+BG_CONTRACT.dll=1
+
+[BG_CONTRACT.dll]
+file-win32-x86=thiscab
+RegisterServer=yes
+clsid={9D483EB8-B0E4-44B0-984A-06396A4922C5}
+DestDir= 
+FileVersion=1,0,0,0
+
+[Setup Hooks]
+AddToRegHook=AddToRegHook
+
+[AddToRegHook]
+InfSection=DefaultInstall2
+
+[DefaultInstall2]
+AddReg=AddToRegistry
+
+[AddToRegistry]
+HKLM,"SOFTWARE\Classes\CLSID\{9D483EB8-B0E4-44B0-984A-06396A4922C5}\Implemented Categories\{7DD95802-9882-11CF-9FA9-00AA006C42C4}"
+HKLM,"SOFTWARE\Classes\CLSID\{9D483EB8-B0E4-44B0-984A-06396A4922C5}\Implemented Categories\{7DD95801-9882-11CF-9FA9-00AA006C42C4}"
+HKCR,"Licenses",,,"Licensing: Copying the keys may be a violation of established copyrights."
+
+[RegisterFiles]
+%11%\BG_CONTRACT.dll

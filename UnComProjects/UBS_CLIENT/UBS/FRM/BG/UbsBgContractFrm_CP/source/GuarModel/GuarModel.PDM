@@ -1,0 +1,105 @@
+[Root]
+Most Recent Package=Internet Package 1
+
+
+[Package|Internet Package 1|Root]
+SubWizProgID=PDWizard.InetCABPkgSubWiz
+BuildFolder=P:\Нургалиев\UBS_CLIENT\UBS\VBD\GUAR\GuarModel
+
+[Package|Internet Package 1|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Internet Package 1|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Internet Package 1|Files Found]
+
+[Package|Internet Package 1|Files Released]
+
+[Package|Internet Package 1|Missing Dependency Information]
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsChlCtrl.ocx=
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsProp.dll=
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsInfo.ocx=
+C:\Program Files\UniSAB\ActiveX\Ubs\UBSParrents.dll=
+C:\Program Files\UniSAB\ActiveX\Ubs\UBSChilds.dll=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsProp.dll=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsInfo.ocx=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UBSParrents.dll=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UBSChilds.dll=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsChlCtrl.ocx=
+
+[Package|Internet Package 1|Out-of-Date Dependency Information]
+
+[Package|Internet Package 1|Files Added]
+
+[Package|Internet Package 1|Files Removed]
+c:\windows\system32\msvbvm60.dll=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\oleaut32.dll=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\olepro32.dll=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\asycfilt.dll=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\stdole2.tlb=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
+c:\program files\unisab\activex\ubs\ubsprop.dll=
+c:\program files\unisab\activex\ubs\ubsparrents.dll=
+c:\program files\unisab\activex\ubs\ubsinfo.ocx=
+c:\program files\unisab\activex\ubs\ubschlctrl.ocx=
+c:\program files\unisab\activex\ubs\ubschilds.dll=
+c:\windows\system32\sstabs2.ocx=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\msvcrt.dll=
+c:\program files\sheridan\activetoolbarsplus\sstabs2.ocx=
+c:\programdata\unisab\activex\ubs\ubschilds.dll=
+c:\ubs_client\activex\ubs\ubschlctrl.ocx=
+c:\programdata\unisab\activex\ubs\ubsinfo.ocx=
+c:\programdata\unisab\activex\ubs\ubsparrents.dll=
+c:\programdata\unisab\activex\ubs\ubsprop.dll=
+c:\programdata\unisab\activex\ubs\ubschlctrl.ocx=
+c:\programdata\unisab\activex\ubs\sstabs2.ocx=
+c:\ubs_nt\ubs_client\ubsprop.dll=
+c:\program files (x86)\microsoft visual studio\vb98\wizards\pdwizard\redist\oleaut32.dll=
+c:\program files (x86)\microsoft visual studio\vb98\wizards\pdwizard\redist\olepro32.dll=
+c:\program files (x86)\microsoft visual studio\vb98\wizards\pdwizard\redist\asycfilt.dll=
+c:\program files (x86)\microsoft visual studio\vb98\wizards\pdwizard\redist\stdole2.tlb=
+c:\program files (x86)\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
+
+[Package|Internet Package 1|Files In Project]
+C:\WINDOWS\system32\msvbvm60.dll=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UBSChilds.dll=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UBSParrents.dll=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsInfo.ocx=No
+P:\Нургалиев\UBS_CLIENT\UBS\VBD\GUAR\GuarModel\GuarModel.dll=Yes
+C:\Program Files (x86)\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=No
+C:\Program Files (x86)\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=No
+C:\Program Files (x86)\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=No
+C:\Program Files (x86)\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=No
+C:\Program Files (x86)\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\sstabs2.ocx=No
+C:\UBS_NT\UBS_CLIENT\UbsProp.dll=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsChlCtrl.ocx=No
+
+[Package|Internet Package 1|Configure Registry Files]
+Applicable=No
+
+[Package|Internet Package 1|Configure Remote Servers]
+Applicable=No
+
+[Package|Internet Package 1|Install Locations]
+
+[Package|Internet Package 1|Configure Shared Files]
+Applicable=
+
+[Package|Internet Package 1|ComponentInfo]
+GuarModel.dll=thiscab
+
+[Package|Internet Package 1|ObjectInfo]
+GuarModel_ud=false;false
+
+[Package|Internet Package 1|Package]
+PackageFolder=P:\Нургалиев\UBS_CLIENT\UBS\VBD\GUAR\GuarModel
+ProjectFolder=P:\Нургалиев\UBS_CLIENT\UBS\VBD\GUAR\GuarModel
+ServerSideCab=P:\Нургалиев\UBS_CLIENT\UBS\VBD\GUAR\GuarModel\GuarModel.CAB
+File1=P:\Нургалиев\UBS_CLIENT\UBS\VBD\GUAR\GuarModel\GuarModel.CAB
+File2=P:\Нургалиев\UBS_CLIENT\UBS\VBD\GUAR\GuarModel\GuarModel_ud.VBD
+File3=P:\Нургалиев\UBS_CLIENT\UBS\VBD\GUAR\GuarModel\GuarModel.HTM
+Handler1=PDWizard.WebPostDplySubWiz
+Handler2=PDWizard.FolderDplySubWiz

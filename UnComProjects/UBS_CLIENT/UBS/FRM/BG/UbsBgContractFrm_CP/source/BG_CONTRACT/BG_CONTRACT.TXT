@@ -1,0 +1,3 @@
+The cab file for your application has been built as 'x:\Отдел программирования\Кирсанова\BG\BG_CONTRACT\Package\BG_CONTRACT.CAB'.
+
+There is also a batch file in the support directory (x:\Отдел программирования\Кирсанова\BG\BG_CONTRACT\Package\Support\BG_CONTRACT.BAT) that will allow you to recreate the cab file in case you make changes to some of the files.
