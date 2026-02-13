@@ -1,0 +1,10 @@
+HTML plan
+
+1. What is the HTML
+2. Basic tags of the HTML: body, head, title, !doctype, etc.
+3. Attributes: class, id, style, data attributes
+5. Case insensitivity
+6. HTML entities, HTML comments, HTML whitespaces
+4. Markup. Semantic and structural markups
+5. Lists: ordered lists, unordered lists, definition lists, nested lists
+6. Media tags: image, videos and maps
