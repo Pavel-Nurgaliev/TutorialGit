@@ -726,6 +726,7 @@ namespace UbsBusiness
             this.btnManualBenificiar.TabIndex = 5;
             this.btnManualBenificiar.Text = "Ввести реквизиты";
             this.btnManualBenificiar.UseVisualStyleBackColor = true;
+            this.btnManualBenificiar.Click += new System.EventHandler(this.btnManualBenificiar_Click);
             // 
             // txtGarant
             // 

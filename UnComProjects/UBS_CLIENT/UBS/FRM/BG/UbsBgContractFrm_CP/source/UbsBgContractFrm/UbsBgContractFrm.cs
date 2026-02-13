@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using UbsService;
@@ -96,6 +96,8 @@ namespace UbsBusiness
         private string m_typePayFeeGuarant;
         private object[,] m_arrIntervalGuarant;
         private int m_setRekvBen;
+        private object[,] m_arrCountry;
+        private object[,] m_arrTypeObject;
 
         #endregion
 
@@ -1583,6 +1585,206 @@ namespace UbsBusiness
             }
 
             EnabledCmdControl(true);
+        }
+
+        private void btnManualBenificiar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var form = new UbsBgDetailsBenificiarFrm();
+
+                var paramIn = new UbsParam();
+
+                if (m_arrCountry == null)
+                {
+                    paramIn.Value("Тип данных", "Страны");
+
+                    base.IUbsChannel.ParamsInParam = paramIn;
+
+                    base.IUbsChannel.Run("GetAddressData");
+                    m_arrCountry = base.IUbsChannel.ParamOut("Данные") as object[,];
+
+                    if (m_arrCountry != null)
+                    {
+                        for (int i = 0; i < m_arrCountry.GetLength(0); i++)
+                        {
+                            form.CbCodeCountry.Items.Add(m_arrCountry[i, 0]);
+                            form.CbCountry.Items.Add(m_arrCountry[i, 1]);
+                        }
+
+                        form.arrCountry = m_arrCountry;
+                        form.CodeCountryValue = "643";
+                    }
+                }
+                else
+                {
+                    form.arrCountry = m_arrCountry;
+
+                    if (form.CbCodeCountry.Items.Count == 0)
+                    {
+                        for (int i = 0; i < m_arrCountry.GetLength(0); i++)
+                        {
+                            form.CbCodeCountry.Items.Add(m_arrCountry[i, 0]);
+                            form.CbCountry.Items.Add(m_arrCountry[i, 1]);
+                        }
+                    }
+                    form.CodeCountryValue = "643";
+                }
+
+                if (m_arrTypeObject == null)
+                {
+                    paramIn.Clear();
+
+                    paramIn.Value("Тип данных", "Типы объектов");
+                    paramIn.Value("Код страны", "643");
+                    paramIn.Value("Условия получения данных", paramIn.Items);
+
+                    base.IUbsChannel.ParamsInParam = paramIn;
+
+                    base.IUbsChannel.Run("GetAddressData");
+                    m_arrTypeObject = base.IUbsChannel.ParamOut("Данные") as object[,];
+                    form.arrTypeObject = m_arrTypeObject;
+                }
+                else
+                {
+                    form.arrTypeObject = m_arrTypeObject;
+                }
+
+                if (m_arrTypeObject != null && form.CodeCountryValue == "643" &&
+                    form.CbTypeRegion.Items.Count == 0 && form.CbTypeArea.Items.Count == 0 &&
+                    form.CbTypeCity.Items.Count == 0 && form.CbTypeSettl.Items.Count == 0 &&
+                    form.CbTypeStreet.Items.Count == 0 && form.CbTypeHome.Items.Count == 0 &&
+                    form.CbTypeHousing.Items.Count == 0 && form.CbTypeFlat.Items.Count == 0)
+                {
+                    for (int i = 0; i < m_arrTypeObject.GetLength(0); i++)
+                    {
+                        int typeId = Convert.ToInt32(m_arrTypeObject[i, 0]);
+                        string typeName = Convert.ToString(m_arrTypeObject[i, 1]);
+
+                        switch (typeId)
+                        {
+                            case 1:
+                                form.CbTypeRegion.Items.Add(typeName);
+                                break;
+                            case 2:
+                                form.CbTypeArea.Items.Add(typeName);
+                                break;
+                            case 3:
+                                form.CbTypeCity.Items.Add(typeName);
+                                break;
+                            case 4:
+                                form.CbTypeSettl.Items.Add(typeName);
+                                break;
+                            case 5:
+                                form.CbTypeStreet.Items.Add(typeName);
+                                break;
+                            case 6:
+                                form.CbTypeHome.Items.Add(typeName);
+                                break;
+                            case 7:
+                                form.CbTypeHousing.Items.Add(typeName);
+                                break;
+                            case 8:
+                                form.CbTypeFlat.Items.Add(typeName);
+                                break;
+                        }
+                    }
+                }
+
+                if (m_arrDetailsBeneficiar != null && m_arrDetailsBeneficiar.GetLength(0) > 0)
+                {
+                    form.NameValue = Convert.ToString(m_arrDetailsBeneficiar[0, 0]);
+                    form.INNValue = Convert.ToString(m_arrDetailsBeneficiar[0, 1]);
+
+                    object[,] arrAddress = m_arrDetailsBeneficiar[0, 2] as object[,];
+                    if (arrAddress != null && arrAddress.GetLength(0) > 0)
+                    {
+                        form.IndexValue = Convert.ToString(arrAddress[0, 0]);
+                        form.CodeCountryValue = Convert.ToString(arrAddress[0, 1]);
+                        form.TypeRegionValue = Convert.ToString(arrAddress[0, 2]);
+                        form.RegionValue = Convert.ToString(arrAddress[0, 3]);
+                        form.TypeAreaValue = Convert.ToString(arrAddress[0, 4]);
+                        form.AreaValue = Convert.ToString(arrAddress[0, 5]);
+                        form.TypeCityValue = Convert.ToString(arrAddress[0, 6]);
+                        form.CityValue = Convert.ToString(arrAddress[0, 7]);
+                        form.TypeSettlValue = Convert.ToString(arrAddress[0, 8]);
+                        form.SettlValue = Convert.ToString(arrAddress[0, 9]);
+                        form.TypeStreetValue = Convert.ToString(arrAddress[0, 10]);
+                        form.StreetValue = Convert.ToString(arrAddress[0, 11]);
+                        form.TypeHomeValue = Convert.ToString(arrAddress[0, 12]);
+                        form.HomeValue = Convert.ToString(arrAddress[0, 13]);
+                        form.TypeHousingValue = Convert.ToString(arrAddress[0, 14]);
+                        form.HousingValue = Convert.ToString(arrAddress[0, 15]);
+                        form.TypeFlatValue = Convert.ToString(arrAddress[0, 16]);
+                        form.FlatValue = Convert.ToString(arrAddress[0, 17]);
+                    }
+                }
+                else
+                {
+                    form.NameValue = string.Empty;
+                    form.INNValue = string.Empty;
+                    form.IndexValue = string.Empty;
+                    form.CodeCountryValue = "643";
+                    form.TypeRegionValue = string.Empty;
+                    form.RegionValue = string.Empty;
+                    form.TypeAreaValue = string.Empty;
+                    form.AreaValue = string.Empty;
+                    form.TypeCityValue = string.Empty;
+                    form.CityValue = string.Empty;
+                    form.TypeSettlValue = string.Empty;
+                    form.SettlValue = string.Empty;
+                    form.TypeStreetValue = string.Empty;
+                    form.StreetValue = string.Empty;
+                    form.TypeHomeValue = string.Empty;
+                    form.HomeValue = string.Empty;
+                    form.TypeHousingValue = string.Empty;
+                    form.HousingValue = string.Empty;
+                    form.TypeFlatValue = string.Empty;
+                    form.FlatValue = string.Empty;
+                }
+
+                form.ShowDialog(this);
+
+                if (form.ApplyClicked)
+                {
+                    m_idBeneficiar = 0;
+
+                    txtBeneficiar.Text = form.NameValue;
+
+                    var arrDetails = new object[1, 3];
+                    arrDetails[0, 0] = form.NameValue;
+                    arrDetails[0, 1] = form.INNValue;
+
+                    var arrAddress = new object[1, 18];
+                    arrAddress[0, 0] = form.IndexValue;
+                    arrAddress[0, 1] = form.CodeCountryValue;
+                    arrAddress[0, 2] = form.TypeRegionValue;
+                    arrAddress[0, 3] = form.RegionValue;
+                    arrAddress[0, 4] = form.TypeAreaValue;
+                    arrAddress[0, 5] = form.AreaValue;
+                    arrAddress[0, 6] = form.TypeCityValue;
+                    arrAddress[0, 7] = form.CityValue;
+                    arrAddress[0, 8] = form.TypeSettlValue;
+                    arrAddress[0, 9] = form.SettlValue;
+                    arrAddress[0, 10] = form.TypeStreetValue;
+                    arrAddress[0, 11] = form.StreetValue;
+                    arrAddress[0, 12] = form.TypeHomeValue;
+                    arrAddress[0, 13] = form.HomeValue;
+                    arrAddress[0, 14] = form.TypeHousingValue;
+                    arrAddress[0, 15] = form.HousingValue;
+                    arrAddress[0, 16] = form.TypeFlatValue;
+                    arrAddress[0, 17] = form.FlatValue;
+
+                    arrDetails[0, 2] = arrAddress;
+                    m_arrDetailsBeneficiar = arrDetails;
+                }
+
+                form.Dispose();
+            }
+            catch (Exception ex)
+            {
+                base.Ubs_ShowError(ex);
+            }
         }
     }
 }
