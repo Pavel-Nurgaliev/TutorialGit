@@ -520,12 +520,16 @@ After conversion, verify:
 1. **Channel Arrays:** Arrays received from `IUbsChannel.ParamOut()` may still be in VB.NET (col, row) format. Verify and convert if needed.
 2. **Performance:** Array dimension swapping doesn't affect performance, but be consistent throughout the codebase.
 3. **Documentation:** Always document array structure when converting:
-  ```csharp
+
+```csharp
    // Array structure: arrCountry[row, column]
    // Column 0: Country code
    // Column 1: Country name
-  ```
-4. **Type Safety:** Use `as object[,]` for type casting when receiving arrays from channel or other sources.
+  
+
+```
+
+1. **Type Safety:** Use `as object[,]` for type casting when receiving arrays from channel or other sources.
 
 ---
 
