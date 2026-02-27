@@ -1513,6 +1513,7 @@ namespace UbsBusiness
             this.btnAddRate.TabIndex = 1;
             this.btnAddRate.Text = "Добавить";
             this.btnAddRate.UseVisualStyleBackColor = true;
+            this.btnAddRate.Click += new System.EventHandler(this.btnAddRate_Click);
             // 
             // trvRates
             // 

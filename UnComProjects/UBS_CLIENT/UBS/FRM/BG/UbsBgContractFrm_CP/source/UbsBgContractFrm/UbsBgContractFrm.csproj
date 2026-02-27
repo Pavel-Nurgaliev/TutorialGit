@@ -38,6 +38,13 @@
     <DocumentationFile>bin\Release\UbsBgContractFrm.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AxInterop.UBSPROPLib">
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\AxInterop.UBSPROPLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.UbsAddFiledsStub">
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\Interop.UbsAddFiledsStub.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
