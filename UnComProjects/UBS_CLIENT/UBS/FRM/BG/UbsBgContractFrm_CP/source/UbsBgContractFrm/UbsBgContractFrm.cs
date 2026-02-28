@@ -1262,72 +1262,83 @@ namespace UbsBusiness
 
         private void ReReadDoc()
         {
-            if (m_command.ToUpperInvariant() != CopyCommand)
-                dateOpenGarant.DateValue = m_dateToday;
-
-            int idCurrency = (m_idCurrency > 0) ? m_idCurrency : BasicCurrency;
-
-            cmbCurrencyGarant.SelectedValue = idCurrency;
-            cmbCurrencyCover.SelectedValue = idCurrency;
-            cmbCurrencyPayFee.SelectedValue = idCurrency;
-
-            btnAddRate.Enabled = false;
-            btnDelRate.Enabled = false;
-            btnEditRate.Enabled = false;
+            ReReadDocPreamble();
 
             if (m_command.ToUpperInvariant() == EditCommand)
             {
-                SetTabsEnabled(true, 4);
-
-                GuarCmdState(true);
-
-                m_paramIn.Clear();
-                m_paramOut.Clear();
-
-                m_paramIn.Value("Id", m_idContract);
-
-                RunUbsChannelFunction("BG_Contract_Read", m_paramIn, m_paramOut);
-
-                lblUID.Visible = true;
-                lblUID.Text = $"{lblUID.Text} {Convert.ToString(m_paramOut["UID"])}";
-
-                if (m_paramOut.Contains("strError"))
-                {
-                    MessageBox.Show(Convert.ToString(m_paramOut["strError"]),
-                        MsgContractGuarantee, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    btnExit_Click(this, EventArgs.Empty);
+                if (!ReReadDocLoadAndValidateContract())
                     return;
-                }
 
-                if (Convert.ToInt32(m_paramOut["Доступ"]) == 0)
+                ReReadDocApplyContractMainData();
+                ReReadDocApplyAgentGuarantListAndModel();
+                ReReadDocApplyPayFeeGuarantRiskAndCombos();
+
+                if (!ReReadDocApplyBonusCoverAndPayOrderCombos())
+                    return;
+
+                ReReadDocApplyEditNonDraftVisibility();
+            }
+            else
+            {
+                dateCloseGarant.DateValue = MinDate;
+            }
+
+            ReReadDocFinalize();
+        }
+
+        private bool ReReadDocLoadAndValidateContract()
+        {
+            if (m_command.ToUpperInvariant() != EditCommand)
+                return true;
+
+            SetTabsEnabled(true, 4);
+            GuarCmdState(true);
+
+            m_paramIn.Clear();
+            m_paramOut.Clear();
+            m_paramIn.Value("Id", m_idContract);
+            RunUbsChannelFunction("BG_Contract_Read", m_paramIn, m_paramOut);
+
+            lblUID.Visible = true;
+            lblUID.Text = $"{lblUID.Text} {Convert.ToString(m_paramOut["UID"])}";
+
+            if (m_paramOut.Contains("strError"))
+            {
+                MessageBox.Show(Convert.ToString(m_paramOut["strError"]),
+                    MsgContractGuarantee, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                btnExit_Click(this, EventArgs.Empty);
+                return false;
+            }
+
+            if (Convert.ToInt32(m_paramOut["Доступ"]) == 0)
+            {
+                m_isSecure = false;
+                MessageBox.Show(MsgNoEditAccess,
+                    MsgContractGuarantee, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                btnSave.Enabled = false;
+            }
+
+            m_arrPeriodPay = m_paramOut["Срок погашения оплаченной суммы"] as object[,];
+            m_isFixSum = (Convert.ToString(m_paramOut["Тип вознаграждения"]) == "Фиксированная сумма");
+
+            if (Convert.ToInt32(m_paramOut["Доступ"]) == 0)
+            {
+                if (m_paramOut.Contains("ОИ"))
                 {
-                    m_isSecure = false;
-
-                    MessageBox.Show(MsgNoEditAccess,
-                        MsgContractGuarantee, MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                    btnSave.Enabled = false;
+                    var one = new List<KeyValuePair<int, string>>();
+                    one.Add(new KeyValuePair<int, string>(
+                        Convert.ToInt32(m_paramOut["ОИ"]),
+                        Convert.ToString(m_paramOut["Наименование ОИ"])));
+                    InitComboBox(cmbExecutor, one);
+                    cmbExecutor.SelectedValue = Convert.ToInt32(m_paramOut["ОИ"]);
                 }
+            }
 
-                m_arrPeriodPay = m_paramOut["Срок погашения оплаченной суммы"] as object[,];
+            return true;
+        }
 
-                m_isFixSum = (Convert.ToString(m_paramOut["Тип вознаграждения"]) == "Фиксированная сумма");
-
-                if (Convert.ToInt32(m_paramOut["Доступ"]) == 0)
-                {
-                    if (m_paramOut.Contains("ОИ"))
-                    {
-                        var one = new List<KeyValuePair<int, string>>();
-                        one.Add(new KeyValuePair<int, string>(
-                            Convert.ToInt32(m_paramOut["ОИ"]),
-                            Convert.ToString(m_paramOut["Наименование ОИ"])));
-
-                        InitComboBox(cmbExecutor, one);
-
-                        cmbExecutor.SelectedValue = Convert.ToInt32(m_paramOut["ОИ"]);
-                    }
-                }
-
+        private void ReReadDocApplyContractMainData()
+        {
                 // Тексты
                 txtModel.Text = Convert.ToString(m_paramOut["Типовой договор"]);
                 txtAgent.Text = Convert.ToString(m_paramOut["Агент"]);
@@ -1379,7 +1390,10 @@ namespace UbsBusiness
                 {
                     txtPrincipal.Text = Convert.ToString(m_paramOut["Принципал"]);
                 }
+        }
 
+        private void ReReadDocApplyAgentGuarantListAndModel()
+        {
                 // ===== Агент: Reward/Cost блок =====
                 if (m_idAgent > 0)
                 {
@@ -1447,7 +1461,10 @@ namespace UbsBusiness
                 {
                     linkGarant.Enabled = true;
                 }
+        }
 
+        private void ReReadDocApplyPayFeeGuarantRiskAndCombos()
+        {
                 // ===================== Вознаграждение (гарант) =====================
                 m_orderPayFeeGuarant = Convert.ToString(m_paramOut["Порядок уплаты вознаграждения (гарант)"]);
 
@@ -1541,7 +1558,10 @@ namespace UbsBusiness
 
                 txtPreviousContract.Enabled = false;
                 txtPreviousContract.Text = Convert.ToString(m_paramOut["InfoPrevContract"]);
+        }
 
+        private bool ReReadDocApplyBonusCoverAndPayOrderCombos()
+        {
                 // ===== Доп.поля по валютам вознаграждения =====
                 int idBonusValuta = Convert.ToInt32(m_paramOut["Идентификатор валюты вознаграждения"]);
                 cmbCurrencyPayFee.SelectedValue = idBonusValuta;
@@ -1585,7 +1605,7 @@ namespace UbsBusiness
                     if (CheckParamForClose("InitDoc"))
                     {
                         btnExit_Click(this, EventArgs.Empty);
-                        return;
+                        return false;
                     }
                 }
 
@@ -1610,7 +1630,7 @@ namespace UbsBusiness
                     if (CheckParamForClose("InitDoc"))
                     {
                         btnExit_Click(this, EventArgs.Empty);
-                        return;
+                        return false;
                     }
                 }
 
@@ -1636,12 +1656,34 @@ namespace UbsBusiness
                         cmbCurrencyRewardGuarant.Enabled = true;
                     }
                 }
-            }
-            else
-            {
-                dateCloseGarant.Text = string.Empty;
-            }
 
+            return true;
+        }
+
+        private void ReReadDocApplyEditNonDraftVisibility()
+        {
+            if (m_idState != 4)
+                dateCloseGarant.DateValue = MinDate;
+        }
+
+        private void ReReadDocPreamble()
+        {
+            if (m_command.ToUpperInvariant() != CopyCommand)
+                dateOpenGarant.DateValue = m_dateToday;
+
+            int idCurrency = (m_idCurrency > 0) ? m_idCurrency : BasicCurrency;
+
+            cmbCurrencyGarant.SelectedValue = idCurrency;
+            cmbCurrencyCover.SelectedValue = idCurrency;
+            cmbCurrencyPayFee.SelectedValue = idCurrency;
+
+            btnAddRate.Enabled = false;
+            btnDelRate.Enabled = false;
+            btnEditRate.Enabled = false;
+        }
+
+        private void ReReadDocFinalize()
+        {
             cmbCurrencyGarant.Enabled = CurrencyGarantEnabled();
 
             SetBonusCtrlsState();
@@ -1667,7 +1709,6 @@ namespace UbsBusiness
                 datePrincipal.Enabled = false;
             }
 
-            //'IdState = 4 - подготовлен
             if (m_idState != 4 && m_command != CopyCommand)
             {
                 EnabledCmdControl(false);
@@ -1695,15 +1736,12 @@ namespace UbsBusiness
                 cmbState.Enabled = false;
                 cmbNumberDiv.Enabled = false;
 
-
                 btnAddRate.Enabled = false;
                 btnDelRate.Enabled = false;
                 btnEditRate.Enabled = false;
 
-
                 linkFrameContract.Enabled = false;
                 btnFrameContractDel.Visible = false;
-
 
                 linkAgent.Enabled = false;
                 btnAgentDel.Visible = false;
@@ -1798,7 +1836,7 @@ namespace UbsBusiness
 
                     if (dateValue >= MaxDate || dateValue <= MinDate)
                     {
-                        dateCtrl.Text = string.Empty;
+                        dateCtrl.DateValue = MinDate;
                     }
                 }
             }
@@ -2181,9 +2219,9 @@ namespace UbsBusiness
             m_idAgent = 0;
             txtAgent.Text = string.Empty;
             txtNumAgent.Text = string.Empty;
-            dateAgent.Text = string.Empty;
-            dateReward.Text = string.Empty;
-            dateAdjustment.Text = string.Empty;
+            dateAgent.DateValue = MinDate;
+            dateReward.DateValue = MinDate;
+            dateAdjustment.DateValue = MinDate;
             costAmount.DecimalValue = 0m;
             paidAmount.DecimalValue = 0m;
             transAmount.DecimalValue = 0m;
