@@ -1,11 +1,9 @@
 using AxUBSPROPLib;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Windows.Forms;
 using UbsControl;
 using UbsService;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace UbsBusiness
 {
@@ -206,78 +204,96 @@ namespace UbsBusiness
         {
             m_itemArray = param_in as object[];
 
-            m_idContract = 0;
-            m_idContractCopy = 0;
-            m_isSecure = true;
+            ResetListKeyState();
 
-            if (m_command == EditCommand || m_command == CopyCommand)
-            {
-                if (m_itemArray is null)
-                {
-                    MessageBox.Show(MsgContractNotSelected, m_captionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                    if (CheckParamForClose("InitParamForm"))
-                    {
-                        btnExit_Click(this, EventArgs.Empty);
-                        return false;
-                    }
-                }
-
-                int id = Convert.ToInt32(m_itemArray[0]);
-                if (m_command == EditCommand)
-                    m_idContract = id;
-                else
-                    m_idContractCopy = id;
-
-                if (m_idContract == 0 && m_idContractCopy == 0)
-                {
-                    MessageBox.Show(MsgContractNotSelected, m_captionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                    if (CheckParamForClose("InitParamForm"))
-                    {
-                        btnExit_Click(this, EventArgs.Empty);
-                        return false;
-                    }
-                }
-            }
-
-            else if (m_command == AddByFrameContrantCommand)
-            {
-                m_idFrameContract = m_itemArray is null ? Convert.ToInt32(m_itemArray[0]) : 0;
-
-                if (m_idFrameContract == 0)
-                {
-                    MessageBox.Show(MsgFrameContractNotSelected, m_captionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                    if (CheckParamForClose("InitParamForm"))
-                    {
-                        btnExit_Click(this, EventArgs.Empty);
-                        return false;
-                    }
-                }
-
-                m_command = AddCommand;
-            }
-            else if (m_command == AddByFramePrepareCommand)
-            {
-                m_idFrameContract = m_itemArray is null ? Convert.ToInt32(m_itemArray[0]) : 0;
-
-                if (m_idFrameContract == 0)
-                {
-                    MessageBox.Show(MsgFrameContractNotSelected, m_captionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                    if (CheckParamForClose("InitParamForm"))
-                    {
-                        btnExit_Click(this, EventArgs.Empty);
-                        return false;
-                    }
-                }
-
-                m_command = PrepareCommand;
-            }
+            if (!TryApplyEditOrCopyListKeyParams())
+                return false;
+            if (!TryApplyAddByFrameContractListKeyParams())
+                return false;
+            if (!TryApplyAddByFramePrepareListKeyParams())
+                return false;
 
             InitDoc();
 
+            return true;
+        }
+
+        private void ResetListKeyState()
+        {
+            m_idContract = 0;
+            m_idContractCopy = 0;
+            m_isSecure = true;
+        }
+
+        private bool TryApplyEditOrCopyListKeyParams()
+        {
+            if (m_command != EditCommand && m_command != CopyCommand)
+                return true;
+
+            if (m_itemArray is null)
+            {
+                MessageBox.Show(MsgContractNotSelected, m_captionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (CheckParamForClose("InitParamForm"))
+                    btnExit_Click(this, EventArgs.Empty);
+                return false;
+            }
+
+            int id = Convert.ToInt32(m_itemArray[0]);
+            if (m_command == EditCommand)
+                m_idContract = id;
+            else
+                m_idContractCopy = id;
+
+            if (m_idContract == 0 && m_idContractCopy == 0)
+            {
+                MessageBox.Show(MsgContractNotSelected, m_captionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (CheckParamForClose("InitParamForm"))
+                    btnExit_Click(this, EventArgs.Empty);
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool TryApplyAddByFrameContractListKeyParams()
+        {
+            if (m_command != AddByFrameContrantCommand)
+                return true;
+
+            m_idFrameContract = (m_itemArray != null && m_itemArray.Length > 0)
+                ? Convert.ToInt32(m_itemArray[0])
+                : 0;
+
+            if (m_idFrameContract == 0)
+            {
+                MessageBox.Show(MsgFrameContractNotSelected, m_captionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (CheckParamForClose("InitParamForm"))
+                    btnExit_Click(this, EventArgs.Empty);
+                return false;
+            }
+
+            m_command = AddCommand;
+            return true;
+        }
+
+        private bool TryApplyAddByFramePrepareListKeyParams()
+        {
+            if (m_command != AddByFramePrepareCommand)
+                return true;
+
+            m_idFrameContract = (m_itemArray != null && m_itemArray.Length > 0)
+                ? Convert.ToInt32(m_itemArray[0])
+                : 0;
+
+            if (m_idFrameContract == 0)
+            {
+                MessageBox.Show(MsgFrameContractNotSelected, m_captionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (CheckParamForClose("InitParamForm"))
+                    btnExit_Click(this, EventArgs.Empty);
+                return false;
+            }
+
+            m_command = PrepareCommand;
             return true;
         }
 
