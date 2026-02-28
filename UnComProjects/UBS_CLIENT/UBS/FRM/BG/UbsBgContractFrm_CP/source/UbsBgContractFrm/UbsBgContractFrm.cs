@@ -1,10 +1,10 @@
 ﻿using AxUBSPROPLib;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 using UbsControl;
 using UbsService;
-using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace UbsBusiness
@@ -77,6 +77,7 @@ namespace UbsBusiness
         private DateTime m_dateToday = DateTime.MinValue;
 
         private string m_captionForm = "Изменить договор гарантии";
+
         private object[] m_kindAddflSense;
         private int m_idCurrency;
         private int m_idCoverType;
@@ -127,6 +128,12 @@ namespace UbsBusiness
         private object[,] m_arrInterval;
         private int m_idCurrencyPayFee;
         private int m_idCurrencyCover;
+
+        private string m_loadParam;
+        private object[] m_arrPayOrder;
+        private object[] m_arrTypeBonus;
+        private DateTime m_dateNextPayFeeValue;
+        private DateTime m_dateNextPayFeeBonusValue;
         #endregion
 
         /// <summary>
@@ -294,6 +301,9 @@ namespace UbsBusiness
             try
             {
                 base.IUbsChannel.LoadResource = "VBS:UBS_VBD\\BG\\BG_CONTRACT.vbs";
+
+                m_paramIn.Clear();
+                m_paramOut.Clear();
 
                 m_dateToday = GetCurrentDate();
 
@@ -515,13 +525,11 @@ namespace UbsBusiness
                         txtContractCover.Text = Convert.ToString(m_paramOut.Value("Договор покрытия"));
                     }
 
-                    var accs = Convert.ToDecimal(m_paramOut.Value("Счета"));
+                    var accs = m_paramOut.Value("Счета") as object[,];
                     m_axUbsControlProperty.set_PropertyByName("Реквизиты оплаты гарантии", m_paramOut.Value("Реквизиты оплаты гарантии"));
 
-                    base.IUbsChannel.ParamIn("ID", m_idModel);
-                    base.IUbsChannel.Run("BGReadModelById");
-
-                    m_paramOut.ItemsVector = base.IUbsChannel.ParamsOut;
+                    m_paramIn.Value("ID", m_idModel);
+                    RunUbsChannelFunction("BGReadModelById", m_paramIn, m_paramOut);
 
                     m_arrPeriodPay = m_paramOut.Value("Срок погашения оплаченной суммы") as object[,];
 
@@ -548,44 +556,207 @@ namespace UbsBusiness
                             switch (m_arrRates[i].ToString())
                             {
                                 case "Ставка % по оплаченной гарантии":
-                                    arrRatesFromModel[1, 0] = m_arrPeriodPay[2, 0];
+                                    arrRatesFromModel[0, 1] = m_arrPeriodPay[0, 2];
                                     m_arrRateValues[i] = arrRatesFromModel;
                                     break;
 
                                 case "Ставка % по просроченной оплате гарантии":
-                                    arrRatesFromModel[1, 0] = m_arrPeriodPay[3, 0];
+                                    arrRatesFromModel[0, 1] = m_arrPeriodPay[0, 3];
                                     m_arrRateValues[i] = arrRatesFromModel;
                                     break;
 
                                 case "Ставка пени за просрочку погашения процентов по оплаченной гарантии":
                                 case "Ставка пени за просрочку погашения оплаченной гарантии":
-                                    arrRatesFromModel[1, 0] = m_arrPeriodPay[4, 0];
+                                    arrRatesFromModel[0, 1] = m_arrPeriodPay[0, 4];
                                     m_arrRateValues[i] = arrRatesFromModel;
                                     break;
 
                                 case "Ставка вознаграждения за пользование гарантией":
-                                    arrRatesFromModel[1, 0] =
+                                    arrRatesFromModel[0, 1] =
                                         Convert.ToDouble(m_paramOut.Value("Ставка вознаграждения"));
                                     m_arrRateValues[i] = arrRatesFromModel;
                                     break;
 
                                 case "Ставка вознаграждения (гарант)":
-                                    arrRatesFromModel[1, 0] =
+                                    arrRatesFromModel[0, 1] =
                                         Convert.ToDouble(m_paramOut.Value("Ставка вознаграждения (гарант)"));
                                     m_arrRateValues[i] = arrRatesFromModel;
                                     break;
 
                                 case "Ставка вознаграждения за выдачу гарантии":
-                                    arrRatesFromModel[1, 0] =
+                                    arrRatesFromModel[0, 1] =
                                         Convert.ToDouble(m_paramOut.Value("Ставка вознаграждения за выдачу"));
                                     m_arrRateValues[i] = arrRatesFromModel;
                                     break;
                             }
                         }
+
+                        InitTrvRates(true);
                     }
+
+                    m_axUbsControlProperty.set_PropertyByName("Очередность платежей", m_paramOut.Value("Очередность платежей"));
+                    m_axUbsControlProperty.set_PropertyByName("Досрочное гашение в групповом режиме", m_paramOut.Value("Досрочное гашение в групповом режиме"));
+                    m_axUbsControlProperty.set_PropertyByName("Параметры расчета графиков", m_paramOut.Value("Параметры расчета графиков"));
+                    m_axUbsControlProperty.set_PropertyByName("Сумма платежа", m_paramOut.Value("Сумма платежа"));
+                    m_axUbsControlProperty.set_PropertyByName("Алгоритм расчета процентов", m_paramOut.Value("Алгоритм расчета процентов"));
+                    m_axUbsControlProperty.set_PropertyByName("Льготный период", m_paramOut.Value("Льготный период"));
+                    m_axUbsControlProperty.set_PropertyByName("Режим смещения выходных дней", m_paramOut.Value("Режим смещения выходных дней"));
+                    m_axUbsControlProperty.set_PropertyByName("Алгоритм расчета суммы платежа", m_paramOut.Value("Алгоритм расчета суммы платежа"));
+                    m_axUbsControlProperty.set_PropertyByName("Исключить неполный первый период", m_paramOut.Value("Исключить неполный первый период"));
+                    m_axUbsControlProperty.set_PropertyByName("Отсрочка", m_paramOut.Value("Отсрочка"));
+
+                    txtModel.Text = Convert.ToString(m_paramOut.Value("Наименование"));
+                    m_modelType = Convert.ToString(m_paramOut.Value("Идентификатор шаблона"));
+                    m_orderPayFeeGuarant = Convert.ToString(m_paramOut.Value("Порядок уплаты вознаграждения (гарант)"));
+
+                    if (m_orderPayFeeGuarant != string.Empty)
+                    {
+                        gbPayFeeGuarant.Visible = true;
+                        if (m_orderPayFeeGuarant == "Периодически")
+                        {
+                            dateNextPayFeeGuarant.Visible = true;
+                            btnPeriodPayFeeGuarant.Visible = true;
+                            lblDateNextPayFeeGuarant.Visible = true;
+                        }
+                    }
+                    else
+                    {
+                        gbPayFeeGuarant.Visible = false;
+                    }
+
+                    if (m_paramOut.Contains("Порядок уплаты вознаграждения (список)") || m_paramOut.Value("Порядок уплаты вознаграждения (список)") == null)
+                    {
+                        MessageBox.Show(MsgPayOrderParameterEmpty, MsgContractGuarantee, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        if (CheckParamForClose(m_loadParam))
+                        {
+                            btnExit_Click(this, EventArgs.Empty);
+                        }
+                    }
+
+                    m_arrPayOrder = m_paramOut.Value("Порядок уплаты вознаграждения (список)") as object[];
+                    FillComboText(cmbOrderPayFee, m_arrPayOrder);
+                    SetComboValueText(cmbOrderPayFee, paymentOrder);
+
+                    FillComboText(cmbOrderPayFeeBonus, m_arrPayOrder);
+                    SetComboValueText(cmbOrderPayFeeBonus, paymentOrder);
+
+                    if (m_orderPayFeeGuarant != string.Empty)
+                    {
+                        FillComboText(cmbOrderPayFeeGuarant, m_arrPayOrder);
+                        SetComboValueText(cmbOrderPayFeeGuarant, m_orderPayFeeGuarant);
+                    }
+
+                    if (m_paramOut.Contains("Тип вознаграждения (список)") || m_paramOut.Value("Порядок уплаты вознаграждения (список)") == null)
+                    {
+                        MessageBox.Show(MsgPayTypeParameterEmpty, MsgContractGuarantee, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        if (CheckParamForClose(m_loadParam))
+                        {
+                            btnExit_Click(this, EventArgs.Empty);
+                        }
+                    }
+
+                    m_arrTypeBonus = m_paramOut.Value("Тип вознаграждения (список)") as object[];
+                    FillComboText(cmbTypePayFee, m_arrTypeBonus);
+                    SetComboValueText(cmbTypePayFee, Convert.ToString(m_paramOut.Value("Тип вознаграждения")));
+
+                    FillComboText(cmbTypePayFeeBonus, m_arrTypeBonus);
+                    SetComboValueText(cmbTypePayFeeBonus, Convert.ToString(m_paramOut.Value("Тип вознаграждения за выдачу")));
+
+                    SetBonusCtrlsState();
+                    SetBonusCtrlsBonusState();
+
+                    //'Вознаграждение (гарант)
+                    if (m_orderPayFeeGuarant != string.Empty)
+                    {
+                        FillComboText(cmbTypePayFeeGuarant, m_arrTypeBonus);
+                        SetComboValueText(cmbTypePayFeeGuarant, Convert.ToString(m_paramOut.Value("Тип вознаграждения (гарант)")));
+                    }
+
+                    SetTabsEnabled(false, 2, 3);
+
+                    m_paramIn.Value("Идентификатор типового договора", m_idModel);
+                    m_paramIn.Value("Порядок уплаты вознаграждения", cmbOrderPayFee.Text);
+
+                    if (m_modelType == "UBS_GUARANT")
+                    {
+                        if (m_idState != 2)
+                        {
+                            linkGarant.Enabled = false;
+                        }
+                        else
+                        {
+                            linkGarant.Enabled = true;
+                        }
+
+                        m_idGarant = 0;
+                        txtGarant.Text = string.Empty;
+                    }
+                    else//sModelType = "UBS_COUNTER_GUARANT"
+                    {
+                        linkGarant.Enabled = true;
+                    }
+
+                    RunUbsChannelFunction("BG_Contract_Init_Ucp", m_paramIn, m_paramOut);
+
+                    m_arrAccounts = accs;
+                    FilllstAccounts();
+
+                    dateNextPayFee.DateValue = Convert.ToDateTime(m_paramOut.Value("Дата следующей уплаты вознаграждения"));
                 }
 
                 ReReadDoc();
+
+                if (m_command == CopyCommand)
+                {
+                    linkModel.Enabled = true;
+                }
+
+                if (m_command == AddCommand || m_command == PrepareCommand)
+                {
+                    m_idState = 4;
+
+                    m_paramIn.Value("ID", m_idFrameContract);
+                    RunUbsChannelFunction("BGReadFrameContractById", m_paramIn, m_paramOut);
+
+                    if (m_paramOut.Contains("Ошибка"))
+                    {
+                        m_idFrameContract = 0;
+                        MessageBox.Show(Convert.ToString(m_paramOut.Value("Ошибка")), m_captionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        txtFrameContract.Text = Convert.ToString(m_paramOut.Value("Наименование"));
+                        m_dateBeginFrameContract = Convert.ToDateTime(m_paramOut.Value("Дата начала действия рамочного договора"));
+                        m_dateEndFrameContract = Convert.ToDateTime(m_paramOut.Value("Дата окончания действия рамочного договора"));
+                        m_termsFrameContract = m_paramOut.Value("Срок гарантии рамочного договора") as object[,];
+                        m_limitSaldoFrameContract = Convert.ToDecimal(m_paramOut.Value("Остаток лимита"));
+                        m_issueEndDate = Convert.ToDateTime(m_paramOut.Value("Дата окончания выдачи"));
+                        m_idFrameContractDivision = Convert.ToInt32(m_paramOut.Value("Номер отделения"));
+
+                        SetInfoByFrameContract();
+                    }
+                }
+
+                if (m_dateNextPayFeeValue > DateTime.MinValue && m_dateNextPayFeeValue > MinDate)
+                {
+                    dateNextPayFee.DateValue = m_dateNextPayFeeValue;
+                }
+                if (m_dateNextPayFeeBonusValue > DateTime.MinValue && m_dateNextPayFeeBonusValue > MinDate)
+                {
+                    dateNextPayFeeBonus.DateValue = m_dateNextPayFeeBonusValue;
+                }
+
+                if (m_command == EditCommand && m_idState == 4)
+                {
+                    linkPrincipal.Enabled = true;
+                    linkModel.Enabled = true;
+                    linkFrameContract.Visible = true;
+                    linkFrameContract.Enabled = true;
+                    linkAgent.Visible = true;
+                    linkAgent.Enabled = true;
+                }
             }
             catch (Exception ex)
             {
@@ -595,6 +766,95 @@ namespace UbsBusiness
             {
                 this.Cursor = Cursors.Default;
             }
+        }
+
+        private void RunUbsChannelFunction(string functionName, UbsParam paramIn, UbsParam paramOut, bool needAddFields = false)
+        {
+            if (!needAddFields)
+            {
+                base.IUbsChannel.ParamsInParam = paramIn;
+
+                base.IUbsChannel.Run(functionName);
+
+                m_paramOut.ItemsVector = base.IUbsChannel.ParamsOut;
+            }
+            else
+            {
+                base.UbsChannel_ParamsIn = paramIn.ItemsVector;
+
+                base.IUbsChannel.Run(functionName);
+
+                m_paramOut.ItemsVector = base.UbsChannel_ParamsOut;
+            }
+        }
+
+        private void SetBonusCtrlsBonusState()
+        {
+            if (m_idState == 4)
+            {
+                if (cmbTypePayFee.Text == PercentSumGuarant)
+                {
+                    cmbCurrencyPayFee.SelectedValue = cmbCurrencyGarant.SelectedValue;
+                    cmbCurrencyPayFee.Enabled = false;
+                }
+                else
+                {
+                    cmbCurrencyPayFee.Enabled = true;
+                }
+
+                if (cmbTypePayFeeBonus.Text == PercentSumGuarant)
+                {
+                    cmbCurrencyRewardGuarant.SelectedValue = cmbCurrencyGarant.SelectedValue;
+                    cmbCurrencyRewardGuarant.Enabled = false;
+                }
+                else
+                {
+                    cmbCurrencyRewardGuarant.Enabled = true;
+                }
+            }
+
+            if (cmbOrderPayFeeBonus.Text == "Периодически")
+            {
+                if (Convert.ToInt32(cmbState.SelectedValue) == 4)
+                {
+                    dateNextPayFeeBonus.Enabled = true;
+                }
+                else
+                {
+                    dateNextPayFeeBonus.Enabled = false;
+                }
+
+                btnPeriodPayFeeBonus.Enabled = true;
+            }
+            else
+            {
+                btnPeriodPayFeeBonus.Enabled = false;
+                dateNextPayFeeBonus.Enabled = false;
+            }
+        }
+
+        private void SetComboValueText(ComboBox cmb, string value)
+        {
+            for (int i = 0; i < cmb.Items.Count; i++)
+            {
+                if (((KeyValuePair<int, string>)cmb.Items[i]).Value == value)
+                {
+                    cmb.SelectedIndex = i;
+                }
+            }
+        }
+
+        private void FillComboText(ComboBox cmbControl, object[] arrData)
+        {
+            List<KeyValuePair<int, string>> list = new List<KeyValuePair<int, string>>();
+            for (int i = 0; i < arrData.GetLength(0); i++)
+                list.Add(new KeyValuePair<int, string>(i, (string)arrData[i]));
+
+            cmbControl.DataSource = list;
+            cmbControl.ValueMember = "Key";
+            cmbControl.DisplayMember = "Value";
+
+            cmbControl.SelectedIndex = 0;
         }
 
         private void SetComboText(ComboBox cmb, int v)
@@ -1772,9 +2032,12 @@ namespace UbsBusiness
             {
                 m_idFrameContract = Convert.ToInt32(ids[0]);
 
+                m_paramOut.Clear();
+                m_paramOut.Clear();
+
                 base.IUbsChannel.ParamIn("ID", m_idFrameContract);
 
-                base.IUbsChannel.Run("BGReadFrameContractById");
+                RunUbsChannelFunction("BGReadFrameContractById", m_paramIn, m_paramOut);
 
                 txtFrameContract.Text = Convert.ToString(base.IUbsChannel.ParamOut("Наименование"));
                 m_dateBeginFrameContract = Convert.ToDateTime(base.IUbsChannel.ParamOut("Дата начала действия рамочного договора"));
@@ -1831,17 +2094,19 @@ namespace UbsBusiness
             if (ids != null && ids.Length > 0)
             {
                 m_idAgent = Convert.ToInt32(ids[0]);
+                m_paramIn.Clear();
+                m_paramOut.Clear();
 
-                base.IUbsChannel.ParamIn("DateBegin", dateOpenGarant.DateValue);
-                base.IUbsChannel.ParamIn("IdAgent", m_idAgent);
+                m_paramIn.Value("DateBegin", dateOpenGarant.DateValue);
+                m_paramIn.Value("IdAgent", m_idAgent);
 
-                base.IUbsChannel.Run("GetDatePayment");
+                RunUbsChannelFunction("GetDatePayment", m_paramIn, m_paramOut);
 
                 dateReward.DateValue = Convert.ToDateTime(base.IUbsChannel.ParamOut("DatePayment"));
 
                 if (m_command == EditCommand)
                 {
-                    base.IUbsChannel.Run("AgentRewardAvaliable");
+                    RunUbsChannelFunction("AgentRewardAvaliable", m_paramIn, m_paramOut);
 
                     dateReward.Enabled =
                         costAmount.Enabled =
@@ -1853,9 +2118,12 @@ namespace UbsBusiness
                     costAmount.Enabled = true;
                 }
 
-                base.IUbsChannel.ParamIn("ID", m_idAgent);//ЗДЕСЬ ЛЕЖИТ ДОГОВОР С АГЕНТОМ - ID_AG_CONTRACT
+                m_paramOut.Clear();
+                m_paramIn.Clear();
 
-                base.IUbsChannel.Run("BGReadAgContr");
+                m_paramIn.Value("ID", m_idAgent);//ЗДЕСЬ ЛЕЖИТ ДОГОВОР С АГЕНТОМ - ID_AG_CONTRACT
+
+                RunUbsChannelFunction("BGReadAgContr", m_paramIn, m_paramOut);
 
                 var idAgClient = Convert.ToInt32(base.IUbsChannel.ParamOut("Ид клиента"));
                 var numAg = Convert.ToString(base.IUbsChannel.ParamOut("Номер договора агента"));
@@ -1864,11 +2132,11 @@ namespace UbsBusiness
                 txtNumAgent.Text = numAg;
                 dateAgent.DateValue = dateAg;
 
-                base.IUbsChannel.ParamIn("ID", idAgClient);
+                m_paramIn.Value("ID", idAgClient);
 
-                base.IUbsChannel.Run("BGReadClientById");
+                RunUbsChannelFunction("BGReadClientById", m_paramIn, m_paramOut);
 
-                txtAgent.Text = Convert.ToString(base.IUbsChannel.ParamOut("Наименование"));
+                txtAgent.Text = Convert.ToString(m_paramOut.Value("Наименование"));
             }
 
             EnabledCmdControl(true);
@@ -1899,11 +2167,14 @@ namespace UbsBusiness
             {
                 m_idPrincipal = Convert.ToInt32(ids[0]);
 
-                base.IUbsChannel.ParamIn("ID", m_idPrincipal);
+                m_paramIn.Clear();
+                m_paramOut.Clear();
 
-                base.IUbsChannel.Run("BGReadClientById");
+                m_paramIn.Value("ID", m_idPrincipal);
 
-                txtPrincipal.Text = Convert.ToString(base.IUbsChannel.ParamOut("Наименование"));
+                RunUbsChannelFunction("BGReadClientById", m_paramIn, m_paramOut);
+
+                txtPrincipal.Text = Convert.ToString(m_paramOut.Value("Наименование"));
 
                 linkBeneficiar.Focus();
             }
@@ -1921,11 +2192,14 @@ namespace UbsBusiness
                 m_idBeneficiar = Convert.ToInt32(ids[0]);
                 m_arrDetailsBeneficiar = null;
 
-                base.IUbsChannel.ParamIn("ID", m_idBeneficiar);
+                m_paramIn.Clear();
+                m_paramOut.Clear();
 
-                base.IUbsChannel.Run("BGReadClientById");
+                m_paramIn.Value("ID", m_idBeneficiar);
 
-                txtBeneficiar.Text = Convert.ToString(base.IUbsChannel.ParamOut("Наименование"));
+                RunUbsChannelFunction("BGReadClientById", m_paramIn, m_paramOut);
+
+                txtBeneficiar.Text = Convert.ToString(m_paramOut.Value("Наименование"));
 
                 if (linkGarant.Enabled)
                     linkGarant.Focus();
@@ -2040,11 +2314,14 @@ namespace UbsBusiness
             {
                 m_idGarant = Convert.ToInt32(ids[0]);
 
-                base.IUbsChannel.ParamIn("ID", m_idGarant);
+                m_paramIn.Clear();
+                m_paramOut.Clear();
 
-                base.IUbsChannel.Run("BGReadClientById");
+                m_paramIn.Value("ID", m_idGarant);
 
-                txtGarant.Text = Convert.ToString(base.IUbsChannel.ParamOut("Наименование"));
+                RunUbsChannelFunction("BGReadClientById", m_paramIn, m_paramOut);
+
+                txtGarant.Text = Convert.ToString(m_paramOut.Value("Наименование"));
 
                 txtNumberGarant.Focus();
             }
@@ -2062,11 +2339,14 @@ namespace UbsBusiness
             {
                 m_idPrevContract = Convert.ToInt32(ids[0]);
 
-                base.IUbsChannel.ParamIn("IdPrevContract", m_idPrevContract);
+                m_paramOut.Clear();
+                m_paramIn.Clear();
 
-                base.IUbsChannel.Run("BGReadPreviuosContract");
+                m_paramIn.Value("IdPrevContract", m_idPrevContract);
 
-                txtPreviousContract.Text = Convert.ToString(base.IUbsChannel.ParamOut("InfoPrevContract"));
+                RunUbsChannelFunction("BGReadPreviuosContract", m_paramIn, m_paramOut);
+
+                txtPreviousContract.Text = Convert.ToString(m_paramOut.Value("InfoPrevContract"));
 
                 if (tabControl.TabPages.Count > 2 && tabControl.TabPages[2].Enabled)
                 {
@@ -2088,16 +2368,16 @@ namespace UbsBusiness
             {
                 var form = new UbsBgDetailsBenificiarFrm();
 
-                var paramIn = new UbsParam();
-
                 if (m_arrCountry == null)
                 {
-                    paramIn.Value("Тип данных", "Страны");
+                    m_paramIn.Clear();
+                    m_paramOut.Clear();
 
-                    base.IUbsChannel.ParamsInParam = paramIn;
+                    m_paramIn.Value("Тип данных", "Страны");
 
-                    base.IUbsChannel.Run("GetAddressData");
-                    m_arrCountry = base.IUbsChannel.ParamOut("Данные") as object[,];
+                    RunUbsChannelFunction("GetAddressData", m_paramIn, m_paramOut);
+
+                    m_arrCountry = m_paramOut.Value("Данные") as object[,];
 
                     if (m_arrCountry != null)
                     {
@@ -2128,16 +2408,16 @@ namespace UbsBusiness
 
                 if (m_arrTypeObject == null)
                 {
-                    paramIn.Clear();
+                    m_paramIn.Clear();
+                    m_paramOut.Clear();
 
-                    paramIn.Value("Тип данных", "Типы объектов");
-                    paramIn.Value("Код страны", "643");
-                    paramIn.Value("Условия получения данных", paramIn.Items);
+                    m_paramIn.Value("Тип данных", "Типы объектов");
+                    m_paramIn.Value("Код страны", "643");
+                    m_paramIn.Value("Условия получения данных", m_paramIn.Items);
 
-                    base.IUbsChannel.ParamsInParam = paramIn;
+                    RunUbsChannelFunction("GetAddressData", m_paramIn, m_paramOut);
 
-                    base.IUbsChannel.Run("GetAddressData");
-                    m_arrTypeObject = base.IUbsChannel.ParamOut("Данные") as object[,];
+                    m_arrTypeObject = m_paramOut.Value("Данные") as object[,];
                     form.arrTypeObject = m_arrTypeObject;
                 }
                 else
@@ -2308,7 +2588,7 @@ namespace UbsBusiness
 
                 for (int i = 0; i < rateCount; i++)
                 {
-                    string rateType = Convert.ToString(m_arrRates[i, 0]);
+                    string rateType = Convert.ToString(m_arrRates[i]);
                     string key = "RateType: " + rateType;
                     TreeNode parentNode = trvRates.Nodes.Add(key, rateType);
 

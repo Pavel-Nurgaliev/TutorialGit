@@ -50,7 +50,7 @@ _ExtentY = 17277
 _Version = 131083
 TabCount = 6
 TagVariant = ""
-Tabs = "BG_Contract.dox" :   0000
+Tabs = "BG_Contract.dox" :      0000
       Begin ActiveTabs.SSActiveTabPanel SSActiveTabPanel6 
          Height = 9405
 Left = -99969
@@ -60,7 +60,7 @@ Width = 7875
 _ExtentX = 13891
 _ExtentY = 16589
 _Version = 131083
-TabGuid = "BG_Contract.dox" :   0154
+TabGuid = "BG_Contract.dox" :      0154
          Begin VB.ComboBox cmbPortfolio 
             Height = 315
 Left = 1440
@@ -146,7 +146,7 @@ Width = 8235
 _ExtentX = 14526
 _ExtentY = 16589
 _Version = 131083
-TabGuid = "BG_Contract.dox" :   017C
+TabGuid = "BG_Contract.dox" :      017C
          Begin VB.CommandButton cmdAddGuarant 
             Caption = "Заключить"
 Height = 375
@@ -211,11 +211,11 @@ Width = 8235
 _ExtentX = 14526
 _ExtentY = 16589
 _Version = 131083
-TabGuid = "BG_Contract.dox" :   01A4
+TabGuid = "BG_Contract.dox" :      01A4
          Begin UBSPROPLibCtl.UbsControlProperty ucpParam 
             Height = 6855
 Left = 0
-OleObjectBlob = "BG_Contract.dox" :   01CC
+OleObjectBlob = "BG_Contract.dox" :      01CC
             TabIndex = 86
 Top = 0
 Width = 7695
@@ -230,7 +230,7 @@ Width = 8235
 _ExtentX = 14526
 _ExtentY = 16589
 _Version = 131083
-TabGuid = "BG_Contract.dox" :   01FC
+TabGuid = "BG_Contract.dox" :      01FC
          Begin VB.Frame Frame1 
             Caption = "Порядок уплаты вознаграждения за выдачу гарантии"
 Height = 1515
@@ -420,9 +420,9 @@ Width = 3315
 End
             Begin VB.ComboBox cmbBonusValuta 
                Height = 315
-ItemData = "BG_Contract.dox" :   0224
+ItemData = "BG_Contract.dox" :      0224
                Left = 4800
-List = "BG_Contract.dox" :   0226
+List = "BG_Contract.dox" :      0226
                Style = 2  'Dropdown List
 TabIndex = 68
 Top = 1000
@@ -551,7 +551,7 @@ Width = 7875
 _ExtentX = 13891
 _ExtentY = 16589
 _Version = 131083
-TabGuid = "BG_Contract.dox" :   0228
+TabGuid = "BG_Contract.dox" :      0228
          Begin MSComctlLib.ListView lstAccounts 
             Height = 5295
 Left = 120
@@ -583,7 +583,7 @@ Width = 7875
 _ExtentX = 13891
 _ExtentY = 16589
 _Version = 131083
-TabGuid = "BG_Contract.dox" :   0250
+TabGuid = "BG_Contract.dox" :      0250
          Begin VB.TextBox txtNumAgC 
             Height = 315
 Left = 3840
@@ -626,9 +626,9 @@ Width = 2415
 End
          Begin VB.ComboBox kindComboBox 
             Height = 315
-ItemData = "BG_Contract.dox" :   0278
+ItemData = "BG_Contract.dox" :      0278
             Left = 1680
-List = "BG_Contract.dox" :   027A
+List = "BG_Contract.dox" :      027A
             Sorted = -1  'True
 Style = 2  'Dropdown List
 TabIndex = 7
@@ -1365,15 +1365,15 @@ _Version = 393216
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages = 3
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture = "BG_Contract.dox" :   027C
+            Picture = "BG_Contract.dox" :      027C
             Key = ""
 EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture = "BG_Contract.dox" :   03D6
+            Picture = "BG_Contract.dox" :      03D6
             Key = ""
 EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture = "BG_Contract.dox" :   0530
+            Picture = "BG_Contract.dox" :      0530
             Key = ""
 EndProperty
 EndProperty
