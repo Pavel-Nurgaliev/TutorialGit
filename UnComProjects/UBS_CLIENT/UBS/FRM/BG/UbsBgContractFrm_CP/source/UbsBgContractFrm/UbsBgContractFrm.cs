@@ -1,4 +1,4 @@
-using AxUBSPROPLib;
+﻿using AxUBSPROPLib;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -355,12 +355,9 @@ namespace UbsBusiness
 
             base.UbsInit();
 
-            base.UbsChannel_ParamIn("StrCommand", m_command);
+            m_paramIn.Value("StrCommand", m_command);
 
-            base.UbsChannel_Run("BG_Contract_Init");
-
-            m_paramOut.Clear();
-            m_paramOut.ItemsVector = base.UbsChannel_ParamsOut;
+            RunUbsChannelFunction("BG_Contract_Init", m_paramIn, m_paramOut);
 
             ubsCtrlFields.Refresh();
 
@@ -488,8 +485,8 @@ namespace UbsBusiness
 
         private void InitDocForCopyCommand()
         {
-            UbsChannel_ParamIn("Id", m_idContractCopy);
-            UbsChannel_Run("BG_Contract_Copy");
+            m_paramIn.Value("Id", m_idContractCopy);
+            RunUbsChannelFunction("BG_Contract_Copy", m_paramIn, m_paramOut);
 
             m_arrPeriodPay = m_paramOut.Value("Срок погашения оплаченной суммы") as object[,];
 
@@ -1284,11 +1281,13 @@ namespace UbsBusiness
 
                 GuarCmdState(true);
 
-                base.UbsChannel_ParamIn("Id", m_idContract);
-                base.UbsChannel_Run("BG_Contract_Read");
-
+                m_paramIn.Clear();
                 m_paramOut.Clear();
-                m_paramOut.ItemsVector = base.UbsChannel_ParamsOut;
+
+                m_paramIn.Value("Id", m_idContract);
+
+                RunUbsChannelFunction("BG_Contract_Read", m_paramIn, m_paramOut);
+
                 lblUID.Visible = true;
                 lblUID.Text = $"{lblUID.Text} {Convert.ToString(m_paramOut["UID"])}";
 
@@ -1739,10 +1738,13 @@ namespace UbsBusiness
                     return;
                 }
 
-                base.UbsChannel_ParamIn("Счета", m_arrAccounts);
-                base.UbsChannel_Run("BGReadAccountsByContract");
+                m_paramIn.Clear();
+                m_paramOut.Clear();
 
-                string strError = Convert.ToString(base.UbsChannel_ParamOut("StrError") ?? string.Empty);
+                m_paramIn.Value("Счета", m_arrAccounts);
+                RunUbsChannelFunction("BGReadAccountsByContract", m_paramIn, m_paramOut);
+
+                string strError = Convert.ToString(m_paramOut.Value("StrError") ?? string.Empty);
                 if (!string.IsNullOrEmpty(strError))
                 {
                     MessageBox.Show(strError, MsgContractGuaranteeCaption,
@@ -1751,7 +1753,7 @@ namespace UbsBusiness
                     return;
                 }
 
-                object[,] accounts = base.UbsChannel_ParamOut("Счета") as object[,];
+                object[,] accounts = m_paramOut.Value("Счета") as object[,];
                 if (accounts != null)
                 {
                     m_arrAccounts = accounts;
@@ -2618,6 +2620,9 @@ namespace UbsBusiness
                 if (m_arrRateValues == null || m_arrRateValues.Length != rateCount)
                     m_arrRateValues = new object[rateCount];
 
+                var pIn = new UbsParam();
+                var pOut = new UbsParam();
+
                 for (int i = 0; i < rateCount; i++)
                 {
                     string rateType = Convert.ToString(m_arrRates[i]);
@@ -2631,9 +2636,12 @@ namespace UbsBusiness
                             arrRateTemp = existing;
                         else
                         {
-                            base.UbsChannel_ParamIn("RateType", StrRatePrefix + rateType);
-                            base.UbsChannel_Run("BG_GetRateByRateType");
-                            object valueRate = base.UbsChannel_ParamOut("ValueRate");
+                            pIn.Value("RateType", StrRatePrefix + rateType);
+
+                            RunUbsChannelFunction("BG_GetRateByRateType", pIn, pOut);
+
+                            object valueRate = pOut.Value("ValueRate");
+
                             if (valueRate is object[,] fromChannel)
                             {
                                 arrRateTemp = fromChannel;
