@@ -1134,6 +1134,7 @@ namespace UbsBusiness
             this.lvwAccounts.ContextMenuStrip = this.cmsAccounts;
             this.lvwAccounts.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwAccounts.FullRowSelect = true;
+            this.lvwAccounts.GridLines = true;
             this.lvwAccounts.HideSelection = false;
             this.lvwAccounts.Location = new System.Drawing.Point(3, 3);
             this.lvwAccounts.Name = "lvwAccounts";
@@ -1493,6 +1494,7 @@ namespace UbsBusiness
             this.btnDelRate.TabIndex = 3;
             this.btnDelRate.Text = "Удалить";
             this.btnDelRate.UseVisualStyleBackColor = true;
+            this.btnDelRate.Click += new System.EventHandler(this.btnDelRate_Click);
             // 
             // btnEditRate
             // 
@@ -1503,6 +1505,7 @@ namespace UbsBusiness
             this.btnEditRate.TabIndex = 2;
             this.btnEditRate.Text = "Изменить";
             this.btnEditRate.UseVisualStyleBackColor = true;
+            this.btnEditRate.Click += new System.EventHandler(this.btnEditRate_Click);
             // 
             // btnAddRate
             // 
@@ -1523,6 +1526,7 @@ namespace UbsBusiness
             this.trvRates.Name = "trvRates";
             this.trvRates.Size = new System.Drawing.Size(529, 138);
             this.trvRates.TabIndex = 0;
+            this.trvRates.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trvRates_AfterSelect);
             // 
             // tabPage5
             // 
@@ -1639,7 +1643,7 @@ namespace UbsBusiness
             this.ClientSize = new System.Drawing.Size(633, 721);
             this.Name = "UbsBgContractFrm";
             this.Text = "Шаблон формы";
-            this.Ubs_ActionRunBegin += new UbsService.UbsActionRunBeginEventHandler(this.ubsBgContractFrm_Ubs_ActionRunBegin);
+            this.Ubs_ActionRunBegin += new UbsService.UbsActionRunBeginEventHandler(this.UbsBgContractFrm_Ubs_ActionRunBegin);
             this.Controls.SetChildIndex(this.panelMain, 0);
             this.panelMain.ResumeLayout(false);
             this.tableLayoutPanel.ResumeLayout(false);

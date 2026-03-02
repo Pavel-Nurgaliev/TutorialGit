@@ -43,6 +43,41 @@ namespace UbsBusiness
 
         public bool ApplyClicked { get; set; }
 
+        /// <summary>Тип ставки (текст выбранного элемента комбобокса).</summary>
+        public string RateTypeText
+        {
+            get { return cbRateTypes.Text ?? string.Empty; }
+            set
+            {
+                cbRateTypes.Items.Clear();
+                if (!string.IsNullOrEmpty(value))
+                {
+                    cbRateTypes.Items.Add(value);
+                    cbRateTypes.SelectedIndex = 0;
+                }
+            }
+        }
+
+        /// <summary>Дата установки ставки.</summary>
+        public DateTime DateValue
+        {
+            get { return ubsCtrlDateRate.DateValue; }
+            set { ubsCtrlDateRate.DateValue = value; }
+        }
+
+        /// <summary>Значение ставки.</summary>
+        public decimal RateValue
+        {
+            get { return ubsCtrlRate.DecimalValue; }
+            set { ubsCtrlRate.DecimalValue = value; }
+        }
+
+        /// <summary>Разрешить редактирование даты (false для режима редактирования).</summary>
+        public bool DateEnabled
+        {
+            set { ubsCtrlDateRate.Enabled = value; }
+        }
+
         private void btnApply_Click(object sender, EventArgs e)
         {
             try
