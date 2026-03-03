@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Windows.Forms;
 using UbsControl;
 using UbsService;
@@ -12,55 +11,6 @@ namespace UbsBusiness
     /// </summary>
     public partial class UbsBgContractFrm : UbsFormBase
     {
-        #region Блок констант
-
-        private const int BasicCurrency = 810;
-
-        private const string MsgContractNotSelected = "Не выбран договор!";
-        private const string MsgFrameContractNotSelected = "Не выбран рамочный договор!";
-        private const string MsgRateTypesParameterMissing = "Параметр <Список типов процентных ставок> отсутствует.";
-        private const string MsgWarning = "Предупреждение";
-        private const string MsgNoRightsToCreateContract = "Нет прав на создание договора!";
-        private const string MsgAccessError = "Ошибка доступа";
-        private const string MsgRiskSettingNotFilled = "Установка <Риск (величина резерва)> не заполнена";
-        private const string MsgRiskAssessmentTypesEmpty = "Список типов оценок риска пуст";
-        private const string MsgCoverTypesEmpty = "Список типов покрытия пуст";
-        private const string MsgCurrenciesEmpty = "Список валют пуст";
-        private const string MsgInitializationError = "Ошибка инициализации";
-        private const string MsgStatesEmpty = "Список состояний пуст";
-        private const string MsgDivisionsEmpty = "Список отделений пуст";
-        private const string MsgContractGuarantee = "Договор гарантии";
-        private const string MsgNoEditAccess = "Доступ на редактирование отсутствует! Форма запущена в режиме просмотра";
-        private const string MsgPayOrderParameterEmpty = "Параметр 'Порядок уплаты вознаграждения (список)' пуст!";
-        private const string MsgPayTypeParameterEmpty = "Параметр 'Тип вознаграждения (список)' пуст!";
-        private const string MsgRateTypesArrayEmpty = "Массив типов процентных ставок пуст!";
-        private const string MsgAccountsListEmpty = "Список счетов пуст!";
-        private const string MsgContractGuaranteeCaption = "Договор банковских гарантий";
-        private const string MsgRateDateAlreadyExists = "Ставка на эту дату уже существует!";
-        private const string CaptionAddRate = "Добавить ставку";
-        private const string CaptionEditRate = "Изменить ставку";
-        private const string UbsGuarantCommand = "UBS_GUARANT";
-        private const string PercentSumGuarant = "Процент суммы гарантии";
-
-        /// <summary>Префикс типа ставки для канала (процентные ставки).</summary>
-        private const string StrRatePrefix = "[Процентные ставки].";
-
-        private const string AddCommand = "ADD";
-        private const string EditCommand = "EDIT";
-        private const string CopyCommand = "COPY";
-        private const string PrepareCommand = "PREPARE";
-
-        private const string AddByFrameContrantCommand = "ADD_BY_FRAME_CONTRACT";
-        private const string AddByFramePrepareCommand = "ADD_BY_FRAME_PREPARE";
-
-        private const string UbsCounterGuarantTypeCommand = "UBS_COUNTER_GUARANT";
-
-        private const string ActionUbsBgFrameContractList = "UBS_BG_FRAME_CONTRACT_LIST";
-        private const string ActionUbsBgListModel = "UBS_BG_LIST_MODEL";
-        private const string ActionUbsBgListAgent = "UBS_BG_LIST_AGENT";
-        private const string ActionUbsCommonListClient = "UBS_COMMON_LIST_CLIENT";
-        private const string ActionUbsBgListContract = "UBS_BG_LIST_CONTRACT";
-        #endregion
         #region Блок объявления переменных
 
         private string m_command = "";
@@ -116,11 +66,9 @@ namespace UbsBusiness
         private object[,] m_arrTypeObject;
         private object[,] m_arrAccounts;
 
-        private readonly DateTime MinDate = new DateTime(1990, 1, 1);
-        private readonly DateTime MaxDate = new DateTime(2222, 1, 1);
-
         private readonly UbsParam m_paramIn = new UbsParam();
         private readonly UbsParam m_paramOut = new UbsParam();
+
         private int m_idFrameContractDivision;
         private object[,] m_arrInterval;
         private int m_idCurrencyPayFee;
@@ -149,8 +97,7 @@ namespace UbsBusiness
             base.Ubs_CommandLock = true;
         }
 
-
-        #region Обработчики событий кнопок (с примерами)
+        #region Обработчики событий кнопок
 
         private void btnExit_Click(object sender, EventArgs e) { this.Close(); }
         private void btnSave_Click(object sender, EventArgs e)
@@ -183,7 +130,7 @@ namespace UbsBusiness
 
                 base.IUbsChannel.ParamIn("ID", m_idFrameContract);
 
-                RunUbsChannelFunction("BGReadFrameContractById", m_paramIn, m_paramOut);
+                RunUbsChannel("BGReadFrameContractById", m_paramIn, m_paramOut);
 
                 txtFrameContract.Text = Convert.ToString(base.IUbsChannel.ParamOut("Наименование"));
                 m_dateBeginFrameContract = Convert.ToDateTime(base.IUbsChannel.ParamOut("Дата начала действия рамочного договора"));
@@ -203,7 +150,7 @@ namespace UbsBusiness
             m_idFrameContract = 0;
             txtFrameContract.Text = string.Empty;
             linkPrincipal.Enabled = true;
-            cmbCurrencyGarant.Enabled = IsCmbValutaEnabled();
+            cmbCurrencyGarant.Enabled = IsCmbCurrencyEnabled();
             m_dateBeginFrameContract =
                 m_dateEndFrameContract = m_minDate;
             m_termsFrameContract = null;
@@ -246,13 +193,13 @@ namespace UbsBusiness
                 m_paramIn.Value("DateBegin", dateOpenGarant.DateValue);
                 m_paramIn.Value("IdAgent", m_idAgent);
 
-                RunUbsChannelFunction("GetDatePayment", m_paramIn, m_paramOut);
+                RunUbsChannel("GetDatePayment", m_paramIn, m_paramOut);
 
                 dateReward.DateValue = Convert.ToDateTime(base.IUbsChannel.ParamOut("DatePayment"));
 
                 if (m_command == EditCommand)
                 {
-                    RunUbsChannelFunction("AgentRewardAvaliable", m_paramIn, m_paramOut);
+                    RunUbsChannel("AgentRewardAvaliable", m_paramIn, m_paramOut);
 
                     dateReward.Enabled =
                         costAmount.Enabled =
@@ -269,7 +216,7 @@ namespace UbsBusiness
 
                 m_paramIn.Value("ID", m_idAgent);//ЗДЕСЬ ЛЕЖИТ ДОГОВОР С АГЕНТОМ - ID_AG_CONTRACT
 
-                RunUbsChannelFunction("BGReadAgContr", m_paramIn, m_paramOut);
+                RunUbsChannel("BGReadAgContr", m_paramIn, m_paramOut);
 
                 var idAgClient = Convert.ToInt32(base.IUbsChannel.ParamOut("Ид клиента"));
                 var numAg = Convert.ToString(base.IUbsChannel.ParamOut("Номер договора агента"));
@@ -280,7 +227,7 @@ namespace UbsBusiness
 
                 m_paramIn.Value("ID", idAgClient);
 
-                RunUbsChannelFunction("BGReadClientById", m_paramIn, m_paramOut);
+                RunUbsChannel("BGReadClientById", m_paramIn, m_paramOut);
 
                 txtAgent.Text = Convert.ToString(m_paramOut.Value("Наименование"));
             }
@@ -318,7 +265,7 @@ namespace UbsBusiness
 
                 m_paramIn.Value("ID", m_idPrincipal);
 
-                RunUbsChannelFunction("BGReadClientById", m_paramIn, m_paramOut);
+                RunUbsChannel("BGReadClientById", m_paramIn, m_paramOut);
 
                 txtPrincipal.Text = Convert.ToString(m_paramOut.Value("Наименование"));
 
@@ -343,7 +290,7 @@ namespace UbsBusiness
 
                 m_paramIn.Value("ID", m_idBeneficiar);
 
-                RunUbsChannelFunction("BGReadClientById", m_paramIn, m_paramOut);
+                RunUbsChannel("BGReadClientById", m_paramIn, m_paramOut);
 
                 txtBeneficiar.Text = Convert.ToString(m_paramOut.Value("Наименование"));
 
@@ -371,7 +318,7 @@ namespace UbsBusiness
 
                 m_paramIn.Value("ID", m_idGarant);
 
-                RunUbsChannelFunction("BGReadClientById", m_paramIn, m_paramOut);
+                RunUbsChannel("BGReadClientById", m_paramIn, m_paramOut);
 
                 txtGarant.Text = Convert.ToString(m_paramOut.Value("Наименование"));
 
@@ -396,7 +343,7 @@ namespace UbsBusiness
 
                 m_paramIn.Value("IdPrevContract", m_idPrevContract);
 
-                RunUbsChannelFunction("BGReadPreviuosContract", m_paramIn, m_paramOut);
+                RunUbsChannel("BGReadPreviuosContract", m_paramIn, m_paramOut);
 
                 txtPreviousContract.Text = Convert.ToString(m_paramOut.Value("InfoPrevContract"));
 
@@ -427,7 +374,7 @@ namespace UbsBusiness
 
                     m_paramIn.Value("Тип данных", "Страны");
 
-                    RunUbsChannelFunction("GetAddressData", m_paramIn, m_paramOut);
+                    RunUbsChannel("GetAddressData", m_paramIn, m_paramOut);
 
                     m_arrCountry = m_paramOut.Value("Данные") as object[,];
 
@@ -467,7 +414,7 @@ namespace UbsBusiness
                     m_paramIn.Value("Код страны", "643");
                     m_paramIn.Value("Условия получения данных", m_paramIn.Items);
 
-                    RunUbsChannelFunction("GetAddressData", m_paramIn, m_paramOut);
+                    RunUbsChannel("GetAddressData", m_paramIn, m_paramOut);
 
                     m_arrTypeObject = m_paramOut.Value("Данные") as object[,];
                     form.arrTypeObject = m_arrTypeObject;
@@ -725,8 +672,7 @@ namespace UbsBusiness
 
         #endregion
 
-
-        #region Обработчики команд IUbs интерфейса (с примерами)
+        #region Обработчики команд IUbs интерфейса
 
         /// <summary>
         /// Процедура регистрации обработчиков команд интерфейса IUbs в базовом классе
@@ -748,6 +694,8 @@ namespace UbsBusiness
 
             return null;
         }
+
+        #region ListKey
         /// <summary>
         /// Процедура обработки команды ListKey
         /// </summary>
@@ -769,16 +717,10 @@ namespace UbsBusiness
 
             InitDoc();
 
+            this.ubsCtrlFields.Refresh();
+
             return true;
         }
-
-        private void ResetListKeyState()
-        {
-            m_idContract = 0;
-            m_idContractCopy = 0;
-            m_isSecure = true;
-        }
-
         private bool TryApplyEditOrCopyListKeyParams()
         {
             if (m_command != EditCommand && m_command != CopyCommand)
@@ -787,8 +729,8 @@ namespace UbsBusiness
             if (m_itemArray is null)
             {
                 MessageBox.Show(MsgContractNotSelected, m_captionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                if (CheckParamForClose("InitParamForm"))
-                    btnExit_Click(this, EventArgs.Empty);
+
+                btnExit_Click(this, EventArgs.Empty);
                 return false;
             }
 
@@ -801,8 +743,8 @@ namespace UbsBusiness
             if (m_idContract == 0 && m_idContractCopy == 0)
             {
                 MessageBox.Show(MsgContractNotSelected, m_captionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                if (CheckParamForClose("InitParamForm"))
-                    btnExit_Click(this, EventArgs.Empty);
+
+                btnExit_Click(this, EventArgs.Empty);
                 return false;
             }
 
@@ -821,15 +763,14 @@ namespace UbsBusiness
             if (m_idFrameContract == 0)
             {
                 MessageBox.Show(MsgFrameContractNotSelected, m_captionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                if (CheckParamForClose("InitParamForm"))
-                    btnExit_Click(this, EventArgs.Empty);
+
+                btnExit_Click(this, EventArgs.Empty);
                 return false;
             }
 
             m_command = AddCommand;
             return true;
         }
-
         private bool TryApplyAddByFramePrepareListKeyParams()
         {
             if (m_command != AddByFramePrepareCommand)
@@ -842,30 +783,70 @@ namespace UbsBusiness
             if (m_idFrameContract == 0)
             {
                 MessageBox.Show(MsgFrameContractNotSelected, m_captionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                if (CheckParamForClose("InitParamForm"))
-                    btnExit_Click(this, EventArgs.Empty);
+
+                btnExit_Click(this, EventArgs.Empty);
                 return false;
             }
 
             m_command = PrepareCommand;
             return true;
         }
+        #endregion
 
-        private bool CheckParamForClose(string nameParam)
+        private void UbsBgContractFrm_Ubs_ActionRunBegin(object sender, UbsActionRunEventArgs args)
         {
-            if (string.IsNullOrEmpty(nameParam))
-                return false;
-
-            if (nameParam == "LoadFromMenu" ||
-                nameParam == "InitParamForm" ||
-                nameParam == "InitParamGrid")
+            if (args.Action == ActionUbsBgListAgent)
             {
-                return true;
-            }
+                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                    new KeyValuePair<string, object>("наименование", "Состояние"),
+                    new KeyValuePair<string, object>("значение по умолчанию", "Открыт"),
+                    new KeyValuePair<string, object>("условие по умолчанию", "="),
+                    new KeyValuePair<string, object>("скрытый", false) }));
 
-            return false;
+                args.IUbs.Run("UbsItemsRefresh", null);
+            }
+            else if (args.Action == ActionUbsBgListModel)
+            {
+                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                    new KeyValuePair<string, object>("наименование", "Состояние"),
+                    new KeyValuePair<string, object>("значение по умолчанию", "0"),
+                    new KeyValuePair<string, object>("условие по умолчанию", "="),
+                    new KeyValuePair<string, object>("скрытый", true) }));
+
+                if (m_idFrameContract > 0 && m_termsFrameContract != null)
+                {
+                    var kinds = new object[m_termsFrameContract.GetLength(0)];
+
+                    for (int i = 0; i < m_termsFrameContract.GetLength(0); i++)
+                    {
+                        kinds[i] = m_termsFrameContract[i, 0];
+                    }
+
+                    args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                    new KeyValuePair<string, object>("наименование", "Вид гарантии"),
+                    new KeyValuePair<string, object>("значение по умолчанию", kinds),
+                    new KeyValuePair<string, object>("условие по умолчанию", "один из"),
+                    new KeyValuePair<string, object>("скрытый", false) }));
+                }
+
+
+                args.IUbs.Run("UbsItemsRefresh", null);
+            }
+            else if (args.Action == ActionUbsBgFrameContractList)
+            {
+                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                    new KeyValuePair<string, object>("наименование", "Состояние"),
+                    new KeyValuePair<string, object>("значение по умолчанию", "0"),
+                    new KeyValuePair<string, object>("условие по умолчанию", "="),
+                    new KeyValuePair<string, object>("скрытый", false) }));
+
+                args.IUbs.Run("UbsItemsRefresh", null);
+            }
         }
 
+        #endregion
+
+        #region InitDoc
         private void InitDoc()
         {
             try
@@ -899,7 +880,6 @@ namespace UbsBusiness
                 this.Cursor = Cursors.Default;
             }
         }
-
         private void RunBgContractInitAndParseOutput()
         {
             base.IUbsChannel.LoadResource = "VBS:UBS_VBD\\BG\\BG_CONTRACT.vbs";
@@ -911,9 +891,7 @@ namespace UbsBusiness
 
             m_paramIn.Value("StrCommand", m_command);
 
-            RunUbsChannelFunction("BG_Contract_Init", m_paramIn, m_paramOut);
-
-            ubsCtrlFields.Refresh();
+            RunUbsChannel("BG_Contract_Init", m_paramIn, m_paramOut);
 
             int setRekvBen =
                 Convert.ToInt32(m_paramOut.Value("setRekvBen"));
@@ -942,50 +920,24 @@ namespace UbsBusiness
 
             dateOpenGarant.DateValue = m_dateToday;
         }
-
-        private void SetControlsStateByCommand()
+        /// <summary>
+        /// Инициализация ContextMenuStrip вкладки Счета
+        /// </summary>
+        private void InitCmsAccounts()
         {
-            dateNextPayFee.Enabled = (m_idState >= 2);
+            object[,] arrListRprByAcc = m_paramOut.Value("Перечень отчетов по счету") as object[,];
 
-            if (m_command == AddCommand || m_command.ToUpperInvariant() == PrepareCommand)
+            if (arrListRprByAcc != null)
             {
-                btnReRead.Enabled = false;
-                SetTabsEnabled(false, 2, 3, 4);
+                int rows = arrListRprByAcc.GetLength(0);
+                for (int r = 0; r < rows; r++)
+                {
+                    string caption = Convert.ToString(arrListRprByAcc[r, 1]);
 
-                cmbOrderPayFee.Enabled = true;
-                cmbTypePayFee.Enabled = true;
-                cmbOrderPayFeeBonus.Enabled = true;
-                cmbTypePayFeeBonus.Enabled = true;
-            }
-            else if (m_command == CopyCommand)
-            {
-                btnReRead.Enabled = false;
-                SetTabsEnabled(true, 2, 3, 4);
-
-                cmbOrderPayFee.Enabled = true;
-                cmbTypePayFee.Enabled = true;
-                cmbOrderPayFeeBonus.Enabled = true;
-                cmbTypePayFeeBonus.Enabled = true;
-                cmbOrderPayFeeGuarant.Enabled = true;
-                cmbTypePayFeeGuarant.Enabled = true;
-                linkModel.Enabled = true;
-            }
-            else
-            {
-                btnReRead.Enabled = true;
-                SetTabsEnabled(true, 2, 3, 4);
-
-                cmbOrderPayFee.Enabled = false;
-                cmbTypePayFee.Enabled = false;
-                cmbOrderPayFeeBonus.Enabled = false;
-                cmbTypePayFeeBonus.Enabled = false;
-                cmbOrderPayFeeGuarant.Enabled = false;
-                cmbTypePayFeeGuarant.Enabled = false;
-                cmbCurrencyRewardGuarant.Enabled = false;
-                cmbCurrencyPayFee.Enabled = false;
+                    cmsAccounts.Items.Add(caption);
+                }
             }
         }
-
         private void LoadFrameContractForAddOrPrepare()
         {
             if (m_command == AddCommand || m_command == PrepareCommand)
@@ -993,7 +945,7 @@ namespace UbsBusiness
                 m_idState = 4;
 
                 m_paramIn.Value("ID", m_idFrameContract);
-                RunUbsChannelFunction("BGReadFrameContractById", m_paramIn, m_paramOut);
+                RunUbsChannel("BGReadFrameContractById", m_paramIn, m_paramOut);
 
                 if (m_paramOut.Contains("Ошибка"))
                 {
@@ -1014,7 +966,6 @@ namespace UbsBusiness
                 }
             }
         }
-
         private void ApplyNextPayFeeDatesAndEditLinks()
         {
             if (m_dateNextPayFeeValue > DateTime.MinValue && m_dateNextPayFeeValue > MinDate)
@@ -1036,11 +987,10 @@ namespace UbsBusiness
                 linkAgent.Enabled = true;
             }
         }
-
         private void InitDocForCopyCommand()
         {
             m_paramIn.Value("Id", m_idContractCopy);
-            RunUbsChannelFunction("BG_Contract_Copy", m_paramIn, m_paramOut, true);
+            RunUbsChannel("BG_Contract_Copy", m_paramIn, m_paramOut, true);
 
             m_arrPeriodPay = m_paramOut.Value("Срок погашения оплаченной суммы") as object[,];
 
@@ -1172,7 +1122,7 @@ namespace UbsBusiness
             this.ubsCtrlFields.Collection["Очередность платежей"].Value = m_paramOut.Value("Реквизиты оплаты гарантии");
 
             m_paramIn.Value("ID", m_idModel);
-            RunUbsChannelFunction("BGReadModelById", m_paramIn, m_paramOut);
+            RunUbsChannel("BGReadModelById", m_paramIn, m_paramOut);
 
             m_arrPeriodPay = m_paramOut.Value("Срок погашения оплаченной суммы") as object[,];
 
@@ -1281,10 +1231,9 @@ namespace UbsBusiness
             {
                 MessageBox.Show(MsgPayOrderParameterEmpty, MsgContractGuarantee, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                if (CheckParamForClose(m_loadParam))
-                {
-                    btnExit_Click(this, EventArgs.Empty);
-                }
+                btnExit_Click(this, EventArgs.Empty);
+
+                return;
             }
 
             m_arrPayOrder = m_paramOut.Value("Порядок уплаты вознаграждения (список)") as object[];
@@ -1304,10 +1253,8 @@ namespace UbsBusiness
             {
                 MessageBox.Show(MsgPayTypeParameterEmpty, MsgContractGuarantee, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                if (CheckParamForClose(m_loadParam))
-                {
-                    btnExit_Click(this, EventArgs.Empty);
-                }
+                btnExit_Click(this, EventArgs.Empty);
+                return;
             }
 
             m_arrTypeBonus = m_paramOut.Value("Тип вознаграждения (список)") as object[];
@@ -1350,476 +1297,17 @@ namespace UbsBusiness
                 linkGarant.Enabled = true;
             }
 
-            RunUbsChannelFunction("BG_Contract_Init_Ucp", m_paramIn, m_paramOut, true);
+            RunUbsChannel("BG_Contract_Init_Ucp", m_paramIn, m_paramOut, true);
 
             m_arrAccounts = accs;
             FilllstAccounts();
 
             dateNextPayFee.DateValue = Convert.ToDateTime(m_paramOut.Value("Дата следующей уплаты вознаграждения"));
         }
+        #endregion
 
-        private void RunUbsChannelFunction(string functionName, UbsParam paramIn, UbsParam paramOut, bool needAddFields = false)
-        {
-            if (!needAddFields)
-            {
-                base.IUbsChannel.ParamsInParam = paramIn;
 
-                base.IUbsChannel.Run(functionName);
-
-                paramOut.ItemsVector = base.IUbsChannel.ParamsOut;
-            }
-            else
-            {
-                base.UbsChannel_ParamsIn = paramIn.ItemsVector;
-
-                base.IUbsChannel.Run(functionName);
-
-                paramOut.ItemsVector = base.UbsChannel_ParamsOut;
-            }
-        }
-
-        private void SetBonusCtrlsBonusState()
-        {
-            if (m_idState == 4)
-            {
-                if (cmbTypePayFee.Text == PercentSumGuarant)
-                {
-                    cmbCurrencyPayFee.SelectedValue = cmbCurrencyGarant.SelectedValue;
-                    cmbCurrencyPayFee.Enabled = false;
-                }
-                else
-                {
-                    cmbCurrencyPayFee.Enabled = true;
-                }
-
-                if (cmbTypePayFeeBonus.Text == PercentSumGuarant)
-                {
-                    cmbCurrencyRewardGuarant.SelectedValue = cmbCurrencyGarant.SelectedValue;
-                    cmbCurrencyRewardGuarant.Enabled = false;
-                }
-                else
-                {
-                    cmbCurrencyRewardGuarant.Enabled = true;
-                }
-            }
-
-            if (cmbOrderPayFeeBonus.Text == "Периодически")
-            {
-                if (Convert.ToInt32(cmbState.SelectedValue) == 4)
-                {
-                    dateNextPayFeeBonus.Enabled = true;
-                }
-                else
-                {
-                    dateNextPayFeeBonus.Enabled = false;
-                }
-
-                btnPeriodPayFeeBonus.Enabled = true;
-            }
-            else
-            {
-                btnPeriodPayFeeBonus.Enabled = false;
-                dateNextPayFeeBonus.Enabled = false;
-            }
-        }
-
-        private void SetComboValueText(ComboBox cmb, string value)
-        {
-            for (int i = 0; i < cmb.Items.Count; i++)
-            {
-                if (((KeyValuePair<int, string>)cmb.Items[i]).Value == value)
-                {
-                    cmb.SelectedIndex = i;
-                }
-            }
-        }
-
-        private void FillComboText(ComboBox cmbControl, object[] arrData)
-        {
-            List<KeyValuePair<int, string>> list = new List<KeyValuePair<int, string>>();
-            for (int i = 0; i < arrData.GetLength(0); i++)
-                list.Add(new KeyValuePair<int, string>(i, (string)arrData[i]));
-
-            cmbControl.DataSource = list;
-            cmbControl.ValueMember = "Key";
-            cmbControl.DisplayMember = "Value";
-
-            cmbControl.SelectedIndex = 0;
-        }
-
-        private void SetComboText(ComboBox cmb, int v)
-        {
-            for (int i = 0; i < cmb.Items.Count; i++)
-            {
-                if ((int)cmb.SelectedValue == v)
-                {
-                    cmb.SelectedIndex = i;
-
-                    return;
-                }
-            }
-        }
-
-        private void InitCmsAccounts()
-        {
-            object[,] arrListRprByAcc = UbsChannel_ParamOut("Перечень отчетов по счету") as object[,];
-
-            if (arrListRprByAcc != null)
-            {
-                int rows = arrListRprByAcc.GetLength(0);
-                for (int r = 0; r < rows; r++)
-                {
-                    string caption = Convert.ToString(arrListRprByAcc[r, 1]);
-
-                    cmsAccounts.Items.Add(caption);
-                }
-            }
-        }
-
-        private void InitComboBoxes()
-        {// === Инициализация комбобокса ОИ ===
-            object[,] arrExecut = UbsChannel_ParamOut("ОИ") as object[,];
-
-            if (arrExecut != null)
-            {
-                var kvpList = MakeKvpList(arrExecut);
-
-                InitComboBox(cmbExecutor, kvpList);
-            }
-            else
-            {
-                if (m_command == AddCommand || m_command.ToUpperInvariant() == PrepareCommand)
-                {
-                    MessageBox.Show(MsgNoRightsToCreateContract, MsgAccessError, MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                    btnExit_Click(this, EventArgs.Empty);
-
-                    return;
-                }
-            }
-
-            // === Инициализация комбобокса (УЛБ) ===
-            object[,] arrWarrant = UbsChannel_ParamOut("УЛБ") as object[,];
-
-            if (arrWarrant != null)
-            {
-                var kvpList = MakeKvpList(arrWarrant);
-
-                InitComboBox(cmbWarrant, kvpList);
-            }
-
-            object[] arrKindAddflSense = UbsChannel_ParamOut("Виды гарантии") as object[];
-
-            if (arrKindAddflSense != null)
-            {
-                object[] extended = new object[arrKindAddflSense.Length + 1];
-
-                extended[extended.Length - 1] = string.Empty;
-
-                for (int i = 0; i < arrKindAddflSense.Length; i++)
-                {
-                    extended[i + 1] = arrKindAddflSense[i];
-                }
-
-                arrKindAddflSense = extended;
-            }
-            else
-            {
-                arrKindAddflSense = new object[] { string.Empty };
-            }
-
-            m_kindAddflSense = arrKindAddflSense;
-
-            ResetKindComboBox();
-
-            // === Категории качества ===
-            object[,] arrQualityCategory = UbsChannel_ParamOut("Категории качества") as object[,];
-
-            if (arrQualityCategory != null)
-            {
-                var kvpList = MakeKvpList(arrQualityCategory, 0, 0);
-
-                InitComboBox(cmbQualityCategory, kvpList);
-            }
-            else
-            {
-                MessageBox.Show(MsgRiskSettingNotFilled,
-                    MsgWarning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-
-            // === Портфели ===
-            cmbPortfolio.Items.Clear();
-
-            object[,] arrPortfolio = UbsChannel_ParamOut("Портфели") as object[,];
-
-            if (arrPortfolio != null)
-            {
-                var kvpList = MakeKvpList(arrPortfolio);
-
-                kvpList.Insert(0, new KeyValuePair<int, string>(0, "Портфель не определен"));
-
-                InitComboBox(cmbPortfolio, kvpList);
-            }
-
-            // === Тип оценки риска ===
-            object[,] arrTypeValidationRisk = UbsChannel_ParamOut("Тип оценки риска") as object[,];
-
-            if (arrTypeValidationRisk != null)
-            {
-                var kvpList = MakeKvpList(arrTypeValidationRisk);
-
-                InitComboBox(cmbTypeValidationRisk, kvpList);
-            }
-            else
-            {
-                MessageBox.Show(MsgRiskAssessmentTypesEmpty,
-                    MsgWarning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-
-            // === Типы покрытия ===
-            object[,] arrCoverTypes = UbsChannel_ParamOut("Типы покрытия") as object[,];
-
-            if (arrCoverTypes != null)
-            {
-                var kvpList = MakeKvpList(arrCoverTypes);
-
-                InitComboBox(cmbTypeCover, kvpList);
-            }
-            else
-            {
-                MessageBox.Show(MsgCoverTypesEmpty,
-                    MsgWarning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-
-            // === Валюты ===
-            object[,] arrCurrency = UbsChannel_ParamOut("Валюты") as object[,];
-            if (arrCurrency != null)
-            {
-                int idxCurrency = 0;
-                int idCurrency = m_idCurrency > 0 ? m_idCurrency : 810;
-
-                cmbCurrencyGarant.Items.Clear();
-                cmbCurrencyCover.Items.Clear();
-                cmbCurrencyPayFee.Items.Clear();
-                cmbCurrencyRewardGuarant.Items.Clear();
-
-                int rows = arrCurrency.GetLength(0);
-                for (int r = 0; r < rows; r++)
-                {
-                    int id = Convert.ToInt32(arrCurrency[r, 0]);
-                    string text = Convert.ToString(arrCurrency[r, 3]);
-
-                    cmbCurrencyGarant.Items.Add(new ComboItem(id, text));
-                    cmbCurrencyCover.Items.Add(new ComboItem(id, text));
-                    cmbCurrencyPayFee.Items.Add(new ComboItem(id, text));
-                    cmbCurrencyRewardGuarant.Items.Add(new ComboItem(id, text));
-
-                    if (id == idCurrency) idxCurrency = r;
-                }
-
-                if (cmbCurrencyGarant.Items.Count > 0)
-                {
-                    cmbCurrencyGarant.SelectedIndex = idxCurrency;
-                    cmbCurrencyCover.SelectedIndex = idxCurrency;
-                    cmbCurrencyPayFee.SelectedIndex = idxCurrency;
-                    cmbCurrencyRewardGuarant.SelectedIndex = idxCurrency;
-                }
-            }
-            else
-            {
-                if (CheckParamForClose("InitDoc"))
-                {
-                    MessageBox.Show(MsgCurrenciesEmpty, MsgInitializationError,
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    btnExit_Click(this, EventArgs.Empty);
-                    return;
-                }
-
-                MessageBox.Show(MsgCurrenciesEmpty, MsgWarning,
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-
-            // === Состояния ===
-            object[,] arrState = UbsChannel_ParamOut("Состояния") as object[,];
-
-            if (arrState != null)
-            {
-                int idxState = 0;
-                m_idState = 4;
-
-                cmbState.Items.Clear();
-
-                var kvpList = MakeKvpList(arrState);
-
-                InitComboBox(cmbState, kvpList);
-
-                for (int i = 0; i < arrState.GetLength(0); i++)
-                {
-                    if (Convert.ToInt32(arrState[i, 0]) == m_idState)
-                        idxState = i;
-                }
-
-                if (cmbState.Items.Count > 0)
-                    cmbState.SelectedIndex = idxState;
-
-                cmbState.Enabled = false;
-            }
-            else
-            {
-                MessageBox.Show(MsgStatesEmpty, MsgWarning,
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-
-            // === Отделения ===
-            object[,] arrDivs = UbsChannel_ParamOut("Отделения") as object[,];
-
-            if (arrDivs != null)
-            {
-                int idxDiv = 0;
-                int gudiv = Convert.ToInt32(UbsChannel_ParamOut("GUDiv"));
-
-                cmbNumberDiv.Items.Clear();
-
-                var kvpList = MakeKvpList(arrDivs);
-
-                InitComboBox(cmbNumberDiv, kvpList);
-
-                for (int i = 0; i < kvpList.Count; i++)
-                {
-                    if (kvpList[i].Key == gudiv)
-                    {
-                        idxDiv = i;
-                    }
-                }
-
-                if (cmbNumberDiv.Items.Count > 0)
-                    cmbNumberDiv.SelectedIndex = idxDiv;
-
-                if (m_command.ToUpperInvariant() != AddCommand)
-                {
-                    if (m_command == EditCommand && m_idState == 2)
-                    {
-                        cmbNumberDiv.Enabled = true;
-
-                        if (cmbTypePayFee.SelectedText == PercentSumGuarant)
-                        {
-                            cmbCurrencyPayFee.SelectedIndex = cmbCurrencyGarant.SelectedIndex;
-
-                            cmbCurrencyPayFee.Enabled = false;
-                            cmbCurrencyRewardGuarant.Enabled = false;
-                        }
-                        else
-                        {
-                            cmbCurrencyPayFee.Enabled = true;
-                            cmbCurrencyRewardGuarant.Enabled = true;
-                        }
-
-                        if (cmbTypePayFee.SelectedText == PercentSumGuarant)
-                        {
-                            cmbCurrencyPayFee.SelectedIndex = cmbCurrencyGarant.SelectedIndex;
-
-                            cmbCurrencyRewardGuarant.Enabled = false;
-                        }
-                        else
-                        {
-                            cmbCurrencyRewardGuarant.Enabled = true;
-                        }
-                    }
-                    else
-                    {
-                        cmbNumberDiv.Enabled = false;
-                    }
-                }
-
-                if (m_command.ToUpperInvariant() == PrepareCommand)
-                    cmbNumberDiv.Enabled = true;
-            }
-            else
-            {
-                MessageBox.Show(MsgDivisionsEmpty, MsgWarning,
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-
-        }
-
-        private static void SetComboById(ComboBox combo, int id)
-        {
-            for (int i = 0; i < combo.Items.Count; i++)
-            {
-                ComboItem it = combo.Items[i] as ComboItem;
-                if (it != null && it.Id == id)
-                {
-                    combo.SelectedIndex = i;
-                    return;
-                }
-            }
-        }
-        private void SetTabsEnabled(bool enabled, params int[] tabIndexes)
-        {
-            for (int i = 0; i < tabIndexes.Length; i++)
-            {
-                int idx = tabIndexes[i];
-                if (idx >= 0 && idx < tabControl.TabPages.Count)
-                {
-                    foreach (Control c in tabControl.TabPages[idx].Controls)
-                        c.Enabled = enabled;
-                }
-            }
-        }
-        private DateTime GetCurrentDate()
-        {
-            base.IUbsChannel.ParamIn("NameSetting", "Server");
-            base.IUbsChannel.Run("GetCommonDate");
-
-            return Convert.ToDateTime(base.IUbsChannel.ParamOut("DataSetting"));
-        }
-        private void ResetKindComboBox()
-        {
-            object selectedItem = null;
-            if (cmbKindGarant.SelectedItem != null)
-            {
-                selectedItem =
-                    (KeyValuePair<int, string>)cmbKindGarant.SelectedItem;
-            }
-
-            cmbKindGarant.DataSource = null;
-            cmbKindGarant.Items.Clear();
-
-            var tmpKindGarantArr = GetArrayForCombo(m_kindAddflSense);
-            var kvpList = MakeKvpList(tmpKindGarantArr);
-
-            InitComboBox(cmbKindGarant, kvpList);
-
-            cmbKindGarant.SelectedIndex = cmbKindGarant.Items.Count - 1;
-            if (cmbKindGarant.SelectedItem != null)
-            {
-                SetComboItem(cmbKindGarant, (KeyValuePair<int, string>)cmbKindGarant.SelectedItem);
-            }
-        }
-
-        private object[,] GetArrayForCombo(object[] kindAddflSense)
-        {
-            var result = new object[kindAddflSense.Length, 2];
-
-            for (int i = 0; i < kindAddflSense.Length; i++)
-            {
-                result[i, 0] = i;
-                result[i, 1] = kindAddflSense[i];
-            }
-
-            return result;
-        }
-        private void SetComboItem(ComboBox comboBox, KeyValuePair<int, string> selectedItem)
-        {
-            foreach (KeyValuePair<int, string> item in comboBox.Items)
-            {
-                if (item.Key == selectedItem.Key)
-                {
-                    comboBox.SelectedItem = item;
-                }
-            }
-        }
-
+        #region ReReadDoc
         private void ReReadDoc()
         {
             ReReadDocPreamble();
@@ -1857,7 +1345,7 @@ namespace UbsBusiness
             m_paramIn.Clear();
             m_paramOut.Clear();
             m_paramIn.Value("Id", m_idContract);
-            RunUbsChannelFunction("BG_Contract_Read", m_paramIn, m_paramOut);
+            RunUbsChannel("BG_Contract_Read", m_paramIn, m_paramOut, true);
 
             lblUID.Visible = true;
             lblUID.Text = $"{lblUID.Text} {Convert.ToString(m_paramOut["UID"])}";
@@ -2162,11 +1650,9 @@ namespace UbsBusiness
             {
                 MessageBox.Show(MsgPayOrderParameterEmpty,
                     MsgContractGuarantee, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                if (CheckParamForClose("InitDoc"))
-                {
-                    btnExit_Click(this, EventArgs.Empty);
-                    return false;
-                }
+
+                btnExit_Click(this, EventArgs.Empty);
+                return false;
             }
 
             object[] arrTypeBonus = m_paramOut["Тип вознаграждения (список)"] as object[];
@@ -2187,11 +1673,9 @@ namespace UbsBusiness
             {
                 MessageBox.Show(MsgPayTypeParameterEmpty,
                     MsgContractGuarantee, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                if (CheckParamForClose("InitDoc"))
-                {
-                    btnExit_Click(this, EventArgs.Empty);
-                    return false;
-                }
+
+                btnExit_Click(this, EventArgs.Empty);
+                return false;
             }
 
             if (m_idState == 4)
@@ -2315,10 +1799,10 @@ namespace UbsBusiness
 
             CorrectFormDateCtrls();
         }
+        #endregion
 
         /// <summary>
         /// Заполняет список счетов (lvwAccounts) из m_arrAccounts через BGReadAccountsByContract.
-        /// VB: FilllstAccounts.
         /// </summary>
         private void FilllstAccounts()
         {
@@ -2337,7 +1821,7 @@ namespace UbsBusiness
                 m_paramOut.Clear();
 
                 m_paramIn.Value("Счета", m_arrAccounts);
-                RunUbsChannelFunction("BGReadAccountsByContract", m_paramIn, m_paramOut);
+                RunUbsChannel("BGReadAccountsByContract", m_paramIn, m_paramOut);
 
                 string strError = Convert.ToString(m_paramOut.Value("StrError") ?? string.Empty);
                 if (!string.IsNullOrEmpty(strError))
@@ -2368,7 +1852,6 @@ namespace UbsBusiness
                 base.Ubs_ShowError(ex);
             }
         }
-
         private void UpdateCover()
         {
             if (m_idCoverType > 0)
@@ -2382,7 +1865,6 @@ namespace UbsBusiness
                 cmbCurrencyCover.Enabled = false;
             }
         }
-
         private void CorrectFormDateCtrls()
         {
             foreach (Control ctrl in this.Controls)
@@ -2398,7 +1880,6 @@ namespace UbsBusiness
                 }
             }
         }
-
         private void SetBonusCtrlsState()
         {
             if (m_idState == 4)
@@ -2443,9 +1924,7 @@ namespace UbsBusiness
                 dateNextPayFee.Enabled = false;
             }
         }
-
         private bool CurrencyGarantEnabled() => (m_idState == 4 && m_idFrameContract == 0);
-
         private void FillLvwGuarant()
         {
             lvwGuarant.Items.Clear();
@@ -2467,11 +1946,10 @@ namespace UbsBusiness
                 }
             }
         }
-
         private void SetInfoByFrameContract()
         {
-            m_idPrincipal = Convert.ToInt32(base.UbsChannel_ParamOut("Идентификатор клиента-принципала"));
-            txtPrincipal.Text = Convert.ToString(base.UbsChannel_ParamOut("Принципал"));
+            m_idPrincipal = Convert.ToInt32(m_paramOut.Value("Идентификатор клиента-принципала"));
+            txtPrincipal.Text = Convert.ToString(m_paramOut.Value("Принципал"));
             linkPrincipal.Enabled = false;
 
             if (m_termsFrameContract != null && m_termsFrameContract.GetType().IsArray)
@@ -2481,7 +1959,7 @@ namespace UbsBusiness
 
             SetTabsEnabled(false, 1);
 
-            m_idCurrency = Convert.ToInt32(base.UbsChannel_ParamOut("Идентификатор валюты рамочного договора"));
+            m_idCurrency = Convert.ToInt32(m_paramOut.Value("Идентификатор валюты рамочного договора"));
 
             if (m_idState == 4)
             {
@@ -2559,7 +2037,6 @@ namespace UbsBusiness
                 cmbKindGarant.EndUpdate();
             }
         }
-
         private void SetEnableCombos()
         {
             if (m_idState == 4)
@@ -2583,7 +2060,6 @@ namespace UbsBusiness
             cmbCurrencyGarant.Enabled = cmbCurrencyGarantEnabled;
 
         }
-
         private void GuarCmdState(bool inState, bool inLock = false)
         {
             if (inLock)
@@ -2598,377 +2074,72 @@ namespace UbsBusiness
 
             btnEditGuarant.Enabled = inState;
         }
-
-
-        private void InitComboBox(ComboBox cmb, object list)
+        private void SetBonusCtrlsBonusState()
         {
-            cmb.DataSource = null;
-            cmb.DataSource = list;
-            cmb.ValueMember = "Key";
-            cmb.DisplayMember = "Value";
-            if (cmb.Items.Count > 0)
-                cmb.SelectedIndex = 0;
-        }
-
-        private static List<KeyValuePair<int, string>> MakeKvpList(object[,] vbArr, int colId = 0, int colText = 1)
-        {
-            var res = new List<KeyValuePair<int, string>>();
-
-            if (vbArr == null)
-                return res;
-
-            int rows = vbArr.GetLength(0);
-
-            for (int r = 0; r < rows; r++)
+            if (m_idState == 4)
             {
-                int id = Convert.ToInt32(vbArr[r, colId]);
-                string text = Convert.ToString(vbArr[r, colText]);
-
-                res.Add(new KeyValuePair<int, string>(id, text));
-            }
-
-            return res;
-        }
-
-        private static List<KeyValuePair<int, string>> MakeKvpList(object[] vbArr)
-        {
-            var res = new List<KeyValuePair<int, string>>();
-
-            if (vbArr == null)
-                return res;
-
-            int rows = vbArr.GetLength(0);
-
-            for (int r = 0; r < rows; r++)
-            {
-                int id = r;
-                string text = Convert.ToString(vbArr[r]);
-
-                res.Add(new KeyValuePair<int, string>(id, text));
-            }
-
-            return res;
-        }
-        #endregion
-
-        private void EnabledCmdControl(bool isEnabled)
-        {
-            linkBeneficiar.Enabled = isEnabled;
-
-            if (m_idState != 0 && m_idState != 2)
-            {
-                btnManualBenificiar.Enabled = isEnabled;
-            }
-            if (m_modelType == UbsCounterGuarantTypeCommand)
-            {
-                linkGarant.Enabled = isEnabled;
-            }
-
-            linkModel.Enabled = isEnabled;
-            linkAgent.Enabled = isEnabled;
-            linkPreviousContract.Enabled = isEnabled;
-
-            if (m_idFrameContract == 0)
-            {
-                txtPrincipal.Enabled = isEnabled;
-            }
-            if (linkFrameContract.Visible)
-            {
-                linkFrameContract.Enabled = isEnabled;
-            }
-            if (btnFrameContractDel.Visible)
-            {
-                btnFrameContractDel.Enabled = isEnabled;
-            }
-            if (linkAgent.Visible)
-            {
-                linkAgent.Enabled = isEnabled;
-            }
-            if (btnAgentDel.Visible)
-            {
-                btnAgentDel.Enabled = isEnabled;
-            }
-
-            if (m_setRekvBen == 1)
-            {
-                btnManualBenificiar.Enabled = false;
-            }
-        }
-        private void UbsBgContractFrm_Ubs_ActionRunBegin(object sender, UbsActionRunEventArgs args)
-        {
-            if (args.Action == ActionUbsBgListAgent)
-            {
-                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
-                    new KeyValuePair<string, object>("наименование", "Состояние"),
-                    new KeyValuePair<string, object>("значение по умолчанию", "Открыт"),
-                    new KeyValuePair<string, object>("условие по умолчанию", "="),
-                    new KeyValuePair<string, object>("скрытый", false) }));
-
-                args.IUbs.Run("UbsItemsRefresh", null);
-            }
-            else if (args.Action == ActionUbsBgListModel)
-            {
-                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
-                    new KeyValuePair<string, object>("наименование", "Состояние"),
-                    new KeyValuePair<string, object>("значение по умолчанию", "0"),
-                    new KeyValuePair<string, object>("условие по умолчанию", "="),
-                    new KeyValuePair<string, object>("скрытый", true) }));
-
-                if (m_idFrameContract > 0 && m_termsFrameContract != null)
+                if (cmbTypePayFee.Text == PercentSumGuarant)
                 {
-                    var kinds = new object[m_termsFrameContract.GetLength(0)];
-
-                    for (int i = 0; i < m_termsFrameContract.GetLength(0); i++)
-                    {
-                        kinds[i] = m_termsFrameContract[i, 0];
-                    }
-
-                    args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
-                    new KeyValuePair<string, object>("наименование", "Вид гарантии"),
-                    new KeyValuePair<string, object>("значение по умолчанию", kinds),
-                    new KeyValuePair<string, object>("условие по умолчанию", "один из"),
-                    new KeyValuePair<string, object>("скрытый", false) }));
+                    cmbCurrencyPayFee.SelectedValue = cmbCurrencyGarant.SelectedValue;
+                    cmbCurrencyPayFee.Enabled = false;
+                }
+                else
+                {
+                    cmbCurrencyPayFee.Enabled = true;
                 }
 
-
-                args.IUbs.Run("UbsItemsRefresh", null);
+                if (cmbTypePayFeeBonus.Text == PercentSumGuarant)
+                {
+                    cmbCurrencyRewardGuarant.SelectedValue = cmbCurrencyGarant.SelectedValue;
+                    cmbCurrencyRewardGuarant.Enabled = false;
+                }
+                else
+                {
+                    cmbCurrencyRewardGuarant.Enabled = true;
+                }
             }
-            else if (args.Action == ActionUbsBgFrameContractList)
-            {
-                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
-                    new KeyValuePair<string, object>("наименование", "Состояние"),
-                    new KeyValuePair<string, object>("значение по умолчанию", "0"),
-                    new KeyValuePair<string, object>("условие по умолчанию", "="),
-                    new KeyValuePair<string, object>("скрытый", false) }));
 
-                args.IUbs.Run("UbsItemsRefresh", null);
+            if (cmbOrderPayFeeBonus.Text == OrderPayPeriodically)
+            {
+                if (Convert.ToInt32(cmbState.SelectedValue) == 4)
+                {
+                    dateNextPayFeeBonus.Enabled = true;
+                }
+                else
+                {
+                    dateNextPayFeeBonus.Enabled = false;
+                }
+
+                btnPeriodPayFeeBonus.Enabled = true;
+            }
+            else
+            {
+                btnPeriodPayFeeBonus.Enabled = false;
+                dateNextPayFeeBonus.Enabled = false;
             }
         }
-        private bool IsCmbValutaEnabled() => (m_idState == 4 && m_idFrameContract == 0);
-
-        /// <summary>
-        /// Инициализация дерева ставок (trvRates). Заполняет узлы по m_arrRates и m_arrRateValues,
-        /// при in_Refresh подтягивает значения через BG_GetRateByRateType при отсутствии локальных.
-        /// </summary>
-        /// <param name="inRefresh">При true — запрашивать значение по типу ставки из канала, если в m_arrRateValues ещё нет.</param>
-        private void InitTrvRates(bool inRefresh = false)
+        private void ResetKindComboBox()
         {
-            try
+            object selectedItem = null;
+            if (cmbKindGarant.SelectedItem != null)
             {
-                if (trvRates.Nodes.Count > 0)
-                    trvRates.Nodes.Clear();
-
-                if (m_arrRates == null || m_arrRates.GetLength(0) == 0)
-                {
-                    MessageBox.Show(MsgRateTypesArrayEmpty, m_captionForm,
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                    return;
-                }
-
-                int rateCount = m_arrRates.GetLength(0);
-                if (m_arrRateValues == null || m_arrRateValues.Length != rateCount)
-                    m_arrRateValues = new object[rateCount];
-
-                var pIn = new UbsParam();
-                var pOut = new UbsParam();
-
-                for (int i = 0; i < rateCount; i++)
-                {
-                    string rateType = Convert.ToString(m_arrRates[i]);
-                    string key = "RateType: " + rateType;
-                    TreeNode parentNode = trvRates.Nodes.Add(key, rateType);
-
-                    object[,] arrRateTemp = null;
-                    if (!string.IsNullOrEmpty(rateType) && inRefresh)
-                    {
-                        if (m_arrRateValues[i] is object[,] existing)
-                            arrRateTemp = existing;
-                        else
-                        {
-                            pIn.Value("RateType", StrRatePrefix + rateType);
-
-                            RunUbsChannelFunction("BG_GetRateByRateType", pIn, pOut);
-
-                            object valueRate = pOut.Value("ValueRate");
-
-                            if (valueRate is object[,] fromChannel)
-                            {
-                                arrRateTemp = fromChannel;
-                                m_arrRateValues[i] = fromChannel;
-                            }
-                        }
-                    }
-                    else
-                        arrRateTemp = m_arrRateValues[i] as object[,];
-
-                    if (arrRateTemp != null)
-                    {
-                        int rows = arrRateTemp.GetLength(0);
-                        for (int j = 0; j < rows; j++)
-                        {
-                            string strKeyChild = key + " Date: " + Convert.ToDateTime(arrRateTemp[j, 0]).ToShortDateString();
-                            decimal val = Convert.ToDecimal(arrRateTemp[j, 1]);
-                            string tstr = Convert.ToDateTime(arrRateTemp[j, 0]).ToShortDateString() + " - " + val.ToString("N2");
-                            parentNode.Nodes.Add(strKeyChild, tstr);
-                        }
-                    }
-                }
+                selectedItem =
+                    (KeyValuePair<int, string>)cmbKindGarant.SelectedItem;
             }
-            catch (Exception ex)
+
+            cmbKindGarant.DataSource = null;
+            cmbKindGarant.Items.Clear();
+
+            var tmpKindGarantArr = GetArrayForCombo(m_kindAddflSense);
+            var kvpList = MakeKvpList(tmpKindGarantArr);
+
+            InitComboBox(cmbKindGarant, kvpList);
+
+            cmbKindGarant.SelectedIndex = cmbKindGarant.Items.Count - 1;
+            if (cmbKindGarant.SelectedItem != null)
             {
-                base.Ubs_ShowError(ex);
+                SetComboItem(cmbKindGarant, (KeyValuePair<int, string>)cmbKindGarant.SelectedItem);
             }
         }
-
-        /// <summary>
-        /// Сортирует массив ставок [row, col] по колонке 0 (дата). VB: objArray.ASort arrRateTemp, ArrCond.
-        /// </summary>
-        private static void SortRateValuesByDate(object[,] arr)
-        {
-            if (arr == null || arr.GetLength(0) <= 1) return;
-            int rows = arr.GetLength(0);
-            var list = new List<KeyValuePair<object, object>>(rows);
-            for (int r = 0; r < rows; r++)
-                list.Add(new KeyValuePair<object, object>(arr[r, 0], arr[r, 1]));
-            list.Sort((a, b) =>
-            {
-                try
-                {
-                    DateTime da = Convert.ToDateTime(a.Key);
-                    DateTime db = Convert.ToDateTime(b.Key);
-                    return da.CompareTo(db);
-                }
-                catch { return 0; }
-            });
-            for (int r = 0; r < rows; r++)
-            {
-                arr[r, 0] = list[r].Key;
-                arr[r, 1] = list[r].Value;
-            }
-        }
-
-        /// <summary>
-        /// Открывает форму ставки (добавить/редактировать), обновляет m_arrRateValues, перестраивает дерево. VB: GetRate.
-        /// </summary>
-        private void GetRate(string strCommandRates)
-        {
-            try
-            {
-                if (trvRates.SelectedNode == null)
-                    return;
-
-                using (var form = new UbsBgRatesFrm())
-                {
-                    string rateTypeForForm = trvRates.SelectedNode.Parent == null
-                        ? trvRates.SelectedNode.Text
-                        : trvRates.SelectedNode.Parent.Text;
-
-                    form.RateTypeText = rateTypeForForm;
-                    form.DateValue = dateOpenGarant.DateValue;
-
-                    bool isEdit = string.Equals(strCommandRates, EditCommand, StringComparison.OrdinalIgnoreCase);
-                    form.Text = isEdit ? CaptionEditRate : CaptionAddRate;
-
-                    if (isEdit)
-                    {
-                        string nodeText = trvRates.SelectedNode.Text;
-                        string datePart = nodeText.Length >= 10 ? nodeText.Substring(0, 10) : string.Empty;
-                        string valuePart = nodeText.Length > 13 ? nodeText.Substring(13).Trim() : "0";
-                        if (DateTime.TryParse(datePart, CultureInfo.CurrentCulture, DateTimeStyles.None, out DateTime editDate))
-                            form.DateValue = editDate;
-                        decimal.TryParse(valuePart, NumberStyles.Number, CultureInfo.CurrentCulture, out decimal editVal);
-                        form.RateValue = editVal;
-                        form.DateEnabled = false;
-                    }
-
-                    form.ShowDialog(this);
-
-                    if (form.ApplyClicked && m_arrRates != null && m_arrRateValues != null)
-                    {
-                        string selectedRateType = form.RateTypeText;
-                        DateTime newDate = form.DateValue;
-                        decimal newValue = form.RateValue;
-
-                        int rateCount = m_arrRates.Length;
-                        for (int i = 0; i < rateCount; i++)
-                        {
-                            string rateType = Convert.ToString(m_arrRates[i]);
-                            if (rateType != selectedRateType) continue;
-
-                            object[,] arrRateTemp = m_arrRateValues[i] as object[,];
-                            if (string.Equals(strCommandRates, AddCommand, StringComparison.OrdinalIgnoreCase))
-                            {
-                                if (arrRateTemp != null)
-                                {
-                                    int rows = arrRateTemp.GetLength(0);
-                                    for (int j = 0; j < rows; j++)
-                                    {
-                                        object cellDate = arrRateTemp[j, 0];
-                                        if (cellDate != null && Convert.ToDateTime(cellDate).Date == newDate.Date)
-                                        {
-                                            MessageBox.Show(MsgRateDateAlreadyExists, m_captionForm,
-                                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                            return;
-                                        }
-                                    }
-                                    int newRows = rows + 1;
-                                    var newArr = new object[newRows, 2];
-                                    for (int r = 0; r < rows; r++) { newArr[r, 0] = arrRateTemp[r, 0]; newArr[r, 1] = arrRateTemp[r, 1]; }
-                                    newArr[rows, 0] = newDate;
-                                    newArr[rows, 1] = newValue;
-                                    m_arrRateValues[i] = newArr;
-                                }
-                                else
-                                {
-                                    var newArr = new object[1, 2];
-                                    newArr[0, 0] = newDate;
-                                    newArr[0, 1] = newValue;
-                                    m_arrRateValues[i] = newArr;
-                                }
-                            }
-                            else if (string.Equals(strCommandRates, EditCommand, StringComparison.OrdinalIgnoreCase) && arrRateTemp != null)
-                            {
-                                int rows = arrRateTemp.GetLength(0);
-                                for (int j = 0; j < rows; j++)
-                                {
-                                    object cellDate = arrRateTemp[j, 0];
-                                    if (cellDate != null && Convert.ToDateTime(cellDate).Date == newDate.Date)
-                                    {
-                                        arrRateTemp[j, 0] = newDate;
-                                        arrRateTemp[j, 1] = newValue;
-                                        break;
-                                    }
-                                }
-                            }
-                            break;
-                        }
-                    }
-                }
-
-                for (int i = 0; i < (m_arrRateValues?.Length ?? 0); i++)
-                {
-                    if (m_arrRateValues[i] is object[,] arr && arr.GetLength(0) > 1)
-                        SortRateValuesByDate(arr);
-                }
-
-                InitTrvRates(false);
-                int ratesTabIndex = tabControl.TabPages.IndexOf(tabPage4);
-                if (ratesTabIndex >= 0)
-                    tabControl.SelectedIndex = ratesTabIndex;
-
-                btnAddRate.Enabled = false;
-                btnEditRate.Enabled = false;
-                btnDelRate.Enabled = false;
-
-                trvRates.Focus();
-                trvRates_AfterSelect(trvRates, new TreeViewEventArgs(trvRates.SelectedNode, TreeViewAction.Unknown));
-            }
-            catch (Exception ex)
-            {
-                base.Ubs_ShowError(ex);
-            }
-        }
-
     }
 }
