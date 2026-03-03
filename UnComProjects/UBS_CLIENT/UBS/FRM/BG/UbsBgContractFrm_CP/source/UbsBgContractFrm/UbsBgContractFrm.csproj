@@ -38,13 +38,6 @@
     <DocumentationFile>bin\Release\UbsBgContractFrm.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AxInterop.UBSPROPLib">
-      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\AxInterop.UBSPROPLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Interop.UbsAddFiledsStub">
-      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\Interop.UbsAddFiledsStub.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -102,6 +95,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComboItem.cs" />
+    <Compile Include="UbsBgContractFrm.Constants.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UbsBgContractFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +105,12 @@
       <DependentUpon>UbsBgContractFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UbsBgContractFrm.Helper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UbsBgContractFrm.Rates.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UbsBgRatesFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,6 +147,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)$(ProjectName)*" "\\Develop\ubs_nt\UBS_CLIENT\UBS\FRM\BG"
+copy "$(TargetDir)$(ProjectName)*" "C:\ProgramData\UniSAB\UBS\FRM\BG\"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
