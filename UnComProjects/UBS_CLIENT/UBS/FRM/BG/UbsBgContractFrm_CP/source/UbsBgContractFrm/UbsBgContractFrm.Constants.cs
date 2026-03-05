@@ -33,6 +33,11 @@ namespace UbsBusiness
         private const string CaptionEditRate = "Изменить ставку";
         private const string UbsGuarantCommand = "UBS_GUARANT";
         private const string PercentSumGuarant = "Процент суммы гарантии";
+        private const string OperationHasNotAccess = "Нет доступа на выполнение операций";
+        private const string ErrorCaption = "Ошибка";
+        private const string InputDateIsNotValid = "Введите корректную дату!";
+        private const string OK = "OK";
+        private const string Cancel = "Отмена";
 
         /// <summary>Префикс типа ставки для канала (процентные ставки).</summary>
         private const string StrRatePrefix = "[Процентные ставки].";
@@ -44,6 +49,13 @@ namespace UbsBusiness
 
         private const string OrderPayPeriodically = "Периодически";
 
+        private const string BgContractEditCommand = "UBS_BG_CONTRACT_EDIT";
+        private const string BgContractAddCommand = "UBS_BG_CONTRACT_ADD";
+
+        private const string BgContractCaption = "Договор гарантии";
+
+        private const string BusinessCode = "BG";
+
         private const string AddByFrameContrantCommand = "ADD_BY_FRAME_CONTRACT";
         private const string AddByFramePrepareCommand = "ADD_BY_FRAME_PREPARE";
 
@@ -54,9 +66,13 @@ namespace UbsBusiness
         private const string ActionUbsBgListAgent = "UBS_BG_LIST_AGENT";
         private const string ActionUbsCommonListClient = "UBS_COMMON_LIST_CLIENT";
         private const string ActionUbsBgListContract = "UBS_BG_LIST_CONTRACT";
+        private const string ActionUbsBgGuarListContract = "UBS_BG_GUAR_LIST_CONTRACT";
+        private const string ActionUbsGuarOperationList = "UBS_GUAR_LIST_OPERATION_LOG";
 
         private readonly DateTime MinDate = new DateTime(1990, 1, 1);
         private readonly DateTime MaxDate = new DateTime(2222, 1, 1);
+
+        private const string DataSavedSuccess = "Данные сохранены!";
 
         #endregion
     }

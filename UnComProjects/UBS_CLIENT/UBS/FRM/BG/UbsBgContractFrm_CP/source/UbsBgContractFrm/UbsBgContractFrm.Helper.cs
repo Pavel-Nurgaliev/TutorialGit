@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Remoting;
+using System.Security.Principal;
 using System.Windows.Forms;
 using UbsService;
 
@@ -509,5 +511,393 @@ namespace UbsBusiness
                 cmbCurrencyPayFee.Enabled = false;
             }
         }
+        private void AddEditGuarContract(string mode)
+        {
+            var pIn = new UbsParam();
+            var pOut = new UbsParam();
+
+            var scripterParameters = new UbsParam();
+
+            GuarCmdState(false, true);
+
+            var scripter = base.Ubs_VBScriptRunner();
+
+            UbsParent oParent = new UbsParent();
+            oParent.Form32 = this;
+            oParent.Loader = new UbsLoader();
+            UbsParentStub oParentStub = new UbsParentStub(oParent);
+            UbsUserDocument oUserDocument = new UbsUserDocument(oParentStub);
+
+            scripterParameters.Value("UbsWaitBox", new WaitBox());
+            scripterParameters.Value("DocObj", oUserDocument);
+
+            scripter.Read(@"UBS_VBS\GUAR\GuarCallContr_Cli.vbs");
+
+            pIn.Value("Номер окна", UbsShortNumerator.Number);
+            pIn.Value("Тип объекта", "BG");
+
+            if (mode == AddCommand)
+            {
+                pIn.Value("Идентификатор валюты", cmbCurrencyGarant.SelectedValue);
+            }
+            if (lvwGuarant.Items.Count > 0 &&
+                mode == EditCommand)
+            {
+                pIn.Value("Идентификатор договора обеспечения", Convert.ToInt64(lvwGuarant.SelectedItems[0].Name.Substring(5)));
+            }
+
+            pIn.Value("Идентификатор клиента", m_idPrincipal);
+            pIn.Value("Идентификатор объекта", m_idContract);
+            pIn.Value("StrCommand", mode);
+
+            m_isGuarWinOpened = true;
+
+            scripter.UbsScriptParam = scripterParameters;
+
+            scripter.Run("GuarAddContr", pIn, pOut);
+
+            GuarCmdState(true);
+
+            ReReadGuarCntracts();
+        }
+
+        private void ReReadGuarCntracts()
+        {
+            var pIn = new UbsParam();
+            var pOut = new UbsParam();
+
+            pIn.Value("Id", m_idContract);
+            RunUbsChannel("GetListGuarant", pIn, pOut);
+
+            if (pOut.Contains("Обеспечения"))
+            {
+                m_arrGuarant = pOut.Value("Обеспечения") as object[,];
+
+                FillLvwGuarant();
+            }
+        }
+
+        private void EnableControls(bool isState = true)
+        {
+            btnSave.Enabled = (isState && m_isSecure);
+            btnExit.Enabled = isState;
+        }
+
+        private bool Check()
+        {
+            if (txtModel.Text.Length < 1)
+            {
+                MessageBox.Show("Необходимо выбрать типовой договор.", "Ошибка ввода параметров",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                EnableControls();
+                tabControl.SelectedIndex = 0;
+                linkModel.Focus();
+                return false;
+            }
+
+            if (txtPrincipal.Text.Length < 1)
+            {
+                MessageBox.Show("Необходимо выбрать принципала.", "Ошибка ввода параметров",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                EnableControls();
+                tabControl.SelectedIndex = 0;
+                linkPreviousContract.Focus();
+                return false;
+            }
+
+            if (txtBeneficiar.Text.Length < 1)
+            {
+                MessageBox.Show("Необходимо выбрать бенефициара.", "Ошибка ввода параметров",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                EnableControls();
+                tabControl.SelectedIndex = 0;
+                linkBeneficiar.Focus();
+                return false;
+            }
+
+            if (txtNumberGarant.Text.Length < 1)
+            {
+                MessageBox.Show("Необходимо ввести номер договора.", "Ошибка ввода параметров",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                EnableControls();
+                tabControl.SelectedIndex = 0;
+                txtNumberGarant.Focus();
+                return false;
+            }
+
+            if (dateOpenGarant.Enabled)
+            {
+                DateTime d = dateOpenGarant.DateValue;
+                if (d <= MinDate || d >= MaxDate)
+                {
+                    MessageBox.Show("Необходимо указать дату заключения договора.", "Ошибка ввода параметров",
+                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    EnableControls();
+                    tabControl.SelectedIndex = 0;
+                    dateOpenGarant.Focus();
+                    return false;
+                }
+            }
+
+            if (dateBeginGarant.Enabled)
+            {
+                DateTime d = dateBeginGarant.DateValue;
+                if (d < dateOpenGarant.DateValue || d >= MaxDate)
+                {
+                    MessageBox.Show("Дата начала договора должна быть не ранее даты заключения.", "Ошибка ввода параметров",
+                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    EnableControls();
+                    tabControl.SelectedIndex = 0;
+                    dateBeginGarant.Focus();
+                    return false;
+                }
+            }
+
+            if (dateEndGarant.Enabled)
+            {
+                DateTime d = dateEndGarant.DateValue;
+                if (d <= dateBeginGarant.DateValue || d >= MaxDate)
+                {
+                    MessageBox.Show("Дата окончания договора должна быть больше даты начала договора.", "Ошибка ввода параметров",
+                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    EnableControls();
+                    tabControl.SelectedIndex = 0;
+                    dateEndGarant.Focus();
+                    return false;
+                }
+            }
+
+            if (m_idFrameContract > 0)
+            {
+                if (dateOpenGarant.DateValue < m_dateBeginFrameContract)
+                {
+                    MessageBox.Show(
+                        "Дата заключения должна быть не ранее даты начала действия рамочного договора — "
+                        + m_dateBeginFrameContract.ToShortDateString() + ".",
+                        "Ошибка ввода параметров", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    EnableControls();
+                    tabControl.SelectedIndex = 0;
+                    dateOpenGarant.Focus();
+                    return false;
+                }
+
+                if (dateEndGarant.DateValue > m_dateEndFrameContract)
+                {
+                    MessageBox.Show(
+                        "Дата окончания действия договора гарантии должна быть не позднее даты окончания действия рамочного договора — "
+                        + m_dateEndFrameContract.ToShortDateString() + ".",
+                        "Ошибка ввода параметров", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    EnableControls();
+                    tabControl.SelectedIndex = 0;
+                    dateEndGarant.Focus();
+                    return false;
+                }
+            }
+
+            if (ucdSumCover.Enabled)
+            {
+                if (ucdSumCover.DecimalValue <= 0m)
+                {
+                    MessageBox.Show("Необходимо указать сумму покрытия договора.", "Ошибка ввода параметров",
+                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    EnableControls();
+                    tabControl.SelectedIndex = 0;
+                    ucdSumCover.Focus();
+                    return false;
+                }
+            }
+
+            if (dateNextPayFee.Enabled)
+            {
+                DateTime d = dateNextPayFee.DateValue;
+                if (d <= MinDate || d >= MaxDate)
+                {
+                    MessageBox.Show("Необходимо указать дату следующей уплаты вознаграждения.", "Ошибка ввода параметров",
+                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    EnableControls();
+                    tabControl.SelectedIndex = 3;
+                    dateNextPayFee.Focus();
+                    return false;
+                }
+            }
+
+            if (dateNextPayFeeBonus.Enabled)
+            {
+                DateTime d = dateNextPayFeeBonus.DateValue;
+                if (d <= MinDate || d >= MaxDate)
+                {
+                    MessageBox.Show("Необходимо указать дату следующей уплаты вознаграждения.", "Ошибка ввода параметров",
+                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    EnableControls();
+                    tabControl.SelectedIndex = 3;
+                    dateNextPayFeeBonus.Focus();
+                    return false;
+                }
+            }
+
+            if (btnPeriodPayFee.Enabled)
+            {
+                if (m_arrInterval == null)
+                {
+                    MessageBox.Show("Необходимо ввести данные по порядку уплаты вознаграждения.", "Ошибка ввода параметров",
+                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    EnableControls();
+                    tabControl.SelectedIndex = 3;
+                    btnPeriodPayFee.Focus();
+                    return false;
+                }
+            }
+
+            if (cmbOrderPayFeeGuarant.Text == OrderPayPeriodically)
+            {
+                DateTime d = dateNextPayFeeGuarant.DateValue;
+                if (d <= MinDate || d >= MaxDate)
+                {
+                    MessageBox.Show("Необходимо указать дату следующей уплаты вознаграждения (гарант).", "Ошибка ввода параметров",
+                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    EnableControls();
+                    tabControl.SelectedIndex = 3;
+                    dateNextPayFeeGuarant.Focus();
+                    return false;
+                }
+
+                if (m_arrIntervalGuarant == null)
+                {
+                    MessageBox.Show("Необходимо ввести данные по порядку уплаты вознаграждения (гарант).", "Ошибка ввода параметров",
+                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    EnableControls();
+                    tabControl.SelectedIndex = 3;
+                    btnPeriodPayFeeGuarant.Focus();
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool CheckTerm()
+        {
+            if (m_idFrameContract > 0 && m_termsFrameContract != null && cmbKindGarant.Text != string.Empty)
+            {
+                int term = (dateEndGarant.DateValue - dateBeginGarant.DateValue).Days + 1;
+                string kind = cmbKindGarant.Text;
+
+                for (int i = 0; i < m_termsFrameContract.GetLength(0); i++)
+                {
+                    if (kind == Convert.ToString(m_termsFrameContract[i, 0]))
+                    {
+                        int maxTerm = Convert.ToInt32(m_termsFrameContract[i, 1]);
+                        if (term > maxTerm)
+                        {
+                            MessageBox.Show(
+                                "Cрок гарантии — " + term + " д. — превышает максимальный срок, указанный в рамочном договоре, — "
+                                + maxTerm + " д.",
+                                "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+        private bool CheckFrameLimit()
+        {
+            if (m_idFrameContract > 0 && m_limitExcessCheckOn)
+            {
+                if (ucdSumGarant.DecimalValue > m_limitSaldoFrameContract)
+                {
+                    MessageBox.Show(
+                        "Сумма гарантии — " + ucdSumGarant.DecimalValue
+                        + " — превышает остаток лимита рамочного договора — " + m_limitSaldoFrameContract,
+                        "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool CheckIssueDate()
+        {
+            if (m_idFrameContract > 0 && m_issueEndDate != MaxDate)
+            {
+                if (dateOpenGarant.DateValue > m_issueEndDate)
+                {
+                    MessageBox.Show(
+                        "Дата заключения — " + dateOpenGarant.DateValue.ToShortDateString()
+                        + " — позже даты окончания выдачи гарантии, указанной в рамочном договоре, — "
+                        + m_issueEndDate.ToShortDateString(),
+                        "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool FindInExecutEx(int idOI)
+        {
+            if (m_arrExecutEx == null) return false;
+            for (int i = 0; i < m_arrExecutEx.GetLength(0); i++)
+            {
+                if (Convert.ToInt32(m_arrExecutEx[i, 0]) == idOI)
+                    return true;
+            }
+            return false;
+        }
+
+        private DateTime AskRiskChangeDate()
+        {
+            DateTime result = DateTime.MinValue;
+
+            using (Form form = new Form())
+            {
+                form.Text = m_captionForm;
+                form.Size = new System.Drawing.Size(300, 135);
+                form.StartPosition = FormStartPosition.CenterParent;
+                form.FormBorderStyle = FormBorderStyle.FixedDialog;
+                form.MaximizeBox = false;
+                form.MinimizeBox = false;
+
+                Label label = new Label
+                {
+                    Text = "Введите дату изменения параметров риска:",
+                    Location = new System.Drawing.Point(10, 10),
+                    Size = new System.Drawing.Size(270, 20)
+                };
+                DateTimePicker picker = new DateTimePicker
+                {
+                    Format = DateTimePickerFormat.Short,
+                    Location = new System.Drawing.Point(10, 38),
+                    Size = new System.Drawing.Size(265, 25)
+                };
+                Button btnOk = new Button
+                {
+                    Text = OK,
+                    DialogResult = DialogResult.OK,
+                    Location = new System.Drawing.Point(115, 72),
+                    Size = new System.Drawing.Size(75, 25)
+                };
+                Button btnCancel = new Button
+                {
+                    Text = Cancel,
+                    DialogResult = DialogResult.Cancel,
+                    Location = new System.Drawing.Point(200, 72),
+                    Size = new System.Drawing.Size(75, 25)
+                };
+
+                form.Controls.Add(label);
+                form.Controls.Add(picker);
+                form.Controls.Add(btnOk);
+                form.Controls.Add(btnCancel);
+                form.AcceptButton = btnOk;
+                form.CancelButton = btnCancel;
+
+                if (form.ShowDialog(this) == DialogResult.OK)
+                    result = picker.Value;
+            }
+
+            return result;
+        }
+
     }
 }

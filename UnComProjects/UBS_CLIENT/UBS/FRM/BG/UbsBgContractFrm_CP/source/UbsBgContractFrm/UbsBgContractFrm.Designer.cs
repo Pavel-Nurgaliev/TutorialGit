@@ -284,7 +284,7 @@ namespace UbsBusiness
             this.ubsCtrlInfo.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.ubsCtrlInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.ubsCtrlInfo.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.ubsCtrlInfo.Interval = 25000;
+            this.ubsCtrlInfo.Interval = 500;
             this.ubsCtrlInfo.Location = new System.Drawing.Point(91, 19);
             this.ubsCtrlInfo.Name = "ubsCtrlInfo";
             this.ubsCtrlInfo.Size = new System.Drawing.Size(363, 13);
@@ -306,6 +306,7 @@ namespace UbsBusiness
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(633, 689);
             this.tabControl.TabIndex = 101;
+            this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -361,7 +362,7 @@ namespace UbsBusiness
             this.lblUID.Location = new System.Drawing.Point(125, 639);
             this.lblUID.Name = "lblUID";
             this.lblUID.Size = new System.Drawing.Size(35, 13);
-            this.lblUID.TabIndex = 36;
+            this.lblUID.TabIndex = 37;
             this.lblUID.Text = "УИД:";
             this.lblUID.Visible = false;
             // 
@@ -372,7 +373,7 @@ namespace UbsBusiness
             this.cmbWarrant.Location = new System.Drawing.Point(165, 612);
             this.cmbWarrant.Name = "cmbWarrant";
             this.cmbWarrant.Size = new System.Drawing.Size(444, 21);
-            this.cmbWarrant.TabIndex = 35;
+            this.cmbWarrant.TabIndex = 36;
             // 
             // lblWarrant
             // 
@@ -380,7 +381,7 @@ namespace UbsBusiness
             this.lblWarrant.Location = new System.Drawing.Point(6, 615);
             this.lblWarrant.Name = "lblWarrant";
             this.lblWarrant.Size = new System.Drawing.Size(154, 13);
-            this.lblWarrant.TabIndex = 34;
+            this.lblWarrant.TabIndex = 35;
             this.lblWarrant.Text = "Уполномоченное лицо банка";
             // 
             // txtPreviousContract
@@ -389,7 +390,7 @@ namespace UbsBusiness
             this.txtPreviousContract.Name = "txtPreviousContract";
             this.txtPreviousContract.ReadOnly = true;
             this.txtPreviousContract.Size = new System.Drawing.Size(444, 20);
-            this.txtPreviousContract.TabIndex = 33;
+            this.txtPreviousContract.TabIndex = 34;
             // 
             // linkPreviousContract
             // 
@@ -397,7 +398,7 @@ namespace UbsBusiness
             this.linkPreviousContract.Location = new System.Drawing.Point(14, 589);
             this.linkPreviousContract.Name = "linkPreviousContract";
             this.linkPreviousContract.Size = new System.Drawing.Size(146, 13);
-            this.linkPreviousContract.TabIndex = 32;
+            this.linkPreviousContract.TabIndex = 33;
             this.linkPreviousContract.TabStop = true;
             this.linkPreviousContract.Text = "Прежний договор гарантии";
             this.linkPreviousContract.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkPreviousContract_LinkClicked);
@@ -409,7 +410,7 @@ namespace UbsBusiness
             this.cmbNumberDiv.Location = new System.Drawing.Point(165, 559);
             this.cmbNumberDiv.Name = "cmbNumberDiv";
             this.cmbNumberDiv.Size = new System.Drawing.Size(444, 21);
-            this.cmbNumberDiv.TabIndex = 31;
+            this.cmbNumberDiv.TabIndex = 32;
             // 
             // lblNumberDiv
             // 
@@ -417,7 +418,7 @@ namespace UbsBusiness
             this.lblNumberDiv.Location = new System.Drawing.Point(98, 562);
             this.lblNumberDiv.Name = "lblNumberDiv";
             this.lblNumberDiv.Size = new System.Drawing.Size(62, 13);
-            this.lblNumberDiv.TabIndex = 30;
+            this.lblNumberDiv.TabIndex = 31;
             this.lblNumberDiv.Text = "Отделение";
             // 
             // cmbState
@@ -427,7 +428,7 @@ namespace UbsBusiness
             this.cmbState.Location = new System.Drawing.Point(165, 532);
             this.cmbState.Name = "cmbState";
             this.cmbState.Size = new System.Drawing.Size(444, 21);
-            this.cmbState.TabIndex = 29;
+            this.cmbState.TabIndex = 30;
             // 
             // lblState
             // 
@@ -435,7 +436,7 @@ namespace UbsBusiness
             this.lblState.Location = new System.Drawing.Point(98, 535);
             this.lblState.Name = "lblState";
             this.lblState.Size = new System.Drawing.Size(61, 13);
-            this.lblState.TabIndex = 28;
+            this.lblState.TabIndex = 29;
             this.lblState.Text = "Состояние";
             // 
             // cmbExecutor
@@ -445,7 +446,7 @@ namespace UbsBusiness
             this.cmbExecutor.Location = new System.Drawing.Point(165, 505);
             this.cmbExecutor.Name = "cmbExecutor";
             this.cmbExecutor.Size = new System.Drawing.Size(444, 21);
-            this.cmbExecutor.TabIndex = 27;
+            this.cmbExecutor.TabIndex = 28;
             // 
             // lblExecutor
             // 
@@ -453,7 +454,7 @@ namespace UbsBusiness
             this.lblExecutor.Location = new System.Drawing.Point(6, 508);
             this.lblExecutor.Name = "lblExecutor";
             this.lblExecutor.Size = new System.Drawing.Size(154, 13);
-            this.lblExecutor.TabIndex = 26;
+            this.lblExecutor.TabIndex = 27;
             this.lblExecutor.Text = "Ответственный исполнитель";
             // 
             // gbCover
@@ -471,7 +472,7 @@ namespace UbsBusiness
             this.gbCover.Location = new System.Drawing.Point(10, 403);
             this.gbCover.Name = "gbCover";
             this.gbCover.Size = new System.Drawing.Size(606, 95);
-            this.gbCover.TabIndex = 25;
+            this.gbCover.TabIndex = 26;
             this.gbCover.TabStop = false;
             this.gbCover.Text = "Покрытие";
             // 
@@ -566,7 +567,7 @@ namespace UbsBusiness
             this.gbGarant.Location = new System.Drawing.Point(10, 301);
             this.gbGarant.Name = "gbGarant";
             this.gbGarant.Size = new System.Drawing.Size(606, 96);
-            this.gbGarant.TabIndex = 24;
+            this.gbGarant.TabIndex = 25;
             this.gbGarant.TabStop = false;
             this.gbGarant.Text = "Гарантия";
             // 
@@ -714,7 +715,7 @@ namespace UbsBusiness
             this.gbClients.Location = new System.Drawing.Point(11, 176);
             this.gbClients.Name = "gbClients";
             this.gbClients.Size = new System.Drawing.Size(606, 119);
-            this.gbClients.TabIndex = 23;
+            this.gbClients.TabIndex = 24;
             this.gbClients.TabStop = false;
             this.gbClients.Text = "Клиенты";
             // 
@@ -810,7 +811,7 @@ namespace UbsBusiness
             this.transAmount.Name = "transAmount";
             this.transAmount.ReadOnly = true;
             this.transAmount.Size = new System.Drawing.Size(106, 20);
-            this.transAmount.TabIndex = 22;
+            this.transAmount.TabIndex = 23;
             this.transAmount.Text = "0";
             // 
             // label6
@@ -1142,6 +1143,7 @@ namespace UbsBusiness
             this.lvwAccounts.TabIndex = 0;
             this.lvwAccounts.UseCompatibleStateImageBehavior = false;
             this.lvwAccounts.View = System.Windows.Forms.View.Details;
+            this.lvwAccounts.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvwAccounts_KeyDown);
             // 
             // columnHeader1
             // 
@@ -1170,18 +1172,19 @@ namespace UbsBusiness
             this.toolStripMenuItem1,
             this.toolStripMenuItem2});
             this.cmsAccounts.Name = "cmsAccounts";
-            this.cmsAccounts.Size = new System.Drawing.Size(149, 48);
+            this.cmsAccounts.Size = new System.Drawing.Size(181, 70);
+            this.cmsAccounts.Click += new System.EventHandler(this.cmsAccounts_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(148, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
             this.toolStripMenuItem1.Text = "Выбрать счет";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(148, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(144, 22);
             this.toolStripMenuItem2.Text = "Очистить";
             // 
             // tabPage4
@@ -1552,6 +1555,7 @@ namespace UbsBusiness
             this.btnListGuarantOperDog.TabIndex = 4;
             this.btnListGuarantOperDog.Text = "Операции";
             this.btnListGuarantOperDog.UseVisualStyleBackColor = true;
+            this.btnListGuarantOperDog.Click += new System.EventHandler(this.btnListGuarantOperDog_Click);
             // 
             // btnInclude
             // 
@@ -1562,6 +1566,7 @@ namespace UbsBusiness
             this.btnInclude.TabIndex = 3;
             this.btnInclude.Text = "Привязать";
             this.btnInclude.UseVisualStyleBackColor = true;
+            this.btnInclude.Click += new System.EventHandler(this.btnInclude_Click);
             // 
             // btnEditGuarant
             // 
@@ -1572,6 +1577,7 @@ namespace UbsBusiness
             this.btnEditGuarant.TabIndex = 2;
             this.btnEditGuarant.Text = "Изменить";
             this.btnEditGuarant.UseVisualStyleBackColor = true;
+            this.btnEditGuarant.Click += new System.EventHandler(this.btnEditGuarant_Click);
             // 
             // btnAddGuarant
             // 
@@ -1582,6 +1588,7 @@ namespace UbsBusiness
             this.btnAddGuarant.TabIndex = 1;
             this.btnAddGuarant.Text = "Заключить";
             this.btnAddGuarant.UseVisualStyleBackColor = true;
+            this.btnAddGuarant.Click += new System.EventHandler(this.btnAddGuarant_Click);
             // 
             // lvwGuarant
             // 
@@ -1601,6 +1608,7 @@ namespace UbsBusiness
             this.lvwGuarant.TabIndex = 0;
             this.lvwGuarant.UseCompatibleStateImageBehavior = false;
             this.lvwGuarant.View = System.Windows.Forms.View.Details;
+            this.lvwGuarant.SelectedIndexChanged += new System.EventHandler(this.lvwGuarant_SelectedIndexChanged);
             // 
             // columnHeader5
             // 
