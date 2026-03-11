@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using UbsService;
 
@@ -27,6 +28,125 @@ namespace UbsBusiness
 
         #endregion
 
+        #region Инициализация и обмен данными (для GetBonusPayOrder)
+
+        /// <summary>
+        /// Инициализирует комбобоксы типа периода и типа даты гашений.
+        /// </summary>
+        /// <param name="periodTypes">Список (id, текст) для типа периода. Соответствует VB arrTypePeriod (row 0 = id, row 1 = text).</param>
+        /// <param name="dateTypes">Список (id, текст) для типа даты гашений. Соответствует VB arrTypeDate.</param>
+        public void InitPeriodAndDateTypes(List<KeyValuePair<int, string>> periodTypes, List<KeyValuePair<int, string>> dateTypes)
+        {
+            if (periodTypes != null && periodTypes.Count > 0)
+            {
+                cbTypePeriod.DataSource = new List<KeyValuePair<int, string>>(periodTypes);
+                cbTypePeriod.ValueMember = "Key";
+                cbTypePeriod.DisplayMember = "Value";
+                cbTypePeriod.SelectedIndex = 0;
+            }
+            if (dateTypes != null && dateTypes.Count > 0)
+            {
+                cbTypeDate.DataSource = new List<KeyValuePair<int, string>>(dateTypes);
+                cbTypeDate.ValueMember = "Key";
+                cbTypeDate.DisplayMember = "Value";
+                cbTypeDate.SelectedIndex = 0;
+            }
+            ubsCtrlPeriod.DecimalValue = 1;
+        }
+
+        /// <summary>
+        /// Устанавливает начальные значения формы из массива интервала (layout [1,4]: тип периода, период, тип даты, номер(а) дня).
+        /// </summary>
+        public void SetInitialData(object[,] arrInterval)
+        {
+            if (arrInterval == null || arrInterval.GetLength(0) < 1 || arrInterval.GetLength(1) < 4)
+                return;
+            SetComboByValue(cbTypePeriod, Convert.ToInt32(arrInterval[0, 0]));
+            ubsCtrlPeriod.DecimalValue = Convert.ToDecimal(arrInterval[0, 1]);
+            SetComboByValue(cbTypeDate, Convert.ToInt32(arrInterval[0, 2]));
+            object dayData = arrInterval[0, 3];
+            if (dayData == null || dayData == DBNull.Value) return;
+            if (ubsCtrlNumDay.Enabled)
+            {
+                if (dayData is object[,] arrDays && arrDays.GetLength(0) > 0 && arrDays.GetLength(1) > 0)
+                    ubsCtrlNumDay.DecimalValue = Convert.ToDecimal(arrDays[0, 0]);
+                else
+                    ubsCtrlNumDay.DecimalValue = Convert.ToDecimal(dayData);
+            }
+            else if (m_chkDays != null && m_chkDays.Length > 0 && m_chkDays[0].Enabled)
+            {
+                for (int i = 0; i < m_chkDays.Length; i++)
+                    m_chkDays[i].Checked = false;
+                if (dayData is object[,] arrDays && arrDays.GetLength(1) > 0)
+                {
+                    for (int c = 0; c < arrDays.GetLength(1); c++)
+                    {
+                        int oneBased = Convert.ToInt32(arrDays[0, c]);
+                        if (oneBased >= 1 && oneBased <= m_chkDays.Length)
+                            m_chkDays[oneBased - 1].Checked = true;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Возвращает выбранные значения в формате [1,4]: тип периода, период, тип даты, номер(а) дня.
+        /// </summary>
+        public object[,] GetResult()
+        {
+            var result = new object[1, 4];
+            result[0, 0] = cbTypePeriod.SelectedValue != null ? Convert.ToInt32(cbTypePeriod.SelectedValue) : 0;
+            result[0, 1] = ubsCtrlPeriod.DecimalValue;
+            result[0, 2] = cbTypeDate.SelectedValue != null ? Convert.ToInt32(cbTypeDate.SelectedValue) : 0;
+            if (ubsCtrlNumDay.Enabled)
+            {
+                result[0, 3] = ubsCtrlNumDay.DecimalValue;
+            }
+            else if (m_chkDays != null && m_chkDays[0].Enabled)
+            {
+                var list = new List<int>();
+                for (int i = 0; i < m_chkDays.Length; i++)
+                {
+                    if (m_chkDays[i].Checked)
+                        list.Add(i + 1);
+                }
+                if (list.Count > 0)
+                {
+                    var arrNumDays = new object[1, list.Count];
+                    for (int i = 0; i < list.Count; i++)
+                        arrNumDays[0, i] = list[i];
+                    result[0, 3] = arrNumDays;
+                }
+                else
+                    result[0, 3] = null;
+            }
+            else
+                result[0, 3] = null;
+            return result;
+        }
+
+        private static void SetComboByValue(ComboBox cmb, int value)
+        {
+            if (cmb.DataSource == null) return;
+            try
+            {
+                cmb.SelectedValue = value;
+            }
+            catch
+            {
+                for (int i = 0; i < cmb.Items.Count; i++)
+                {
+                    if (cmb.Items[i] is KeyValuePair<int, string> kvp && kvp.Key == value)
+                    {
+                        cmb.SelectedIndex = i;
+                        return;
+                    }
+                }
+            }
+        }
+
+        #endregion
+
         /// <summary>
         /// Конструктор
         /// </summary>
@@ -52,6 +172,15 @@ namespace UbsBusiness
             }
         }
         public bool ApplyClicked { get; set; }
+
+        /// <summary>
+        /// Разрешает или запрещает кнопку «Применить» (для режима просмотра, когда IdState &lt; 2).
+        /// </summary>
+        public bool ApplyButtonEnabled
+        {
+            get => btnApply.Enabled;
+            set => btnApply.Enabled = value;
+        }
 
         #region Обработчики событий кнопок
 

@@ -461,6 +461,24 @@ namespace UbsBusiness
 
             return res;
         }
+
+        /// <summary>
+        /// Строит список KVP из массива в формате VB (row 0 = id, row 1 = text, колонки = элементы).
+        /// </summary>
+        private static List<KeyValuePair<int, string>> MakeKvpListFromColumnBased(object[,] arr)
+        {
+            var res = new List<KeyValuePair<int, string>>();
+            if (arr == null || arr.GetLength(0) < 2)
+                return res;
+            int cols = arr.GetLength(1);
+            for (int c = 0; c < cols; c++)
+            {
+                int id = Convert.ToInt32(arr[0, c]);
+                string text = Convert.ToString(arr[1, c]);
+                res.Add(new KeyValuePair<int, string>(id, text));
+            }
+            return res;
+        }
         private void ResetListKeyState()
         {
             m_idContract = 0;
@@ -1014,6 +1032,58 @@ namespace UbsBusiness
             IntPtr intPtr = (IntPtr)base.Run("ParentHandle", null);
             IUbs formReport = (IUbs)Ubs_ActionRun((string)reportInfo[0]
                 , Control.FromHandle(intPtr), false);
+        }
+
+        /// <summary>
+        /// Соответствует VB6 GetBonusPayOrder.
+        /// Загружает данные типов периодов/дат через BG_Interval_Init, открывает форму периода уплаты вознаграждения
+        /// (UbsBgBonusPayIntervalFrm) и при нажатии «Применить» записывает выбранные значения в arrData ([1,4]).
+        /// </summary>
+        /// <param name="arrData">Массив [1,4]: тип периода, период, тип даты, номер(а) дня. Заполняется при применении.</param>
+        private void GetBonusPayOrder(object[,] arrData)
+        {
+            try
+            {
+                if (m_arrTypePeriod == null || m_arrTypePeriod.Length == 0)
+                {
+                    MessageBox.Show("Массив типов периодов пуст!", m_captionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (m_arrTypeDate == null || m_arrTypeDate.Length == 0)
+                {
+                    MessageBox.Show("Массив типов дат гашений пуст!", m_captionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                var periodTypes = MakeKvpListFromColumnBased(m_arrTypePeriod);
+                var dateTypes = MakeKvpListFromColumnBased(m_arrTypeDate);
+
+                using (var form = new UbsBgBonusPayIntervalFrm())
+                {
+                    form.InitPeriodAndDateTypes(periodTypes, dateTypes);
+                    form.SetInitialData(arrData);
+                    if (m_idState < 2)
+                        form.ApplyButtonEnabled = false;
+
+                    form.ShowDialog(this);
+
+                    if (form.ApplyClicked && arrData != null && arrData.GetLength(0) >= 1 && arrData.GetLength(1) >= 4)
+                    {
+                        object[,] result = form.GetResult();
+                        if (result != null && result.GetLength(0) >= 1 && result.GetLength(1) >= 4)
+                        {
+                            arrData[0, 0] = result[0, 0];
+                            arrData[0, 1] = result[0, 1];
+                            arrData[0, 2] = result[0, 2];
+                            arrData[0, 3] = result[0, 3];
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                base.Ubs_ShowError(ex);
+            }
         }
 
         #endregion

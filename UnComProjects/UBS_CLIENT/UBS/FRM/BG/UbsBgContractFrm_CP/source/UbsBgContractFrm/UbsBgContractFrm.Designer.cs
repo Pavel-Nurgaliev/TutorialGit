@@ -1173,19 +1173,19 @@ namespace UbsBusiness
             this.toolStripMenuItem1,
             this.toolStripMenuItem2});
             this.cmsAccounts.Name = "cmsAccounts";
-            this.cmsAccounts.Size = new System.Drawing.Size(145, 48);
+            this.cmsAccounts.Size = new System.Drawing.Size(149, 48);
             this.cmsAccounts.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmsAccounts_ItemClicked);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(148, 22);
             this.toolStripMenuItem1.Text = "Выбрать счет";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(144, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(148, 22);
             this.toolStripMenuItem2.Text = "Очистить";
             // 
             // tabPage4
@@ -1232,6 +1232,7 @@ namespace UbsBusiness
             this.btnPeriodPayFeeBonus.TabIndex = 133;
             this.btnPeriodPayFeeBonus.Text = "Период";
             this.btnPeriodPayFeeBonus.UseVisualStyleBackColor = true;
+            this.btnPeriodPayFeeBonus.Click += new System.EventHandler(this.btnPeriodPayFeeBonus_Click);
             // 
             // dateNextPayFeeBonus
             // 
@@ -1306,6 +1307,7 @@ namespace UbsBusiness
             this.cmbOrderPayFeeBonus.Name = "cmbOrderPayFeeBonus";
             this.cmbOrderPayFeeBonus.Size = new System.Drawing.Size(440, 21);
             this.cmbOrderPayFeeBonus.TabIndex = 125;
+            this.cmbOrderPayFeeBonus.SelectedIndexChanged += new System.EventHandler(this.cmbOrderPayFeeBonus_SelectedIndexChanged);
             // 
             // gbPayFeeGuarant
             // 
@@ -1348,6 +1350,7 @@ namespace UbsBusiness
             this.btnPeriodPayFeeGuarant.TabIndex = 129;
             this.btnPeriodPayFeeGuarant.Text = "Период";
             this.btnPeriodPayFeeGuarant.UseVisualStyleBackColor = true;
+            this.btnPeriodPayFeeGuarant.Click += new System.EventHandler(this.btnPeriodPayFeeGuarant_Click);
             // 
             // dateNextPayFeeGuarant
             // 
@@ -1386,6 +1389,7 @@ namespace UbsBusiness
             this.cmbOrderPayFeeGuarant.Name = "cmbOrderPayFeeGuarant";
             this.cmbOrderPayFeeGuarant.Size = new System.Drawing.Size(440, 21);
             this.cmbOrderPayFeeGuarant.TabIndex = 125;
+            this.cmbOrderPayFeeGuarant.SelectedIndexChanged += new System.EventHandler(this.cmbOrderPayFeeGuarant_SelectedIndexChanged);
             // 
             // gbOrderPayFee
             // 
@@ -1489,6 +1493,7 @@ namespace UbsBusiness
             this.cmbOrderPayFee.Name = "cmbOrderPayFee";
             this.cmbOrderPayFee.Size = new System.Drawing.Size(440, 21);
             this.cmbOrderPayFee.TabIndex = 2;
+            this.cmbOrderPayFee.SelectedIndexChanged += new System.EventHandler(this.cmbOrderPayFee_SelectedIndexChanged);
             // 
             // btnDelRate
             // 

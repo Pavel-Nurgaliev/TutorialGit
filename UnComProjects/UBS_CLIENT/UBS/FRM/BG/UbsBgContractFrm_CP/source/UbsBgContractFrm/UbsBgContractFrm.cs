@@ -91,6 +91,8 @@ namespace UbsBusiness
         private object[,] m_arrExecutEx;
         private bool m_limitExcessCheckOn;
         private int m_reflectComIssue;
+        private object[,] m_arrTypePeriod;
+        private object[,] m_arrTypeDate;
         #endregion
 
         /// <summary>
@@ -1523,6 +1525,23 @@ namespace UbsBusiness
 
             m_dateToday = GetCurrentDate();
 
+            m_paramIn.Clear();
+            m_paramOut.Clear();
+
+            RunUbsChannel("BG_Interval_Init", m_paramIn, m_paramOut);
+
+            if (m_paramOut.Contains("StrError"))
+            {
+                MessageBox.Show(Convert.ToString(m_paramOut.Value("StrError")), m_captionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            m_paramIn.Clear();
+            m_paramOut.Clear();
+
+            m_arrTypePeriod = m_paramOut.Value("Типы периодов") as object[,];
+            m_arrTypeDate = m_paramOut.Value("Типы дат гашений") as object[,];
+
             m_paramIn.Value("StrCommand", m_command);
 
             RunUbsChannel("BG_Contract_Init", m_paramIn, m_paramOut);
@@ -2935,6 +2954,60 @@ namespace UbsBusiness
         private void btnPeriodPayFee_Click(object sender, EventArgs e)
         {
             GetBonusPayOrder(m_arrInterval);
+        }
+
+        private void btnPeriodPayFeeGuarant_Click(object sender, EventArgs e)
+        {
+            GetBonusPayOrder(m_arrIntervalGuarant);
+        }
+
+        private void btnPeriodPayFeeBonus_Click(object sender, EventArgs e)
+        {
+            GetBonusPayOrder(m_arrIntervalBonus);
+
+            if (!cmbTypePayFeeBonus.Enabled)
+            {
+                tabControl.SelectedIndex = 4;
+            }
+        }
+
+        private void cmbOrderPayFee_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dateNextPayFee.DateValue = MaxDate;
+            SetBonusCtrlsState();
+        }
+
+        private void cmbOrderPayFeeGuarant_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dateNextPayFeeGuarant.DateValue = MaxDate;
+            SetBonusCtrlsStateGuarant();
+        }
+
+        private void SetBonusCtrlsStateGuarant()
+        {
+            cmbOrderPayFeeGuarant.Visible = false;
+            dateNextPayFeeGuarant.Visible = false;
+            lblDateNextPayFeeGuarant.Visible = false;
+
+            dateNextPayFeeGuarant.Enabled = false;
+            if (cmbTypePayFeeBonus.Text == OrderPayPeriodically)
+            {
+                dateNextPayFeeGuarant.Visible = true;
+
+                if (Convert.ToInt32(cmbState.SelectedValue) == 2)
+                {
+                    dateNextPayFeeGuarant.Enabled = true;
+                }
+
+                btnPeriodPayFeeGuarant.Visible = true;
+                lblDateNextPayFeeGuarant.Visible = true;
+            }
+        }
+
+        private void cmbOrderPayFeeBonus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dateNextPayFeeBonus.DateValue = MaxDate;
+            SetBonusCtrlsBonusState();
         }
     }
 }
