@@ -336,7 +336,7 @@ namespace UbsBusiness
                     return;
                 }
 
-                RunUbsChannel("BG_Contract_Edit", m_paramIn, m_paramOut);
+                RunUbsChannel("BG_Contract_Edit", m_paramIn, m_paramOut, true);
 
                 if (m_paramOut.Contains("Код ошибки") &&
                     Convert.ToInt32(m_paramOut.Value("Код ошибки")) != 0)
@@ -395,7 +395,14 @@ namespace UbsBusiness
                     cmbTypePayFeeBonus.Enabled = true;
                 }
             }
-            catch (Exception ex) { this.Ubs_ShowError(ex); }
+            catch (Exception ex)
+            {
+                EnableControls();
+
+                btnSave.Focus();
+
+                this.Ubs_ShowError(ex);
+            }
         }
 
         private void btnAddRate_Click(object sender, EventArgs e)
@@ -469,7 +476,7 @@ namespace UbsBusiness
 
                 m_paramIn.Value("ID", m_idModel);
 
-                RunUbsChannel("BGReadModelById", m_paramIn, m_paramIn);
+                RunUbsChannel("BGReadModelById", m_paramIn, m_paramOut);
                 m_arrPeriodPay = m_paramOut.Value("Срок погашения оплаченной суммы") as object[,];
 
                 if (m_arrPeriodPay != null)
@@ -619,7 +626,8 @@ namespace UbsBusiness
                     SetComboValueText(cmbOrderPayFeeGuarant, m_orderPayFeeGuarant);
                 }
 
-                if (m_paramOut.Contains("Тип вознаграждения (список)"))
+                var arrTypeBonus = m_paramOut.Value("Тип вознаграждения (список)") as object[];
+                if (arrTypeBonus is null)
                 {
                     MessageBox.Show("Параметр 'Тип вознаграждения (список)' пуст!", "Договор гарантии", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -627,7 +635,7 @@ namespace UbsBusiness
                     return;
                 }
 
-                m_arrTypeBonus = m_paramOut.Value("Типвознаграждения (список)") as object[];
+                m_arrTypeBonus = arrTypeBonus;
 
                 FillComboText(cmbTypePayFee, m_arrTypeBonus);
                 SetComboValueText(cmbTypePayFee, Convert.ToString(m_paramOut.Value("Тип вознаграждения")));
@@ -649,14 +657,16 @@ namespace UbsBusiness
                     SetTabsEnabled(true, 2, 3);
                 }
 
-                m_paramOut.Clear();
+                m_paramIn.Clear();
                 m_paramOut.Clear();
 
-                m_paramOut.Value("Идентификатор типового договора", m_idModel);
-                m_paramOut.Value("Порядок уплаты вознаграждения", cmbOrderPayFee.SelectedText);
-                m_paramOut.Value("Порядок уплаты вознаграждения за выдачу", cmbOrderPayFeeBonus.Text);
+                m_paramIn.Value("Идентификатор типового договора", m_idModel);
+                m_paramIn.Value("Порядок уплаты вознаграждения", cmbOrderPayFee.SelectedText);
+                m_paramIn.Value("Порядок уплаты вознаграждения за выдачу", cmbOrderPayFeeBonus.Text);
 
-                RunUbsChannel("BG_Contract_Init_Ucp", m_paramIn, m_paramOut, true);
+                RunUbsChannel("BG_Contract_Init_Ucp", m_paramIn, m_paramOut);
+
+                this.ubsCtrlFields.Refresh();
 
                 if (m_modelType == UbsGuarantCommand)
                 {
@@ -1475,12 +1485,12 @@ namespace UbsBusiness
             {
                 RunBgContractInitAndParseOutput();
 
+                base.UbsInit();
+
                 InitCmsAccounts();
                 InitComboBoxes();
 
                 SetControlsStateByCommand();
-
-                base.UbsInit();
 
                 if (m_command.ToUpperInvariant() == CopyCommand)
                     InitDocForCopyCommand();
@@ -1492,6 +1502,8 @@ namespace UbsBusiness
 
                 LoadFrameContractForAddOrPrepare();
                 ApplyNextPayFeeDatesAndEditLinks();
+
+                this.ubsCtrlFields.Refresh();
             }
             catch (Exception ex)
             {
@@ -1864,7 +1876,8 @@ namespace UbsBusiness
                 gbPayFeeGuarant.Visible = false;
             }
 
-            if (m_paramOut.Contains("Порядок уплаты вознаграждения (список)") || m_paramOut.Value("Порядок уплаты вознаграждения (список)") == null)
+            var arrPayOrder = m_paramOut.Value("Порядок уплаты вознаграждения (список)") as object[];
+            if (arrPayOrder is null)
             {
                 MessageBox.Show(MsgPayOrderParameterEmpty, MsgContractGuarantee, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -1873,7 +1886,8 @@ namespace UbsBusiness
                 return;
             }
 
-            m_arrPayOrder = m_paramOut.Value("Порядок уплаты вознаграждения (список)") as object[];
+            m_arrPayOrder = arrPayOrder;
+
             FillComboText(cmbOrderPayFee, m_arrPayOrder);
             SetComboValueText(cmbOrderPayFee, paymentOrder);
 
@@ -1886,15 +1900,19 @@ namespace UbsBusiness
                 SetComboValueText(cmbOrderPayFeeGuarant, m_orderPayFeeGuarant);
             }
 
-            if (m_paramOut.Contains("Тип вознаграждения (список)") || m_paramOut.Value("Порядок уплаты вознаграждения (список)") == null)
+            var arrTypeBonus = m_paramOut.Value("Тип вознаграждения (список)") as object[];
+
+            if (arrTypeBonus is null)
             {
                 MessageBox.Show(MsgPayTypeParameterEmpty, MsgContractGuarantee, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 btnExit_Click(this, EventArgs.Empty);
+
                 return;
             }
 
-            m_arrTypeBonus = m_paramOut.Value("Тип вознаграждения (список)") as object[];
+            m_arrTypeBonus = arrTypeBonus;
+
             FillComboText(cmbTypePayFee, m_arrTypeBonus);
             SetComboValueText(cmbTypePayFee, Convert.ToString(m_paramOut.Value("Тип вознаграждения")));
 
@@ -1934,12 +1952,13 @@ namespace UbsBusiness
                 linkGarant.Enabled = true;
             }
 
-            RunUbsChannel("BG_Contract_Init_Ucp", m_paramIn, m_paramOut, true);
+            RunUbsChannel("BG_Contract_Init_Ucp", m_paramIn, m_paramOut);
 
             m_arrAccounts = accs;
             FilllstAccounts();
 
-            dateNextPayFee.DateValue = Convert.ToDateTime(m_paramOut.Value("Дата следующей уплаты вознаграждения"));
+            var dateNextPayFeeValue = Convert.ToDateTime(m_paramOut.Value("Дата следующей уплаты вознаграждения"));
+            dateNextPayFee.DateValue = dateNextPayFeeValue < MinDate ? MaxDate : dateNextPayFeeValue;
         }
         #endregion
 
@@ -2911,6 +2930,11 @@ namespace UbsBusiness
             {
                 GetReport(reportRow);
             }
+        }
+
+        private void btnPeriodPayFee_Click(object sender, EventArgs e)
+        {
+            GetBonusPayOrder(m_arrInterval);
         }
     }
 }

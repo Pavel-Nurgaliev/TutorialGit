@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Net.Configuration;
-using System.Runtime.Remoting;
-using System.Security.Principal;
 using System.Windows.Forms;
 using UbsService;
 
@@ -57,7 +53,7 @@ namespace UbsBusiness
         {
             for (int i = 0; i < cmb.Items.Count; i++)
             {
-                if ((int)cmb.SelectedValue == v)
+                if (Convert.ToInt32(cmb.SelectedValue) == v)
                 {
                     cmb.SelectedIndex = i;
 

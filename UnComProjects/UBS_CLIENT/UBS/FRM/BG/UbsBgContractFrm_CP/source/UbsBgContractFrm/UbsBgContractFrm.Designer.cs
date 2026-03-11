@@ -1173,19 +1173,19 @@ namespace UbsBusiness
             this.toolStripMenuItem1,
             this.toolStripMenuItem2});
             this.cmsAccounts.Name = "cmsAccounts";
-            this.cmsAccounts.Size = new System.Drawing.Size(149, 48);
+            this.cmsAccounts.Size = new System.Drawing.Size(145, 48);
             this.cmsAccounts.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmsAccounts_ItemClicked);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(148, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
             this.toolStripMenuItem1.Text = "Выбрать счет";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(148, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(144, 22);
             this.toolStripMenuItem2.Text = "Очистить";
             // 
             // tabPage4
@@ -1414,6 +1414,7 @@ namespace UbsBusiness
             this.btnPeriodPayFee.TabIndex = 5;
             this.btnPeriodPayFee.Text = "Период";
             this.btnPeriodPayFee.UseVisualStyleBackColor = true;
+            this.btnPeriodPayFee.Click += new System.EventHandler(this.btnPeriodPayFee_Click);
             // 
             // dateNextPayFee
             // 
