@@ -1143,6 +1143,7 @@ namespace UbsBusiness
             this.lvwAccounts.TabIndex = 0;
             this.lvwAccounts.UseCompatibleStateImageBehavior = false;
             this.lvwAccounts.View = System.Windows.Forms.View.Details;
+            this.lvwAccounts.DoubleClick += new System.EventHandler(this.lvwAccounts_DoubleClick);
             this.lvwAccounts.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvwAccounts_KeyDown);
             // 
             // columnHeader1
@@ -1172,19 +1173,19 @@ namespace UbsBusiness
             this.toolStripMenuItem1,
             this.toolStripMenuItem2});
             this.cmsAccounts.Name = "cmsAccounts";
-            this.cmsAccounts.Size = new System.Drawing.Size(181, 70);
-            this.cmsAccounts.Click += new System.EventHandler(this.cmsAccounts_Click);
+            this.cmsAccounts.Size = new System.Drawing.Size(149, 48);
+            this.cmsAccounts.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmsAccounts_ItemClicked);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(148, 22);
             this.toolStripMenuItem1.Text = "Выбрать счет";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(144, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(148, 22);
             this.toolStripMenuItem2.Text = "Очистить";
             // 
             // tabPage4

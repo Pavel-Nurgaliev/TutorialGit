@@ -3127,10 +3127,10 @@ Dim arrRatesFromModel(1, 0) As Variant
 If IsArray(arrRateValues) Then
 If UBound(arrRateValues) <> UBound(arrRates) Then
 ReDim Preserve arrRateValues(UBound(arrRates)) As Variant
-                                End If
+                                    End If
 Else
-ReDim arrRateValues(UBound(arrRates)) As Variant
-                            End If
+ReDim arrRateValues(UBound(arrRates)) As    Variant
+                                End If
 
 ' для всех типов, кроме "Ставка вознаграждения за выдачу гарантии"
 arrRatesFromModel(0, 0) = txtDateBegin.DateValue 'Date

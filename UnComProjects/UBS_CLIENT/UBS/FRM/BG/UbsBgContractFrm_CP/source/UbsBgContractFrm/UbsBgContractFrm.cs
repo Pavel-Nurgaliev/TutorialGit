@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using UbsControl;
 using UbsService;
+using static System.Windows.Forms.AxHost;
 
 namespace UbsBusiness
 {
@@ -67,6 +68,12 @@ namespace UbsBusiness
         private object[,] m_arrTypeObject;
         private object[,] m_arrAccounts;
 
+        private string m_strListItemKey = string.Empty;
+        private string m_strSection = string.Empty;
+        private string m_accType = string.Empty;
+        private long m_numChildWinListAccounts = 0;
+        private object[,] m_arrListRprByAcc;
+
         private readonly UbsParam m_paramIn = new UbsParam();
         private readonly UbsParam m_paramOut = new UbsParam();
 
@@ -83,6 +90,7 @@ namespace UbsBusiness
         private object[,] m_arrIntervalBonus;
         private object[,] m_arrExecutEx;
         private bool m_limitExcessCheckOn;
+        private int m_reflectComIssue;
         #endregion
 
         /// <summary>
@@ -208,7 +216,7 @@ namespace UbsBusiness
 
                 m_paramIn.Value("Идентификатор портфеля", cmbPortfolio.SelectedValue);
                 m_paramIn.Value("Тип оценки риска", cmbTypeValidationRisk.SelectedValue);
-                m_paramIn.Value("Ставка резервирования", ucdRateReservation.DecimalValue); 
+                m_paramIn.Value("Ставка резервирования", ucdRateReservation.DecimalValue);
                 m_paramIn.Value("Группа риска", Convert.ToInt32(((KeyValuePair<int, string>)cmbQualityCategory.SelectedItem).Value));
 
                 m_paramIn.Value("Дата вознаграждения", dateReward.DateValue);
@@ -424,6 +432,8 @@ namespace UbsBusiness
 
                 linkModel.Focus();
             }
+
+            EnabledCmdControl(true);
         }
         private void btnFrameContractDel_Click(object sender, EventArgs e)
         {
@@ -441,7 +451,7 @@ namespace UbsBusiness
             ResetKindComboBox();
 
             cmbKindGarant.Enabled = true;
-            tabPage1.Enabled = true;
+            SetTabsEnabled(true, 1);
         }
 
         private void linkModel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -454,6 +464,245 @@ namespace UbsBusiness
             {
                 m_idModel = Convert.ToInt32(ids[0]);
 
+                m_paramIn.Clear();
+                m_paramOut.Clear();
+
+                m_paramIn.Value("ID", m_idModel);
+
+                RunUbsChannel("BGReadModelById", m_paramIn, m_paramIn);
+                m_arrPeriodPay = m_paramOut.Value("Срок погашения оплаченной суммы") as object[,];
+
+                if (m_arrPeriodPay != null)
+                {
+                    var arrRatesFromModel = new object[1, 2];
+
+                    if (m_arrRateValues != null)
+                    {
+                        if (m_arrRateValues.Length != m_arrRates.Length)
+                        {
+                            Array.Resize(ref m_arrRateValues, m_arrRates.GetLength(0));
+                        }
+                    }
+                    else
+                    {
+                        m_arrRateValues = new object[m_arrRates.GetLength(0)];
+                    }
+
+                    arrRatesFromModel[0, 0] = dateBeginGarant.DateValue;
+
+                    for (int i = 0; i < m_arrRates.Length; i++)
+                    {
+                        //todo: constants
+                        switch (m_arrRates[i].ToString())
+                        {
+                            case "Ставка % по оплаченной гарантии":
+                                arrRatesFromModel[0, 1] = m_arrPeriodPay[0, 2];
+                                m_arrRateValues[i] = arrRatesFromModel;
+                                break;
+
+                            case "Ставка % по просроченной оплате гарантии":
+                                arrRatesFromModel[0, 1] = m_arrPeriodPay[0, 3];
+                                m_arrRateValues[i] = arrRatesFromModel;
+                                break;
+
+                            case "Ставка пени за просрочку погашения процентов по оплаченной гарантии":
+                            case "Ставка пени за просрочку погашения оплаченной гарантии":
+                                arrRatesFromModel[0, 1] = m_arrPeriodPay[0, 4];
+                                m_arrRateValues[i] = arrRatesFromModel;
+                                break;
+
+                            case "Ставка вознаграждения за пользование гарантией":
+                                arrRatesFromModel[0, 1] =
+                                    Convert.ToDouble(m_paramOut.Value("Ставка вознаграждения"));
+                                m_arrRateValues[i] = arrRatesFromModel;
+                                break;
+
+                            case "Ставка вознаграждения (гарант)":
+                                arrRatesFromModel[0, 1] =
+                                    Convert.ToDouble(m_paramOut.Value("Ставка вознаграждения (гарант)"));
+                                m_arrRateValues[i] = arrRatesFromModel;
+                                break;
+
+                            case "Ставка вознаграждения за выдачу гарантии":
+                                arrRatesFromModel[0, 1] =
+                                    Convert.ToDouble(m_paramOut.Value("Ставка вознаграждения за выдачу"));
+                                m_arrRateValues[i] = arrRatesFromModel;
+                                break;
+                        }
+                    }
+
+                    // определяем Дату ставки для типа "Ставка вознаграждения за выдачу гарантии"
+                    var dateRateIssue = dateBeginGarant.DateValue;
+                    if (m_command == PrepareCommand && m_reflectComIssue == 1)
+                    {
+                        dateRateIssue = dateOpenGarant.DateValue;
+
+                        for (int i = 0; i < m_arrRates.GetLength(0); i++)
+                        {
+                            //todo: constants
+                            if (Convert.ToString(m_arrRates[i]) == "Ставка вознаграждения за выдачу гарантии")
+                            {
+                                arrRatesFromModel[0, 0] = dateRateIssue;
+                                arrRatesFromModel[0, 1] = Convert.ToDouble(m_paramOut.Value("Ставка вознаграждения за выдачу"));
+
+                                m_arrRateValues[i] = arrRatesFromModel;
+                            }
+                        }
+
+                        InitTrvRates(true);
+                    }
+                }
+
+                this.ubsCtrlFields.Collection["Очередность платежей"].Value =
+                    m_paramOut.Value("Очередность платежей");
+                this.ubsCtrlFields.Collection["Досрочное гашение в групповом режиме"].Value =
+                    m_paramOut.Value("Досрочное гашение в групповом режиме");
+                this.ubsCtrlFields.Collection["Параметры расчета графиков"].Value =
+                    m_paramOut.Value("Параметры расчета графиков");
+                this.ubsCtrlFields.Collection["Сумма платежа"].Value =
+                    m_paramOut.Value("Сумма платежа");
+                this.ubsCtrlFields.Collection["Алгоритм расчета процентов"].Value =
+                    m_paramOut.Value("Алгоритм расчета процентов");
+                this.ubsCtrlFields.Collection["Льготный период"].Value =
+                    m_paramOut.Value("Льготный период");
+                this.ubsCtrlFields.Collection["Режим смещения выходных дней"].Value =
+                    m_paramOut.Value("Режим смещения выходных дней");
+                this.ubsCtrlFields.Collection["Алгоритм расчета суммы платежа"].Value =
+                    m_paramOut.Value("Алгоритм расчета суммы платежа");
+                this.ubsCtrlFields.Collection["Исключить неполный первый период"].Value =
+                    m_paramOut.Value("Исключить неполный первый период");
+                this.ubsCtrlFields.Collection["Отсрочка"].Value =
+                    m_paramOut.Value("Отсрочка");
+
+                m_isFixSum = Convert.ToString(m_paramOut.Value("Тип вознаграждения")) == FixedSumTypeReward;
+                txtModel.Text = Convert.ToString(m_paramOut.Value("Наименование"));
+                m_modelType = Convert.ToString(m_paramOut.Value("Идентификатор шаблона"));
+                m_orderPayFeeGuarant = Convert.ToString(m_paramOut.Value("Порядок уплаты вознаграждения (гарант)"));
+
+                if (m_orderPayFeeGuarant != string.Empty)
+                {
+                    gbPayFeeGuarant.Visible = true;
+
+                    if (m_orderPayFeeGuarant == "Периодически")
+                    {
+                        dateNextPayFeeGuarant.Visible = true;
+                        btnPeriodPayFeeGuarant.Visible = true;
+                        lblDateNextPayFeeGuarant.Visible = true;
+                    }
+                }
+                else
+                {
+                    gbPayFeeGuarant.Visible = false;
+                }
+
+                var arrPayOrder = m_paramOut.Value("Порядок уплаты вознаграждения (список)") as object[];
+                if (arrPayOrder is null)
+                {
+                    MessageBox.Show("Параметр 'Порядок уплаты вознаграждения (список)' пуст!", "Договор гарантии", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    btnExit_Click(this, EventArgs.Empty);
+                    return;
+                }
+
+                m_arrPayOrder = arrPayOrder;
+
+                FillComboText(cmbOrderPayFee, m_arrPayOrder);
+                SetComboValueText(cmbOrderPayFee, Convert.ToString(m_paramOut.Value("Порядок уплаты вознаграждения")));
+
+                FillComboText(cmbOrderPayFeeBonus, arrPayOrder);
+                SetComboValueText(cmbOrderPayFeeBonus, Convert.ToString(m_paramOut.Value("Порядок уплаты вознаграждения за выдачу")));
+
+                //Вознаграждение (гарант)
+                if (m_orderPayFeeGuarant != string.Empty)
+                {
+                    FillComboText(cmbOrderPayFeeGuarant, arrPayOrder);
+                    SetComboValueText(cmbOrderPayFeeGuarant, m_orderPayFeeGuarant);
+                }
+
+                if (m_paramOut.Contains("Тип вознаграждения (список)"))
+                {
+                    MessageBox.Show("Параметр 'Тип вознаграждения (список)' пуст!", "Договор гарантии", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    btnExit_Click(this, EventArgs.Empty);
+                    return;
+                }
+
+                m_arrTypeBonus = m_paramOut.Value("Типвознаграждения (список)") as object[];
+
+                FillComboText(cmbTypePayFee, m_arrTypeBonus);
+                SetComboValueText(cmbTypePayFee, Convert.ToString(m_paramOut.Value("Тип вознаграждения")));
+                SetBonusCtrlsState();
+
+                FillComboText(cmbTypePayFeeBonus, m_arrTypeBonus);
+                SetComboValueText(cmbTypePayFeeBonus, Convert.ToString(m_paramOut.Value("Тип вознаграждения за выдачу")));
+                SetBonusCtrlsBonusState();
+
+                //Вознаграждение (гарант)
+                if (m_orderPayFeeGuarant != string.Empty)
+                {
+                    FillComboText(cmbTypePayFeeGuarant, m_arrTypeBonus);
+                    SetComboValueText(cmbTypePayFeeGuarant, Convert.ToString(m_paramOut.Value("Тип вознаграждения (гарант)")));
+                }
+
+                if (dateBeginGarant.DateValue != MaxDate)
+                {
+                    SetTabsEnabled(true, 2, 3);
+                }
+
+                m_paramOut.Clear();
+                m_paramOut.Clear();
+
+                m_paramOut.Value("Идентификатор типового договора", m_idModel);
+                m_paramOut.Value("Порядок уплаты вознаграждения", cmbOrderPayFee.SelectedText);
+                m_paramOut.Value("Порядок уплаты вознаграждения за выдачу", cmbOrderPayFeeBonus.Text);
+
+                RunUbsChannel("BG_Contract_Init_Ucp", m_paramIn, m_paramOut, true);
+
+                if (m_modelType == UbsGuarantCommand)
+                {
+                    if (m_idState == 4)
+                    {
+                        linkGarant.Enabled = true;
+
+                        if (cmbTypePayFee.SelectedText == "Процент суммы гарантии")
+                        {
+                            cmbCurrencyPayFee.SelectedValue = cmbCurrencyGarant.SelectedValue;
+                            cmbCurrencyPayFee.Enabled = false;
+
+                            cmbCurrencyRewardGuarant.SelectedValue = cmbCurrencyGarant.SelectedValue;
+                            cmbCurrencyRewardGuarant.Enabled = false;
+                        }
+                        else
+                        {
+                            cmbCurrencyPayFee.Enabled = true;
+                            cmbCurrencyRewardGuarant.Enabled = true;
+                        }
+                    }
+                    else
+                    {
+                        linkGarant.Enabled = false;
+                    }
+
+                    m_idGarant = 0;
+                    txtGarant.Text = string.Empty;
+                }
+                else
+                {
+                    linkGarant.Enabled = true;
+                }
+
+                if (m_command.ToUpperInvariant() == AddCommand || m_command.ToUpperInvariant() == PrepareCommand)
+                {
+                    cmbKindGarant.Focus();
+                }
+
+                this.ubsCtrlFields.Refresh();
+            }
+            else
+            {
+                MessageBox.Show(ModelContractIsNotSelected, m_captionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
             }
 
             EnabledCmdControl(true);
@@ -1079,83 +1328,141 @@ namespace UbsBusiness
 
         private void UbsBgContractFrm_Ubs_ActionRunBegin(object sender, UbsActionRunEventArgs args)
         {
-            if (args.Action == ActionUbsBgListAgent)
+            switch (args.Action)
             {
-                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                case ActionUbsBgListAgent:
+                    args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
                     new KeyValuePair<string, object>("наименование", "Состояние"),
                     new KeyValuePair<string, object>("значение по умолчанию", "Открыт"),
                     new KeyValuePair<string, object>("условие по умолчанию", "="),
                     new KeyValuePair<string, object>("скрытый", false) }));
 
-                args.IUbs.Run("UbsItemsRefresh", null);
-            }
-            else if (args.Action == ActionUbsBgListModel)
-            {
-                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                    args.IUbs.Run("UbsItemsRefresh", null);
+                    break;
+                case ActionUbsBgListModel:
+                    args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
                     new KeyValuePair<string, object>("наименование", "Состояние"),
                     new KeyValuePair<string, object>("значение по умолчанию", "0"),
                     new KeyValuePair<string, object>("условие по умолчанию", "="),
                     new KeyValuePair<string, object>("скрытый", true) }));
 
-                if (m_idFrameContract > 0 && m_termsFrameContract != null)
-                {
-                    var kinds = new object[m_termsFrameContract.GetLength(0)];
-
-                    for (int i = 0; i < m_termsFrameContract.GetLength(0); i++)
+                    if (m_idFrameContract > 0 && m_termsFrameContract != null)
                     {
-                        kinds[i] = m_termsFrameContract[i, 0];
-                    }
+                        var kinds = new object[m_termsFrameContract.GetLength(0)];
 
-                    args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                        for (int i = 0; i < m_termsFrameContract.GetLength(0); i++)
+                        {
+                            kinds[i] = m_termsFrameContract[i, 0];
+                        }
+
+                        args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
                     new KeyValuePair<string, object>("наименование", "Вид гарантии"),
                     new KeyValuePair<string, object>("значение по умолчанию", kinds),
                     new KeyValuePair<string, object>("условие по умолчанию", "один из"),
                     new KeyValuePair<string, object>("скрытый", false) }));
-                }
+                    }
 
-                args.IUbs.Run("UbsItemsRefresh", null);
-            }
-            else if (args.Action == ActionUbsBgFrameContractList)
-            {
-                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                    args.IUbs.Run("UbsItemsRefresh", null);
+                    break;
+                case ActionUbsBgFrameContractList:
+                    args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
                     new KeyValuePair<string, object>("наименование", "Состояние"),
                     new KeyValuePair<string, object>("значение по умолчанию", "0"),
                     new KeyValuePair<string, object>("условие по умолчанию", "="),
                     new KeyValuePair<string, object>("скрытый", false) }));
 
-                args.IUbs.Run("UbsItemsRefresh", null);
-            }
-            else if (args.Action == ActionUbsBgGuarListContract)
-            {
-                var listIdGuarant = new List<int>();
+                    args.IUbs.Run("UbsItemsRefresh", null);
+                    break;
+                case ActionUbsBgGuarListContract:
+                    var listIdGuarant = new List<int>();
 
-                foreach (ListViewItem item in lvwGuarant.Items)
-                {
-                    listIdGuarant.Add(Convert.ToInt32(item.Tag));
-                }
+                    foreach (ListViewItem item in lvwGuarant.Items)
+                    {
+                        listIdGuarant.Add(Convert.ToInt32(item.Tag));
+                    }
 
-                if (listIdGuarant.Count > 0)
-                {
-                    args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                    if (listIdGuarant.Count > 0)
+                    {
+                        args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
                     new KeyValuePair<string, object>("наименование", "Идентификатор договора"),
                     new KeyValuePair<string, object>("значение по умолчанию", listIdGuarant.ToArray()),
                     new KeyValuePair<string, object>("условие по умолчанию", "не один из"),
                     new KeyValuePair<string, object>("скрытый", false) }));
 
-                    args.IUbs.Run("UbsItemsRefresh", null);
-                }
-            }
-            else if (args.Action == ActionUbsGuarOperationList)
-            {
-                args.IUbs.Run("UbsItemsRemove", null);
+                        args.IUbs.Run("UbsItemsRefresh", null);
+                    }
+                    break;
+                case ActionUbsGuarOperationList:
+                    args.IUbs.Run("UbsItemsRemove", null);
 
-                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                    args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
                     new KeyValuePair<string, object>("наименование", "Идентификатор договора"),
                     new KeyValuePair<string, object>("значение по умолчанию", lvwGuarant.SelectedItems[0].Text),
                     new KeyValuePair<string, object>("условие по умолчанию", "="),
                     new KeyValuePair<string, object>("скрытый", true) }));
 
-                args.IUbs.Run("UbsItemsRefresh", null);
+                    args.IUbs.Run("UbsItemsRefresh", null);
+                    break;
+                case ActionUbsOdListAccount0:
+                case ActionUbsOdListAccount2:
+                    var balNum2 = string.Empty;
+                    switch (m_accType)
+                    {
+                        case AccountAccuredPercentsCaption:
+                            balNum2 = AccountAccuredPercents;
+                            break;
+                        case AccountAccuredPercentsOutBalanceCaption:
+                            balNum2 = AccountAccuredPercentsOutBalance;
+                            break;
+                        case AccountAccuredPercentsReserveCaption:
+                            balNum2 = AccountAccuredPercentsReserve;
+                            break;
+                        case AccountExpiredPercentsCaption:
+                            balNum2 = AccountExpiredPercents;
+                            break;
+                        case AccountExpiredPercentsOutBalanceCaption:
+                            balNum2 = AccountExpiredPercentsOutBalance;
+                            break;
+                    }
+
+                    if (balNum2 != string.Empty)
+                    {
+                        args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                    new KeyValuePair<string, object>("наименование", "Балансовый счет"),
+                    new KeyValuePair<string, object>("значение по умолчанию", balNum2),
+                    new KeyValuePair<string, object>("условие по умолчанию", "="),
+                    new KeyValuePair<string, object>("скрытый", true) }));
+
+                        args.IUbs.Run("UbsItemsRefresh", null);
+                    }
+                    break;
+            }
+
+            if (args.IUbs.GetType().Name == "UbsLoadRpt")
+            {
+                var dateFrom = m_dateToday;
+                var dateTo = dateFrom;
+
+                string accountNumber = lvwAccounts.SelectedItems.Count > 0
+                    ? lvwAccounts.SelectedItems[0].SubItems[2].Text.Trim()
+                    : string.Empty;
+
+                if (m_command.ToUpperInvariant() == EditCommand)
+                {
+                    dateFrom = dateOpenGarant.DateValue;
+                }
+
+                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                                new KeyValuePair<string, object>("наименование", "начальная дата"),
+                                new KeyValuePair<string, object>("значение по умолчанию", dateFrom)}));
+                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                                new KeyValuePair<string, object>("наименование", "конечная дата"),
+                                new KeyValuePair<string, object>("значение по умолчанию", dateTo)}));
+                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                                new KeyValuePair<string, object>("наименование", "номер лицевого счета"),
+                                new KeyValuePair<string, object>("значение по умолчанию", accountNumber)}));
+
+                args.IUbs.Run("RefreshReport", null);
             }
         }
 
@@ -1236,11 +1543,14 @@ namespace UbsBusiness
             dateOpenGarant.DateValue = m_dateToday;
         }
         /// <summary>
-        /// Инициализация ContextMenuStrip вкладки Счета
+        /// Инициализация ContextMenuStrip вкладки Счета.
+        /// Статические пункты "Выбрать счет" и "Очистить" заданы в Designer;
+        /// здесь добавляются динамические пункты отчётов из "Перечень отчетов по счету".
         /// </summary>
         private void InitCmsAccounts()
         {
             object[,] arrListRprByAcc = m_paramOut.Value("Перечень отчетов по счету") as object[,];
+            m_arrListRprByAcc = arrListRprByAcc;
 
             if (arrListRprByAcc != null)
             {
@@ -1248,14 +1558,14 @@ namespace UbsBusiness
                 for (int r = 0; r < rows; r++)
                 {
                     string caption = Convert.ToString(arrListRprByAcc[r, 1]);
-
-                    cmsAccounts.Items.Add(caption);
+                    var item = cmsAccounts.Items.Add(caption);
+                    item.Tag = r;
                 }
             }
         }
         private void LoadFrameContractForAddOrPrepare()
         {
-            if (m_command == AddCommand || m_command == PrepareCommand)
+            if ((m_command == AddCommand || m_command == PrepareCommand) && m_idFrameContract > 0)
             {
                 m_idState = 4;
 
@@ -1309,7 +1619,7 @@ namespace UbsBusiness
 
             m_arrPeriodPay = m_paramOut.Value("Срок погашения оплаченной суммы") as object[,];
 
-            m_isFixSum = Convert.ToString(m_paramOut.Value("Тип вознаграждения")) == "Фиксированная сумма";
+            m_isFixSum = Convert.ToString(m_paramOut.Value("Тип вознаграждения")) == FixedSumTypeReward;
 
             txtModel.Text = Convert.ToString(m_paramOut.Value("Типовой договор"));
             txtBeneficiar.Text = Convert.ToString(m_paramOut.Value("Бенефициар"));
@@ -1472,6 +1782,7 @@ namespace UbsBusiness
 
                 for (int i = 0; i < m_arrRates.Length; i++)
                 {
+                    //todo: constants
                     switch (m_arrRates[i].ToString())
                     {
                         case "Ставка % по оплаченной гарантии":
@@ -1515,23 +1826,23 @@ namespace UbsBusiness
 
             this.ubsCtrlFields.Collection["Очередность платежей"].Value =
                 m_paramOut.Value("Очередность платежей");
-            this.ubsCtrlFields.Collection["Очередность платежей"].Value =
+            this.ubsCtrlFields.Collection["Досрочное гашение в групповом режиме"].Value =
                 m_paramOut.Value("Досрочное гашение в групповом режиме");
-            this.ubsCtrlFields.Collection["Очередность платежей"].Value =
+            this.ubsCtrlFields.Collection["Параметры расчета графиков"].Value =
                 m_paramOut.Value("Параметры расчета графиков");
-            this.ubsCtrlFields.Collection["Очередность платежей"].Value =
+            this.ubsCtrlFields.Collection["Сумма платежа"].Value =
                 m_paramOut.Value("Сумма платежа");
-            this.ubsCtrlFields.Collection["Очередность платежей"].Value =
+            this.ubsCtrlFields.Collection["Алгоритм расчета процентов"].Value =
                 m_paramOut.Value("Алгоритм расчета процентов");
-            this.ubsCtrlFields.Collection["Очередность платежей"].Value =
+            this.ubsCtrlFields.Collection["Льготный период"].Value =
                 m_paramOut.Value("Льготный период");
-            this.ubsCtrlFields.Collection["Очередность платежей"].Value =
+            this.ubsCtrlFields.Collection["Режим смещения выходных дней"].Value =
                 m_paramOut.Value("Режим смещения выходных дней");
-            this.ubsCtrlFields.Collection["Очередность платежей"].Value =
+            this.ubsCtrlFields.Collection["Алгоритм расчета суммы платежа"].Value =
                 m_paramOut.Value("Алгоритм расчета суммы платежа");
-            this.ubsCtrlFields.Collection["Очередность платежей"].Value =
+            this.ubsCtrlFields.Collection["Исключить неполный первый период"].Value =
                 m_paramOut.Value("Исключить неполный первый период");
-            this.ubsCtrlFields.Collection["Очередность платежей"].Value =
+            this.ubsCtrlFields.Collection["Отсрочка"].Value =
                 m_paramOut.Value("Отсрочка");
 
             txtModel.Text = Convert.ToString(m_paramOut.Value("Наименование"));
@@ -1693,7 +2004,7 @@ namespace UbsBusiness
             }
 
             m_arrPeriodPay = m_paramOut["Срок погашения оплаченной суммы"] as object[,];
-            m_isFixSum = (Convert.ToString(m_paramOut["Тип вознаграждения"]) == "Фиксированная сумма");
+            m_isFixSum = (Convert.ToString(m_paramOut["Тип вознаграждения"]) == FixedSumTypeReward);
 
             if (Convert.ToInt32(m_paramOut["Доступ"]) == 0)
             {
@@ -1912,17 +2223,17 @@ namespace UbsBusiness
             {
                 linkPreviousContract.Enabled = true;
 
-                if (cmbTypePayFee.Text == PercentSumGuarant)
+                if (cmbTypePayFee.SelectedText == PercentSumGuarant)
                 {
-                    cmbCurrencyPayFee.SelectedValue = cmbCurrencyGarant.SelectedValue;
-                    cmbCurrencyPayFee.Enabled = false;
+                    cmbCurrencyPayFee.SelectedValue = Convert.ToInt32(cmbCurrencyGarant.SelectedValue);
+                    cmbCurrencyPayFee.Enabled = false; ;
                 }
                 else
                 {
                     cmbCurrencyPayFee.Enabled = true;
                 }
 
-                if (cmbTypePayFeeBonus.Text == PercentSumGuarant)
+                if (cmbTypePayFeeBonus.SelectedText == PercentSumGuarant)
                 {
                     cmbCurrencyRewardGuarant.SelectedValue = cmbCurrencyGarant.SelectedValue;
                     cmbCurrencyRewardGuarant.Enabled = false;
@@ -2555,16 +2866,51 @@ namespace UbsBusiness
                 m_isInitCurrencyBonus = true;
             }
         }
-        //TODO: implement lvwAccounts_KeyDown
-        private void lvwAccounts_KeyDown(object sender, KeyEventArgs e)
+        /// <summary>
+        /// Соответствует VB6 lstAccounts_DblClick → mnuListAccounts_Click.
+        /// </summary>
+        private void lvwAccounts_DoubleClick(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            SelectAccount();
         }
 
-        //TODO: implement cmsAccounts_Click
-        private void cmsAccounts_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Соответствует VB6 lstAccounts_KeyDown:
+        ///   F2     → открыть выбор счёта (mnuListAccounts_Click / GetAccount);
+        ///   Delete → очистить счёт у выбранной строки (mnuClearAccount_Click / DelAccount).
+        /// </summary>
+        private void lvwAccounts_KeyDown(object sender, KeyEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.KeyCode == Keys.F2)
+            {
+                SelectAccount();
+            }
+            else if (e.KeyCode == Keys.Delete)
+            {
+                ClearSelectedAccount();
+            }
+        }
+
+        /// <summary>
+        /// Соответствует VB6 mnuListAccounts_Click / mnuClearAccount_Click / mnuReports_Click.
+        /// Диспетчеризация по типу нажатого пункта ContextMenuStrip.
+        /// </summary>
+        private void cmsAccounts_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            ToolStripItem clickedItem = e.ClickedItem;
+
+            if (clickedItem == toolStripMenuItem1)          // "Выбрать счет"
+            {
+                SelectAccount();
+            }
+            else if (clickedItem == toolStripMenuItem2)     // "Очистить"
+            {
+                ClearSelectedAccount();
+            }
+            else if (clickedItem?.Tag is int reportRow)     // динамические пункты отчётов
+            {
+                GetReport(reportRow);
+            }
         }
     }
 }

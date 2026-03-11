@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Net.Configuration;
 using System.Runtime.Remoting;
 using System.Security.Principal;
 using System.Windows.Forms;
@@ -898,6 +900,127 @@ namespace UbsBusiness
 
             return result;
         }
+
+        #region Работа со списком счетов (вкладка Счета)
+
+        /// <summary>
+        /// Соответствует VB6 mnuListAccounts_Click.
+        /// Считывает поля выбранной строки lvwAccounts в поля состояния
+        /// и вызывает GetAccount для открытия окна выбора счёта.
+        /// </summary>
+        private void SelectAccount()
+        {
+            if (lvwAccounts.Items.Count == 0 || lvwAccounts.SelectedItems.Count == 0)
+                return;
+
+            ListViewItem selectedItem = lvwAccounts.SelectedItems[0];
+
+            m_strSection = selectedItem.SubItems[1].Text;   // VB6: SubItems(1) = раздел ("А"/"В")
+            m_accType = selectedItem.Text;               // VB6: SelectedItem.Text = тип счёта
+            m_strListItemKey = selectedItem.Name;               // VB6: SelectedItem.Key
+
+            GetAccount();
+        }
+
+        /// <summary>
+        /// Соответствует VB6 DelAccount / Delete-ветка lstAccounts_KeyDown.
+        /// Очищает номер счёта и остаток у выбранной строки lvwAccounts
+        /// и снимает номер счёта из m_arrAccounts.
+        /// </summary>
+        private void ClearSelectedAccount()
+        {
+            if (lvwAccounts.SelectedItems.Count == 0)
+                return;
+
+            ListViewItem selectedItem = lvwAccounts.SelectedItems[0];
+
+            selectedItem.SubItems[2].Text = string.Empty;   // номер счёта
+            selectedItem.SubItems[3].Text = string.Empty;   // остаток
+
+            if (m_arrAccounts != null)
+            {
+                int rows = m_arrAccounts.GetLength(0);
+                for (int i = 0; i < rows; i++)
+                {
+                    if (Convert.ToString(m_arrAccounts[i, 0]) == selectedItem.Text)
+                    {
+                        m_arrAccounts[i, 2] = string.Empty;   // VB6: arrAccounts(2, i) — номер счёта
+                        break;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Соответствует VB6 GetAccount.
+        /// Открывает дочернее окно выбора счёта с фильтром по разделу (m_strSection)
+        /// и балансовому счёту (определяется по m_strAccType).
+        /// </summary>
+        private void GetAccount()
+        {
+            var filterName = string.Empty;
+
+            if (m_strSection == PartA)
+            {
+                filterName = @"UBS_FLT\OD\ACCOUNT0.flt";
+            }
+            else if (m_strSection == PartB)
+            {
+                filterName = @"UBS_FLT\OD\ACCOUNT2.flt";
+            }
+
+            object[] ids = this.Ubs_ActionRun(ActionUbsGuarOperationList, this, true) as object[];
+
+            if (ids != null && ids.Length > 0)
+            {
+                m_paramIn.Clear();
+                m_paramOut.Clear();
+
+                m_paramIn.Value("IdPrevContract", m_idPrevContract);
+                RunUbsChannel("BGReadPreviuosContract", m_paramIn, m_paramOut);
+                txtPreviousContract.Text = Convert.ToString(m_paramOut.Value("InfoPrevContract"));
+
+                if (tabPage2.Enabled)
+                {
+                    tabControl.SelectedIndex = 1;
+
+                    cmbPortfolio.Focus();
+                }
+                else
+                {
+                    tabControl.SelectedIndex = 2;
+
+                    lvwAccounts.Focus();
+                }
+            }
+            else
+            {
+                MessageBox.Show(PreviousContractIsNotSelected, m_captionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
+            }
+        }
+
+        /// <summary>
+        /// Соответствует VB6 GetReport.
+        /// Открывает окно отчёта по счёту.
+        /// </summary>
+        /// <param name="reportRow">Индекс строки (0-based) в m_arrListRprByAcc.</param>
+        /// <param name="accountNumber">Номер счёта из выбранной строки lvwAccounts.</param>
+        private void GetReport(int reportRow)
+        {
+            //Информация об отчете
+            var reportInfo = new object[4];
+
+            //Строковый идентификатор отчета
+            reportInfo[0] = Convert.ToString(m_arrListRprByAcc[reportRow, 0]);
+
+            IntPtr intPtr = (IntPtr)base.Run("ParentHandle", null);
+            IUbs formReport = (IUbs)Ubs_ActionRun((string)reportInfo[0]
+                , Control.FromHandle(intPtr), false);
+        }
+
+        #endregion
 
     }
 }

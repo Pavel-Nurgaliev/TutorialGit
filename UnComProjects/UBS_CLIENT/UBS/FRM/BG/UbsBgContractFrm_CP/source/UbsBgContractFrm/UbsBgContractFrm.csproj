@@ -44,6 +44,10 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Ubs">
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\Lib\Ubs.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UbsBase, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsBase.dll</HintPath>
