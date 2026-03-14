@@ -2587,7 +2587,7 @@ namespace UbsBusiness
                 }
             }
 
-            if (m_idState == 4)
+            if (cmbOrderPayFee.Text == OrderPayPeriodically)
             {
                 if (Convert.ToInt32(cmbState.SelectedValue) == 4)
                 {
