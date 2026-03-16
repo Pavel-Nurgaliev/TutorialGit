@@ -1,4 +1,4 @@
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="Current">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="Current">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -60,6 +60,7 @@
     </Reference>
     <Reference Include="UbsCtrlDate">
       <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsCtrlDate.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UbsCtrlInfo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -103,6 +104,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)$(ProjectName)*" "\\Develop\ubs_nt\UBS_CLIENT\UBS\FRM\OP"
+copy "$(TargetDir)$(ProjectName)*" "C:\ProgramData\UniSAB\UBS\FRM\OP\"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

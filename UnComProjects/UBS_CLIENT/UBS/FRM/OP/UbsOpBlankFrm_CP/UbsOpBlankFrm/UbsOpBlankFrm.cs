@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using UbsService;
 
 namespace UbsBusiness
@@ -11,10 +12,9 @@ namespace UbsBusiness
     {
         #region Поля формы
 
-        private string m_command = string.Empty;
+        private string m_command = "";
         private int m_id = 0;
         private int m_kindVal = 0;
-        private List<int> m_stateIds = new List<int>();
 
         #endregion
 
@@ -27,11 +27,7 @@ namespace UbsBusiness
 
             InitializeComponent();
 
-            // регистрация метода загрузки ресурсов
-            this.IUbsChannel.LoadResource = LoadResource;
-
             base.UbsCtrlFieldsSupportCollection.Add("Доп. поля", ubsCtrlAddFields);
-            this.Text = FormTitle;
 
             base.Ubs_CommandLock = true;
         }
@@ -48,8 +44,8 @@ namespace UbsBusiness
                 if (!this.ValidateChildren()) { return; }
 
                 base.UbsChannel_ParamIn(ParamId, m_id);
-                if (cmbState.Enabled && cmbState.SelectedIndex >= 0 && cmbState.SelectedIndex < m_stateIds.Count)
-                    base.UbsChannel_ParamIn(ParamState, m_stateIds[cmbState.SelectedIndex]);
+                if (cmbState.Enabled && cmbState.SelectedItem != null)
+                    base.UbsChannel_ParamIn(ParamState, ((KeyValuePair<int, string>)cmbState.SelectedItem).Key);
 
                 base.UbsChannel_Run(BlankSaveCommand);
 
@@ -110,6 +106,7 @@ namespace UbsBusiness
                 }
 
                 InitDoc();
+
                 ubsCtrlAddFields.Refresh();
 
                 tabControl.SelectedTab = tabPageMain;
@@ -167,38 +164,53 @@ namespace UbsBusiness
         private void FillCombo(int currentState)
         {
             cmbState.Items.Clear();
-            m_stateIds.Clear();
+
+            var kvpList = new List<KeyValuePair<int, string>>();
 
             if (currentState == 17)
             {
-                cmbState.Items.Add("Документ обработан (изменение запрещено)");
-                m_stateIds.Add(17);
+                kvpList.Add(new KeyValuePair<int, string>(17, StateProcessed));
                 cmbState.Enabled = false;
             }
             else
             {
                 cmbState.Enabled = true;
+
                 if (m_kindVal == 3)
                 {
-                    cmbState.Items.Add("Отказано в оплате"); m_stateIds.Add(15);
-                    cmbState.Items.Add("Оплачен"); m_stateIds.Add(13);
+                    kvpList.Add(new KeyValuePair<int, string>(15, StatePaymentRefused));
+                    kvpList.Add(new KeyValuePair<int, string>(13, StatePaid));
                 }
                 else if (m_kindVal == 4)
                 {
-                    cmbState.Items.Add("Признан неподлинным"); m_stateIds.Add(16);
-                    cmbState.Items.Add("Признан подлинным"); m_stateIds.Add(14);
+                    kvpList.Add(new KeyValuePair<int, string>(16, StateNotAuthentic));
+                    kvpList.Add(new KeyValuePair<int, string>(14, StateAuthentic));
                 }
-                cmbState.Items.Add("Отправлен в банк-нерезидент"); m_stateIds.Add(12);
-                cmbState.Items.Add("Отправлен в ГО"); m_stateIds.Add(11);
-                cmbState.Items.Add("Принят от клиента"); m_stateIds.Add(10);
+
+                kvpList.Add(new KeyValuePair<int, string>(12, StateSentToNonResidentBank));
+                kvpList.Add(new KeyValuePair<int, string>(11, StateSentToGO));
+                kvpList.Add(new KeyValuePair<int, string>(10, StateAcceptedFromClient));
             }
 
-            for (int i = 0; i < m_stateIds.Count; i++)
+            InitComboBox(cmbState, kvpList);
+
+            foreach (KeyValuePair<int, string> item in cmbState.Items)
             {
-                if (m_stateIds[i] == currentState) { cmbState.SelectedIndex = i; break; }
+                if (item.Key == currentState)
+                {
+                    cmbState.SelectedItem = item;
+                }
             }
         }
 
-        #endregion
+        private void InitComboBox(ComboBox cmb, object list)
+        {
+            cmb.DataSource = list;
+            cmb.ValueMember = "Key";
+            cmb.DisplayMember = "Value";
+            cmb.SelectedIndex = 0;
+        }
     }
+
+    #endregion
 }

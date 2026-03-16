@@ -179,11 +179,11 @@ Width = 6015
 _ExtentX = 10610
 _ExtentY = 7170
 _Version = 131082
-TabGuid = "Blank_ud.dox" : 00CA
+TabGuid = "Blank_ud.dox" :  00CA
          Begin UBSPROPLibCtl.UbsControlProperty ucpParam 
             Height = 3495
 Left = 60
-OleObjectBlob = "Blank_ud.dox" : 00F2
+OleObjectBlob = "Blank_ud.dox" :  00F2
             TabIndex = 6
 Top = 60
 Width = 5835

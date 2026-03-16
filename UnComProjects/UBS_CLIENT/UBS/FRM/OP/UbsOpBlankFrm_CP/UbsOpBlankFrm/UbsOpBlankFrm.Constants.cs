@@ -5,6 +5,16 @@
     /// </summary>
     public partial class UbsOpBlankFrm
     {
+        #region ComboConst
+        private const string StateProcessed = "Документ обработан (изменение запрещено)";
+        private const string StatePaymentRefused = "Отказано в оплате";
+        private const string StatePaid = "Оплачен";
+        private const string StateNotAuthentic = "Признан неподлинным";
+        private const string StateAuthentic = "Признан подлинным";
+        private const string StateSentToNonResidentBank = "Отправлен в банк-нерезидент";
+        private const string StateSentToGO = "Отправлен в ГО";
+        private const string StateAcceptedFromClient = "Принят от клиента";
+        #endregion
         #region Ресурс канала
 
         /// <summary>Имя ресурса для загрузки канала (OP Blank).</summary>

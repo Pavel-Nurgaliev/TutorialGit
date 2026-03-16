@@ -314,7 +314,7 @@ namespace UbsBusiness
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(501, 374);
             this.Name = "UbsForm1";
-            this.Text = "Принятая ценностие";
+            this.Text = "Принятая ценность";
             this.panelMain.ResumeLayout(false);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
