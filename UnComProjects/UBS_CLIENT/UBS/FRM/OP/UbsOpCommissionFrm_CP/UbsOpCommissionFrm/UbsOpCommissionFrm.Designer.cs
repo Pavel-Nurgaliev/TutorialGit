@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Windows.Forms;
 
 namespace UbsBusiness
@@ -28,8 +28,8 @@ namespace UbsBusiness
             this.tabPageMain = new System.Windows.Forms.TabPage();
             this.lblDesc = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
-            this.txbDesc = new System.Windows.Forms.TextBox();
-            this.txbName = new System.Windows.Forms.TextBox();
+            this.txtDesc = new System.Windows.Forms.TextBox();
+            this.txtName = new System.Windows.Forms.TextBox();
             this.tabPageAddFields = new System.Windows.Forms.TabPage();
             this.ubsCtrlAddFields = new UbsControl.UbsCtrlFields();
             this.panelMain.SuspendLayout();
@@ -117,14 +117,14 @@ namespace UbsBusiness
             // 
             this.tabPageMain.Controls.Add(this.lblDesc);
             this.tabPageMain.Controls.Add(this.lblName);
-            this.tabPageMain.Controls.Add(this.txbDesc);
-            this.tabPageMain.Controls.Add(this.txbName);
+            this.tabPageMain.Controls.Add(this.txtDesc);
+            this.tabPageMain.Controls.Add(this.txtName);
             this.tabPageMain.Location = new System.Drawing.Point(4, 22);
             this.tabPageMain.Name = "tabPageMain";
             this.tabPageMain.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageMain.Size = new System.Drawing.Size(527, 295);
             this.tabPageMain.TabIndex = 0;
-            this.tabPageMain.Text = "Комиссия";
+            this.tabPageMain.Text = "Основные";
             this.tabPageMain.UseVisualStyleBackColor = true;
             // 
             // lblDesc
@@ -147,22 +147,17 @@ namespace UbsBusiness
             // 
             // txbDesc
             // 
-            this.txbDesc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbDesc.Location = new System.Drawing.Point(6, 76);
-            this.txbDesc.Multiline = true;
-            this.txbDesc.Name = "txbDesc";
-            this.txbDesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txbDesc.Size = new System.Drawing.Size(475, 60);
-            this.txbDesc.TabIndex = 3;
+            this.txtDesc.Location = new System.Drawing.Point(6, 76);
+            this.txtDesc.Name = "txbDesc";
+            this.txtDesc.Size = new System.Drawing.Size(475, 20);
+            this.txtDesc.TabIndex = 3;
             // 
             // txbName
             // 
-            this.txbName.Location = new System.Drawing.Point(6, 32);
-            this.txbName.Name = "txbName";
-            this.txbName.Size = new System.Drawing.Size(475, 20);
-            this.txbName.TabIndex = 1;
+            this.txtName.Location = new System.Drawing.Point(6, 32);
+            this.txtName.Name = "txbName";
+            this.txtName.Size = new System.Drawing.Size(475, 20);
+            this.txtName.TabIndex = 1;
             // 
             // tabPageAddFields
             // 
@@ -172,7 +167,7 @@ namespace UbsBusiness
             this.tabPageAddFields.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageAddFields.Size = new System.Drawing.Size(527, 295);
             this.tabPageAddFields.TabIndex = 1;
-            this.tabPageAddFields.Text = "Набор параметров";
+            this.tabPageAddFields.Text = "Доп. поля";
             this.tabPageAddFields.UseVisualStyleBackColor = true;
             // 
             // ubsCtrlAddFields
@@ -190,7 +185,7 @@ namespace UbsBusiness
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(535, 379);
             this.Name = "UbsOpCommissionFrm";
-            this.Text = "Добавить новую";
+            this.Text = "Комиссия";
             this.panelMain.ResumeLayout(false);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
@@ -212,9 +207,9 @@ namespace UbsBusiness
         private System.Windows.Forms.TabPage tabPageMain;
         private System.Windows.Forms.TabPage tabPageAddFields;
         private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.TextBox txbName;
+        private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label lblDesc;
-        private System.Windows.Forms.TextBox txbDesc;
+        private System.Windows.Forms.TextBox txtDesc;
         private UbsControl.UbsCtrlFields ubsCtrlAddFields;
     }
 }

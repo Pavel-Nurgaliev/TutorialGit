@@ -29,21 +29,7 @@ namespace UbsBusiness
 
             base.UbsCtrlFieldsSupportCollection.Add("Доп. поля", ubsCtrlAddFields);
 
-            m_addFields();
-
-            this.Load += UbsOpCommissionFrm_Load;
-
             base.Ubs_CommandLock = true;
-        }
-
-        private void UbsOpCommissionFrm_Load(object sender, EventArgs e)
-        {
-            if (!m_isInitialized)
-            {
-                InitDoc();
-                ubsCtrlAddFields.Refresh();
-                m_isInitialized = true;
-            }
         }
 
         #region Обработчики событий кнопок
@@ -58,8 +44,8 @@ namespace UbsBusiness
                 if (!CheckData()) { return; }
 
                 base.IUbsChannel.ParamIn(ParamAction, m_command);
-                base.IUbsChannel.ParamIn(ParamName, txbName.Text.Trim());
-                base.IUbsChannel.ParamIn(ParamDesc, txbDesc.Text.Trim());
+                base.IUbsChannel.ParamIn(ParamName, txtName.Text.Trim());
+                base.IUbsChannel.ParamIn(ParamDesc, txtDesc.Text.Trim());
 
                 base.IUbsChannel.Run(ComSaveAction);
 
@@ -105,7 +91,7 @@ namespace UbsBusiness
                 m_isInitialized = true;
 
                 tabControl.SelectedTab = tabPageMain;
-                txbName.Focus();
+                txtName.Focus();
 
                 return null;
             }
@@ -120,20 +106,25 @@ namespace UbsBusiness
         {
             try
             {
+                //первое обращение к серверной части формы (необходимо для инициализации доп полей объекта)
+                base.IUbsChannel.Run("InitForm");
+
                 if (m_command == EditCommand)
                 {
-                    base.IUbsChannel.ParamIn(ParamId, m_id);
-                    base.IUbsChannel.Run(GetDataAction);
+                    base.UbsChannel_ParamIn(ParamId, m_id);
+                    base.UbsChannel_Run(GetDataAction);
 
-                    if (base.IUbsChannel.ExistParamOut(ParamName))
-                        txbName.Text = Convert.ToString(base.IUbsChannel.ParamOut(ParamName));
-                    if (base.IUbsChannel.ExistParamOut(ParamDesc))
-                        txbDesc.Text = Convert.ToString(base.IUbsChannel.ParamOut(ParamDesc));
+                    var paramOut = new UbsParam(base.UbsChannel_ParamsOut);
+
+                    if (paramOut.Contains(ParamName))
+                        txtName.Text = Convert.ToString(paramOut.Value(ParamName));
+                    if (paramOut.Contains(ParamDesc))
+                        txtDesc.Text = Convert.ToString(paramOut.Value(ParamDesc));
                 }
                 else
                 {
-                    txbName.Text = "";
-                    txbDesc.Text = "";
+                    txtName.Text = string.Empty;
+                    txtDesc.Text = string.Empty;
                 }
 
                 ubsCtrlAddFields.Refresh();
@@ -147,11 +138,11 @@ namespace UbsBusiness
 
         private bool CheckData()
         {
-            if (string.IsNullOrEmpty(txbName.Text.Trim()))
+            if (string.IsNullOrEmpty(txtName.Text.Trim()))
             {
                 base.Ubs_ShowErrorBox(MsgNameRequired);
                 tabControl.SelectedTab = tabPageMain;
-                txbName.Focus();
+                txtName.Focus();
                 return false;
             }
             return true;
@@ -159,14 +150,5 @@ namespace UbsBusiness
 
         #endregion
 
-        #region m_addFields
-
-        private void m_addFields()
-        {
-            base.IUbsFieldCollection.Add(ParamName, new UbsFormField(txbName, "Text"));
-            base.IUbsFieldCollection.Add(ParamDesc, new UbsFormField(txbDesc, "Text"));
-        }
-
-        #endregion
     }
 }
