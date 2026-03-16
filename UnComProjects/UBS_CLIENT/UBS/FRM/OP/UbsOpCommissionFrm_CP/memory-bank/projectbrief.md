@@ -3,6 +3,8 @@
 ## Project Overview
 **UbsOpCommissionFrm** is a Windows Forms library component for the UBS (UniSAB) system, designed for OP Commission form management. The project provides a form template that extends the UbsFormBase class and implements the IUbs interface for integration with the UBS channel communication system.
 
+**Conversion:** Legacy source = `Commission/Commission_ud.dob` (VB6 UserDocument). Target = `UbsOpCommissionFrm` (.NET WinForm). Main goal: convert Commission_ud → UbsOpCommissionFrm; see `memory-bank/plan-conversion-goals-revised.md`.
+
 ## Objectives
 - Provide a reusable form template for OP Commission management
 - Integrate with UBS channel system for resource loading and command handling

@@ -27,122 +27,122 @@ Begin VB.UserDocument Commission_ud
       TagVariant      =   ""
       Tabs            =   "Commission_ud.dox":0000
       Begin VB.CommandButton btnExit 
-         Caption         =   "Выход"
-         Height          =   375
-         Left            =   4020
-         TabIndex        =   4
-         Top             =   3240
-         Width           =   1155
-      End
+         Caption = "Выход"
+Height = 375
+Left = 4020
+TabIndex = 4
+Top = 3240
+Width = 1155
+End
       Begin VB.CommandButton btnSave 
-         Caption         =   "Сохранить"
-         Height          =   375
-         Left            =   2820
-         TabIndex        =   3
-         Top             =   3240
-         Width           =   1155
-      End
+         Caption = "Сохранить"
+Height = 375
+Left = 2820
+TabIndex = 3
+Top = 3240
+Width = 1155
+End
       Begin ActiveTabs.SSActiveTabPanel SSActiveTabPanel2 
-         Height          =   3285
-         Left            =   30
-         TabIndex        =   7
-         Top             =   360
-         Width           =   5175
-         _ExtentX        =   9128
-         _ExtentY        =   5794
-         _Version        =   131082
-         TabGuid         =   "Commission_ud.dox":0086
+         Height = 3285
+Left = 30
+TabIndex = 7
+Top = 360
+Width = 5175
+_ExtentX = 9128
+_ExtentY = 5794
+_Version = 131082
+TabGuid = "Commission_ud.dox" : 0086
          Begin VB.TextBox txbDesc 
-            Height          =   315
-            Left            =   180
-            TabIndex        =   1
-            Top             =   1380
-            Width           =   4755
-         End
+            Height = 315
+Left = 180
+TabIndex = 1
+Top = 1380
+Width = 4755
+End
          Begin VB.TextBox txbName 
-            Height          =   315
-            Left            =   180
-            TabIndex        =   0
-            Top             =   720
-            Width           =   4755
-         End
+            Height = 315
+Left = 180
+TabIndex = 0
+Top = 720
+Width = 4755
+End
          Begin VB.Label Label2 
-            Caption         =   "Описание:"
-            Height          =   195
-            Left            =   180
-            TabIndex        =   9
-            Top             =   1140
-            Width           =   975
-         End
+            Caption = "Описание:"
+Height = 195
+Left = 180
+TabIndex = 9
+Top = 1140
+Width = 975
+End
          Begin VB.Label Label1 
-            Caption         =   "Наименование:"
-            Height          =   255
-            Left            =   180
-            TabIndex        =   8
-            Top             =   480
-            Width           =   1335
-         End
-      End
+            Caption = "Наименование:"
+Height = 255
+Left = 180
+TabIndex = 8
+Top = 480
+Width = 1335
+End
+End
       Begin ActiveTabs.SSActiveTabPanel SSActiveTabPanel1 
-         Height          =   3285
-         Left            =   -99969
-         TabIndex        =   6
-         Top             =   360
-         Width           =   5175
-         _ExtentX        =   9128
-         _ExtentY        =   5794
-         _Version        =   131082
-         TabGuid         =   "Commission_ud.dox":00AE
+         Height = 3285
+Left = -99969
+TabIndex = 6
+Top = 360
+Width = 5175
+_ExtentX = 9128
+_ExtentY = 5794
+_Version = 131082
+TabGuid = "Commission_ud.dox" : 00AE
          Begin UBSPROPLibCtl.UbsControlProperty ucpParam 
-            Height          =   2775
-            Left            =   60
-            OleObjectBlob   =   "Commission_ud.dox":00D6
-            TabIndex        =   2
-            Top             =   60
-            Width           =   5055
-         End
-      End
+            Height = 2775
+Left = 60
+OleObjectBlob = "Commission_ud.dox" : 00D6
+            TabIndex = 2
+Top = 60
+Width = 5055
+End
+End
       Begin UbsDDXCtrl.UbsDDXControl DDX 
-         Left            =   720
-         Top             =   3060
-         _ExtentX        =   873
-         _ExtentY        =   873
-         DDXControlMemeber_1=   "txbDesc<#>String<#>txbDesc<#>TextBox"
-         DDXControlMemeber_2=   "txbName<#>String<#>txbName<#>TextBox"
-         CountDDXControlMemebers=   2
-      End
+         Left = 720
+Top = 3060
+_ExtentX = 873
+_ExtentY = 873
+DDXControlMemeber_1 = "txbDesc<#>String<#>txbDesc<#>TextBox"
+DDXControlMemeber_2 = "txbName<#>String<#>txbName<#>TextBox"
+CountDDXControlMemebers = 2
+End
       Begin UbsChlCtrl.UbsChannel UbsChannel 
-         Left            =   60
-         Top             =   3060
-         _ExtentX        =   873
-         _ExtentY        =   873
-      End
+         Left = 60
+Top = 3060
+_ExtentX = 873
+_ExtentY = 873
+End
       Begin UbsInfo32.Info Info 
-         Height          =   255
-         Left            =   840
-         Top             =   3300
-         Width           =   1935
-         _ExtentX        =   3413
-         _ExtentY        =   450
-         Caption         =   "Данные сохранены!"
+         Height = 255
+Left = 840
+Top = 3300
+Width = 1935
+_ExtentX = 3413
+_ExtentY = 450
+Caption = "Данные сохранены!"
          BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "MS Sans Serif"
-            Size            =   8.25
-            Charset         =   204
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-      End
-   End
+            Name = "MS Sans Serif"
+Size = 8.25
+Charset = 204
+Weight = 700
+Underline = 0   'False
+Italic = 0   'False
+Strikethrough = 0   'False
+EndProperty
+End
+End
 End
 Attribute VB_Name = "Commission_ud"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
-Option Explicit
+Option Explicit On
 Implements UBSChild
 Dim NumWin As Integer, NumParentWindow As Integer
 Public Parent As UBSParrent
@@ -161,16 +161,16 @@ Private Sub btnExit_Click()
 End Sub
 
 Private Sub btnSave_Click()
-On Error GoTo ErrorCode
+    On Error GoTo ErrorCode
     Dim RS As Variant
-    
-    DDX.UpdateData (True)
+
+    DDX.UpdateData(True)
     objParamIn.ClearParameters
     objParamOut.ClearParameters
     objParamIn.Parameter("Действие") = StrCommand
     If DDX.IsChange Then
         UserDocument.MousePointer = 11
-        If CheckData = False Then
+        If CheckData() = False Then
             UserDocument.MousePointer = 0
             Exit Sub
         End If
@@ -187,7 +187,7 @@ On Error GoTo ErrorCode
     UbsChannel.Run "Com_Save", objParamIn, objParamOut
     StrCommand = "EDIT"
     Info.Show
-    
+
     Exit Sub
 ErrorCode:
     UserDocument.MousePointer = 0
@@ -217,7 +217,7 @@ Private Sub UBSChild_NotifyCloseWindow(ByVal NumWindow As Integer)
     If NumParentWindow <> 0 And NumParentWindow = NumWindow Then
         bParentWindowClose = True
         'Если закрываемое окно - родительское и оно не пришпилено вызвать процедуру закрытия окна
-        btnExit_Click
+        btnExit_Click()
     End If
 End Sub
 
@@ -233,65 +233,65 @@ Private Property Let UBSChild_NumWindow(ByVal RHS As Integer)
 End Property
 
 Private Property Let UBSChild_ParamInfo(ByVal NameParam As String, ByVal RHS As Variant)
-    Dim ItemArray As Variant
+Dim ItemArray As Variant
 
 On Error GoTo ErrorCode
 
-    If Not objFormParam.ExistParameter(NameParam) Then
-        objErr.UbsErrRaise "Проверка поддержки параметров", _
+If Not objFormParam.ExistParameter(NameParam) Then
+objErr.UbsErrRaise "Проверка поддержки параметров",
                 "Параметер '" & NameParam & "' не поддерживается"
     End If
-    
-    If NameParam = "InitParamForm" Then
-        Initialize
-        NumParentWindow = RHS(0)
-        ItemArray = RHS(1)
-        StrCommand = RHS(2)
-        If StrCommand = "ADD" Then
-            ID = 0
-        Else
-            If Not IsEmpty(ItemArray) Then
-                ID = ItemArray(0)
-            Else
-                MsgBox "Список комиссий пуст!", vbOKOnly + vbCritical, "Ошибка"
+
+If NameParam = "InitParamForm" Then
+Initialize
+NumParentWindow = RHS(0)
+ItemArray = RHS(1)
+StrCommand = RHS(2)
+If StrCommand = "ADD" Then
+ID = 0
+Else
+If Not IsEmpty(ItemArray) Then
+ID = ItemArray(0)
+Else
+MsgBox "Список комиссий пуст!", vbOKOnly + vbCritical, "Ошибка"
                 btnExit_Click
-                Exit Property
-            End If
-        End If
-        
-        DDX.InitControlData
-        InitDoc
-        Parent.WindowDraw(NumWin) = True
-        SSTabs.Tabs(1).Selected = True
-        txbName.SetFocus
-        objInterfaces.NextCtrl
-        objInterfaces.PrevCtrl
-    End If
-    If NameParam = "SetFocus" Then
-        If Not objFocusCtrl Is Nothing And Not SSTabs Is Nothing Then
-            If intFocusTab = SSTabs.SelectedTab.Index Then
-               objFocusCtrl.SetFocus
-            End If
-        End If
-    End If
-    If NameParam = "LostFocus" Then
-        If Not UserDocument.ActiveControl Is Nothing Then Set objFocusCtrl = UserDocument.ActiveControl ': intFocusTab = TabPanelContractRc.SelectedTab.Index
+Exit Property
+End If
+End If
+
+DDX.InitControlData
+InitDoc
+Parent.WindowDraw(NumWin) = True
+SSTabs.Tabs(1).Selected = True
+txbName.SetFocus
+objInterfaces.NextCtrl
+objInterfaces.PrevCtrl
+End If
+If NameParam = "SetFocus" Then
+If Not objFocusCtrl Is Nothing And Not SSTabs Is Nothing Then
+If intFocusTab = SSTabs.SelectedTab.Index Then
+objFocusCtrl.SetFocus
+End If
+End If
+End If
+If NameParam = "LostFocus" Then
+If Not UserDocument.ActiveControl Is Nothing Then Set objFocusCtrl = UserDocument.ActiveControl ': intFocusTab = TabPanelContractRc.SelectedTab.Index
         If Not UserDocument.ActiveControl Is Nothing And Not SSTabs Is Nothing Then intFocusTab = SSTabs.SelectedTab.Index
     End If
-    Exit Property
+Exit Property
 
 ErrorCode:
-    objErr.UbsErrMsg "UBSChild_ParamInfo", "ошибка выполнения"
+objErr.UbsErrMsg "UBSChild_ParamInfo", "ошибка выполнения"
     If CheckParamForClose(NameParam) Then
-        btnExit_Click
-    End If
-    
+btnExit_Click
+End If
+
 End Property
 
 Private Property Get UBSChild_ParamInfo(ByVal NameParam As String) As Variant
-    If NameParam = "WaitShow" Then
-        UBSChild_ParamInfo = True
-    End If
+If NameParam = "WaitShow" Then
+UBSChild_ParamInfo = True
+End If
 End Property
 
 Private Property Let UBSChild_Parrent(ByVal RHS As Object)
@@ -315,7 +315,7 @@ Private Property Get UBSChild_Width() As Integer
 End Property
 
 Private Property Let UBSChild_WidthBrowser(ByVal RHS As Variant)
-    
+
 End Property
 
 Private Sub ArrayParam()
@@ -326,7 +326,7 @@ Private Sub ArrayParam()
 End Sub
 
 Private Sub UserDocument_Hide()
-On Error GoTo ErrorCode
+    On Error GoTo ErrorCode
     DDX.ReleaseControlData
     objStub.ReleaseUbsChannel
     Set objErr = Nothing
@@ -347,7 +347,7 @@ End Sub
 Private Sub UserDocument_Initialize()
     Set objFormParam = CreateObject("ToolPubs.IUbsParam")
     Set objStub = CreateObject("UbsAddFiledsStub.IUbsAddFiledsStub")
-    ArrayParam
+    ArrayParam()
 End Sub
 
 Private Sub Initialize()
@@ -356,8 +356,8 @@ Private Sub Initialize()
 End Sub
 
 Private Sub InitDoc()
-On Error GoTo ErrorCode
-    
+    On Error GoTo ErrorCode
+
     UbsChannel.HostAddress = Parent.LoaderParamInfo(NumWin, "HostAddress")
     UbsChannel.UserGUID = Parent.LoaderParamInfo(NumWin, "GuidSession")
     UbsChannel.ParentHwnd = UserDocument.hWnd
@@ -366,7 +366,7 @@ On Error GoTo ErrorCode
     Set objStub.UbsChannel = UbsChannel
     
     UbsChannel.LoadResource = "VBS:UBS_VBD\OP\Commission.vbs"
-    
+
     objParamIn.ClearParameters
     objParamOut.ClearParameters
     If StrCommand = "EDIT" Then
@@ -379,21 +379,21 @@ On Error GoTo ErrorCode
         DDX.InitMemberData("txbName") = ""
         DDX.InitMemberData("txbDesc") = ""
     End If
-        
-    DDX.UpdateData (False)
+
+    DDX.UpdateData(False)
     ucpParam.UbsAddFields = objStub
     ucpParam.Refresh
-    
+
     Exit Sub
 ErrorCode:
     objErr.UbsMsgRaise "InitDoc", "ошибка выполнения"
 End Sub
 
 Public Function CheckData() As Boolean
-On Error GoTo ErrorCode
+    On Error GoTo ErrorCode
     Dim eTitle As String
     eTitle = "Проверка свойств"
-    
+
     If Len(Trim$(DDX.MemberData("txbName"))) = 0 Then
         MsgBox "Не введено наименование комиссии.", vbOKOnly + vbCritical, eTitle
         SSTabs.Tabs(1).Selected = True
@@ -401,7 +401,7 @@ On Error GoTo ErrorCode
         CheckData = False
         Exit Function
     End If
-    
+
     CheckData = True
     Exit Function
 ErrorCode:
@@ -417,7 +417,7 @@ Private Sub UserDocument_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub UserDocument_KeyPress(KeyAscii As Integer)
-On Error GoTo ErrorCode
+    On Error GoTo ErrorCode
 
     Select Case KeyAscii
         Case 13
@@ -437,7 +437,7 @@ On Error GoTo ErrorCode
                     txbDesc.SetFocus
                 Case Else
                     objInterfaces.PrevCtrl
-                    
+
             End Select
     End Select
     Exit Sub
