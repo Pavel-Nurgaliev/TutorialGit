@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace UbsBusiness
+﻿namespace UbsBusiness
 {
     /// <summary>
     /// Константы формы UbsOpCommissionFrm (ресурс канала, команды, параметры, сообщения).
@@ -11,6 +9,8 @@ namespace UbsBusiness
 
         /// <summary>Имя ресурса для загрузки канала.</summary>
         private const string LoadResource = "VBS:UBS_VBD\\OP\\Commission.vbs";
+        /// <summary>Имя ресурса для загрузки канала (удаление).</summary>
+        private const string DelSimpleObjectLoadResource = "VBS:UBS_VBS\\SYSTEM\\del_simple_object_channel.vbs";
 
         #endregion
 
@@ -18,6 +18,7 @@ namespace UbsBusiness
 
         private const string AddCommand = "ADD";
         private const string EditCommand = "EDIT";
+        private const string DeleteCommand = "DEL";
 
         #endregion
 

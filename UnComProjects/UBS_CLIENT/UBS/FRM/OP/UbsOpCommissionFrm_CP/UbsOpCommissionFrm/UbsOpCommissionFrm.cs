@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using UbsService;
 
 namespace UbsBusiness
@@ -25,8 +26,6 @@ namespace UbsBusiness
 
             InitializeComponent();
 
-            this.IUbsChannel.LoadResource = LoadResource;
-
             base.UbsCtrlFieldsSupportCollection.Add("Доп. поля", ubsCtrlAddFields);
 
             base.Ubs_CommandLock = true;
@@ -43,11 +42,11 @@ namespace UbsBusiness
                 if (!this.ValidateChildren()) { return; }
                 if (!CheckData()) { return; }
 
-                base.IUbsChannel.ParamIn(ParamAction, m_command);
-                base.IUbsChannel.ParamIn(ParamName, txtName.Text.Trim());
-                base.IUbsChannel.ParamIn(ParamDesc, txtDesc.Text.Trim());
+                base.UbsChannel_ParamIn(ParamAction, m_command);
+                base.UbsChannel_ParamIn(ParamName, txtName.Text.Trim());
+                base.UbsChannel_ParamIn(ParamDesc, txtDesc.Text.Trim());
 
-                base.IUbsChannel.Run(ComSaveAction);
+                base.UbsChannel_Run(ComSaveAction);
 
                 m_command = EditCommand;
                 ubsCtrlInfo.Show(MsgDataSaved);
@@ -67,7 +66,7 @@ namespace UbsBusiness
 
         private object CommandLine(object param_in, ref object param_out)
         {
-            m_command = param_in != null ? Convert.ToString(param_in) : "";
+            m_command = param_in != null ? Convert.ToString(param_in) : string.Empty;
             return null;
         }
 
@@ -78,6 +77,30 @@ namespace UbsBusiness
                 m_id = (param_in != null && param_in is object[] && ((object[])param_in).Length > 0)
                     ? Convert.ToInt32(((object[])param_in)[0])
                     : 0;
+
+                if (m_command == DeleteCommand)
+                {
+                    if (m_id == 0)
+                    {
+                        base.Ubs_ShowErrorBox("Не выбраны записи для удаления!");
+                        return false;
+                    }
+
+                    if (MessageBox.Show("Вы уверены, что хотите удалить выделенные записи?", "Удаление записей", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        base.IUbsChannel.LoadResource = DelSimpleObjectLoadResource;
+                        base.IUbsChannel.ParamIn("KeyArray", param_in);
+                        base.IUbsChannel.ParamIn("ProgId", "UbsGuarantyModel");
+                        base.IUbsChannel.Run("DeleteInstances");
+
+                        IUbs iubs = Control.FromHandle((IntPtr)base.IUbs.Run("ParentHandle", null)) as IUbs;
+                        if (iubs != null && iubs.ExistName("RefreshGrid")) iubs.Run("RefreshGrid", null);
+                    }
+
+                    return false;
+                }
+
+                this.IUbsChannel.LoadResource = LoadResource;
 
                 if (m_command == EditCommand && m_id == 0)
                 {
@@ -108,6 +131,8 @@ namespace UbsBusiness
             {
                 //первое обращение к серверной части формы (необходимо для инициализации доп полей объекта)
                 base.IUbsChannel.Run("InitForm");
+
+                base.UbsInit();
 
                 if (m_command == EditCommand)
                 {

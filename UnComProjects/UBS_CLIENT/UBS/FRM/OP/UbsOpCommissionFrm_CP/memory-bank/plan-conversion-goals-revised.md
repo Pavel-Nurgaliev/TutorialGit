@@ -103,5 +103,6 @@
 | **plan-conversion-goals-revised.md** (this) | Defines main goal: conversion Commission_ud → UbsOpCommissionFrm |
 | **plan-legacy-source-conversion.md** | Update: legacy source = Commission/Commission_ud.dob; target = UbsOpCommissionFrm |
 | **plan-ubsobgoals-apply-to-op-commission.md** | Supporting goals (constants, partials) — applied during/after conversion |
+| **plan-implementation-vb6-to-dotnet.md** | Implementation differences from last 2 commits; checklist for future VB6 → .NET conversions |
 
 **Main goal:** Convert Commission_ud to UbsOpCommissionFrm. Constants and docs are preparation; the conversion is the primary deliverable.
