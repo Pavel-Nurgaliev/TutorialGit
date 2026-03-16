@@ -82,11 +82,11 @@ namespace UbsBusiness
                 {
                     if (m_id == 0)
                     {
-                        base.Ubs_ShowErrorBox("Не выбраны записи для удаления!");
+                        base.Ubs_ShowErrorBox(RecordsIsNotChosen);
                         return false;
                     }
 
-                    if (MessageBox.Show("Вы уверены, что хотите удалить выделенные записи?", "Удаление записей", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    if (MessageBox.Show(AreYouSureAboutDeletingRecords, MsgDeletingRecords, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         base.IUbsChannel.LoadResource = DelSimpleObjectLoadResource;
                         base.IUbsChannel.ParamIn("KeyArray", param_in);

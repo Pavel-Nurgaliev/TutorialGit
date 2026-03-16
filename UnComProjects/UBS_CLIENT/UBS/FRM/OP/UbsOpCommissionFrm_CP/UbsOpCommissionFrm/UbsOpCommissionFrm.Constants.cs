@@ -47,6 +47,10 @@
         private const string MsgError = "Ошибка";
         private const string MsgErrorExecution = "ошибка выполнения";
 
+        private const string AreYouSureAboutDeletingRecords = "Вы уверены, что хотите удалить выделенные записи?";
+        private const string MsgDeletingRecords = "Удаление записей";
+        private const string RecordsIsNotChosen = "Не выбраны записи для удаления!";
+
         #endregion
     }
 }
