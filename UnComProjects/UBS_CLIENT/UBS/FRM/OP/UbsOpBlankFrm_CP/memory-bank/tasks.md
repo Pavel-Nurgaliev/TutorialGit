@@ -20,12 +20,23 @@
 - [x] Implement InitDoc (Get_Data, LoadFromParams, FillCombo)
 - [x] Implement ListKey (pass ID; call InitDoc)
 - [x] Implement btnSave (ParamIn Id/State, Blank_Save, show MsgSaved)
-- [x] LoadResource and constants used (VBS path; params/commands/messages in Constants)
+- [x] LoadResource and constants used (VBS path, combo text, messages); channel commands/params as explicit string values in code
 
 **Phase 3 (Post-conversion):**
 - [ ] Split partials when form grows
-- [ ] Reflection doc; update systemPatterns if needed
+- [x] Reflection doc (`memory-bank/reflection/reflection-blank-conversion.md`)
+- [ ] Update systemPatterns if needed
+- [ ] Archiving
 
 ## Status
 
-- **Memory-bank structure** — Implemented per `plan-future-projects-using-memory-bank.md` (projectbrief, techContext, productContext, plan-*, creative-*, systemPatterns, tasks, progress). Ready for BUILD Phase 1 and Phase 2.
+- [x] Initialization complete
+- [x] Planning complete
+- [x] Creative phases complete
+- [x] Implementation complete (Phase 1 & 2)
+- [x] Reflection complete
+- [ ] Archiving
+
+**Reflection highlights:** See `memory-bank/reflection/reflection-blank-conversion.md`. What went well: phased plan + creative first, Constants partial (resource/UI/messages only) + channel contract, channel commands/params as **explicit string values** at call sites, explicit binding/ListKey, FillCombo logic. Lessons: do not put channel command/param names in Constants — use explicit values; align UI/key names with creative; document optional behavior (e.g. keyboard) as Phase 3/follow-up; add brief verify step in tasks. Next: ARCHIVE mode; Phase 3 partials, systemPatterns, optional tab key alignment and keyboard behavior.
+
+- **Memory-bank structure** — Implemented per `plan-future-projects-using-memory-bank.md` (projectbrief, techContext, productContext, plan-*, creative-*, systemPatterns, tasks, progress). Ready for ARCHIVE.

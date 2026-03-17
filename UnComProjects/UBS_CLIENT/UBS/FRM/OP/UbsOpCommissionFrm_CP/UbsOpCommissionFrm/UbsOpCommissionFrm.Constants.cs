@@ -22,22 +22,6 @@
 
         #endregion
 
-        #region Действия канала
-
-        private const string GetDataAction = "Get_Data";
-        private const string ComSaveAction = "Com_Save";
-
-        #endregion
-
-        #region Параметры канала
-
-        private const string ParamAction = "Действие";
-        private const string ParamName = "Наименование";
-        private const string ParamDesc = "Описание";
-        private const string ParamId = "Идентификатор";
-
-        #endregion
-
         #region Сообщения
 
         private const string MsgCommissionListEmpty = "Список комиссий пуст!";

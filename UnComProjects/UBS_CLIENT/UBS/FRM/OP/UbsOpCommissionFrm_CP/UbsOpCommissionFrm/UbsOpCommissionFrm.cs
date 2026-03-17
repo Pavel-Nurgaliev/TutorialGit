@@ -42,11 +42,11 @@ namespace UbsBusiness
                 if (!this.ValidateChildren()) { return; }
                 if (!CheckData()) { return; }
 
-                base.UbsChannel_ParamIn(ParamAction, m_command);
-                base.UbsChannel_ParamIn(ParamName, txtName.Text.Trim());
-                base.UbsChannel_ParamIn(ParamDesc, txtDesc.Text.Trim());
+                base.UbsChannel_ParamIn("Действие", m_command);
+                base.UbsChannel_ParamIn("Наименование", txtName.Text.Trim());
+                base.UbsChannel_ParamIn("Описание", txtDesc.Text.Trim());
 
-                base.UbsChannel_Run(ComSaveAction);
+                base.UbsChannel_Run("Com_Save");
 
                 m_command = EditCommand;
                 ubsCtrlInfo.Show(MsgDataSaved);
@@ -136,15 +136,15 @@ namespace UbsBusiness
 
                 if (m_command == EditCommand)
                 {
-                    base.UbsChannel_ParamIn(ParamId, m_id);
-                    base.UbsChannel_Run(GetDataAction);
+                    base.UbsChannel_ParamIn("Идентификатор", m_id);
+                    base.UbsChannel_Run("Get_Data");
 
                     var paramOut = new UbsParam(base.UbsChannel_ParamsOut);
 
-                    if (paramOut.Contains(ParamName))
-                        txtName.Text = Convert.ToString(paramOut.Value(ParamName));
-                    if (paramOut.Contains(ParamDesc))
-                        txtDesc.Text = Convert.ToString(paramOut.Value(ParamDesc));
+                    if (paramOut.Contains("Наименование"))
+                        txtName.Text = Convert.ToString(paramOut.Value("Наименование"));
+                    if (paramOut.Contains("Описание"))
+                        txtDesc.Text = Convert.ToString(paramOut.Value("Описание"));
                 }
                 else
                 {

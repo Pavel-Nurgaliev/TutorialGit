@@ -43,11 +43,11 @@ namespace UbsBusiness
             {
                 if (!this.ValidateChildren()) { return; }
 
-                base.UbsChannel_ParamIn(ParamId, m_id);
+                base.UbsChannel_ParamIn("Идентификатор", m_id);
                 if (cmbState.Enabled && cmbState.SelectedItem != null)
-                    base.UbsChannel_ParamIn(ParamState, ((KeyValuePair<int, string>)cmbState.SelectedItem).Key);
+                    base.UbsChannel_ParamIn("Состояние", ((KeyValuePair<int, string>)cmbState.SelectedItem).Key);
 
-                base.UbsChannel_Run(BlankSaveCommand);
+                base.UbsChannel_Run("Blank_Save");
 
                 ubsCtrlInfo.Show(MsgSaved);
             }
@@ -129,14 +129,14 @@ namespace UbsBusiness
 
                 base.UbsInit();
 
-                base.UbsChannel_ParamIn(ParamId, m_id);
-                base.UbsChannel_Run(GetDataCommand);
+                base.UbsChannel_ParamIn("Идентификатор", m_id);
+                base.UbsChannel_Run("Get_Data");
 
                 var paramOut = new UbsParam(base.UbsChannel_ParamsOut);
                 LoadFromParams(paramOut);
 
-                m_kindVal = paramOut.Contains(ParamKindId) ? Convert.ToInt32(paramOut.Value(ParamKindId)) : 0;
-                int currentState = paramOut.Contains(ParamState) ? Convert.ToInt32(paramOut.Value(ParamState)) : 0;
+                m_kindVal = paramOut.Contains("Идентификатор вида") ? Convert.ToInt32(paramOut.Value("Идентификатор вида")) : 0;
+                int currentState = paramOut.Contains("Состояние") ? Convert.ToInt32(paramOut.Value("Состояние")) : 0;
 
                 FillCombo(currentState);
                 ubsCtrlAddFields.Refresh();
@@ -146,19 +146,19 @@ namespace UbsBusiness
 
         private void LoadFromParams(UbsParam paramOut)
         {
-            if (paramOut.Contains(ParamDate))
+            if (paramOut.Contains("Дата учета"))
             {
-                object v = paramOut.Value(ParamDate);
+                object v = paramOut.Value("Дата учета");
                 if (v != null && v != DBNull.Value)
                 {
                     try { dateCalc.DateValue = Convert.ToDateTime(v); }
                     catch { }
                 }
             }
-            if (paramOut.Contains(ParamSer)) txbSer.Text = Convert.ToString(paramOut.Value(ParamSer));
-            if (paramOut.Contains(ParamNum)) txbNum.Text = Convert.ToString(paramOut.Value(ParamNum));
-            if (paramOut.Contains(ParamNameVal)) txbNameVal.Text = Convert.ToString(paramOut.Value(ParamNameVal));
-            if (paramOut.Contains(ParamKindVal)) txbKindVal.Text = Convert.ToString(paramOut.Value(ParamKindVal));
+            if (paramOut.Contains("Серия")) txbSer.Text = Convert.ToString(paramOut.Value("Серия"));
+            if (paramOut.Contains("Номер")) txbNum.Text = Convert.ToString(paramOut.Value("Номер"));
+            if (paramOut.Contains("Наименование ценности")) txbNameVal.Text = Convert.ToString(paramOut.Value("Наименование ценности"));
+            if (paramOut.Contains("Вид ценности")) txbKindVal.Text = Convert.ToString(paramOut.Value("Вид ценности"));
         }
 
         private void FillCombo(int currentState)
