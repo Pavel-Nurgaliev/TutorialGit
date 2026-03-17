@@ -17,4 +17,11 @@
 - Created `creative-retoper-combobox-datastorage.md` — ComboBox ItemData → **KeyValuePair + DataSource** (align with UbsOpBlankFrm)
 - Extended `creative-retoper-conversion-architecture.md` — UbsCtrlDecimal precision/range table
 
-**Next:** Phase 1 (Prep) — Constants partial, UbsCtrlDecimal reference, then Phase 2 (Conversion).
+**Phase: BUILD**
+
+- Phase 1: Constants partial, UbsCtrlDecimal reference — done
+- Phase 2: Full UI (GroupBox, 8 UbsCtrlDecimal, combos, checkboxes), InitDoc, ListKey, valMinusCB handler, NU/rateCur recalc, btnSave — done
+- **Explicit literals:** Removed channel command/param constants; code uses literal strings for UbsChannel_Run and UbsChannel_ParamIn keys.
+- Build: Linter clean. Verify in VS with .NET 2.0 and UbsCtrlDecimal/UbsChannel references.
+
+**Next:** `/reflect` for task review; manual build verification in VS.

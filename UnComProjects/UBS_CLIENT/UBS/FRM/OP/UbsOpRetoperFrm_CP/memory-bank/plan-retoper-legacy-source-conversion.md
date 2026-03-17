@@ -101,11 +101,17 @@
 
 1. **Execute conversion** — Implement op_ret_oper behavior in UbsOpRetoperFrm (Phase 2 in plan-retoper-conversion-goals.md).
 2. **Channel contract** — Document CheckCash, InitForm, GetOperParam, Save; param names; LoadResource.
-3. **Constants** — All param names, command names, messages in Constants partial.
+3. **Constants** — LoadResource and user-facing messages only. Channel commands and params: use explicit strings in code (e.g. `"Save"`, `"Id операции"`).
 
 ---
 
-## 6. RELATION TO OTHER PLANS
+## 6. CHANNEL IMPLEMENTATION RULE
+
+**Explicit literals:** `UbsChannel_Run` and `UbsChannel_ParamIn`/`ParamOut` keys must use explicit string literals in code, not constants. Example: `base.UbsChannel_Run("Save")`, `base.UbsChannel_ParamIn("Id операции", m_idOper)`.
+
+---
+
+## 7. RELATION TO OTHER PLANS
 
 - **plan-retoper-conversion-goals.md** — Main goal and phased roadmap (op_ret_oper → UbsOpRetoperFrm).
 - **creative-retoper-conversion-architecture.md** — Layout, control mapping, data binding decisions.

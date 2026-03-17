@@ -2,12 +2,14 @@
 
 **Purpose:** Single reference for channel resource, commands, and param in/out. Align with legacy op_ret_oper.dob.
 
+**Implementation rule:** Use explicit string literals in code for `.Run` commands and param keys. Do not use constants. Example: `UbsChannel_Run("Save")`, `UbsChannel_ParamIn("Id операции", m_idOper)`.
+
 ---
 
 ## Resource
 
 - **LoadResource:** `VBS:UBS_VBS\OP\opers.vbs` (or ASM equivalent; set in Constants partial as `LoadResource`).
-- Used by form for CheckCash, InitForm, GetOperParam, Save.
+- Used by form for `"CheckCash"`, `"InitForm"`, `"GetOperParam"`, `"Save"`.
 
 ---
 
@@ -56,4 +58,4 @@
 
 ---
 
-*Update this doc when contract or constants change.*
+*Update this doc when contract changes. Code uses explicit literals for commands and params.*

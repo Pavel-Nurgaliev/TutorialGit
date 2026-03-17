@@ -6,7 +6,7 @@
 
 **Task:** Convert op_ret_oper (VB6) → UbsOpRetoperFrm (.NET WinForm)
 
-**Phase:** Planning complete. Ready for BUILD (Phase 1 Prep, then Phase 2 Conversion).
+**Phase:** BUILD complete. Phase 1–2 implemented. Ready for `/reflect` and manual build verification.
 
 ## Key Decisions
 

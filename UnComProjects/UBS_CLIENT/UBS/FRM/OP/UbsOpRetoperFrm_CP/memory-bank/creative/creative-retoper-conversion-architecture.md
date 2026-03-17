@@ -53,6 +53,7 @@ Map all 17 DDX members plus channel-specific params (Валюта выданна
 - **LoadResource:** `VBS:UBS_VBS\OP\opers.vbs` (or ASM equivalent).
 - **Commands:** CheckCash (pre-init), InitForm (load), GetOperParam (valMinusCB change), Save (btnSave).
 - Param keys identical to VB6 (Russian names). Document in channel contract.
+- **Explicit literals:** Use literal strings for `.Run` commands and param keys in code; do not use constants.
 
 ---
 
@@ -84,4 +85,4 @@ Map all 17 DDX members plus channel-specific params (Валюта выданна
 - **valMinusCB_SelectedIndexChanged:** GetOperParam; fill rateCur, NU, komCur, valComis; trigger recalc.
 - **NU_ValueChanged / rateCur_ValueChanged:** Recalc sumMinusCur, komCur.
 - **btnSave_Click:** BuildSaveParams; run Save; show "Данные сохранены!" via ubsCtrlInfo.
-- Keep all param/command **strings in Constants partial**; document in channel contract.
+- Keep user-facing strings in Constants partial; use **explicit literals** for channel commands and param keys (document in channel contract).

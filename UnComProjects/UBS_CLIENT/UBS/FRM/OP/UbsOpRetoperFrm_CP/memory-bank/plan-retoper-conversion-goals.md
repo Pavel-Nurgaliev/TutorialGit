@@ -86,7 +86,7 @@
 - Implement valMinusCB_SelectedIndexChanged: GetOperParam; fill rate, NU, komCur, valComis.
 - Implement NU/rateCur value change handlers: recalc sumMinusCur, komCur.
 - Implement btnSave: BuildSaveParams; run Save; show "Данные сохранены!" via ubsCtrlInfo.
-- Map LoadResource to OP opers path; constants for all params and commands.
+- Map LoadResource to OP opers path. **Channel commands and params:** use explicit literal strings in code (e.g. `UbsChannel_Run("Save")`, `UbsChannel_ParamIn("Id операции", m_idOper)`); do not use constants for commands or param keys.
 
 **Complexity:** Level 3 (intermediate) — single form, one legacy source, multiple channel commands, business logic.
 
@@ -96,8 +96,8 @@
 
 ### Phase 1 (Prep)
 
-- [ ] Constants partial (LoadResource, param names, command names, messages).
-- [ ] Channel contract doc (op_ret_oper commands and params).
+- [ ] Constants partial (LoadResource, user-facing messages only; **not** channel command/param names).
+- [ ] Channel contract doc (op_ret_oper commands and params — reference for implementation; code uses explicit literals).
 - [ ] Add UbsCtrlDecimal reference to UbsOpRetoperFrm.csproj.
 
 ### Phase 2 (Main Goal — Conversion)
@@ -108,7 +108,7 @@
 - [ ] Implement valMinusCB_SelectedIndexChanged: GetOperParam.
 - [ ] Implement NU/rateCur change handlers: recalc sumMinusCur, komCur.
 - [ ] Implement btnSave: BuildSaveParams, Save, show info.
-- [ ] Set LoadResource; use constants everywhere.
+- [ ] Set LoadResource from constants. Use explicit literal strings for channel `.Run` commands and `ParamIn`/`ParamOut` keys (no constants).
 
 ### Phase 3 (Post-Conversion)
 

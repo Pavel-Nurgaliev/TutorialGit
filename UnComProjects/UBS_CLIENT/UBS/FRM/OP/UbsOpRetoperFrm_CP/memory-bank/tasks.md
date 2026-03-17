@@ -20,23 +20,23 @@
 
 ### Phase 1 (Prep)
 
-- [ ] Create `UbsOpRetoperFrm.Constants.cs` — LoadResource, param names, command names, messages
-- [ ] Add UbsCtrlDecimal reference to `UbsOpRetoperFrm.csproj` (C:\ProgramData\UniSAB\Assembly\Ubs\UbsCtrlDecimal.dll)
-- [ ] Channel contract doc created (ubsopretoperfrm-channel-contract.md)
+- [x] Create `UbsOpRetoperFrm.Constants.cs` — LoadResource, user-facing messages only (explicit literals for channel commands/params)
+- [x] Add UbsCtrlDecimal reference to `UbsOpRetoperFrm.csproj` (C:\ProgramData\UniSAB\Assembly\Ubs\UbsCtrlDecimal.dll)
+- [x] Channel contract doc created (ubsopretoperfrm-channel-contract.md)
 
 ### Phase 2 (Main Goal — Conversion)
 
-- [ ] **UI:** GroupBox "Платежный документ" — plDoc, serPDoc, numPDoc, valNom, nomPDoc (readonly)
-- [ ] **UI:** payMoney CheckBox, valMinusCB, sumMinusCur, rateCur, NU (row "Выдать")
-- [ ] **UI:** valComis, komCur, podNalCur (row "Комиссия / Подоходный налог")
-- [ ] **UI:** nKvit, clientTxt, docCB, serTxt, numTxt, resCHB
-- [ ] **UI:** Save, Exit, ubsCtrlInfo (bottom strip)
-- [ ] **InitDoc:** InitForm, LoadFromParams, fill valMinusCB/valComis/docCB, payMoney logic
-- [ ] **ListKey:** pass idOper; CheckCash; InitDoc
-- [ ] **valMinusCB_SelectedIndexChanged:** GetOperParam, fill rateCur/NU/komCur/valComis
-- [ ] **NU/rateCur change handlers:** recalc sumMinusCur, komCur
-- [ ] **btnSave_Click:** BuildSaveParams, Save, show "Данные сохранены!" via ubsCtrlInfo
-- [ ] Set LoadResource; use constants everywhere
+- [x] **UI:** GroupBox "Платежный документ" — plDoc, serPDoc, numPDoc, valNom, nomPDoc (readonly)
+- [x] **UI:** payMoney CheckBox, valMinusCB, sumMinusCur, rateCur, NU (row "Выдать")
+- [x] **UI:** valComis, komCur, podNalCur (row "Комиссия / Подоходный налог")
+- [x] **UI:** nKvit, clientTxt, docCB, serTxt, numTxt, resCHB
+- [x] **UI:** Save, Exit, ubsCtrlInfo (bottom strip)
+- [x] **InitDoc:** InitForm, LoadFromParams, fill valMinusCB/valComis/docCB, payMoney logic
+- [x] **ListKey:** pass idOper; CheckCash; InitDoc
+- [x] **valMinusCB_SelectedIndexChanged:** GetOperParam, fill rateCur/NU/komCur/valComis
+- [x] **NU/rateCur change handlers:** recalc sumMinusCur, komCur
+- [x] **btnSave_Click:** BuildSaveParams, Save, show "Данные сохранены!" via ubsCtrlInfo
+- [x] Set LoadResource; explicit literals for channel .Run and param keys
 
 ### Phase 3 (Post-Conversion)
 
