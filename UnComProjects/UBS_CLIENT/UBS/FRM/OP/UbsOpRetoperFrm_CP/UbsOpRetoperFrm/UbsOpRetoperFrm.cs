@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using UbsService;
@@ -12,9 +12,9 @@ namespace UbsBusiness
     {
         #region Поля формы
 
-        private string m_command = "";
+        private string m_command = string.Empty;
         private long m_idOper = 0;
-        private string m_sidOper = "";
+        private string m_sidOper = string.Empty;
         private int m_idPayDoc = 0;
         private long m_idFOper = 0;
         private long m_selectedClient = 0;
@@ -61,7 +61,7 @@ namespace UbsBusiness
                 }
 
                 ubsCtrlInfo.Show(MsgSaved);
-                valMinusCB.Focus();
+                cmbValueMinus.Focus();
             }
             catch (Exception ex) { this.Ubs_ShowError(ex); }
         }
@@ -74,12 +74,12 @@ namespace UbsBusiness
         {
             if (!chkPayMoney.Checked)
             {
-                valMinusCB.Enabled = false;
-                sumMinusCur.DecimalValue = 0m;
+                cmbValueMinus.Enabled = false;
+                ucdValueMinus.DecimalValue = 0m;
             }
             else
             {
-                valMinusCB.Enabled = true;
+                cmbValueMinus.Enabled = true;
             }
         }
 
@@ -87,14 +87,14 @@ namespace UbsBusiness
         {
             try
             {
-                if (valMinusCB.SelectedItem == null || m_operArr == null) return;
+                if (cmbValueMinus.SelectedItem == null || m_operArr == null) return;
 
                 int valMinusId = GetValMinusId();
                 if (valMinusId < 0) return;
 
                 base.UbsChannel_ParamIn("idPov", m_idPov);
                 base.UbsChannel_ParamIn("SID Операции", "BUY");
-                base.UbsChannel_ParamIn("Валюта принятая", ParseInt(txbValNom.Text));
+                base.UbsChannel_ParamIn("Валюта принятая", ParseInt(txtCurrencyNominal.Text));
                 base.UbsChannel_ParamIn("Валюта выданная", valMinusId);
                 base.UbsChannel_ParamIn("Платежный документ", m_idPayDoc);
                 SetOperParamFromOperArr();
@@ -106,36 +106,36 @@ namespace UbsBusiness
                 m_isKomPer = pOut.Contains("Комиссия в процентах") && Convert.ToBoolean(pOut.Value("Комиссия в процентах"));
 
                 if (!m_isKomCur)
-                    SetComboSelection(valComis, 810);
+                    SetComboSelection(cmbComission, 810);
                 else
-                    SetComboSelection(valComis, valMinusId);
+                    SetComboSelection(cmbComission, valMinusId);
 
                 if (!m_isKomPer)
-                    komCur.DecimalValue = m_sumKom;
+                    ucdCommission.DecimalValue = m_sumKom;
 
                 if (pOut.Contains("Курс"))
                 {
-                    rateCur.DecimalValue = Convert.ToDecimal(pOut.Value("Курс"));
-                    NU.DecimalValue = Convert.ToDecimal(pOut.Value("Курс за(единиц)"));
+                    ucdRate.DecimalValue = Convert.ToDecimal(pOut.Value("Курс"));
+                    ucdRatePer.DecimalValue = Convert.ToDecimal(pOut.Value("Курс за(единиц)"));
                 }
                 else
                 {
-                    NU.DecimalValue = 1m;
-                    rateCur.DecimalValue = 1m;
+                    ucdRatePer.DecimalValue = 1m;
+                    ucdRate.DecimalValue = 1m;
                 }
-                RecalcSumMinusCur();
+                RecalcucdValueMinus();
             }
             catch (Exception ex) { this.Ubs_ShowError(ex); }
         }
 
         private void NU_TextChanged(object sender, EventArgs e)
         {
-            RecalcSumMinusCur();
+            RecalcucdValueMinus();
         }
 
-        private void rateCur_TextChanged(object sender, EventArgs e)
+        private void ucdRate_TextChanged(object sender, EventArgs e)
         {
-            RecalcSumMinusCur();
+            RecalcucdValueMinus();
         }
 
         #endregion
@@ -183,8 +183,8 @@ namespace UbsBusiness
 
                 InitDoc();
 
-                if (valMinusCB.Enabled)
-                    valMinusCB.Focus();
+                if (cmbValueMinus.Enabled)
+                    cmbValueMinus.Focus();
                 else
                     chkPayMoney.Focus();
 
@@ -227,7 +227,7 @@ namespace UbsBusiness
                 {
                     chkPayMoney.Enabled = true;
                     chkPayMoney.Checked = false;
-                    valMinusCB.Enabled = false;
+                    cmbValueMinus.Enabled = false;
                 }
                 else
                 {
@@ -244,7 +244,7 @@ namespace UbsBusiness
 
         private void FillDocCB(UbsParam paramOut)
         {
-            docCB.Items.Clear();
+            cmbDocument.Items.Clear();
             if (!paramOut.Contains("Список документов")) return;
             var docArr = paramOut.Value("Список документов") as Array;
             if (docArr == null || docArr.Rank < 2) return;
@@ -254,17 +254,17 @@ namespace UbsBusiness
                 for (int i = 0; i < len; i++)
                 {
                     object v = docArr.GetValue(1, i);
-                    docCB.Items.Add(v != null ? Convert.ToString(v) : "");
+                    cmbDocument.Items.Add(v != null ? Convert.ToString(v) : "");
                 }
             }
             catch { }
-            if (docCB.Items.Count > 0) docCB.SelectedIndex = 0;
+            if (cmbDocument.Items.Count > 0) cmbDocument.SelectedIndex = 0;
         }
 
         private void FillValCombos(UbsParam paramOut)
         {
-            valMinusCB.Items.Clear();
-            valComis.Items.Clear();
+            cmbValueMinus.Items.Clear();
+            cmbComission.Items.Clear();
             if (!paramOut.Contains("Список валют")) return;
             var arr = paramOut.Value("Список валют") as Array;
             if (arr == null || arr.Rank < 2) return;
@@ -286,41 +286,41 @@ namespace UbsBusiness
             if (list.Count > 0)
             {
                 var data = new List<KeyValuePair<int, string>>(list);
-                valMinusCB.DataSource = data;
-                valMinusCB.ValueMember = "Key";
-                valMinusCB.DisplayMember = "Value";
-                valMinusCB.SelectedIndex = -1;
-                valComis.DataSource = new List<KeyValuePair<int, string>>(list);
-                valComis.ValueMember = "Key";
-                valComis.DisplayMember = "Value";
+                cmbValueMinus.DataSource = data;
+                cmbValueMinus.ValueMember = "Key";
+                cmbValueMinus.DisplayMember = "Value";
+                cmbValueMinus.SelectedIndex = -1;
+                cmbComission.DataSource = new List<KeyValuePair<int, string>>(list);
+                cmbComission.ValueMember = "Key";
+                cmbComission.DisplayMember = "Value";
             }
         }
 
         private void LoadFromParams(UbsParam paramOut)
         {
-            if (paramOut.Contains("ФИО")) clientTxt.Text = Convert.ToString(paramOut.Value("ФИО"));
-            if (paramOut.Contains("Комиссия")) komCur.DecimalValue = ToDecimal(paramOut.Value("Комиссия"));
-            if (paramOut.Contains("Номер квитанции(справки)")) nKvit.DecimalValue = ToDecimal(paramOut.Value("Номер квитанции(справки)"));
-            if (paramOut.Contains("Номинал")) nomPDoc.DecimalValue = ToDecimal(paramOut.Value("Номинал"));
-            if (paramOut.Contains("Курс за(единиц)")) NU.DecimalValue = ToDecimal(paramOut.Value("Курс за(единиц)"));
-            if (paramOut.Contains("Номер платежного документа")) numPDoc.DecimalValue = ToDecimal(paramOut.Value("Номер платежного документа"));
-            if (paramOut.Contains("Номер документа")) numTxt.Text = Convert.ToString(paramOut.Value("Номер документа"));
-            if (paramOut.Contains("Платежный документ")) txbPlDoc.Text = Convert.ToString(paramOut.Value("Платежный документ"));
-            if (paramOut.Contains("Подоходный налог")) podNalCur.DecimalValue = ToDecimal(paramOut.Value("Подоходный налог"));
-            if (paramOut.Contains("Курс")) rateCur.DecimalValue = ToDecimal(paramOut.Value("Курс"));
-            if (paramOut.Contains("Резидент")) resCHB.Checked = ToDecimal(paramOut.Value("Резидент")) != 0;
-            if (paramOut.Contains("Серия платежного документа")) txbSerPDoc.Text = Convert.ToString(paramOut.Value("Серия платежного документа"));
-            if (paramOut.Contains("Серия документа")) serTxt.Text = Convert.ToString(paramOut.Value("Серия документа"));
-            if (paramOut.Contains("Сумма выданная")) sumMinusCur.DecimalValue = ToDecimal(paramOut.Value("Сумма выданная"));
-            if (paramOut.Contains("Валюта номинала")) txbValNom.Text = Convert.ToString(paramOut.Value("Валюта номинала"));
+            if (paramOut.Contains("ФИО")) txtClient.Text = Convert.ToString(paramOut.Value("ФИО"));
+            if (paramOut.Contains("Комиссия")) ucdCommission.DecimalValue = ToDecimal(paramOut.Value("Комиссия"));
+            if (paramOut.Contains("Номер квитанции(справки)")) ucdNumReceipt.DecimalValue = ToDecimal(paramOut.Value("Номер квитанции(справки)"));
+            if (paramOut.Contains("Номинал")) ucdSumNominal.DecimalValue = ToDecimal(paramOut.Value("Номинал"));
+            if (paramOut.Contains("Курс за(единиц)")) ucdRatePer.DecimalValue = ToDecimal(paramOut.Value("Курс за(единиц)"));
+            if (paramOut.Contains("Номер платежного документа")) ucdNumPayDoc.DecimalValue = ToDecimal(paramOut.Value("Номер платежного документа"));
+            if (paramOut.Contains("Номер документа")) txtNumDocument.Text = Convert.ToString(paramOut.Value("Номер документа"));
+            if (paramOut.Contains("Платежный документ")) txtPayDoc.Text = Convert.ToString(paramOut.Value("Платежный документ"));
+            if (paramOut.Contains("Подоходный налог")) ucdIncomeTax.DecimalValue = ToDecimal(paramOut.Value("Подоходный налог"));
+            if (paramOut.Contains("Курс")) ucdRate.DecimalValue = ToDecimal(paramOut.Value("Курс"));
+            if (paramOut.Contains("Резидент")) chkResident.Checked = ToDecimal(paramOut.Value("Резидент")) != 0;
+            if (paramOut.Contains("Серия платежного документа")) txtSerPayDoc.Text = Convert.ToString(paramOut.Value("Серия платежного документа"));
+            if (paramOut.Contains("Серия документа")) txtSerDocument.Text = Convert.ToString(paramOut.Value("Серия документа"));
+            if (paramOut.Contains("Сумма выданная")) ucdValueMinus.DecimalValue = ToDecimal(paramOut.Value("Сумма выданная"));
+            if (paramOut.Contains("Валюта номинала")) txtCurrencyNominal.Text = Convert.ToString(paramOut.Value("Валюта номинала"));
 
-            if (string.IsNullOrEmpty(clientTxt.Text)) clientTxt.Text = "";
-            if (string.IsNullOrEmpty(serTxt.Text)) serTxt.Text = "XXX";
-            if (string.IsNullOrEmpty(numTxt.Text)) numTxt.Text = "XXX";
-            rateCur.DecimalValue = rateCur.DecimalValue == 0m ? 1m : rateCur.DecimalValue;
-            NU.DecimalValue = NU.DecimalValue == 0m ? 1m : NU.DecimalValue;
+            if (string.IsNullOrEmpty(txtClient.Text)) txtClient.Text = string.Empty;
+            if (string.IsNullOrEmpty(txtSerDocument.Text)) txtSerDocument.Text = "XXX";
+            if (string.IsNullOrEmpty(txtNumDocument.Text)) txtNumDocument.Text = "XXX";
+            ucdRate.DecimalValue = ucdRate.DecimalValue == 0m ? 1m : ucdRate.DecimalValue;
+            ucdRatePer.DecimalValue = ucdRatePer.DecimalValue == 0m ? 1m : ucdRatePer.DecimalValue;
 
-            RecalcSumMinusCur();
+            RecalcucdValueMinus();
         }
 
         #endregion
@@ -329,10 +329,10 @@ namespace UbsBusiness
 
         private bool CheckSave()
         {
-            if (valMinusCB.SelectedIndex < 0 && chkPayMoney.Checked)
+            if (cmbValueMinus.SelectedIndex < 0 && chkPayMoney.Checked)
             {
                 base.Ubs_ShowErrorBox(MsgSelectCurrency);
-                valMinusCB.Focus();
+                cmbValueMinus.Focus();
                 return false;
             }
             return true;
@@ -340,35 +340,35 @@ namespace UbsBusiness
 
         private void BuildSaveParams()
         {
-            base.UbsChannel_ParamIn("ФИО", clientTxt.Text);
-            base.UbsChannel_ParamIn("Документ", docCB.SelectedItem != null ? docCB.SelectedItem.ToString() : "");
-            base.UbsChannel_ParamIn("Комиссия", komCur.DecimalValue);
-            base.UbsChannel_ParamIn("Номер квитанции(справки)", nKvit.DecimalValue);
-            base.UbsChannel_ParamIn("Номинал", nomPDoc.DecimalValue);
-            base.UbsChannel_ParamIn("Курс за(единиц)", NU.DecimalValue);
-            base.UbsChannel_ParamIn("Номер платежного документа", numPDoc.DecimalValue);
-            base.UbsChannel_ParamIn("Номер документа", numTxt.Text);
-            base.UbsChannel_ParamIn("Платежный документ", txbPlDoc.Text);
-            base.UbsChannel_ParamIn("Подоходный налог", podNalCur.DecimalValue);
-            base.UbsChannel_ParamIn("Курс", rateCur.DecimalValue);
-            base.UbsChannel_ParamIn("Резидент", resCHB.Checked ? 1 : 0);
-            base.UbsChannel_ParamIn("Серия платежного документа", txbSerPDoc.Text);
-            base.UbsChannel_ParamIn("Серия документа", serTxt.Text);
-            base.UbsChannel_ParamIn("Сумма выданная", sumMinusCur.DecimalValue);
-            base.UbsChannel_ParamIn("Валюта номинала", txbValNom.Text);
+            base.UbsChannel_ParamIn("ФИО", txtClient.Text);
+            base.UbsChannel_ParamIn("Документ", cmbDocument.SelectedItem != null ? cmbDocument.SelectedItem.ToString() : "");
+            base.UbsChannel_ParamIn("Комиссия", ucdCommission.DecimalValue);
+            base.UbsChannel_ParamIn("Номер квитанции(справки)", ucdNumReceipt.DecimalValue);
+            base.UbsChannel_ParamIn("Номинал", ucdSumNominal.DecimalValue);
+            base.UbsChannel_ParamIn("Курс за(единиц)", ucdRatePer.DecimalValue);
+            base.UbsChannel_ParamIn("Номер платежного документа", ucdSumNominal.DecimalValue);
+            base.UbsChannel_ParamIn("Номер документа", txtNumDocument.Text);
+            base.UbsChannel_ParamIn("Платежный документ", txtPayDoc.Text);
+            base.UbsChannel_ParamIn("Подоходный налог", ucdIncomeTax.DecimalValue);
+            base.UbsChannel_ParamIn("Курс", ucdRate.DecimalValue);
+            base.UbsChannel_ParamIn("Резидент", chkResident.Checked ? 1 : 0);
+            base.UbsChannel_ParamIn("Серия платежного документа", txtSerPayDoc.Text);
+            base.UbsChannel_ParamIn("Серия документа", txtSerDocument.Text);
+            base.UbsChannel_ParamIn("Сумма выданная", ucdValueMinus.DecimalValue);
+            base.UbsChannel_ParamIn("Валюта номинала", txtCurrencyNominal.Text);
 
             int valMinusId = GetValMinusId();
             base.UbsChannel_ParamIn("Валюта выданная", valMinusId >= 0 ? valMinusId : 0);
-            int valComisId = GetValComisId();
-            base.UbsChannel_ParamIn("Валюта комиссии", valComisId >= 0 ? valComisId : 0);
+            int cmbComissionId = GetcmbComissionId();
+            base.UbsChannel_ParamIn("Валюта комиссии", cmbComissionId >= 0 ? cmbComissionId : 0);
             base.UbsChannel_ParamIn("Валюта принятая", 0);
             base.UbsChannel_ParamIn("Сумма принятая", 0m);
             base.UbsChannel_ParamIn("Платежный документ", 0);
 
             if (!chkPayMoney.Checked)
             {
-                base.UbsChannel_ParamIn("Валюта выданная", ParseInt(txbValNom.Text));
-                base.UbsChannel_ParamIn("Сумма выданная", nomPDoc.DecimalValue);
+                base.UbsChannel_ParamIn("Валюта выданная", ParseInt(txtCurrencyNominal.Text));
+                base.UbsChannel_ParamIn("Сумма выданная", ucdSumNominal.DecimalValue);
                 base.UbsChannel_ParamIn("Платежный документ", m_idPayDoc);
             }
 
@@ -401,16 +401,16 @@ namespace UbsBusiness
             catch { }
         }
 
-        private void RecalcSumMinusCur()
+        private void RecalcucdValueMinus()
         {
-            decimal nu = NU.DecimalValue;
+            decimal nu = ucdRatePer.DecimalValue;
             if (nu == 0m) return;
-            sumMinusCur.DecimalValue = nomPDoc.DecimalValue * rateCur.DecimalValue / nu;
-            if (m_isKomPer && valMinusCB.SelectedItem != null)
+            ucdValueMinus.DecimalValue = ucdSumNominal.DecimalValue * ucdRate.DecimalValue / nu;
+            if (m_isKomPer && cmbValueMinus.SelectedItem != null)
             {
                 int vid = GetValMinusId();
                 if ((vid == 810 && !m_isKomCur) || (vid != 810 && m_isKomCur))
-                    komCur.DecimalValue = sumMinusCur.DecimalValue * m_sumKom / 100m;
+                    ucdCommission.DecimalValue = ucdValueMinus.DecimalValue * m_sumKom / 100m;
             }
         }
 
@@ -420,14 +420,14 @@ namespace UbsBusiness
 
         private int GetValMinusId()
         {
-            if (valMinusCB.SelectedItem == null) return -1;
-            return ((KeyValuePair<int, string>)valMinusCB.SelectedItem).Key;
+            if (cmbValueMinus.SelectedItem == null) return -1;
+            return ((KeyValuePair<int, string>)cmbValueMinus.SelectedItem).Key;
         }
 
-        private int GetValComisId()
+        private int GetcmbComissionId()
         {
-            if (valComis.SelectedItem == null) return -1;
-            return ((KeyValuePair<int, string>)valComis.SelectedItem).Key;
+            if (cmbComission.SelectedItem == null) return -1;
+            return ((KeyValuePair<int, string>)cmbComission.SelectedItem).Key;
         }
 
         private void SetComboSelection(ComboBox cmb, int targetId)
@@ -457,5 +457,15 @@ namespace UbsBusiness
         }
 
         #endregion
+
+        private void linkClient_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            object[] ids = this.Ubs_ActionRun("UBS_COMMON_LIST_CLIENT", this, true) as object[];
+            if (ids != null && ids.Length > 0)
+            {
+                base.IUbsFieldCollection["Идентификатор клиента"].ValueCur = Convert.ToInt32(ids[0]);
+                base.UbsChannel_Run("LoadClient");
+            }
+        }
     }
 }
