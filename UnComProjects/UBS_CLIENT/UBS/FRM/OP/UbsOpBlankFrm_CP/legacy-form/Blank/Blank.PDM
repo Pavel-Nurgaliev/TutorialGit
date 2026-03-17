@@ -1,0 +1,93 @@
+[Root]
+Most Recent Package=Internet Package 1
+
+
+[Package|Internet Package 1|Root]
+SubWizProgID=PDWizard.InetCABPkgSubWiz
+BuildFolder=E:\SASHA\VBD\OP\Blank\Package
+
+[Package|Internet Package 1|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Internet Package 1|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Internet Package 1|Files Found]
+
+[Package|Internet Package 1|Files Released]
+
+[Package|Internet Package 1|Missing Dependency Information]
+E:\WINNT\system32\UbsChlCtrl.ocx=
+E:\WINNT\system32\UbsProp.dll=
+E:\WINNT\system32\UbsCtrl.dll=
+E:\WINNT\system32\UbsDDXCtrl.ocx=
+E:\WINNT\system32\UBSParrents.dll=
+E:\WINNT\system32\UBSChilds.dll=
+E:\WINNT\system32\UbsInfo.ocx=
+
+[Package|Internet Package 1|Out-of-Date Dependency Information]
+
+[Package|Internet Package 1|Files Added]
+
+[Package|Internet Package 1|Files Removed]
+e:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\msvcrt.dll=
+e:\winnt\system32\sstabs2.ocx=
+e:\winnt\system32\ubschilds.dll=
+e:\winnt\system32\ubschlctrl.ocx=
+e:\winnt\system32\ubsctrl.dll=
+e:\winnt\system32\ubsddxctrl.ocx=
+e:\winnt\system32\ubsparrents.dll=
+e:\winnt\system32\ubsprop.dll=
+e:\winnt\system32\msvbvm60.dll=
+e:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\oleaut32.dll=
+e:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\olepro32.dll=
+e:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\asycfilt.dll=
+e:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\stdole2.tlb=
+e:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
+e:\winnt\system32\ubsinfo.ocx=
+
+[Package|Internet Package 1|Files In Project]
+E:\SASHA\VBD\OP\Blank\Blank.dll=Yes
+E:\WINNT\system32\msvbvm60.dll=No
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=No
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=No
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=No
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=No
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=No
+E:\WINNT\system32\UBSChilds.dll=No
+E:\WINNT\system32\UBSParrents.dll=No
+E:\WINNT\system32\UbsDDXCtrl.ocx=No
+E:\WINNT\system32\sstabs2.ocx=No
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT.DLL=No
+E:\WINNT\system32\UbsCtrl.dll=No
+E:\WINNT\system32\UbsProp.dll=No
+E:\WINNT\system32\UbsChlCtrl.ocx=No
+E:\WINNT\system32\UbsInfo.ocx=No
+
+[Package|Internet Package 1|Configure Registry Files]
+Applicable=No
+
+[Package|Internet Package 1|Configure Remote Servers]
+Applicable=No
+
+[Package|Internet Package 1|Install Locations]
+
+[Package|Internet Package 1|Configure Shared Files]
+Applicable=
+
+[Package|Internet Package 1|ComponentInfo]
+Blank.dll=thiscab
+
+[Package|Internet Package 1|ObjectInfo]
+Blank_ud=true;true
+
+[Package|Internet Package 1|Package]
+PackageFolder=E:\SASHA\VBD\OP\Blank\Package
+ProjectFolder=E:\SASHA\VBD\OP\Blank
+ServerSideCab=E:\SASHA\VBD\OP\Blank\Package\Blank.CAB
+File1=E:\SASHA\VBD\OP\Blank\Package\Blank.CAB
+File2=E:\SASHA\VBD\OP\Blank\Package\Blank_ud.VBD
+File3=E:\SASHA\VBD\OP\Blank\Package\Blank.HTM
+Handler1=PDWizard.WebPostDplySubWiz
+Handler2=PDWizard.FolderDplySubWiz

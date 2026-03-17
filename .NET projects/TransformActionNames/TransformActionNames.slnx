@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../TransformMessagesToConstants/TransformMessagesToConstants.csproj" />
+  <Project Path="TransformActionNames.csproj" />
+</Solution>

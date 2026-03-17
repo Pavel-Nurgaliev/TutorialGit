@@ -1,0 +1,550 @@
+VERSION 5.00
+Object = "{2C627FBF-1D28-40FB-B954-A9A40BB6DE61}#25.5#0"; "UbsDDXCtrl.ocx"
+Object = "{0A45DB48-BD0D-11D2-8D14-00104B9E072A}#2.0#0"; "sstabs2.ocx"
+Object = "{C3A4B116-8248-4301-BB9C-E2DF040AAE6B}#1.0#0"; "UbsCtrl.dll"
+Object = "{9D55898C-2E5D-42AA-A662-D60C8218C8DD}#1.0#0"; "UbsProp.dll"
+Object = "{654DF6AF-C9A1-4D4E-89AC-9F01D9B7C3ED}#1.5#0"; "UbsChlCtrl.ocx"
+Object = "{A9609DF2-7123-4FAA-8347-2AEEE0D8C251}#1.3#0"; "UbsInfo.ocx"
+Begin VB.UserDocument Blank_ud 
+   ClientHeight    =   4575
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   6195
+   HScrollSmallChange=   225
+   KeyPreview      =   -1  'True
+   ScaleHeight     =   4575
+   ScaleWidth      =   6195
+   VScrollSmallChange=   225
+   Begin ActiveTabs.SSActiveTabs SSTabs 
+      Height          =   4455
+      Left            =   60
+      TabIndex        =   9
+      Top             =   60
+      Width           =   6075
+      _ExtentX        =   10716
+      _ExtentY        =   7858
+      _Version        =   131082
+      TabCount        =   2
+      TagVariant      =   ""
+      Tabs            =   "Blank_ud.dox":0000
+      Begin ActiveTabs.SSActiveTabPanel SSActiveTabPanel1 
+         Height          =   4065
+         Left            =   -99969
+         TabIndex        =   11
+         Top             =   360
+         Width           =   6015
+         _ExtentX        =   10610
+         _ExtentY        =   7170
+         _Version        =   131082
+         TabGuid         =   "Blank_ud.dox":00A2
+         Begin VB.ComboBox cmbState 
+            Height          =   315
+            Left            =   2220
+            Style           =   2  'Dropdown List
+            TabIndex        =   5
+            Top             =   2040
+            Width           =   2655
+         End
+         Begin VB.TextBox txbKindVal 
+            Enabled         =   0   'False
+            Height          =   345
+            Left            =   2220
+            TabIndex        =   4
+            Top             =   1560
+            Width           =   3495
+         End
+         Begin VB.TextBox txbNameVal 
+            Enabled         =   0   'False
+            Height          =   315
+            Left            =   2220
+            TabIndex        =   3
+            Top             =   1140
+            Width           =   3495
+         End
+         Begin VB.TextBox txbNum 
+            Enabled         =   0   'False
+            Height          =   315
+            Left            =   3720
+            TabIndex        =   1
+            Top             =   720
+            Width           =   1215
+         End
+         Begin VB.TextBox txbSer 
+            Enabled         =   0   'False
+            Height          =   315
+            Left            =   2220
+            TabIndex        =   2
+            Top             =   720
+            Width           =   795
+         End
+         Begin UBSCTRLLibCtl.UbsControlDate txbDateCalc 
+            Height          =   315
+            Left            =   2220
+            TabIndex        =   0
+            Top             =   300
+            Width           =   1095
+            _cx             =   1931
+            _cy             =   556
+            Appearance      =   1
+            Enabled         =   0   'False
+            Object.TabStop         =   -1  'True
+            Text            =   "  .  .    "
+            Valid           =   -1  'True
+            Format          =   1
+            ReadOnly        =   0
+         End
+         Begin VB.Label Label6 
+            Alignment       =   1  'Right Justify
+Caption = "Состояние:"
+Height = 195
+Left = 1080
+TabIndex = 17
+Top = 2100
+Width = 1095
+End
+         Begin VB.Label Label5 
+            Alignment = 1  'Right Justify
+Caption = "Номер:"
+Height = 195
+Left = 3060
+TabIndex = 16
+Top = 780
+Width = 615
+End
+         Begin VB.Label Label4 
+            Alignment = 1  'Right Justify
+Caption = "Серия:"
+Height = 195
+Left = 1620
+TabIndex = 15
+Top = 780
+Width = 555
+End
+         Begin VB.Label Label3 
+            Alignment = 1  'Right Justify
+Caption = "Наименование ценности:"
+Height = 195
+Left = 120
+TabIndex = 14
+Top = 1200
+Width = 2055
+End
+         Begin VB.Label Label2 
+            Alignment = 1  'Right Justify
+Caption = "Вид ценности:"
+Height = 195
+Left = 900
+TabIndex = 13
+Top = 1620
+Width = 1275
+End
+         Begin VB.Label Label1 
+            Alignment = 1  'Right Justify
+Caption = "Дата принятия ценности:"
+Height = 195
+Left = 120
+TabIndex = 12
+Top = 360
+Width = 2055
+End
+End
+      Begin UbsChlCtrl.UbsChannel UbsChannel 
+         Left = 600
+Top = 3900
+_ExtentX = 873
+_ExtentY = 873
+End
+      Begin VB.CommandButton btnExit 
+         Caption = "Выход"
+Height = 375
+Left = 4860
+TabIndex = 8
+Top = 4020
+Width = 1155
+End
+      Begin VB.CommandButton btnSave 
+         Caption = "Сохранить"
+Height = 375
+Left = 3660
+TabIndex = 7
+Top = 4020
+Width = 1155
+End
+      Begin ActiveTabs.SSActiveTabPanel SSActiveTabPanel3 
+         Height = 4065
+Left = -99969
+TabIndex = 10
+Top = 360
+Width = 6015
+_ExtentX = 10610
+_ExtentY = 7170
+_Version = 131082
+TabGuid = "Blank_ud.dox" :  00CA
+         Begin UBSPROPLibCtl.UbsControlProperty ucpParam 
+            Height = 3495
+Left = 60
+OleObjectBlob = "Blank_ud.dox" :  00F2
+            TabIndex = 6
+Top = 60
+Width = 5835
+End
+End
+      Begin UbsDDXCtrl.UbsDDXControl DDX 
+         Left = 60
+Top = 3900
+_ExtentX = 873
+_ExtentY = 873
+DDXControlMemeber_1 = "cmbState<#>Integer<#>cmbState<#>ComboBox"
+DDXControlMemeber_2 = "txbDateCalc<#>Date<#>txbDateCalc<#>UbsControlDate"
+DDXControlMemeber_3 = "txbKindVal<#>String<#>txbKindVal<#>TextBox"
+DDXControlMemeber_4 = "txbNameVal<#>String<#>txbNameVal<#>TextBox"
+DDXControlMemeber_5 = "txbNum<#>String<#>txbNum<#>TextBox"
+DDXControlMemeber_6 = "txbSer<#>String<#>txbSer<#>TextBox"
+CountDDXControlMemebers = 6
+End
+      Begin UbsInfo32.Info Info 
+         Height = 255
+Left = 1680
+Top = 4080
+Width = 1935
+_ExtentX = 3413
+_ExtentY = 450
+Caption = "Данные сохранены!"
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name = "MS Sans Serif"
+Size = 8.25
+Charset = 204
+Weight = 700
+Underline = 0   'False
+Italic = 0   'False
+Strikethrough = 0   'False
+EndProperty
+End
+End
+End
+Attribute VB_Name = "Blank_ud"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Option Explicit On
+Implements UBSChild
+Public Parent As UBSParrent
+Dim StrCommand As String
+Dim NumWin As Integer, NumParentWindow As Integer, NumChildWin As Integer
+Dim bNeedRefreshGrid As Boolean, bParentWindowClose As Boolean
+Dim Wait As Object, toolerr As Object, objFormParam As Object, objFocusCtrl As Object, objInterfaces As Object
+Dim objParamIn As Object, objParamOut As Object, objStub As Object
+Dim n As Long, cnt As Long
+Dim RS As Variant
+Dim ID As Integer
+Dim intFocusTab As Integer
+Dim KindVal As Integer
+
+Private Sub btnSave_Click()
+    On Error GoTo ErrorCode
+
+    DDX.UpdateData(True)
+
+    'операции с объектом
+    If cmbState.Enabled = True Then
+        objParamIn.Parameter("Состояние") = cmbState.ItemData(DDX.MemberData("cmbState"))
+        DDX.InitMemberData("cmbState") = DDX.MemberData("cmbState")
+    End If
+    UbsChannel.Run "Blank_Save", objParamIn, objParamOut
+    bNeedRefreshGrid = True
+    Info.Show
+    Exit Sub
+ErrorCode:
+    toolerr.UbsErrMsg "btnSave_Click", "ошибка выполнения"
+End Sub
+
+Private Property Get UBSChild_ActualParameter() As Variant
+
+End Property
+
+Private Property Get UBSChild_Height() As Integer
+    UBSChild_Height = 4575
+End Property
+
+Private Property Let UBSChild_HeightBrowser(ByVal RHS As Variant)
+If RHS < 4575 Then RHS = 4575
+    
+    btnSave.Top = RHS - 590
+btnExit.Top = RHS - 590
+ucpParam.Height = RHS - 1075
+SSTabs.Height = RHS - 155
+Info.Top = RHS - 500
+End Property
+
+Private Property Get UBSChild_ImageList(Key As String) As Object
+    Key = "CARD"
+End Property
+
+Private Property Get UBSChild_IsExistParam(ByVal NameParam As String) As Boolean
+    UBSChild_IsExistParam = objFormParam.ExistParameter(NameParam)
+End Property
+
+Private Sub UBSChild_NotifyCloseWindow(ByVal NumWindow As Integer)
+    If NumParentWindow <> 0 And NumParentWindow = NumWindow Then
+        bParentWindowClose = True
+        'Если закрываемое окно - родительское и оно не пришпилено вызвать процедуру закрытия окна
+        Parent.CloseWindow NumWin
+    End If
+    If NumWindow = NumChildWin Then
+        NumChildWin = 0
+    End If
+End Sub
+
+Private Sub UBSChild_NotifyFixWindow(ByVal NumWindow As Variant, ByVal FixState As Boolean)
+    If NumWindow = NumWin And FixState Then
+        'Если пришпиливают наше окно
+        NumParentWindow = 0
+    End If
+End Sub
+
+Private Property Let UBSChild_NumWindow(ByVal RHS As Integer)
+    NumWin = RHS
+End Property
+
+Private Property Let UBSChild_ParamInfo(ByVal NameParam As String, ByVal RHS As Variant)
+On Error GoTo ErrorCode
+Dim IdArray As Variant
+
+If Not objFormParam.ExistParameter(NameParam) Then
+toolerr.UbsErrRaise "Проверка поддержки параметров",
+                "Параметер '" & NameParam & "' не поддерживается"
+    End If
+
+If Not objFormParam.ExistParameter(NameParam) Then
+toolerr.UbsErrRaise "Проверка поддержки параметров",
+                "Параметер '" & NameParam & "' не поддерживается"
+    End If
+
+If NameParam = "InitParamForm" Then
+Initialize
+NumParentWindow = RHS(0)
+IdArray = RHS(1)
+If Not IsEmpty(IdArray) Then
+ID = IdArray(0)
+Else
+MsgBox "Список принятых ценностей пуст!", vbOKOnly + vbCritical, "Ошибка"
+            Parent.CloseWindow NumWin
+            Exit Property
+End If
+
+DDX.InitControlData
+InitDoc
+Parent.WindowDraw(NumWin) = True
+If cmbState.Enabled Then cmbState.SetFocus
+        objInterfaces.NextCtrl
+objInterfaces.PrevCtrl
+End If
+
+If NameParam = "SetFocus" Then
+If Not objFocusCtrl Is Nothing And Not SSTabs Is Nothing Then
+If intFocusTab = SSTabs.SelectedTab.Index Then
+objFocusCtrl.SetFocus
+End If
+End If
+End If
+
+If NameParam = "LostFocus" Then
+If Not UserDocument.ActiveControl Is Nothing Then Set objFocusCtrl = UserDocument.ActiveControl
+        If Not UserDocument.ActiveControl Is Nothing And Not SSTabs Is Nothing Then intFocusTab = SSTabs.SelectedTab.Index
+    End If
+
+Exit Property
+ErrorCode:
+toolerr.UbsErrMsg "UBSChild_ParamInfo", "ошибка выполнения"
+End Property
+
+Private Property Get UBSChild_ParamInfo(ByVal NameParam As String) As Variant
+If NameParam = "WaitShow" Then
+UBSChild_ParamInfo = True
+End If
+End Property
+
+Private Property Let UBSChild_Parrent(ByVal RHS As Object)
+    Set Parent = RHS
+End Property
+
+Private Property Let UBSChild_RunParameter(ByVal RHS As String)
+
+End Property
+
+Private Property Get UBSChild_Sizable() As Boolean
+    UBSChild_Sizable = True
+End Property
+
+Private Property Get UBSChild_TitleWindow() As String
+    UBSChild_TitleWindow = "Принятая ценность"
+End Property
+
+Private Property Get UBSChild_Width() As Integer
+    UBSChild_Width = 6195
+End Property
+
+Private Property Let UBSChild_WidthBrowser(ByVal RHS As Variant)
+If RHS < 6195 Then RHS = 6195
+    
+    txbNameVal.Width = RHS - 2700
+txbKindVal.Width = RHS - 2700
+btnSave.Left = RHS - 2630
+btnExit.Left = RHS - 1430
+ucpParam.Width = RHS - 355
+SSTabs.Width = RHS - 155
+Info.Left = RHS - 4575
+End Property
+
+Private Sub ArrayParam()
+    objFormParam.Parameter("WaitShow") = True
+    objFormParam.Parameter("InitParamForm") = True
+    objFormParam.Parameter("SetFocus") = True
+    objFormParam.Parameter("LostFocus") = True
+    objFormParam.Parameter("RetFromGrid") = True
+End Sub
+
+Private Sub Initialize()
+    Set toolerr = CreateObject("ToolPubs.IUbsError")
+    Set Wait = CreateObject("UbsWait.UbsWaitBox")
+End Sub
+
+Private Sub btnExit_Click()
+    Parent.CloseWindow NumWin
+End Sub
+
+Private Sub UserDocument_Hide()
+    On Error GoTo ErrorCode
+    DDX.ReleaseControlData
+    objStub.ReleaseUbsChannel
+    Set Wait = Nothing
+    Set toolerr = Nothing
+    Set objFormParam = Nothing
+    Set objFocusCtrl = Nothing
+    Set objStub = Nothing
+    Set objParamIn = Nothing
+    Set objParamOut = Nothing
+    Exit Sub
+ErrorCode:
+    UserDocument.MousePointer = 0
+    toolerr.UbsMsgRaise "UserDocument_Hide", "ошибка выполнения"
+End Sub
+
+Private Sub UserDocument_Initialize()
+    Set objFormParam = CreateObject("ToolPubs.IUbsParam")
+    Set objInterfaces = CreateObject("ToolPubs.Interfaces")
+    Set objStub = CreateObject("UbsAddFiledsStub.IUbsAddFiledsStub")
+    ArrayParam()
+End Sub
+
+Private Sub InitDoc()
+    On Error GoTo ErrorCode
+
+    UbsChannel.HostAddress = Parent.LoaderParamInfo(NumWin, "HostAddress")
+    UbsChannel.UserGUID = Parent.LoaderParamInfo(NumWin, "GuidSession")
+    UbsChannel.ParentHwnd = UserDocument.hWnd
+    Set objParamIn = CreateObject("ToolPubs.IUbsParam")
+    Set objParamOut = CreateObject("ToolPubs.IUbsParam")
+    Set objStub.UbsChannel = UbsChannel
+    
+    UbsChannel.LoadResource = "VBS:UBS_VBD\OP\Blank.vbs"
+
+    'заполнение полей
+    objParamIn.ClearParameters
+    objParamOut.ClearParameters
+    objParamIn.Parameter("Идентификатор") = ID
+    UbsChannel.Run "Get_Data", objParamIn, objParamOut
+    DDX.InitMemberData("txbDateCalc") = objParamOut.Parameter("Дата учета")
+    DDX.InitMemberData("txbNameVal") = objParamOut.Parameter("Наименование ценности")
+    DDX.InitMemberData("txbKindVal") = objParamOut.Parameter("Вид ценности")
+    KindVal = objParamOut.Parameter("Идентификатор вида")
+    DDX.InitMemberData("txbSer") = objParamOut.Parameter("Серия")
+    DDX.InitMemberData("txbNum") = objParamOut.Parameter("Номер")
+    DDX.InitMemberData("cmbState") = 0
+    FillCombo()      'Заполнение комбо-бокса
+    For n = 0 To cmbState.ListCount - 1
+        If cmbState.ItemData(n) = objParamOut.Parameter("Состояние") Then
+            DDX.MemberData("cmbState") = n
+        End If
+    Next
+
+    DDX.UpdateData(False)
+
+    'доп поля
+    ucpParam.UbsAddFields = objStub
+    ucpParam.Refresh
+
+    Exit Sub
+ErrorCode:
+    UserDocument.MousePointer = 0
+    toolerr.UbsMsgRaise "InitDoc", "ошибка выполнения"
+End Sub
+
+Private Function CheckParamForClose(ByVal NameParam As String) As Boolean
+    CheckParamForClose = False
+    If NameParam = "InitParamForm" Or
+        NameParam = "InitParamGrid" Then
+        CheckParamForClose = True
+    End If
+End Function
+
+Private Sub UserDocument_KeyDown(KeyCode As Integer, Shift As Integer)
+    If Shift = 2 And KeyCode = vbKeyTab Then
+        Set objFocusCtrl = UserDocument.ActiveControl
+        intFocusTab = SSTabs.SelectedTab.Index
+        Parent.LoaderParamInfo(0, "NextWindow") = NumWin
+    End If
+End Sub
+
+Private Sub UserDocument_KeyPress(KeyAscii As Integer)
+    On Error GoTo ErrorCode
+
+    Select Case KeyAscii
+        Case 13
+            KeyAscii = 0
+            Select Case (UserDocument.ActiveControl.Name)
+                Case "cmbState"
+                    SSTabs.Tabs(2).Selected = True
+                    ucpParam.SetFocus
+                Case Else
+                    objInterfaces.NextCtrl
+            End Select
+        Case 27
+            KeyAscii = 0
+            Select Case (UserDocument.ActiveControl.Name)
+                Case "ucpParam"
+                    SSTabs.Tabs(1).Selected = True
+                    cmbState.SetFocus
+                Case Else
+                    objInterfaces.PrevCtrl
+            End Select
+    End Select
+
+    Exit Sub
+ErrorCode:
+    toolerr.UbsErrMsg "UserDocument_KeyPress", "ошибка выполнения"
+End Sub
+
+Private Sub FillCombo()
+    On Error GoTo ErrorCode
+    If objParamOut.Parameter("Состояние") = 17 Then
+        cmbState.AddItem "Выплачно возмещение(возврат клиенту)", n: cmbState.ItemData(n) = 17
+        cmbState.Enabled = False
+    Else
+        Select Case KindVal
+            Case 3
+                cmbState.AddItem "Отказано в оплате", n: cmbState.ItemData(n) = 15
+                cmbState.AddItem "Оплачен", n: cmbState.ItemData(n) = 13
+            Case 4
+                cmbState.AddItem "Признан неподлинным", n: cmbState.ItemData(n) = 16
+                cmbState.AddItem "Признан подлинным", n: cmbState.ItemData(n) = 14
+        End Select
+        cmbState.AddItem "Отправлен в банк-нерезидент", n: cmbState.ItemData(n) = 12
+        cmbState.AddItem "Отправлен в ГО", n: cmbState.ItemData(n) = 11
+        cmbState.AddItem "Принят от клиента", n: cmbState.ItemData(n) = 10
+    End If
+    Exit Sub
+ErrorCode:
+    toolerr.UbsErrMsg "FillCombo", "ошибка выполнения"
+End Sub
