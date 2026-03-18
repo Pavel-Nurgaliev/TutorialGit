@@ -1,4 +1,4 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="Current">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="Current">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -68,10 +68,8 @@
       <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsForm.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="UbsFormBase, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="UbsFormBase">
       <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsFormBase.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="UbsInterface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -81,6 +79,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="UbsOpCommissionSetupFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UbsOpCommissionSetupFrm.Constants.cs">
+      <DependentUpon>UbsOpCommissionSetupFrm.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UbsOpCommissionSetupFrm.Designer.cs">

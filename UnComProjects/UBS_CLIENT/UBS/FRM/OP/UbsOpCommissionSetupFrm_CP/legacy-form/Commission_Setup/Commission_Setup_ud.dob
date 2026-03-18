@@ -1,4 +1,4 @@
-VERSION 5.00
+п»їVERSION 5.00
 Object = "{2C627FBF-1D28-40FB-B954-A9A40BB6DE61}#25.6#0"; "UbsDDXCtrl.ocx"
 Object = "{654DF6AF-C9A1-4D4E-89AC-9F01D9B7C3ED}#1.8#0"; "UbsChlCtrl.ocx"
 Object = "{A9609DF2-7123-4FAA-8347-2AEEE0D8C251}#1.3#0"; "UbsInfo.ocx"
@@ -65,7 +65,7 @@ Begin VB.UserDocument Commission_Setup_ud
          Width           =   1935
          _ExtentX        =   3413
          _ExtentY        =   450
-         Caption         =   "Данные сохранены!"
+         Caption         =   "Р”Р°РЅРЅС‹Рµ СЃРѕС…СЂР°РЅРµРЅС‹!"
          BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
             Name            =   "MS Sans Serif"
             Size            =   8.25
@@ -77,7 +77,7 @@ Begin VB.UserDocument Commission_Setup_ud
          EndProperty
       End
       Begin VB.CommandButton btnSave 
-         Caption         =   "Сохранить"
+         Caption         =   "РЎРѕС…СЂР°РЅРёС‚СЊ"
          Height          =   375
          Left            =   3480
          TabIndex        =   5
@@ -85,7 +85,7 @@ Begin VB.UserDocument Commission_Setup_ud
          Width           =   1155
       End
       Begin VB.CommandButton btnExit 
-         Caption         =   "Выход"
+         Caption         =   "Р’С‹С…РѕРґ"
          Height          =   375
          Left            =   4680
          TabIndex        =   6
@@ -112,7 +112,7 @@ Begin VB.UserDocument Commission_Setup_ud
       End
       Begin VB.Label Label6 
          Alignment       =   1  'Right Justify
-         Caption         =   "Ценность:"
+         Caption         =   "Р¦РµРЅРЅРѕСЃС‚СЊ:"
          Height          =   195
          Left            =   120
          TabIndex        =   13
@@ -129,7 +129,7 @@ Begin VB.UserDocument Commission_Setup_ud
       End
       Begin VB.Label Label4 
          Alignment       =   1  'Right Justify
-         Caption         =   "Операция:"
+         Caption         =   "РћРїРµСЂР°С†РёСЏ:"
          Height          =   195
          Left            =   180
          TabIndex        =   11
@@ -138,7 +138,7 @@ Begin VB.UserDocument Commission_Setup_ud
       End
       Begin VB.Label Label3 
          Alignment       =   1  'Right Justify
-         Caption         =   "Касса:"
+         Caption         =   "РљР°СЃСЃР°:"
          Height          =   195
          Left            =   360
          TabIndex        =   10
@@ -147,7 +147,7 @@ Begin VB.UserDocument Commission_Setup_ud
       End
       Begin VB.Label Label2 
          Alignment       =   1  'Right Justify
-         Caption         =   "Валюта:"
+         Caption         =   "Р’Р°Р»СЋС‚Р°:"
          Height          =   195
          Left            =   240
          TabIndex        =   9
@@ -156,7 +156,7 @@ Begin VB.UserDocument Commission_Setup_ud
       End
       Begin VB.Label Label1 
          Alignment       =   1  'Right Justify
-         Caption         =   "Комиссия:"
+         Caption         =   "РљРѕРјРёСЃСЃРёСЏ:"
          Height          =   195
          Left            =   120
          TabIndex        =   8
@@ -192,37 +192,37 @@ On Error GoTo ErrorCode
     DDX.UpdateData (True)
     If DDX.IsChange Then
         UserDocument.MousePointer = 11
-        If CheckData = False Then       'проверка свойств
+        If CheckData = False Then       'РїСЂРѕРІРµСЂРєР° СЃРІРѕР№СЃС‚РІ
             UserDocument.MousePointer = 0
             Exit Sub
         End If
     
         objParamIn.ClearParameters
         objParamOut.ClearParameters
-        objParamIn.Parameter("Действие") = StrCommand
-        If StrCommand = "EDIT" Then objParamIn.Parameter("Идентификатор") = ID
-        objParamIn.Parameter("Комиссия") = cmbCom.ItemData(DDX.MemberData("cmbCom"))
+        objParamIn.Parameter("Р”РµР№СЃС‚РІРёРµ") = StrCommand
+        If StrCommand = "EDIT" Then objParamIn.Parameter("РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ") = ID
+        objParamIn.Parameter("РљРѕРјРёСЃСЃРёСЏ") = cmbCom.ItemData(DDX.MemberData("cmbCom"))
         If cmbVal.Enabled Then
-            objParamIn.Parameter("Ценность") = cmbVal.ItemData(DDX.MemberData("cmbVal"))
+            objParamIn.Parameter("Р¦РµРЅРЅРѕСЃС‚СЊ") = cmbVal.ItemData(DDX.MemberData("cmbVal"))
         Else
-            objParamIn.Parameter("Ценность") = 0
+            objParamIn.Parameter("Р¦РµРЅРЅРѕСЃС‚СЊ") = 0
         End If
-        objParamIn.Parameter("Валюта") = cmbCur.ItemData(DDX.MemberData("cmbCur"))
-        objParamIn.Parameter("Касса") = cmbDiv.ItemData(DDX.MemberData("cmbDiv"))
-        objParamIn.Parameter("Операция") = cmbOper.ItemData(DDX.MemberData("cmbOper"))
+        objParamIn.Parameter("Р’Р°Р»СЋС‚Р°") = cmbCur.ItemData(DDX.MemberData("cmbCur"))
+        objParamIn.Parameter("РљР°СЃСЃР°") = cmbDiv.ItemData(DDX.MemberData("cmbDiv"))
+        objParamIn.Parameter("РћРїРµСЂР°С†РёСЏ") = cmbOper.ItemData(DDX.MemberData("cmbOper"))
         UbsChannel.Run "Save_Set", objParamIn, objParamOut
         
-        If objParamOut.Parameter("Запись существует") Then
-            MsgBox "Такая установка уже существует!", vbOKOnly + vbCritical, "Ошибка"
+        If objParamOut.Parameter("Р—Р°РїРёСЃСЊ СЃСѓС‰РµСЃС‚РІСѓРµС‚") Then
+            MsgBox "РўР°РєР°СЏ СѓСЃС‚Р°РЅРѕРІРєР° СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚!", vbOKOnly + vbCritical, "РћС€РёР±РєР°"
         Else
-            'установка инициализирующих значений
+            'СѓСЃС‚Р°РЅРѕРІРєР° РёРЅРёС†РёР°Р»РёР·РёСЂСѓСЋС‰РёС… Р·РЅР°С‡РµРЅРёР№
             DDX.InitMemberData("cmbCom") = DDX.MemberData("cmbCom")
             DDX.InitMemberData("cmbVal") = DDX.MemberData("cmbVal")
             DDX.InitMemberData("cmbCur") = DDX.MemberData("cmbCur")
             DDX.InitMemberData("cmbDiv") = DDX.MemberData("cmbDiv")
             DDX.InitMemberData("cmbOper") = DDX.MemberData("cmbOper")
             StrCommand = "EDIT"
-            If objParamOut.ExistParameter("Идентификатор") Then ID = objParamOut.Parameter("Идентификатор")
+            If objParamOut.ExistParameter("РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ") Then ID = objParamOut.Parameter("РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ")
             bNeedRefreshGrid = True
             Info.Show
         End If
@@ -231,7 +231,7 @@ On Error GoTo ErrorCode
     Exit Sub
 ErrorCode:
     UserDocument.MousePointer = 0
-    objErr.UbsErrMsg "btnSave_Click", "ошибка выполнения"
+    objErr.UbsErrMsg "btnSave_Click", "РѕС€РёР±РєР° РІС‹РїРѕР»РЅРµРЅРёСЏ"
 End Sub
 
 Private Sub cmbOper_Click()
@@ -240,9 +240,9 @@ On Error GoTo ErrorCode
     If flag Then
         objParamIn.ClearParameters
         objParamOut.ClearParameters
-        objParamIn.Parameter("Операция") = cmbOper.ItemData(cmbOper.ListIndex)
+        objParamIn.Parameter("РћРїРµСЂР°С†РёСЏ") = cmbOper.ItemData(cmbOper.ListIndex)
         UbsChannel.Run "Check_PayDoc", objParamIn, objParamOut
-        If objParamOut.Parameter("Документ") Then
+        If objParamOut.Parameter("Р”РѕРєСѓРјРµРЅС‚") Then
             cmbVal.Enabled = True
         Else
             cmbVal.Enabled = False
@@ -252,7 +252,7 @@ On Error GoTo ErrorCode
     Exit Sub
 ErrorCode:
     UserDocument.MousePointer = 0
-    objErr.UbsErrMsg "cmbOper_Click", "ошибка выполнения"
+    objErr.UbsErrMsg "cmbOper_Click", "РѕС€РёР±РєР° РІС‹РїРѕР»РЅРµРЅРёСЏ"
 End Sub
 
 Private Property Get UBSChild_ActualParameter() As Variant
@@ -309,8 +309,8 @@ On Error GoTo ErrorCode
     End If
     
     If Not objFormParam.ExistParameter(NameParam) Then
-        objErr.UbsErrRaise "Проверка поддержки параметров", _
-                "Параметер '" & NameParam & "' не поддерживается"
+        objErr.UbsErrRaise "РџСЂРѕРІРµСЂРєР° РїРѕРґРґРµСЂР¶РєРё РїР°СЂР°РјРµС‚СЂРѕРІ", _
+                "РџР°СЂР°РјРµС‚РµСЂ '" & NameParam & "' РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚СЃСЏ"
     End If
     
     If NameParam = "InitParamForm" Then
@@ -323,7 +323,7 @@ On Error GoTo ErrorCode
             If Not IsEmpty(ItemArray) Then
                 ID = ItemArray(0)
             Else
-                MsgBox "Список установок комиссий пуст!", vbOKOnly + vbCritical, "Ошибка"
+                MsgBox "РЎРїРёСЃРѕРє СѓСЃС‚Р°РЅРѕРІРѕРє РєРѕРјРёСЃСЃРёР№ РїСѓСЃС‚!", vbOKOnly + vbCritical, "РћС€РёР±РєР°"
                 btnExit_Click
                 Exit Property
             End If
@@ -340,7 +340,7 @@ On Error GoTo ErrorCode
     Exit Property
 
 ErrorCode:
-    objErr.UbsErrMsg "UBSChild_ParamInfo", "ошибка выполнения"
+    objErr.UbsErrMsg "UBSChild_ParamInfo", "РѕС€РёР±РєР° РІС‹РїРѕР»РЅРµРЅРёСЏ"
     If CheckParamForClose(NameParam) Then
         Parent.CloseWindow Numwin
     End If
@@ -365,7 +365,7 @@ Private Property Get UBSChild_Sizable() As Boolean
 End Property
 
 Private Property Get UBSChild_TitleWindow() As String
-    UBSChild_TitleWindow = "Установка комиссии"
+    UBSChild_TitleWindow = "РЈСЃС‚Р°РЅРѕРІРєР° РєРѕРјРёСЃСЃРёРё"
 End Property
 
 Private Property Get UBSChild_Width() As Integer
@@ -395,7 +395,7 @@ On Error GoTo ErrorCode
     
     Exit Sub
 ErrorCode:
-    objErr.UbsErrMsg "UserDocument_Hide", "ошибка выполнения"
+    objErr.UbsErrMsg "UserDocument_Hide", "РѕС€РёР±РєР° РІС‹РїРѕР»РЅРµРЅРёСЏ"
 End Sub
 
 Private Sub UserDocument_Initialize()
@@ -427,7 +427,7 @@ On Error GoTo ErrorCode
     Exit Sub
 
 ErrorCode:
-    objErr.UbsErrMsg "UserDocument_KeyPress", "ошибка выполнения"
+    objErr.UbsErrMsg "UserDocument_KeyPress", "РѕС€РёР±РєР° РІС‹РїРѕР»РЅРµРЅРёСЏ"
 End Sub
 
 Private Sub InitDoc()
@@ -457,30 +457,30 @@ On Error GoTo ErrorCode
     Else
         objParamIn.ClearParameters
         objParamOut.ClearParameters
-        objParamIn.Parameter("Идентификатор") = ID
+        objParamIn.Parameter("РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ") = ID
         UbsChannel.Run "Get_Data", objParamIn, objParamOut
         For n = 0 To cmbCom.ListCount - 1
-            If cmbCom.ItemData(n) = objParamOut.Parameter("Комиссия") Then
+            If cmbCom.ItemData(n) = objParamOut.Parameter("РљРѕРјРёСЃСЃРёСЏ") Then
                 DDX.InitMemberData("cmbCom") = n
             End If
         Next
         For n = 0 To cmbVal.ListCount - 1
-            If cmbVal.ItemData(n) = objParamOut.Parameter("Ценность") Then
+            If cmbVal.ItemData(n) = objParamOut.Parameter("Р¦РµРЅРЅРѕСЃС‚СЊ") Then
                 DDX.InitMemberData("cmbVal") = n
             End If
         Next
         For n = 0 To cmbCur.ListCount - 1
-            If cmbCur.ItemData(n) = objParamOut.Parameter("Валюта") Then
+            If cmbCur.ItemData(n) = objParamOut.Parameter("Р’Р°Р»СЋС‚Р°") Then
                 DDX.InitMemberData("cmbCur") = n
             End If
         Next
         For n = 0 To cmbDiv.ListCount - 1
-            If cmbDiv.ItemData(n) = objParamOut.Parameter("Касса") Then
+            If cmbDiv.ItemData(n) = objParamOut.Parameter("РљР°СЃСЃР°") Then
                 DDX.InitMemberData("cmbDiv") = n
             End If
         Next
         For n = 0 To cmbOper.ListCount - 1
-            If cmbOper.ItemData(n) = objParamOut.Parameter("Операция") Then
+            If cmbOper.ItemData(n) = objParamOut.Parameter("РћРїРµСЂР°С†РёСЏ") Then
                 DDX.InitMemberData("cmbOper") = n
             End If
         Next
@@ -492,7 +492,7 @@ On Error GoTo ErrorCode
     Exit Sub
     
 ErrorCode:
-    objErr.UbsMsgRaise "InitDoc", "ошибка выполнения"
+    objErr.UbsMsgRaise "InitDoc", "РѕС€РёР±РєР° РІС‹РїРѕР»РЅРµРЅРёСЏ"
 End Sub
 
 Private Sub UserDocument_KeyDown(KeyCode As Integer, Shift As Integer)
@@ -504,7 +504,7 @@ Private Sub UserDocument_KeyDown(KeyCode As Integer, Shift As Integer)
     End If
     Exit Sub
 ErrorCode:
-    objErr.UbsErrMsg "UserDocument_KeyDown", "ошибка выполнения"
+    objErr.UbsErrMsg "UserDocument_KeyDown", "РѕС€РёР±РєР° РІС‹РїРѕР»РЅРµРЅРёСЏ"
 End Sub
 
 Private Sub FillCombos()
@@ -515,8 +515,8 @@ On Error GoTo ErrorCode
     objParamOut.ClearParameters
     UbsChannel.Run "Combo_fill", objParamIn, objParamOut
         
-    If objParamOut.ExistParameter("Валюты") Then
-        ArrItem = objParamOut.Parameter("Валюты")
+    If objParamOut.ExistParameter("Р’Р°Р»СЋС‚С‹") Then
+        ArrItem = objParamOut.Parameter("Р’Р°Р»СЋС‚С‹")
         If IsArray(ArrItem) Then
             For n = 0 To UBound(ArrItem, 2)
                 cmbCur.AddItem ArrItem(1, n), n
@@ -524,10 +524,10 @@ On Error GoTo ErrorCode
             Next
         End If
     End If
-    cmbCur.AddItem "Все", 0
+    cmbCur.AddItem "Р’СЃРµ", 0
     
-    If objParamOut.ExistParameter("Операции") Then
-        ArrItem = objParamOut.Parameter("Операции")
+    If objParamOut.ExistParameter("РћРїРµСЂР°С†РёРё") Then
+        ArrItem = objParamOut.Parameter("РћРїРµСЂР°С†РёРё")
         If IsArray(ArrItem) Then
             For n = 0 To UBound(ArrItem, 2)
                 cmbOper.AddItem ArrItem(1, n), n
@@ -538,8 +538,8 @@ On Error GoTo ErrorCode
         End If
     End If
     
-    If objParamOut.ExistParameter("Комиссии") Then
-        ArrItem = objParamOut.Parameter("Комиссии")
+    If objParamOut.ExistParameter("РљРѕРјРёСЃСЃРёРё") Then
+        ArrItem = objParamOut.Parameter("РљРѕРјРёСЃСЃРёРё")
         If IsArray(ArrItem) Then
             For n = 0 To UBound(ArrItem, 2)
                 cmbCom.AddItem ArrItem(1, n), n
@@ -550,8 +550,8 @@ On Error GoTo ErrorCode
         End If
     End If
     
-    If objParamOut.ExistParameter("Ценности") Then
-        ArrItem = objParamOut.Parameter("Ценности")
+    If objParamOut.ExistParameter("Р¦РµРЅРЅРѕСЃС‚Рё") Then
+        ArrItem = objParamOut.Parameter("Р¦РµРЅРЅРѕСЃС‚Рё")
         If IsArray(ArrItem) Then
             For n = 0 To UBound(ArrItem, 2)
                 cmbVal.AddItem ArrItem(1, n), n
@@ -559,10 +559,10 @@ On Error GoTo ErrorCode
             Next
         End If
     End If
-    cmbVal.AddItem "Все", 0
+    cmbVal.AddItem "Р’СЃРµ", 0
     
-    If objParamOut.ExistParameter("Кассы") Then
-        ArrItem = objParamOut.Parameter("Кассы")
+    If objParamOut.ExistParameter("РљР°СЃСЃС‹") Then
+        ArrItem = objParamOut.Parameter("РљР°СЃСЃС‹")
         If IsArray(ArrItem) Then
             For n = 0 To UBound(ArrItem, 2)
                 cmbDiv.AddItem ArrItem(1, n), n
@@ -570,25 +570,25 @@ On Error GoTo ErrorCode
             Next
         End If
     End If
-    cmbDiv.AddItem "Все", 0
+    cmbDiv.AddItem "Р’СЃРµ", 0
     
     Exit Sub
 ErrorCode:
-    objErr.UbsErrMsg "FillCombos", "ошибка выполнения"
+    objErr.UbsErrMsg "FillCombos", "РѕС€РёР±РєР° РІС‹РїРѕР»РЅРµРЅРёСЏ"
 End Sub
 
 Public Function CheckData() As Boolean
 On Error GoTo ErrorCode
     
     If cmbCom.Text = "" Then
-        MsgBox "Не указана комиссия.", vbOKOnly + vbCritical, "Проверка свойств"
+        MsgBox "РќРµ СѓРєР°Р·Р°РЅР° РєРѕРјРёСЃСЃРёСЏ.", vbOKOnly + vbCritical, "РџСЂРѕРІРµСЂРєР° СЃРІРѕР№СЃС‚РІ"
         cmbCom.SetFocus
         CheckData = False
         Exit Function
     End If
        
     If cmbOper.Text = "" Then
-        MsgBox "Не указана операция.", vbOKOnly + vbCritical, "Проверка свойств"
+        MsgBox "РќРµ СѓРєР°Р·Р°РЅР° РѕРїРµСЂР°С†РёСЏ.", vbOKOnly + vbCritical, "РџСЂРѕРІРµСЂРєР° СЃРІРѕР№СЃС‚РІ"
         cmbOper.SetFocus
         CheckData = False
         Exit Function
@@ -597,6 +597,6 @@ On Error GoTo ErrorCode
     CheckData = True
     Exit Function
 ErrorCode:
-    objErr.UbsMsgRaise "CheckData", "ошибка выполнения"
+    objErr.UbsMsgRaise "CheckData", "РѕС€РёР±РєР° РІС‹РїРѕР»РЅРµРЅРёСЏ"
 End Function
 
