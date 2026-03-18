@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace UbsBusiness
 {
@@ -141,7 +140,7 @@ namespace UbsBusiness
             this.ubsCtrlInfo.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.ubsCtrlInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.ubsCtrlInfo.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.ubsCtrlInfo.Interval = 25000;
+            this.ubsCtrlInfo.Interval = 500;
             this.ubsCtrlInfo.Location = new System.Drawing.Point(3, 19);
             this.ubsCtrlInfo.Name = "ubsCtrlInfo";
             this.ubsCtrlInfo.Size = new System.Drawing.Size(268, 13);
@@ -152,6 +151,7 @@ namespace UbsBusiness
             // linkClient
             // 
             this.linkClient.AutoSize = true;
+            this.linkClient.Enabled = false;
             this.linkClient.Location = new System.Drawing.Point(6, 218);
             this.linkClient.Name = "linkClient";
             this.linkClient.Size = new System.Drawing.Size(43, 13);
@@ -274,6 +274,7 @@ namespace UbsBusiness
             this.chkPayMoney.TabIndex = 1;
             this.chkPayMoney.Text = "Выплатить в денежном эквиваленте";
             this.chkPayMoney.UseVisualStyleBackColor = true;
+            this.chkPayMoney.CheckedChanged += new System.EventHandler(this.chkPayMoney_CheckedChanged);
             // 
             // lblValueMinus
             // 
@@ -292,6 +293,7 @@ namespace UbsBusiness
             this.cmbValueMinus.Name = "cmbValueMinus";
             this.cmbValueMinus.Size = new System.Drawing.Size(70, 21);
             this.cmbValueMinus.TabIndex = 4;
+            this.cmbValueMinus.SelectedIndexChanged += new System.EventHandler(this.cmbValueMinus_SelectedIndexChanged);
             // 
             // ucdValueMinus
             // 
@@ -328,6 +330,7 @@ namespace UbsBusiness
             this.ucdRate.Size = new System.Drawing.Size(40, 20);
             this.ucdRate.TabIndex = 7;
             this.ucdRate.Text = "0";
+            this.ucdRate.TextChanged += new System.EventHandler(this.ucdRate_TextChanged);
             // 
             // ucdRatePer
             // 
@@ -337,6 +340,7 @@ namespace UbsBusiness
             this.ucdRatePer.Size = new System.Drawing.Size(70, 20);
             this.ucdRatePer.TabIndex = 9;
             this.ucdRatePer.Text = "0";
+            this.ucdRatePer.TextChanged += new System.EventHandler(this.ucdRatePer_TextChanged);
             // 
             // lblCommission
             // 

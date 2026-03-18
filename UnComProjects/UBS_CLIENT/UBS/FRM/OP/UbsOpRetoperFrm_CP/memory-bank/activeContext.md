@@ -1,23 +1,16 @@
 # Memory Bank: Active Context
 
-**Last updated:** 2026-03-17
+**Last updated:** 2026-03-18
 
 ## Current Focus
 
-**Task:** Convert op_ret_oper (VB6) → UbsOpRetoperFrm (.NET WinForm)
+**Task:** None (Memory Bank reset after archiving)
 
-**Phase:** BUILD complete. Phase 1–2 implemented. Ready for `/reflect` and manual build verification.
+**Previous task:** op_ret_oper → UbsOpRetoperFrm conversion — COMPLETED & ARCHIVED  
+**Archive:** [archive/archive-retoper-conversion.md](archive/archive-retoper-conversion.md)
 
-## Key Decisions
+---
 
-- **Decimal controls:** UbsControlMoney → UbsCtrlDecimal (8 fields)
-- **Date controls:** Not applicable (no date fields in op_ret_oper)
-- **Layout:** Option D (Hybrid) — GroupBox + content TableLayoutPanel + bottom strip
-- **ComboBox:** KeyValuePair&lt;int, string&gt; + DataSource (align with UbsOpBlankFrm)
-- **Data binding:** Explicit LoadFromParams / BuildSaveParams (no DDX)
+## Next Task
 
-## Reference Projects
-
-- UbsOpCommissionFrm_CP — structure, memory-bank
-- UbsOpBlankFrm_CP — structure, UbsCtrlDate, UbsCtrlInfo
-- UbsBgContractFrm_CP — UbsCtrlDecimal usage
+To start a new task, use VAN mode. Memory Bank is ready for the next task.

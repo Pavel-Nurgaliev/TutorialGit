@@ -24,4 +24,19 @@
 - **Explicit literals:** Removed channel command/param constants; code uses literal strings for UbsChannel_Run and UbsChannel_ParamIn keys.
 - Build: Linter clean. Verify in VS with .NET 2.0 and UbsCtrlDecimal/UbsChannel references.
 
-**Next:** `/reflect` for task review; manual build verification in VS.
+**Phase: REFLECT**
+
+- Created `reflection/reflection-retoper-conversion.md` — Level 3 comprehensive review
+- Documented: what went well, challenges (BuildSaveParams bug, m_idPov, ComboItem orphan), lessons learned, actionable improvements
+- Updated `tasks.md` — reflection complete, ready for archive
+
+**Phase: ARCHIVE**
+
+- Created `archive/archive-retoper-conversion.md` — comprehensive task record
+- Merged implementation plan, design decisions, reflection summary, known issues
+- Updated `tasks.md` — archiving complete, task COMPLETED
+- Cleared `activeContext.md` — reset for next task
+
+**Task retoper-conversion:** COMPLETED & ARCHIVED (2026-03-18)
+
+**Next:** New task via VAN mode. Pending fixes: BuildSaveParams (Номер платежного документа); verify idPov; remove ComboItem.cs; manual build verification in VS.

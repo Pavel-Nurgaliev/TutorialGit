@@ -41,11 +41,27 @@
 ### Phase 3 (Post-Conversion)
 
 - [ ] Split partials when form grows (~300+ lines)
-- [ ] Reflection doc; update progress.md
+- [x] Reflection doc; update progress.md
+- [x] Archiving
 
 ---
 
-## Next Steps
+## Status
 
-- **Creative phase complete** — architecture and channel contract documented
-- **Proceed to** `/build` command for Phase 1–2 implementation
+- [x] Planning complete
+- [x] Creative phases complete
+- [x] Implementation complete (Phase 1–2)
+- [x] Reflection complete
+- [x] Archiving complete
+
+## Archive
+
+- **Date:** 2026-03-18
+- **Archive document:** [memory-bank/archive/archive-retoper-conversion.md](archive/archive-retoper-conversion.md)
+- **Status:** COMPLETED
+
+---
+
+## Next Task
+
+Memory Bank is ready for the next task. To start a new task, use VAN mode.

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Remoting;
 using System.Windows.Forms;
 using UbsService;
 
@@ -13,17 +14,18 @@ namespace UbsBusiness
         #region Поля формы
 
         private string m_command = string.Empty;
-        private long m_idOper = 0;
+        private int m_idOper = 0;
         private string m_sidOper = string.Empty;
         private int m_idPayDoc = 0;
-        private long m_idFOper = 0;
-        private long m_selectedClient = 0;
+        private int m_idFOper = 0;
+        private int m_selectedClient = 0;
         private int m_idPov = 0;
         private decimal m_sumKom = 0m;
         private bool m_isKomPer = false;
         private bool m_isKomCur = false;
         private Array m_operArr = null;
         private Array m_valArr = null;
+        private int m_idOperComponent;
 
         #endregion
 
@@ -34,7 +36,7 @@ namespace UbsBusiness
         {
             m_addCommand();
             InitializeComponent();
-            this.IUbsChannel.LoadResource = LoadResource;
+
             base.Ubs_CommandLock = true;
         }
 
@@ -50,9 +52,9 @@ namespace UbsBusiness
                 if (!CheckSave()) { return; }
 
                 BuildSaveParams();
-                base.UbsChannel_Run("Save");
+                base.IUbsChannel.Run("Save");
 
-                var paramOut = new UbsParam(base.UbsChannel_ParamsOut);
+                var paramOut = new UbsParam(base.IUbsChannel.ParamsOut);
                 string err = paramOut.Contains("Error") ? Convert.ToString(paramOut.Value("Error")) : "";
                 if (!string.IsNullOrEmpty(err))
                 {
@@ -64,6 +66,24 @@ namespace UbsBusiness
                 cmbValueMinus.Focus();
             }
             catch (Exception ex) { this.Ubs_ShowError(ex); }
+        }
+
+        private void linkClient_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            object[] ids = this.Ubs_ActionRun("UBS_COMMON_LIST_CLIENT", this, true) as object[];
+
+            if (ids != null && ids.Length > 0)
+            {
+                m_selectedClient = Convert.ToInt32(ids[0]);
+
+                base.IUbsChannel.ParamIn("IdClient", m_selectedClient);
+                base.IUbsChannel.Run("GetNameClient");
+
+                if (base.IUbsChannel.ExistParamOut("Имя клиента"))
+                {
+                    txtClient.Text = Convert.ToString(base.IUbsChannel.ParamOut("Имя клиента"));
+                }
+            }
         }
 
         #endregion
@@ -83,35 +103,73 @@ namespace UbsBusiness
             }
         }
 
-        private void valMinusCB_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmbValueMinus_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                if (cmbValueMinus.SelectedItem == null || m_operArr == null) return;
+                if (cmbValueMinus.SelectedIndex == -1)
+                    return;
 
-                int valMinusId = GetValMinusId();
-                if (valMinusId < 0) return;
+                var valMinusId = GetValMinusId();
 
-                base.UbsChannel_ParamIn("idPov", m_idPov);
-                base.UbsChannel_ParamIn("SID Операции", "BUY");
-                base.UbsChannel_ParamIn("Валюта принятая", ParseInt(txtCurrencyNominal.Text));
-                base.UbsChannel_ParamIn("Валюта выданная", valMinusId);
-                base.UbsChannel_ParamIn("Платежный документ", m_idPayDoc);
-                SetOperParamFromOperArr();
-                base.UbsChannel_Run("GetOperParam");
+                base.IUbsChannel.ParamIn("idPov", m_idPov);
+                base.IUbsChannel.ParamIn("SID Операции", "BUY");
+                base.IUbsChannel.ParamIn("Валюта принятая", txtCurrencyNominal.Text != string.Empty ? Convert.ToInt32(txtCurrencyNominal.Text) : 0);
+                base.IUbsChannel.ParamIn("Валюта выданная", valMinusId);
+                base.IUbsChannel.ParamIn("Платежный документ", m_idPayDoc);
 
-                var pOut = new UbsParam(base.UbsChannel_ParamsOut);
+                int rows = m_operArr.GetLength(0);
+
+                for (int i = 0; i < rows; i++)
+                {
+                    string operSid = Convert.ToString(m_operArr.GetValue(i, 2));
+
+                    if (m_sidOper == "INCASH" && operSid == "INCASH_RET")
+                    {
+                        base.IUbsChannel.ParamIn("SID операции", "INCASH_RET");
+                        base.IUbsChannel.ParamIn("Операция", m_operArr.GetValue(i, 0));
+                    }
+
+                    if (m_sidOper == "INCASH_PAYDOC" && operSid == "INCASH_RET_PAYDOC")
+                    {
+                        base.IUbsChannel.ParamIn("SID операции", "INCASH_RET");
+                        base.IUbsChannel.ParamIn("Операция", m_operArr.GetValue(i, 0));
+                    }
+
+                    if (m_sidOper == "EXPERT" && operSid == "EXPERT_RET")
+                    {
+                        base.IUbsChannel.ParamIn("SID операции", "EXPERT_RET");
+                        base.IUbsChannel.ParamIn("Операция", m_operArr.GetValue(i, 0));
+                    }
+
+                    if (m_sidOper == "EXPERT_PAYDOC" && operSid == "EXPERT_RET_PAYDOC")
+                    {
+                        base.IUbsChannel.ParamIn("SID операции", "EXPERT_RET_PAYDOC");
+                        base.IUbsChannel.ParamIn("Операция", m_operArr.GetValue(i, 0));
+                    }
+                }
+
+                base.IUbsChannel.Run("GetOperParam");
+
+                var pOut = new UbsParam(base.IUbsChannel.ParamsOut);
+
                 m_sumKom = pOut.Contains("Комиссия") ? Convert.ToDecimal(pOut.Value("Комиссия")) : 0m;
                 m_isKomCur = pOut.Contains("Комиссия в валюте") && Convert.ToBoolean(pOut.Value("Комиссия в валюте"));
                 m_isKomPer = pOut.Contains("Комиссия в процентах") && Convert.ToBoolean(pOut.Value("Комиссия в процентах"));
 
                 if (!m_isKomCur)
+                {
                     SetComboSelection(cmbComission, 810);
+                }
                 else
+                {
                     SetComboSelection(cmbComission, valMinusId);
+                }
 
                 if (!m_isKomPer)
+                {
                     ucdCommission.DecimalValue = m_sumKom;
+                }
 
                 if (pOut.Contains("Курс"))
                 {
@@ -120,15 +178,15 @@ namespace UbsBusiness
                 }
                 else
                 {
-                    ucdRatePer.DecimalValue = 1m;
                     ucdRate.DecimalValue = 1m;
+                    ucdRatePer.DecimalValue = 1m;
                 }
                 RecalcucdValueMinus();
             }
             catch (Exception ex) { this.Ubs_ShowError(ex); }
         }
 
-        private void NU_TextChanged(object sender, EventArgs e)
+        private void ucdRatePer_TextChanged(object sender, EventArgs e)
         {
             RecalcucdValueMinus();
         }
@@ -159,7 +217,7 @@ namespace UbsBusiness
             try
             {
                 m_idOper = (param_in != null && param_in is object[] && ((object[])param_in).Length > 0)
-                    ? Convert.ToInt64(((object[])param_in)[0])
+                    ? Convert.ToInt32(((object[])param_in)[0])
                     : 0;
 
                 this.IUbsChannel.LoadResource = LoadResource;
@@ -171,8 +229,8 @@ namespace UbsBusiness
                     return null;
                 }
 
-                base.UbsChannel_Run("CheckCash");
-                var checkOut = new UbsParam(base.UbsChannel_ParamsOut);
+                base.IUbsChannel.Run("CheckCash");
+                var checkOut = new UbsParam(base.IUbsChannel.ParamsOut);
                 string checkErr = checkOut.Contains("Error") ? Convert.ToString(checkOut.Value("Error")) : "";
                 if (!string.IsNullOrEmpty(checkErr))
                 {
@@ -201,12 +259,12 @@ namespace UbsBusiness
         {
             try
             {
-                base.UbsChannel_ParamIn("Тип операции", "ret");
-                base.UbsChannel_ParamIn("initedDoc", false);
-                base.UbsChannel_ParamIn("Id операции", m_idOper);
-                base.UbsChannel_Run("InitForm");
+                base.IUbsChannel.ParamIn("Тип операции", "ret");
+                base.IUbsChannel.ParamIn("initedDoc", false);
+                base.IUbsChannel.ParamIn("Id операции", m_idOper);
+                base.IUbsChannel.Run("InitForm");
 
-                var paramOut = new UbsParam(base.UbsChannel_ParamsOut);
+                var paramOut = new UbsParam(base.IUbsChannel.ParamsOut);
                 string errStr = paramOut.Contains("Error") ? Convert.ToString(paramOut.Value("Error")) : "";
                 if (!string.IsNullOrEmpty(errStr))
                 {
@@ -215,10 +273,10 @@ namespace UbsBusiness
                     return;
                 }
 
-                m_sidOper = paramOut.Contains("SID операции") ? Convert.ToString(paramOut.Value("SID операции")) : "";
-                m_idFOper = paramOut.Contains("Id операции") ? Convert.ToInt64(paramOut.Value("Id операции")) : 0;
+                m_sidOper = paramOut.Contains("SID Операции") ? Convert.ToString(paramOut.Value("SID Операции")) : "";
+                m_idFOper = paramOut.Contains("Id операции") ? Convert.ToInt32(paramOut.Value("Id операции")) : 0;
                 m_idPayDoc = paramOut.Contains("Id ценности") ? Convert.ToInt32(paramOut.Value("Id ценности")) : 0;
-                m_selectedClient = paramOut.Contains("Id клиента") ? Convert.ToInt64(paramOut.Value("Id клиента")) : 0;
+                m_selectedClient = paramOut.Contains("Id клиента") ? Convert.ToInt32(paramOut.Value("Id клиента")) : 0;
 
                 if (paramOut.Contains("Список операций"))
                     m_operArr = paramOut.Value("Список операций") as Array;
@@ -250,10 +308,10 @@ namespace UbsBusiness
             if (docArr == null || docArr.Rank < 2) return;
             try
             {
-                int len = docArr.GetLength(1);
-                for (int i = 0; i < len; i++)
+                int row = docArr.GetLength(0);
+                for (int i = 0; i < row; i++)
                 {
-                    object v = docArr.GetValue(1, i);
+                    object v = docArr.GetValue(i, 0);
                     cmbDocument.Items.Add(v != null ? Convert.ToString(v) : "");
                 }
             }
@@ -272,13 +330,14 @@ namespace UbsBusiness
             var list = new List<KeyValuePair<int, string>>();
             try
             {
-                int cols = arr.GetLength(1);
-                for (int i = 0; i < cols; i++)
+                int rows = arr.GetLength(0);
+                for (int i = 0; i < rows; i++)
                 {
-                    object o0 = arr.GetValue(0, i);
-                    object o2 = arr.GetLength(0) > 2 ? arr.GetValue(2, i) : null;
+                    object o0 = arr.GetValue(i, 0);
+                    object o2 = arr.GetLength(1) > 2 ? arr.GetValue(i, 2) : null;
                     int id = o0 != null ? Convert.ToInt32(o0) : 0;
-                    string text = o2 != null ? Convert.ToString(o2) : "";
+                    string text = o2 != null ? Convert.ToString(o2) : string.Empty;
+
                     list.Add(new KeyValuePair<int, string>(id, text));
                 }
             }
@@ -313,6 +372,10 @@ namespace UbsBusiness
             if (paramOut.Contains("Серия документа")) txtSerDocument.Text = Convert.ToString(paramOut.Value("Серия документа"));
             if (paramOut.Contains("Сумма выданная")) ucdValueMinus.DecimalValue = ToDecimal(paramOut.Value("Сумма выданная"));
             if (paramOut.Contains("Валюта номинала")) txtCurrencyNominal.Text = Convert.ToString(paramOut.Value("Валюта номинала"));
+            if (paramOut.Contains("Идентификатор составной операции"))
+            {
+                m_idOperComponent = Convert.ToInt32(paramOut.Value("Идентификатор составной операции"));
+            }
 
             if (string.IsNullOrEmpty(txtClient.Text)) txtClient.Text = string.Empty;
             if (string.IsNullOrEmpty(txtSerDocument.Text)) txtSerDocument.Text = "XXX";
@@ -340,40 +403,41 @@ namespace UbsBusiness
 
         private void BuildSaveParams()
         {
-            base.UbsChannel_ParamIn("ФИО", txtClient.Text);
-            base.UbsChannel_ParamIn("Документ", cmbDocument.SelectedItem != null ? cmbDocument.SelectedItem.ToString() : "");
-            base.UbsChannel_ParamIn("Комиссия", ucdCommission.DecimalValue);
-            base.UbsChannel_ParamIn("Номер квитанции(справки)", ucdNumReceipt.DecimalValue);
-            base.UbsChannel_ParamIn("Номинал", ucdSumNominal.DecimalValue);
-            base.UbsChannel_ParamIn("Курс за(единиц)", ucdRatePer.DecimalValue);
-            base.UbsChannel_ParamIn("Номер платежного документа", ucdSumNominal.DecimalValue);
-            base.UbsChannel_ParamIn("Номер документа", txtNumDocument.Text);
-            base.UbsChannel_ParamIn("Платежный документ", txtPayDoc.Text);
-            base.UbsChannel_ParamIn("Подоходный налог", ucdIncomeTax.DecimalValue);
-            base.UbsChannel_ParamIn("Курс", ucdRate.DecimalValue);
-            base.UbsChannel_ParamIn("Резидент", chkResident.Checked ? 1 : 0);
-            base.UbsChannel_ParamIn("Серия платежного документа", txtSerPayDoc.Text);
-            base.UbsChannel_ParamIn("Серия документа", txtSerDocument.Text);
-            base.UbsChannel_ParamIn("Сумма выданная", ucdValueMinus.DecimalValue);
-            base.UbsChannel_ParamIn("Валюта номинала", txtCurrencyNominal.Text);
+            base.IUbsChannel.ParamIn("ФИО", txtClient.Text);
+            base.IUbsChannel.ParamIn("Документ", cmbDocument.SelectedItem != null ? cmbDocument.SelectedItem.ToString() : "");
+            base.IUbsChannel.ParamIn("Комиссия", ucdCommission.DecimalValue);
+            base.IUbsChannel.ParamIn("Номер квитанции(справки)", ucdNumReceipt.DecimalValue);
+            base.IUbsChannel.ParamIn("Номинал", ucdSumNominal.DecimalValue);
+            base.IUbsChannel.ParamIn("Курс за(единиц)", ucdRatePer.DecimalValue);
+            base.IUbsChannel.ParamIn("Номер платежного документа", ucdSumNominal.DecimalValue);
+            base.IUbsChannel.ParamIn("Номер документа", txtNumDocument.Text);
+            base.IUbsChannel.ParamIn("Платежный документ", txtPayDoc.Text);
+            base.IUbsChannel.ParamIn("Подоходный налог", ucdIncomeTax.DecimalValue);
+            base.IUbsChannel.ParamIn("Курс", ucdRate.DecimalValue);
+            base.IUbsChannel.ParamIn("Резидент", chkResident.Checked ? 1 : 0);
+            base.IUbsChannel.ParamIn("Серия платежного документа", txtSerPayDoc.Text);
+            base.IUbsChannel.ParamIn("Серия документа", txtSerDocument.Text);
+            base.IUbsChannel.ParamIn("Сумма выданная", ucdValueMinus.DecimalValue);
+            base.IUbsChannel.ParamIn("Валюта номинала", txtCurrencyNominal.Text);
 
             int valMinusId = GetValMinusId();
-            base.UbsChannel_ParamIn("Валюта выданная", valMinusId >= 0 ? valMinusId : 0);
+            base.IUbsChannel.ParamIn("Валюта выданная", valMinusId >= 0 ? valMinusId : 0);
             int cmbComissionId = GetcmbComissionId();
-            base.UbsChannel_ParamIn("Валюта комиссии", cmbComissionId >= 0 ? cmbComissionId : 0);
-            base.UbsChannel_ParamIn("Валюта принятая", 0);
-            base.UbsChannel_ParamIn("Сумма принятая", 0m);
-            base.UbsChannel_ParamIn("Платежный документ", 0);
+            base.IUbsChannel.ParamIn("Валюта комиссии", cmbComissionId >= 0 ? cmbComissionId : 0);
+            base.IUbsChannel.ParamIn("Валюта принятая", txtCurrencyNominal.Text != string.Empty ? Convert.ToInt32(txtCurrencyNominal.Text) : 0);
+            base.IUbsChannel.ParamIn("Сумма принятая", 0m);
+            base.IUbsChannel.ParamIn("Платежный документ", 0);
 
             if (!chkPayMoney.Checked)
             {
-                base.UbsChannel_ParamIn("Валюта выданная", ParseInt(txtCurrencyNominal.Text));
-                base.UbsChannel_ParamIn("Сумма выданная", ucdSumNominal.DecimalValue);
-                base.UbsChannel_ParamIn("Платежный документ", m_idPayDoc);
+                base.IUbsChannel.ParamIn("Валюта выданная", ParseInt(txtCurrencyNominal.Text));
+                base.IUbsChannel.ParamIn("Сумма выданная", ucdSumNominal.DecimalValue);
+                base.IUbsChannel.ParamIn("Платежный документ", m_idPayDoc);
             }
 
-            base.UbsChannel_ParamIn("Номер квитанции(справки)", m_idFOper);
-            base.UbsChannel_ParamIn("idClient", m_selectedClient);
+            base.IUbsChannel.ParamIn("Идентификатор составной операции", m_idOperComponent);
+            base.IUbsChannel.ParamIn("Номер квитанции(справки)", m_idFOper);
+            base.IUbsChannel.ParamIn("Идентификатор клиента", m_selectedClient);
             SetOperParamFromOperArr();
         }
 
@@ -382,18 +446,18 @@ namespace UbsBusiness
             if (m_operArr == null) return;
             try
             {
-                for (int i = 0; i < m_operArr.GetLength(1); i++)
+                for (int i = 0; i < m_operArr.GetLength(0); i++)
                 {
-                    object op0 = m_operArr.GetValue(0, i);
-                    object op2 = m_operArr.GetValue(2, i);
-                    string sid = op2 != null ? Convert.ToString(op2) : "";
+                    object op0 = m_operArr.GetValue(i, 0);
+                    object op2 = m_operArr.GetValue(i, 2);
+                    string sid = op2 != null ? Convert.ToString(op2) : string.Empty;
                     if ((m_sidOper == "INCASH" && sid == "INCASH_RET") ||
                         (m_sidOper == "INCASH_PAYDOC" && sid == "INCASH_RET_PAYDOC") ||
                         (m_sidOper == "EXPERT" && sid == "EXPERT_RET") ||
                         (m_sidOper == "EXPERT_PAYDOC" && sid == "EXPERT_RET_PAYDOC"))
                     {
-                        base.UbsChannel_ParamIn("SID операции", sid);
-                        base.UbsChannel_ParamIn("Операция", op0);
+                        base.IUbsChannel.ParamIn("SID Операции", sid);
+                        base.IUbsChannel.ParamIn("Операция", op0);
                         break;
                     }
                 }
@@ -457,15 +521,5 @@ namespace UbsBusiness
         }
 
         #endregion
-
-        private void linkClient_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            object[] ids = this.Ubs_ActionRun("UBS_COMMON_LIST_CLIENT", this, true) as object[];
-            if (ids != null && ids.Length > 0)
-            {
-                base.IUbsFieldCollection["Идентификатор клиента"].ValueCur = Convert.ToInt32(ids[0]);
-                base.UbsChannel_Run("LoadClient");
-            }
-        }
     }
 }
