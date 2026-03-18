@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Windows.Forms;
 
 namespace UbsBusiness
@@ -7,12 +7,12 @@ namespace UbsBusiness
     {
         //private const int WM_CLOSE = 0x0010;
 
-        //#region Переопределение WndProc
+        //#region РџРµСЂРµРѕРїСЂРµРґРµР»РµРЅРёРµ WndProc
 
         ///// <summary>
-        ///// Переопределение оконной процедуры
+        ///// РџРµСЂРµРѕРїСЂРµРґРµР»РµРЅРёРµ РѕРєРѕРЅРЅРѕР№ РїСЂРѕС†РµРґСѓСЂС‹
         ///// </summary>
-        ///// <param name="m">Сообщение</param>
+        ///// <param name="m">РЎРѕРѕР±С‰РµРЅРёРµ</param>
         //protected override void WndProc(ref Message m)
         //{
         //    try
@@ -99,7 +99,7 @@ namespace UbsBusiness
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(82, 26);
             this.btnSave.TabIndex = 101;
-            this.btnSave.Text = "Сохранить";
+            this.btnSave.Text = "РЎРѕС…СЂР°РЅРёС‚СЊ";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -111,7 +111,7 @@ namespace UbsBusiness
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(82, 26);
             this.btnExit.TabIndex = 102;
-            this.btnExit.Text = "Выход";
+            this.btnExit.Text = "Р’С‹С…РѕРґ";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
@@ -135,7 +135,7 @@ namespace UbsBusiness
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(392, 273);
             this.Name = "UbsForm1";
-            this.Text = "Шаблон формы";
+            this.Text = "РЁР°Р±Р»РѕРЅ С„РѕСЂРјС‹";
             this.panelMain.ResumeLayout(false);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
