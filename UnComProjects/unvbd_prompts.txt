@@ -1,0 +1,17 @@
+UNVBD_PROMPTS
+
+/van analyze the goal of the project. The goal of the project is the conversion legacy VB6 form to the .NET framework 2.0 (check the memory bank)
+
+the .NET form is UbsOpRetoperFrm
+the VB6 is
+D:\Repositories\TutorialGit\UnComProjects\UBS_CLIENT\UBS\FRM\OP\UbsOpRetoperFrm_CP\legacy-form\OP_ret_oper\op_ret_oper.dob
+
+the appearance of the legacy form is D:\Repositories\TutorialGit\UnComProjects\UBS_CLIENT\UBS\FRM\OP\UbsOpRetoperFrm_CP\legacy-form\screens\image1.png
+
+the result of successful conversions UbsOpCommissionFrm_CP and UbsOpBlankFrm_CP
+
+/plan channel commands .Run (or _Run) and their parameters should be explicit (no constants). Make changes in the plans (not create other plans)
+
+/creative 
+
+/build 

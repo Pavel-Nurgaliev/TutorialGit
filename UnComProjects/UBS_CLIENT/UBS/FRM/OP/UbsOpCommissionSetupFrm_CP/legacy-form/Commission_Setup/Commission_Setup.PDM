@@ -1,0 +1,99 @@
+[Root]
+Most Recent Package=Internet Package 1
+
+
+[Package|Internet Package 1|Root]
+SubWizProgID=PDWizard.InetCABPkgSubWiz
+BuildFolder=C:\Documents and Settings\Evgeniy\Рабочий стол\PROJECT\Commission_Setup\Package
+
+[Package|Internet Package 1|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Internet Package 1|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Internet Package 1|Files Found]
+
+[Package|Internet Package 1|Files Released]
+
+[Package|Internet Package 1|Missing Dependency Information]
+E:\WINNT\system32\UbsInfo.ocx=
+E:\WINNT\system32\UbsChlCtrl.ocx=
+E:\WINNT\system32\UbsDDXCtrl.ocx=
+E:\WINNT\system32\UBSParrents.dll=
+E:\WINNT\system32\UBSChilds.dll=
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsInfo.ocx=
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsChlCtrl.ocx=
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsDDXCtrl.ocx=
+C:\Program Files\UniSAB\ActiveX\Ubs\UBSParrents.dll=
+C:\Program Files\UniSAB\ActiveX\Ubs\UBSChilds.dll=
+
+[Package|Internet Package 1|Out-of-Date Dependency Information]
+
+[Package|Internet Package 1|Files Added]
+
+[Package|Internet Package 1|Files Removed]
+e:\winnt\system32\ubschilds.dll=
+e:\winnt\system32\ubschlctrl.ocx=
+e:\winnt\system32\ubsddxctrl.ocx=
+e:\winnt\system32\ubsinfo.ocx=
+e:\winnt\system32\ubsparrents.dll=
+e:\winnt\system32\msvbvm60.dll=
+e:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\oleaut32.dll=
+e:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\olepro32.dll=
+e:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\asycfilt.dll=
+e:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\stdole2.tlb=
+e:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
+c:\program files\unisab\activex\ubs\ubschilds.dll=
+c:\program files\unisab\activex\ubs\ubschlctrl.ocx=
+c:\program files\unisab\activex\ubs\ubsddxctrl.ocx=
+c:\program files\unisab\activex\ubs\ubsinfo.ocx=
+c:\program files\unisab\activex\ubs\ubsparrents.dll=
+c:\windows\system32\msvbvm60.dll=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\oleaut32.dll=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\olepro32.dll=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\asycfilt.dll=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\stdole2.tlb=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
+
+[Package|Internet Package 1|Files In Project]
+C:\Documents and Settings\Evgeniy\Рабочий стол\PROJECT\Commission_Setup\Commission_Setup.dll=Yes
+C:\WINDOWS\system32\msvbvm60.dll=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=No
+C:\Program Files\UniSAB\ActiveX\Ubs\UBSChilds.dll=No
+C:\Program Files\UniSAB\ActiveX\Ubs\UBSParrents.dll=No
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsDDXCtrl.ocx=No
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsChlCtrl.ocx=No
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsInfo.ocx=No
+
+[Package|Internet Package 1|Configure Registry Files]
+Applicable=No
+
+[Package|Internet Package 1|Configure Remote Servers]
+Applicable=No
+
+[Package|Internet Package 1|Install Locations]
+
+[Package|Internet Package 1|Configure Shared Files]
+Applicable=
+
+[Package|Internet Package 1|ComponentInfo]
+Commission_Setup.dll=thiscab
+
+[Package|Internet Package 1|ObjectInfo]
+Commission_Setup_ud=true;true
+
+[Package|Internet Package 1|Package]
+PackageFolder=C:\Documents and Settings\Evgeniy\Рабочий стол\PROJECT\Commission_Setup\Package
+ProjectFolder=C:\Documents and Settings\Evgeniy\Рабочий стол\PROJECT\Commission_Setup
+ServerSideCab=C:\Documents and Settings\Evgeniy\Рабочий стол\PROJECT\Commission_Setup\Package\Commission_Setup.CAB
+File1=C:\Documents and Settings\Evgeniy\Рабочий стол\PROJECT\Commission_Setup\Package\Commission_Setup.CAB
+File2=C:\Documents and Settings\Evgeniy\Рабочий стол\PROJECT\Commission_Setup\Package\Commission_Setup_ud.VBD
+File3=C:\Documents and Settings\Evgeniy\Рабочий стол\PROJECT\Commission_Setup\Package\Commission_Setup.HTM
+Handler1=PDWizard.WebPostDplySubWiz
+Handler2=PDWizard.FolderDplySubWiz
