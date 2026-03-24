@@ -1,0 +1,5364 @@
+VERSION 5.00
+Object = "{2C627FBF-1D28-40FB-B954-A9A40BB6DE61}#25.6#0"; "UbsDDXCtrl.ocx"
+Object = "{0A45DB48-BD0D-11D2-8D14-00104B9E072A}#2.0#0"; "sstabs2.ocx"
+Object = "{C3A4B116-8248-4301-BB9C-E2DF040AAE6B}#1.0#0"; "UbsCtrl.dll"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
+Object = "{A9609DF2-7123-4FAA-8347-2AEEE0D8C251}#1.3#0"; "UbsInfo.ocx"
+Object = "{9D55898C-2E5D-42AA-A662-D60C8218C8DD}#1.0#0"; "UbsProp.dll"
+Object = "{654DF6AF-C9A1-4D4E-89AC-9F01D9B7C3ED}#1.9#0"; "UbsChlCtrl.ocx"
+Begin VB.UserDocument Pm_Trade_ud 
+   ClientHeight    =   7365
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   6765
+   HScrollSmallChange=   225
+   KeyPreview      =   -1  'True
+   ScaleHeight     =   7365
+   ScaleWidth      =   6765
+   VScrollSmallChange=   225
+   Begin ActiveTabs.SSActiveTabs SSTabs 
+      Height          =   7215
+      Left            =   120
+      TabIndex        =   0
+      Top             =   120
+      Width           =   6615
+      _ExtentX        =   11668
+      _ExtentY        =   12726
+      _Version        =   131083
+      TabCount        =   6
+      TagVariant      =   ""
+      Tabs            =   "Pm_Trade_ud.dox":0000
+      Begin ActiveTabs.SSActiveTabPanel SSActiveTabPanel2 
+         Height          =   6825
+         Left            =   -99969
+         TabIndex        =   82
+         Top             =   360
+         Width           =   6555
+         _ExtentX        =   11562
+         _ExtentY        =   12039
+         _Version        =   131083
+         TabGuid         =   "Pm_Trade_ud.dox":0151
+         Begin UBSPROPLibCtl.UbsControlProperty ucpParam 
+            Height          =   6135
+            Left            =   120
+            OleObjectBlob   =   "Pm_Trade_ud.dox":0179
+            TabIndex        =   62
+            Top             =   120
+            Width           =   6255
+         End
+      End
+      Begin ActiveTabs.SSActiveTabPanel SSTabsPanel4 
+         Height          =   6825
+         Left            =   -99969
+         TabIndex        =   81
+         Top             =   360
+         Width           =   6555
+         _ExtentX        =   11562
+         _ExtentY        =   12039
+         _Version        =   131083
+         TabGuid         =   "Pm_Trade_ud.dox":01A9
+         Begin VB.CheckBox chkExternalStorage 
+            Caption         =   "Внешнее хранилище"
+            Height          =   315
+            Left            =   1440
+            TabIndex        =   37
+            Top             =   1080
+            Width           =   1995
+         End
+         Begin VB.CommandButton cmdStorage 
+            Caption         =   "..."
+            Height          =   315
+            Left            =   2820
+            TabIndex        =   38
+            Top             =   1440
+            Width           =   315
+         End
+         Begin VB.TextBox txtStorageName 
+            Height          =   315
+            Left            =   1440
+            MaxLength       =   50
+            TabIndex        =   40
+            Top             =   1860
+            Width           =   4815
+         End
+         Begin VB.TextBox txtStorageCode 
+            Height          =   315
+            Left            =   1440
+            MaxLength       =   20
+            TabIndex        =   39
+            Top             =   1440
+            Width           =   1155
+         End
+         Begin VB.Label Label13 
+            Caption         =   "Инструкция по поставке"
+            BeginProperty Font 
+               Name            =   "MS Sans Serif"
+               Size            =   9.75
+               Charset         =   204
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   255
+            Left            =   1560
+            TabIndex        =   109
+            Top             =   420
+            Width           =   2775
+         End
+         Begin VB.Label Label12 
+            Caption         =   "выбор хранилища"
+            Height          =   195
+            Left            =   3360
+            TabIndex        =   108
+            Top             =   1500
+            Width           =   1425
+         End
+         Begin VB.Label Label10 
+            Caption         =   "Наименование"
+            Height          =   195
+            Left            =   120
+            TabIndex        =   107
+            Top             =   1920
+            Width           =   1275
+         End
+         Begin VB.Label Label9 
+            Caption         =   "Номер"
+            Height          =   195
+            Left            =   120
+            TabIndex        =   105
+            Top             =   1500
+            Width           =   1275
+         End
+      End
+      Begin ActiveTabs.SSActiveTabPanel SSTabsPanel3 
+         Height          =   6825
+         Left            =   30
+         TabIndex        =   76
+         Top             =   360
+         Width           =   6555
+         _ExtentX        =   11562
+         _ExtentY        =   12039
+         _Version        =   131083
+         TabGuid         =   "Pm_Trade_ud.dox":01D1
+         Begin ActiveTabs.SSActiveTabs SSTabs1 
+            Height          =   6255
+            Left            =   240
+            TabIndex        =   77
+            Top             =   60
+            Width           =   6015
+            _ExtentX        =   10610
+            _ExtentY        =   11033
+            _Version        =   131083
+            TabCount        =   2
+            ControlCount    =   1
+            TagVariant      =   ""
+            Tabs            =   "Pm_Trade_ud.dox":01F9
+            Begin VB.CommandButton cmdAccounts 
+               Caption         =   "..."
+               Height          =   315
+               Left            =   2160
+               TabIndex        =   34
+               Top             =   5760
+               Visible         =   0   'False
+               Width           =   315
+            End
+            Begin VB.CommandButton cmdApplayOblig 
+               Caption         =   "Применить"
+               Height          =   375
+               Left            =   3540
+               TabIndex        =   35
+               Top             =   5760
+               Width           =   1095
+            End
+            Begin VB.CommandButton cmdExitOblig 
+               Caption         =   "Отмена"
+               Height          =   375
+               Left            =   4740
+               TabIndex        =   36
+               Top             =   5760
+               Width           =   1095
+            End
+            Begin ActiveTabs.SSActiveTabPanel SSTabs1Panel4 
+               Height          =   5865
+               Left            =   -99969
+               TabIndex        =   80
+               Top             =   360
+               Width           =   5955
+               _ExtentX        =   10504
+               _ExtentY        =   10345
+               _Version        =   131083
+               TabGuid         =   "Pm_Trade_ud.dox":027B
+               Begin VB.CommandButton cmdAddObject 
+                  Caption         =   "Добавить"
+                  Height          =   375
+                  Left            =   4740
+                  TabIndex        =   32
+                  Top             =   720
+                  Width           =   1095
+               End
+               Begin VB.CommandButton cmdDelObject 
+                  Caption         =   "Удалить"
+                  Height          =   375
+                  Left            =   4740
+                  TabIndex        =   33
+                  Top             =   1200
+                  Width           =   1095
+               End
+               Begin MSComctlLib.ListView lstViewObject 
+                  Height          =   3075
+                  Left            =   120
+                  TabIndex        =   83
+                  Top             =   720
+                  Width           =   4545
+                  _ExtentX        =   8017
+                  _ExtentY        =   5424
+                  View            =   3
+                  LabelEdit       =   1
+                  LabelWrap       =   -1  'True
+                  HideSelection   =   0   'False
+                  FullRowSelect   =   -1  'True
+                  GridLines       =   -1  'True
+                  _Version        =   393217
+                  ForeColor       =   -2147483640
+                  BackColor       =   -2147483643
+                  BorderStyle     =   1
+                  Appearance      =   1
+                  NumItems        =   7
+                  BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+                     Text            =   "Драг.металл"
+                     Object.Width           =   2540
+                  EndProperty
+                  BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+                     SubItemIndex    =   1
+                     Text            =   "Вид поставки"
+                     Object.Width           =   2540
+                  EndProperty
+                  BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+                     SubItemIndex    =   2
+                     Text            =   "Лигатурная масса"
+                     Object.Width           =   2540
+                  EndProperty
+                  BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+                     SubItemIndex    =   3
+                     Text            =   "Проба"
+                     Object.Width           =   2540
+                  EndProperty
+                  BeginProperty ColumnHeader(5) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+                     SubItemIndex    =   4
+                     Text            =   "Серия"
+                     Object.Width           =   2540
+                  EndProperty
+                  BeginProperty ColumnHeader(6) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+                     SubItemIndex    =   5
+                     Text            =   "Номер"
+                     Object.Width           =   2540
+                  EndProperty
+                  BeginProperty ColumnHeader(7) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+                     SubItemIndex    =   6
+                     Text            =   "Идентификатор объекта"
+                     Object.Width           =   2540
+                  EndProperty
+               End
+               Begin VB.Label lblObligInfo1 
+                  Alignment       =   2  'Center
+                  Caption         =   "Дата оплаты, Дата поставки"
+                  Height          =   255
+                  Left            =   120
+                  TabIndex        =   102
+                  Top             =   120
+                  Visible         =   0   'False
+                  Width           =   5655
+               End
+               Begin VB.Label lblObligInfo2 
+                  Alignment       =   2  'Center
+                  Caption         =   "Цена,Масса,Сумма"
+                  Height          =   195
+                  Left            =   180
+                  TabIndex        =   101
+                  Top             =   420
+                  Width           =   5655
+               End
+            End
+            Begin ActiveTabs.SSActiveTabPanel SSTabs1Panel1 
+               Height          =   5865
+               Left            =   30
+               TabIndex        =   79
+               Top             =   360
+               Width           =   5955
+               _ExtentX        =   10504
+               _ExtentY        =   10345
+               _Version        =   131083
+               TabGuid         =   "Pm_Trade_ud.dox":02A3
+               Begin VB.CheckBox chkSumInCurValue 
+                  Alignment       =   1  'Right Justify
+                  Caption         =   "Цена за ед. в валюте оплаты"
+                  Height          =   315
+                  Left            =   120
+                  TabIndex        =   24
+                  Top             =   1980
+                  Width           =   3495
+               End
+               Begin VB.CheckBox chkRate 
+                  Alignment       =   1  'Right Justify
+                  Caption         =   "Коэф. пересчета валюты обязательства"
+                  Height          =   315
+                  Left            =   120
+                  TabIndex        =   22
+                  Top             =   1620
+                  Width           =   3495
+               End
+               Begin VB.ComboBox cmbNaprTrade 
+                  Height          =   315
+                  Left            =   3300
+                  Style           =   2  'Dropdown List
+                  TabIndex        =   18
+                  Top             =   180
+                  Width           =   2355
+               End
+               Begin VB.ComboBox cmbUnit 
+                  Height          =   315
+                  Left            =   3300
+                  Style           =   2  'Dropdown List
+                  TabIndex        =   20
+                  Top             =   900
+                  Width           =   2355
+               End
+               Begin UBSCTRLLibCtl.UbsControlMoney txtCostCurOpl 
+                  Height          =   315
+                  Left            =   3720
+                  TabIndex        =   25
+                  Top             =   1980
+                  Width           =   1935
+                  _cx             =   3413
+                  _cy             =   556
+                  Appearance      =   1
+                  Enabled         =   0   'False
+                  Object.TabStop         =   -1  'True
+                  Text            =   "0,00"
+                  Valid           =   -1  'True
+                  Range           =   14
+                  Precision       =   4
+                  SignEnable      =   1
+                  SeparatorsEnable=   1
+                  ReadOnly        =   0
+               End
+               Begin UBSCTRLLibCtl.UbsControlMoney txtRateCurOblig 
+                  Height          =   315
+                  Left            =   3720
+                  TabIndex        =   23
+                  Top             =   1620
+                  Width           =   1935
+                  _cx             =   3413
+                  _cy             =   556
+                  Appearance      =   1
+                  Enabled         =   0   'False
+                  Object.TabStop         =   -1  'True
+                  Text            =   "0,00"
+                  Valid           =   -1  'True
+                  Range           =   14
+                  Precision       =   10
+                  SignEnable      =   0
+                  SeparatorsEnable=   1
+                  ReadOnly        =   0
+               End
+               Begin VB.ComboBox cmbCurOblig 
+                  Height          =   315
+                  Left            =   3300
+                  Style           =   2  'Dropdown List
+                  TabIndex        =   19
+                  Top             =   540
+                  Width           =   2355
+               End
+               Begin VB.Frame Frame1 
+                  Caption         =   "Обязательство поставки"
+                  Height          =   1335
+                  Left            =   120
+                  TabIndex        =   97
+                  Top             =   2460
+                  Width           =   5745
+                  Begin UBSCTRLLibCtl.UbsControlMoney txtMassaGramm 
+                     Height          =   315
+                     Left            =   4380
+                     TabIndex        =   28
+                     Top             =   840
+                     Width           =   1215
+                     _cx             =   2143
+                     _cy             =   556
+                     Appearance      =   1
+                     Enabled         =   0   'False
+                     Object.TabStop         =   -1  'True
+                     Text            =   "0,00"
+                     Valid           =   -1  'True
+                     Range           =   14
+                     Precision       =   1
+                     SignEnable      =   1
+                     SeparatorsEnable=   1
+                     ReadOnly        =   0
+                  End
+                  Begin UBSCTRLLibCtl.UbsControlDate txtDatePost 
+                     Height          =   315
+                     Left            =   1560
+                     TabIndex        =   26
+                     Top             =   300
+                     Width           =   1215
+                     _cx             =   2143
+                     _cy             =   556
+                     Appearance      =   1
+                     Enabled         =   -1  'True
+                     Object.TabStop         =   -1  'True
+                     Text            =   "  .  .    "
+                     Valid           =   -1  'True
+                     Format          =   1
+                     ReadOnly        =   0
+                  End
+                  Begin UBSCTRLLibCtl.UbsControlMoney txtMassa 
+                     Height          =   315
+                     Left            =   1560
+                     TabIndex        =   27
+                     Top             =   840
+                     Width           =   1215
+                     _cx             =   2143
+                     _cy             =   556
+                     Appearance      =   1
+                     Enabled         =   -1  'True
+                     Object.TabStop         =   -1  'True
+                     Text            =   "0,00"
+                     Valid           =   -1  'True
+                     Range           =   14
+                     Precision       =   2
+                     SignEnable      =   1
+                     SeparatorsEnable=   1
+                     ReadOnly        =   0
+                  End
+                  Begin VB.Label Label33 
+                     Caption         =   "Масса металла в граммах"
+                     Height          =   375
+                     Left            =   2940
+                     TabIndex        =   114
+                     Top             =   810
+                     Width           =   1395
+                  End
+                  Begin VB.Label Label16 
+                     Caption         =   "Дата поставки"
+                     Height          =   195
+                     Left            =   120
+                     TabIndex        =   99
+                     Top             =   360
+                     Width           =   1215
+                  End
+                  Begin VB.Label Label26 
+                     Caption         =   "Масса металла в ед. измерения"
+                     Height          =   375
+                     Left            =   120
+                     TabIndex        =   98
+                     Top             =   810
+                     Width           =   1335
+                  End
+               End
+               Begin VB.Frame Frame2 
+                  Caption         =   "Обязательство оплаты"
+                  Height          =   1455
+                  Left            =   120
+                  TabIndex        =   94
+                  Top             =   3840
+                  Width           =   5745
+                  Begin UBSCTRLLibCtl.UbsControlMoney txtSumOblig 
+                     Height          =   315
+                     Left            =   2940
+                     TabIndex        =   30
+                     Top             =   660
+                     Width           =   1875
+                     _cx             =   3307
+                     _cy             =   556
+                     Appearance      =   1
+                     Enabled         =   0   'False
+                     Object.TabStop         =   -1  'True
+                     Text            =   "0,00"
+                     Valid           =   -1  'True
+                     Range           =   14
+                     Precision       =   2
+                     SignEnable      =   1
+                     SeparatorsEnable=   1
+                     ReadOnly        =   0
+                  End
+                  Begin UBSCTRLLibCtl.UbsControlDate txtDateOpl 
+                     Height          =   315
+                     Left            =   2940
+                     TabIndex        =   29
+                     Top             =   300
+                     Width           =   1215
+                     _cx             =   2143
+                     _cy             =   556
+                     Appearance      =   1
+                     Enabled         =   -1  'True
+                     Object.TabStop         =   -1  'True
+                     Text            =   "  .  .    "
+                     Valid           =   -1  'True
+                     Format          =   1
+                     ReadOnly        =   0
+                  End
+                  Begin UBSCTRLLibCtl.UbsControlMoney txtSumOpl 
+                     Height          =   315
+                     Left            =   2940
+                     TabIndex        =   31
+                     Top             =   1020
+                     Width           =   1875
+                     _cx             =   3307
+                     _cy             =   556
+                     Appearance      =   1
+                     Enabled         =   0   'False
+                     Object.TabStop         =   -1  'True
+                     Text            =   "0,00"
+                     Valid           =   -1  'True
+                     Range           =   14
+                     Precision       =   2
+                     SignEnable      =   1
+                     SeparatorsEnable=   1
+                     ReadOnly        =   0
+                  End
+                  Begin VB.Label Label24 
+                     Caption         =   "Сумма в валюте обязательства"
+                     Height          =   255
+                     Left            =   120
+                     TabIndex        =   111
+                     Top             =   690
+                     Width           =   2835
+                  End
+                  Begin VB.Label Label7 
+                     Caption         =   "Дата оплаты"
+                     Height          =   195
+                     Left            =   120
+                     TabIndex        =   96
+                     Top             =   360
+                     Width           =   1035
+                  End
+                  Begin VB.Label Label30 
+                     Caption         =   "Сумма в валюте оплаты"
+                     Height          =   255
+                     Left            =   120
+                     TabIndex        =   95
+                     Top             =   1050
+                     Width           =   1935
+                  End
+               End
+               Begin UBSCTRLLibCtl.UbsControlMoney txtCostUnit 
+                  Height          =   315
+                  Left            =   3720
+                  TabIndex        =   21
+                  Top             =   1260
+                  Width           =   1935
+                  _cx             =   3413
+                  _cy             =   556
+                  Appearance      =   1
+                  Enabled         =   -1  'True
+                  Object.TabStop         =   -1  'True
+                  Text            =   "0,00"
+                  Valid           =   -1  'True
+                  Range           =   14
+                  Precision       =   4
+                  SignEnable      =   1
+                  SeparatorsEnable=   1
+                  ReadOnly        =   0
+               End
+               Begin VB.Label lblNaprTrade 
+                  Caption         =   "Направление сделки"
+                  Height          =   195
+                  Left            =   120
+                  TabIndex        =   113
+                  Top             =   240
+                  Width           =   1695
+               End
+               Begin VB.Label Label32 
+                  Caption         =   "Единица измерения веса"
+                  Height          =   195
+                  Left            =   120
+                  TabIndex        =   112
+                  Top             =   960
+                  Width           =   2115
+               End
+               Begin VB.Label Label4 
+                  Caption         =   "Валюта обязательства"
+                  Height          =   255
+                  Left            =   120
+                  TabIndex        =   110
+                  Top             =   570
+                  Width           =   1935
+               End
+               Begin VB.Label Label18 
+                  Caption         =   "Цена за ед. в валюте обязательства"
+                  Height          =   195
+                  Left            =   120
+                  TabIndex        =   100
+                  Top             =   1320
+                  Width           =   3015
+               End
+            End
+            Begin VB.Label lblAccounts 
+               Caption         =   "Счета по обязательству"
+               Height          =   195
+               Left            =   240
+               TabIndex        =   127
+               Top             =   5820
+               Visible         =   0   'False
+               Width           =   1875
+            End
+         End
+      End
+      Begin ActiveTabs.SSActiveTabPanel SSTabsPanel2 
+         Height          =   6825
+         Left            =   -99969
+         TabIndex        =   75
+         Top             =   360
+         Width           =   6555
+         _ExtentX        =   11562
+         _ExtentY        =   12039
+         _Version        =   131083
+         TabGuid         =   "Pm_Trade_ud.dox":02CB
+         Begin VB.CommandButton cmdAddOblig 
+            Caption         =   "Добавить"
+            Height          =   375
+            Left            =   5220
+            TabIndex        =   15
+            Top             =   180
+            Width           =   1095
+         End
+         Begin VB.CommandButton cmdDelOblig 
+            Caption         =   "Удалить"
+            Height          =   375
+            Left            =   5220
+            TabIndex        =   17
+            Top             =   1140
+            Width           =   1095
+         End
+         Begin VB.CommandButton cmdEditOblig 
+            Caption         =   "Изменить"
+            Height          =   375
+            Left            =   5220
+            TabIndex        =   16
+            Top             =   660
+            Width           =   1095
+         End
+         Begin MSComctlLib.ListView lstViewOblig 
+            Height          =   3795
+            Left            =   120
+            TabIndex        =   126
+            Top             =   180
+            Width           =   4920
+            _ExtentX        =   8678
+            _ExtentY        =   6694
+            View            =   3
+            LabelEdit       =   1
+            LabelWrap       =   -1  'True
+            HideSelection   =   0   'False
+            FullRowSelect   =   -1  'True
+            GridLines       =   -1  'True
+            _Version        =   393217
+            ForeColor       =   -2147483640
+            BackColor       =   -2147483643
+            BorderStyle     =   1
+            Appearance      =   1
+            NumItems        =   11
+            BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+               Text            =   "Направление"
+               Object.Width           =   2540
+            EndProperty
+            BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+               SubItemIndex    =   1
+               Text            =   "Номер в части"
+               Object.Width           =   2293
+            EndProperty
+            BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+               SubItemIndex    =   2
+               Text            =   "Дата оплаты"
+               Object.Width           =   2540
+            EndProperty
+            BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+               SubItemIndex    =   3
+               Text            =   "Дата поставки"
+               Object.Width           =   2540
+            EndProperty
+            BeginProperty ColumnHeader(5) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+               SubItemIndex    =   4
+               Text            =   "Цена за ед. в валюте обязательства"
+               Object.Width           =   2540
+            EndProperty
+            BeginProperty ColumnHeader(6) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+               SubItemIndex    =   5
+               Text            =   "Масса"
+               Object.Width           =   2381
+            EndProperty
+            BeginProperty ColumnHeader(7) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+               SubItemIndex    =   6
+               Text            =   "Сумма в валюте обязательства"
+               Object.Width           =   2540
+            EndProperty
+            BeginProperty ColumnHeader(8) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+               SubItemIndex    =   7
+               Text            =   "Валюта обязательства"
+               Object.Width           =   2540
+            EndProperty
+            BeginProperty ColumnHeader(9) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+               SubItemIndex    =   8
+               Text            =   "Курс пересчета"
+               Object.Width           =   2540
+            EndProperty
+            BeginProperty ColumnHeader(10) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+               SubItemIndex    =   9
+               Text            =   "Единица измерения веса"
+               Object.Width           =   2540
+            EndProperty
+            BeginProperty ColumnHeader(11) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+               SubItemIndex    =   10
+               Text            =   "Фиксированный курс"
+               Object.Width           =   0
+            EndProperty
+         End
+      End
+      Begin ActiveTabs.SSActiveTabPanel SSTabsPanel1 
+         Height          =   6825
+         Left            =   -99969
+         TabIndex        =   74
+         Top             =   360
+         Width           =   6555
+         _ExtentX        =   11562
+         _ExtentY        =   12039
+         _Version        =   131083
+         TabGuid         =   "Pm_Trade_ud.dox":02F3
+         Begin VB.ComboBox cmbComission 
+            Height          =   315
+            Left            =   1440
+            Style           =   2  'Dropdown List
+            TabIndex        =   14
+            Top             =   4500
+            Visible         =   0   'False
+            Width           =   1935
+         End
+         Begin VB.Frame frmTrade 
+            Caption         =   "Сделка"
+            Height          =   1220
+            Left            =   120
+            TabIndex        =   89
+            Top             =   120
+            Width           =   6300
+            Begin VB.CheckBox chkIsComposit 
+               Caption         =   "Составная ?"
+               Height          =   195
+               Left            =   4800
+               TabIndex        =   3
+               Top             =   360
+               Width           =   1335
+            End
+            Begin VB.ComboBox cmbTradeType 
+               Height          =   315
+               Left            =   3960
+               Style           =   2  'Dropdown List
+               TabIndex        =   5
+               Top             =   720
+               Visible         =   0   'False
+               Width           =   1755
+            End
+            Begin VB.TextBox txtTradeNum 
+               Height          =   315
+               Left            =   3240
+               MaxLength       =   20
+               TabIndex        =   2
+               Top             =   300
+               Width           =   1380
+            End
+            Begin VB.ComboBox cmbKindSupplyTrade 
+               Height          =   315
+               Left            =   1020
+               Style           =   2  'Dropdown List
+               TabIndex        =   4
+               Top             =   720
+               Width           =   1995
+            End
+            Begin UBSCTRLLibCtl.UbsControlDate txtTradeDate 
+               Height          =   315
+               Left            =   1020
+               TabIndex        =   1
+               Top             =   300
+               Width           =   1500
+               _cx             =   2646
+               _cy             =   556
+               Appearance      =   1
+               Enabled         =   -1  'True
+               Object.TabStop         =   -1  'True
+               Text            =   "  .  .    "
+               Valid           =   -1  'True
+               Format          =   1
+               ReadOnly        =   0
+            End
+            Begin VB.Label Label3 
+               Caption         =   "Тип"
+               Height          =   195
+               Left            =   3300
+               TabIndex        =   93
+               Top             =   780
+               Visible         =   0   'False
+               Width           =   495
+            End
+            Begin VB.Label Label2 
+               Caption         =   "Номер"
+               Height          =   195
+               Left            =   2640
+               TabIndex        =   92
+               Top             =   360
+               Width           =   555
+            End
+            Begin VB.Label Label1 
+               Caption         =   "Дата"
+               Height          =   195
+               Left            =   120
+               TabIndex        =   91
+               Top             =   360
+               Width           =   435
+            End
+            Begin VB.Label Label31 
+               Caption         =   "Поставка"
+               Height          =   195
+               Left            =   120
+               TabIndex        =   90
+               Top             =   780
+               Width           =   795
+            End
+         End
+         Begin VB.ComboBox cmbCurrencyOpl 
+            Height          =   315
+            Left            =   1380
+            Style           =   2  'Dropdown List
+            TabIndex        =   7
+            Top             =   1800
+            Width           =   2295
+         End
+         Begin VB.ComboBox cmbCurrencyPost 
+            Height          =   315
+            Left            =   1380
+            Style           =   2  'Dropdown List
+            TabIndex        =   6
+            Top             =   1440
+            Width           =   2295
+         End
+         Begin VB.Frame frmContracts 
+            Caption         =   "Стороны сделки"
+            Height          =   2235
+            Left            =   120
+            TabIndex        =   84
+            Top             =   2160
+            Width           =   6300
+            Begin VB.ComboBox cmbContractType1 
+               Height          =   315
+               ItemData        =   "Pm_Trade_ud.dox":031B
+               Left            =   1080
+               List            =   "Pm_Trade_ud.dox":031D
+               Style           =   2  'Dropdown List
+               TabIndex        =   8
+               Top             =   240
+               Width           =   2955
+            End
+            Begin VB.ComboBox cmbContractType2 
+               Height          =   315
+               ItemData        =   "Pm_Trade_ud.dox":031F
+               Left            =   1080
+               List            =   "Pm_Trade_ud.dox":0321
+               Style           =   2  'Dropdown List
+               TabIndex        =   10
+               Top             =   1080
+               Width           =   2955
+            End
+            Begin VB.CommandButton cmdContract2 
+               Caption         =   "..."
+               Height          =   315
+               Left            =   4200
+               TabIndex        =   11
+               Top             =   1080
+               Width           =   315
+            End
+            Begin VB.CommandButton cmdContract1 
+               Caption         =   "..."
+               Height          =   315
+               Left            =   4200
+               TabIndex        =   9
+               Top             =   240
+               Width           =   315
+            End
+            Begin VB.TextBox txtClientName1 
+               Height          =   315
+               Left            =   1500
+               MaxLength       =   50
+               TabIndex        =   129
+               Top             =   600
+               Width           =   4335
+            End
+            Begin VB.TextBox txtClientName2 
+               Height          =   315
+               Left            =   1500
+               MaxLength       =   50
+               TabIndex        =   131
+               Top             =   1440
+               Width           =   4335
+            End
+            Begin VB.TextBox txtContractCode1 
+               Height          =   315
+               Left            =   300
+               MaxLength       =   20
+               TabIndex        =   128
+               Top             =   600
+               Width           =   1155
+            End
+            Begin VB.TextBox txtContractCode2 
+               Height          =   315
+               Left            =   300
+               MaxLength       =   20
+               TabIndex        =   130
+               Top             =   1440
+               Width           =   1155
+            End
+            Begin VB.CheckBox chkExport 
+               Caption         =   "Экспортная"
+               Height          =   195
+               Left            =   1500
+               TabIndex        =   13
+               Top             =   1880
+               Visible         =   0   'False
+               Width           =   1335
+            End
+            Begin VB.CheckBox chkNDS 
+               Caption         =   "НДС"
+               Height          =   195
+               Left            =   300
+               TabIndex        =   12
+               Top             =   1880
+               Visible         =   0   'False
+               Width           =   1095
+            End
+            Begin VB.Label Label5 
+               Caption         =   "Продавец"
+               Height          =   195
+               Left            =   120
+               TabIndex        =   86
+               Top             =   300
+               Width           =   975
+            End
+            Begin VB.Label Label6 
+               Caption         =   "Покупатель"
+               Height          =   195
+               Left            =   120
+               TabIndex        =   85
+               Top             =   1140
+               Width           =   975
+            End
+         End
+         Begin VB.Label Label8 
+            Caption         =   "Комиссия"
+            Height          =   195
+            Left            =   240
+            TabIndex        =   103
+            Top             =   4540
+            Visible         =   0   'False
+            Width           =   975
+         End
+         Begin VB.Label Label15 
+            Caption         =   "Валюта оплаты"
+            Height          =   195
+            Left            =   120
+            TabIndex        =   88
+            Top             =   1860
+            Width           =   1215
+         End
+         Begin VB.Label Label14 
+            Caption         =   "Драг.металл"
+            Height          =   195
+            Left            =   120
+            TabIndex        =   87
+            Top             =   1500
+            Width           =   1035
+         End
+      End
+      Begin VB.CommandButton cmdExit 
+         Caption         =   "Выход"
+         Height          =   375
+         Left            =   5040
+         TabIndex        =   73
+         Top             =   6720
+         Width           =   1155
+      End
+      Begin VB.CommandButton cmdSave 
+         Caption         =   "Сохранить"
+         Height          =   375
+         Left            =   3780
+         TabIndex        =   72
+         Top             =   6720
+         Width           =   1155
+      End
+      Begin ActiveTabs.SSActiveTabPanel SSActiveTabPanel1 
+         Height          =   6825
+         Left            =   -99969
+         TabIndex        =   104
+         Top             =   360
+         Width           =   6555
+         _ExtentX        =   11562
+         _ExtentY        =   12039
+         _Version        =   131083
+         TabGuid         =   "Pm_Trade_ud.dox":0323
+         Begin ActiveTabs.SSActiveTabs SSActiveTabs1 
+            Height          =   6135
+            Left            =   120
+            TabIndex        =   78
+            Top             =   120
+            Width           =   6255
+            _ExtentX        =   11033
+            _ExtentY        =   10821
+            _Version        =   131083
+            TabCount        =   2
+            TagVariant      =   ""
+            Tabs            =   "Pm_Trade_ud.dox":034B
+            Begin ActiveTabs.SSActiveTabPanel SSActiveTabPanel4 
+               Height          =   5745
+               Left            =   -99969
+               TabIndex        =   106
+               Top             =   360
+               Width           =   6195
+               _ExtentX        =   10927
+               _ExtentY        =   10134
+               _Version        =   131083
+               TabGuid         =   "Pm_Trade_ud.dox":03CB
+               Begin VB.CheckBox chkNotAkcept 
+                  Caption         =   "Безакцептное списание"
+                  Height          =   375
+                  Index           =   1
+                  Left            =   1560
+                  TabIndex        =   61
+                  Top             =   3960
+                  Width           =   2775
+               End
+               Begin VB.TextBox txtINN 
+                  Height          =   315
+                  Index           =   1
+                  Left            =   1500
+                  TabIndex        =   60
+                  Top             =   3600
+                  Width           =   1095
+               End
+               Begin VB.TextBox txtNote 
+                  Height          =   735
+                  Index           =   1
+                  Left            =   1500
+                  TabIndex        =   59
+                  Top             =   2820
+                  Width           =   4620
+               End
+               Begin VB.TextBox txtClient 
+                  Height          =   315
+                  Index           =   1
+                  Left            =   1500
+                  TabIndex        =   58
+                  Top             =   2460
+                  Width           =   4620
+               End
+               Begin VB.CommandButton cmdAccount 
+                  Caption         =   "..."
+                  Height          =   315
+                  Index           =   1
+                  Left            =   4440
+                  TabIndex        =   57
+                  Top             =   2040
+                  Width           =   315
+               End
+               Begin VB.TextBox txtName 
+                  Height          =   315
+                  Index           =   1
+                  Left            =   1500
+                  Locked          =   -1  'True
+                  TabIndex        =   56
+                  Top             =   1680
+                  Width           =   4620
+               End
+               Begin VB.TextBox txtBIK 
+                  Height          =   315
+                  Index           =   1
+                  Left            =   1500
+                  MaxLength       =   9
+                  TabIndex        =   54
+                  Top             =   1320
+                  Width           =   1095
+               End
+               Begin VB.CommandButton cmdListInstr 
+                  Caption         =   "..."
+                  Height          =   315
+                  Index           =   1
+                  Left            =   240
+                  TabIndex        =   53
+                  Top             =   840
+                  Width           =   315
+               End
+               Begin VB.CheckBox chkCash 
+                  Caption         =   "Расчет через кассу"
+                  Height          =   255
+                  Index           =   1
+                  Left            =   360
+                  TabIndex        =   52
+                  Top             =   480
+                  Width           =   1935
+               End
+               Begin UBSCTRLLibCtl.UbsControlAccount txtRS 
+                  Height          =   315
+                  Index           =   1
+                  Left            =   1500
+                  TabIndex        =   115
+                  Top             =   2040
+                  Width           =   2775
+                  _cx             =   4895
+                  _cy             =   556
+                  Appearance      =   1
+                  Enabled         =   -1  'True
+                  Object.TabStop         =   -1  'True
+                  Text            =   ""
+                  Valid           =   -1  'True
+                  Format          =   1
+                  ReadOnly        =   0
+                  Partition       =   0
+                  Justify         =   0
+               End
+               Begin UBSCTRLLibCtl.UbsControlAccount txtKS 
+                  Height          =   315
+                  Index           =   1
+                  Left            =   3960
+                  TabIndex        =   55
+                  Top             =   1320
+                  Width           =   2115
+                  _cx             =   3731
+                  _cy             =   556
+                  Appearance      =   1
+                  Enabled         =   -1  'True
+                  Object.TabStop         =   -1  'True
+                  Text            =   ""
+                  Valid           =   -1  'True
+                  Format          =   1
+                  ReadOnly        =   0
+                  Partition       =   0
+                  Justify         =   0
+               End
+               Begin VB.Label Label27 
+                  Caption         =   "ИНН"
+                  Height          =   195
+                  Index           =   1
+                  Left            =   120
+                  TabIndex        =   116
+                  Top             =   3600
+                  Width           =   915
+               End
+               Begin VB.Label Label25 
+                  Caption         =   "Примечание"
+                  Height          =   195
+                  Index           =   1
+                  Left            =   120
+                  TabIndex        =   117
+                  Top             =   2970
+                  Width           =   1035
+               End
+               Begin VB.Label Label22 
+                  Caption         =   "Клиент"
+                  Height          =   195
+                  Index           =   1
+                  Left            =   120
+                  TabIndex        =   118
+                  Top             =   2460
+                  Width           =   675
+               End
+               Begin VB.Label Label21 
+                  Caption         =   "Расч. счет"
+                  Height          =   195
+                  Index           =   1
+                  Left            =   120
+                  TabIndex        =   119
+                  Top             =   2040
+                  Width           =   855
+               End
+               Begin VB.Label Label23 
+                  Caption         =   "Наим. банка"
+                  Height          =   195
+                  Index           =   1
+                  Left            =   120
+                  TabIndex        =   120
+                  Top             =   1680
+                  Width           =   1095
+               End
+               Begin VB.Label Label20 
+                  Caption         =   "Корр. счет"
+                  Height          =   195
+                  Index           =   1
+                  Left            =   2940
+                  TabIndex        =   121
+                  Top             =   1320
+                  Width           =   855
+               End
+               Begin VB.Label Label19 
+                  Caption         =   "БИК"
+                  Height          =   195
+                  Index           =   1
+                  Left            =   120
+                  TabIndex        =   122
+                  Top             =   1320
+                  Width           =   615
+               End
+               Begin VB.Label lblCheckInstr 
+                  Caption         =   "Выбор платежной инструкции по продавцу"
+                  Height          =   195
+                  Index           =   1
+                  Left            =   650
+                  TabIndex        =   123
+                  Top             =   960
+                  Width           =   3555
+               End
+               Begin VB.Label Label29 
+                  Caption         =   "Инструкция по оплате"
+                  BeginProperty Font 
+                     Name            =   "MS Sans Serif"
+                     Size            =   9.75
+                     Charset         =   204
+                     Weight          =   700
+                     Underline       =   0   'False
+                     Italic          =   0   'False
+                     Strikethrough   =   0   'False
+                  EndProperty
+                  Height          =   255
+                  Index           =   1
+                  Left            =   1740
+                  TabIndex        =   124
+                  Top             =   120
+                  Width           =   2535
+               End
+            End
+            Begin ActiveTabs.SSActiveTabPanel SSActiveTabPanel3 
+               Height          =   5745
+               Left            =   30
+               TabIndex        =   125
+               Top             =   360
+               Width           =   6195
+               _ExtentX        =   10927
+               _ExtentY        =   10134
+               _Version        =   131083
+               TabGuid         =   "Pm_Trade_ud.dox":03F3
+               Begin VB.CheckBox chkNotAkcept 
+                  Caption         =   "Безакцептное списание"
+                  Height          =   375
+                  Index           =   0
+                  Left            =   1560
+                  TabIndex        =   51
+                  Top             =   3960
+                  Width           =   2775
+               End
+               Begin VB.TextBox txtINN 
+                  Height          =   315
+                  Index           =   0
+                  Left            =   1500
+                  TabIndex        =   50
+                  Top             =   3600
+                  Width           =   1095
+               End
+               Begin VB.TextBox txtNote 
+                  Height          =   735
+                  Index           =   0
+                  Left            =   1500
+                  TabIndex        =   49
+                  Top             =   2820
+                  Width           =   4620
+               End
+               Begin VB.TextBox txtClient 
+                  Height          =   315
+                  Index           =   0
+                  Left            =   1500
+                  TabIndex        =   48
+                  Top             =   2460
+                  Width           =   4620
+               End
+               Begin VB.CommandButton cmdAccount 
+                  Caption         =   "..."
+                  Height          =   315
+                  Index           =   0
+                  Left            =   4440
+                  TabIndex        =   46
+                  Top             =   2040
+                  Width           =   315
+               End
+               Begin VB.TextBox txtName 
+                  Height          =   315
+                  Index           =   0
+                  Left            =   1500
+                  Locked          =   -1  'True
+                  TabIndex        =   45
+                  Top             =   1680
+                  Width           =   4620
+               End
+               Begin VB.TextBox txtBIK 
+                  Height          =   315
+                  Index           =   0
+                  Left            =   1500
+                  MaxLength       =   9
+                  TabIndex        =   43
+                  Top             =   1320
+                  Width           =   1095
+               End
+               Begin VB.CommandButton cmdListInstr 
+                  Caption         =   "..."
+                  Height          =   315
+                  Index           =   0
+                  Left            =   240
+                  TabIndex        =   42
+                  Top             =   840
+                  Width           =   315
+               End
+               Begin VB.CheckBox chkCash 
+                  Caption         =   "Расчет через кассу"
+                  Height          =   255
+                  Index           =   0
+                  Left            =   360
+                  TabIndex        =   41
+                  Top             =   480
+                  Width           =   1935
+               End
+               Begin UBSCTRLLibCtl.UbsControlAccount txtRS 
+                  Height          =   315
+                  Index           =   0
+                  Left            =   1500
+                  TabIndex        =   47
+                  Top             =   2040
+                  Width           =   2775
+                  _cx             =   4895
+                  _cy             =   556
+                  Appearance      =   1
+                  Enabled         =   -1  'True
+                  Object.TabStop         =   -1  'True
+                  Text            =   ""
+                  Valid           =   -1  'True
+                  Format          =   1
+                  ReadOnly        =   0
+                  Partition       =   0
+                  Justify         =   0
+               End
+               Begin UBSCTRLLibCtl.UbsControlAccount txtKS 
+                  Height          =   315
+                  Index           =   0
+                  Left            =   3960
+                  TabIndex        =   44
+                  Top             =   1320
+                  Width           =   2115
+                  _cx             =   3731
+                  _cy             =   556
+                  Appearance      =   1
+                  Enabled         =   -1  'True
+                  Object.TabStop         =   -1  'True
+                  Text            =   ""
+                  Valid           =   -1  'True
+                  Format          =   1
+                  ReadOnly        =   0
+                  Partition       =   0
+                  Justify         =   0
+               End
+               Begin VB.Label Label25 
+                  Caption         =   "Примечание"
+                  Height          =   195
+                  Index           =   0
+                  Left            =   120
+                  TabIndex        =   71
+                  Top             =   2970
+                  Width           =   1035
+               End
+               Begin VB.Label Label22 
+                  Caption         =   "Клиент"
+                  Height          =   195
+                  Index           =   0
+                  Left            =   120
+                  TabIndex        =   70
+                  Top             =   2460
+                  Width           =   675
+               End
+               Begin VB.Label Label21 
+                  Caption         =   "Расч. счет"
+                  Height          =   195
+                  Index           =   0
+                  Left            =   120
+                  TabIndex        =   69
+                  Top             =   2040
+                  Width           =   855
+               End
+               Begin VB.Label Label23 
+                  Caption         =   "Наим. банка"
+                  Height          =   195
+                  Index           =   0
+                  Left            =   120
+                  TabIndex        =   68
+                  Top             =   1680
+                  Width           =   1095
+               End
+               Begin VB.Label Label20 
+                  Caption         =   "Корр. счет"
+                  Height          =   195
+                  Index           =   0
+                  Left            =   3000
+                  TabIndex        =   67
+                  Top             =   1320
+                  Width           =   855
+               End
+               Begin VB.Label Label19 
+                  Caption         =   "БИК"
+                  Height          =   195
+                  Index           =   0
+                  Left            =   120
+                  TabIndex        =   66
+                  Top             =   1320
+                  Width           =   615
+               End
+               Begin VB.Label lblCheckInstr 
+                  Caption         =   "Выбор платежной инструкции по покупателю"
+                  Height          =   195
+                  Index           =   0
+                  Left            =   650
+                  TabIndex        =   65
+                  Top             =   960
+                  Width           =   3555
+               End
+               Begin VB.Label Label29 
+                  Caption         =   "Инструкция по оплате"
+                  BeginProperty Font 
+                     Name            =   "MS Sans Serif"
+                     Size            =   9.75
+                     Charset         =   204
+                     Weight          =   700
+                     Underline       =   0   'False
+                     Italic          =   0   'False
+                     Strikethrough   =   0   'False
+                  EndProperty
+                  Height          =   255
+                  Index           =   0
+                  Left            =   1740
+                  TabIndex        =   64
+                  Top             =   120
+                  Width           =   2535
+               End
+               Begin VB.Label Label27 
+                  Caption         =   "ИНН"
+                  Height          =   195
+                  Index           =   0
+                  Left            =   120
+                  TabIndex        =   63
+                  Top             =   3600
+                  Width           =   915
+               End
+            End
+         End
+      End
+      Begin UbsChlCtrl.UbsChannel UbsChannel1 
+         Left            =   2340
+         Top             =   6600
+         _ExtentX        =   873
+         _ExtentY        =   873
+      End
+      Begin UbsDDXCtrl.UbsDDXControl DDX 
+         Left            =   1740
+         Top             =   6600
+         _ExtentX        =   873
+         _ExtentY        =   873
+         DDXControlMemeber_1=   "IS_COMPOSIT<#>Integer<#>chkIsComposit<#>CheckBox"
+         DDXControlMemeber_2=   "Идентификатор комиссии<#>Integer<#>cmbComission<#>ComboBox"
+         DDXControlMemeber_3=   "Идентификатор валюты обязательства<#>Integer<#>cmbCurOblig<#>ComboBox"
+         DDXControlMemeber_4=   "Идентификатор валюты оплаты<#>Integer<#>cmbCurrencyOpl<#>ComboBox"
+         DDXControlMemeber_5=   "Идентификатор драг.металла<#>Integer<#>cmbCurrencyPost<#>ComboBox"
+         DDXControlMemeber_6=   "Вид поставки по сделке<#>Integer<#>cmbKindSupplyTrade<#>ComboBox"
+         DDXControlMemeber_7=   "TYPE_TRADE<#>Integer<#>cmbTradeType<#>ComboBox"
+         DDXControlMemeber_8=   "Курс ЦБ<#>Currency<#>txtRateCurOblig<#>UbsControlMoney"
+         DDXControlMemeber_9=   "DATE_TRADE<#>Date<#>txtTradeDate<#>UbsControlDate"
+         DDXControlMemeber_10=   "NUM_TRADE<#>String<#>txtTradeNum<#>TextBox"
+         CountDDXControlMemebers=   10
+      End
+      Begin UbsInfo32.Info Info 
+         Height          =   315
+         Left            =   120
+         Top             =   6780
+         Width           =   2895
+         _ExtentX        =   5106
+         _ExtentY        =   556
+         Alignment       =   0
+         Caption         =   "Info1"
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   204
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+      End
+   End
+End
+Attribute VB_Name = "Pm_Trade_ud"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Option Explicit
+Implements UBSChild
+
+Private Declare Function EnableWindow Lib "user32" (ByVal hwnd As Long, ByVal fEnable As Long) As Long
+
+Dim IParent As UBSParrent
+Dim objError As Object
+Dim objFocusCtrl As Object
+Dim objParamIn As Object
+Dim objParamOut As Object
+Dim objInterfaces As Object
+Dim objFormParam As Object
+Dim objStub As Object
+Dim objFormat As Object
+Dim objArray As Object
+Dim objList As Object
+Dim objListObject As Object
+Dim objParamOblig As Object 'данные по всем обязательствам сделки
+Dim objParamTrade As Object 'основные данные сделки
+'-----------------------------
+Dim strRunParam As String
+Dim sType As String
+Dim strOurBIK As String
+Dim StrNumInPart As String '1 цифра - номер части, остальные - номер в части
+Dim strCurrencyPost As String
+Dim strNaprTrade As String
+Dim strCB As String
+'-----------------------------
+Dim bParentWindowClose As Boolean
+Dim blnNeedRefresh As Boolean
+Dim blnAddFlChanged As Boolean
+Dim blnCloseForm As Boolean
+Dim blnNeedSelect As Boolean
+Dim bNeedSendOblig As Boolean
+Dim blnAddOblig As Boolean
+Dim blnEditOblig As Boolean
+Dim blnConvert As Boolean
+Dim blnClearContr1 As Boolean
+Dim blnClearContr2 As Boolean
+Dim blnClearOblig As Boolean
+Dim blnCurrencyPostClick As Boolean
+Dim blnCheckType2 As Boolean
+Dim blnChangeBuyer As Boolean
+Dim blnWasOper As Boolean
+Dim blnSetFocus As Boolean
+Dim blnAddObject As Boolean
+'-----------------------------
+Dim RSIdent As Variant
+Dim arrCurrency As Variant
+'-----------------------------
+Dim NumChildWinContract1 As Integer
+Dim NumChildWinContract2 As Integer
+Dim NumChildWinStorage As Integer
+Dim NumChildWinInstr As Integer
+Dim NumChildWinObject As Integer
+Dim NumChildWinAccount As Integer
+Dim NumChildWinAccountsByObligation As Integer
+Dim Numwin As Integer
+Dim NumParentWindow As Integer
+Dim intVidTrade As Integer
+Dim intFocusTab As Integer
+Dim IdComission1 As Integer
+Dim IdComission2 As Integer
+Dim intTabAcc As Integer
+Dim intSave As Integer
+'-----------------------------
+Dim IdClient1 As Long
+Dim IdClient2 As Long
+Dim IdAccount As Long
+Dim IdStorage As Long
+Dim n As Long
+Dim idBaseCurrency As Long
+
+Private Sub chkCash_Click(Index As Integer)
+
+If CBool(chkCash(Index).Value) Then
+   
+   cmdListInstr(Index).Visible = False
+   lblCheckInstr(Index).Visible = False
+      
+   objParamIn.ClearParameters
+   objParamOut.ClearParameters
+   UbsChannel1.Run "GetInstructionOplataCash", objParamIn, objParamOut
+      
+   Call FillControlInstrOplata(Index, objParamOut.Parameter("Инструкции по оплате для расчета через кассу"))
+      
+Else
+   
+   cmdListInstr(Index).Visible = True
+   lblCheckInstr(Index).Visible = True
+   Call ClearOpl(Index)
+
+End If
+End Sub
+    
+
+Private Sub chkIsComposit_Click()
+ Dim NumP As Integer, pos As Integer, ArrRez As Variant
+On Error GoTo ErrorCode
+      
+    If chkIsComposit Then 'составная
+       cmbNaprTrade.Enabled = True
+       cmbNaprTrade.ListIndex = -1
+    Else 'не составная
+        cmbNaprTrade.Text = "прямая"
+        cmbNaprTrade.Enabled = False
+
+        'удаление обязательств обратной сделки
+        If DDX.MemberData("Макс.номер в части 2") > 0 Then 'есть обязательства обратной сделки
+            If MsgBox("Удалить обязательства обратной сделки ?", _
+                vbYesNo + vbInformation, "Предупреждение") = vbYes Then 'удаляем обязательства обратной сделки
+                            
+                bNeedSendOblig = True
+
+                'доп.данные обязательств
+                If objParamOblig.CountParameters > 0 Then
+                    ArrRez = Empty
+                    ArrRez = objParamOblig.Parameters
+                    For n = LBound(ArrRez, 2) To UBound(ArrRez, 2)
+                        'список объектов
+                        pos = 6
+                        If Left(ArrRez(0, n), pos) = "Object" Then
+                            NumP = Mid(ArrRez(0, n), pos + 1, 1)
+                            If NumP = 2 Then
+                                objParamOblig.ClearParameter ("Object" + Mid(ArrRez(0, n), pos + 1))
+                            End If
+                        End If
+                    Next
+                End If
+                
+                'основные данные обязательств обратной сделки
+Trade:              For n = 1 To lstViewOblig.ListItems.Count
+                    If lstViewOblig.ListItems(n) = "обратная" Then
+                        lstViewOblig.ListItems.Remove (n)
+                        GoTo Trade
+                    End If
+                Next
+            Else 'не удаляем обязательства обратной сделки
+                chkIsComposit.Value = 1
+            End If 'удаляем обязательства обратной сделки
+        End If 'есть обязательства обратной сделки
+    End If 'не составная
+    Exit Sub
+
+ErrorCode:
+    objError.UbsErrMsg "chkIsComposit_Click", "ошибка выполнения"
+
+End Sub
+Private Sub chkNDS_Click()
+    UpdateDisplayExport
+End Sub
+
+Private Sub chkRate_Click()
+    If chkRate.Value = 1 Then
+       txtRateCurOblig.Enabled = True
+       chkSumInCurValue.Value = False
+       txtCostCurOpl.Enabled = False
+    Else
+       txtRateCurOblig.Enabled = False
+    End If
+End Sub
+
+Private Sub chkSumInCurValue_Click()
+    If chkSumInCurValue.Value = 1 Then
+       chkRate.Value = False
+       txtRateCurOblig.Enabled = False
+       txtCostCurOpl.Enabled = True
+    Else
+       txtCostCurOpl.Enabled = False
+    End If
+End Sub
+
+Private Sub cmbContractType1_Click()
+On Error GoTo ErrorCode
+
+    ClearOpl (1)
+    chkCash(1).Visible = False
+    ' Если хотя бы одна из сторон сделки является БРОКЕРСКИМ ДОГОВОРОМ С КЛИЕНТОМ, ТО
+    ' мы должны запретить физ. поставку
+    If cmbContractType1.ItemData(cmbContractType1.ListIndex) = 1 Then
+       If Not cmbContractType2.ListIndex = -1 Then
+          Label8.Visible = CBool(cmbContractType2.ItemData(cmbContractType2.ListIndex) <> 0)
+          cmbComission.Visible = CBool(cmbContractType2.ItemData(cmbContractType2.ListIndex) <> 0)
+          cmbKindSupplyTrade.Text = "обезличенная"
+          cmbKindSupplyTrade.Enabled = False
+       End If
+       If intVidTrade = 0 Then
+          chkCash(1).Visible = True
+          chkCash(1).Value = 0
+       End If
+    Else
+       If Not cmbContractType2.ListIndex = -1 Then
+          If cmbContractType2.ItemData(cmbContractType2.ListIndex) = 1 Then
+             Label8.Visible = CBool(cmbContractType1.ItemData(cmbContractType1.ListIndex) <> 0)
+             cmbComission.Visible = CBool(cmbContractType1.ItemData(cmbContractType1.ListIndex) <> 0)
+             cmbKindSupplyTrade.Text = "обезличенная"
+             cmbKindSupplyTrade.Enabled = False
+          Else
+             Label8.Visible = False
+             cmbComission.Visible = False
+             cmbKindSupplyTrade.Enabled = True
+          End If
+       End If
+       
+    End If
+    
+    If Not CBool(lblCheckInstr(1).Visible) Then lblCheckInstr(1).Visible = True
+    If Not CBool(cmdListInstr(1).Visible) Then cmdListInstr(1).Visible = True
+       
+    If cmbContractType1.ItemData(cmbContractType1.ListIndex) = 0 Then
+       If Not CBool(SSActiveTabs1.Tabs(1).Visible) Then SSActiveTabs1.Tabs(1).Visible = True
+       SSActiveTabs1.Tabs(1).Selected = True
+       If CBool(SSActiveTabs1.Tabs(2).Visible) Then SSActiveTabs1.Tabs(2).Visible = False
+    Else
+       If Not CBool(SSActiveTabs1.Tabs(1).Visible) Then SSActiveTabs1.Tabs(1).Visible = True
+       If Not CBool(SSActiveTabs1.Tabs(2).Visible) Then SSActiveTabs1.Tabs(2).Visible = True
+       SSActiveTabs1.Tabs(1).Selected = True
+    End If
+    '----------------------------------------------------------------------
+    If cmbContractType1.ItemData(cmbContractType1.ListIndex) <> 0 Then
+       If strRunParam <> "EDIT" Then
+            txtContractCode1.Text = ""
+            txtClientName1.Text = ""
+       Else
+          If blnClearContr1 Then
+             txtContractCode1.Text = ""
+             txtClientName1.Text = ""
+          Else
+             blnClearContr1 = True
+          End If
+       End If
+       cmdContract1.Enabled = True
+     Else
+        DDX.MemberData("Продавец") = 0
+        
+        Call FillControlContract(DDX.MemberData("Продавец"), txtContractCode1, txtClientName1, IdClient1)
+        
+        cmdContract1.Enabled = False
+
+        'идентификатор комисии
+        cmbComission.ListIndex = -1
+        
+        If blnCheckType2 Then
+            If cmbContractType2.ItemData(cmbContractType2.ListIndex) = 1 Then
+                For n = 0 To cmbComission.ListCount - 1
+                    If cmbComission.ItemData(n) = IdComission2 Then
+                        cmbComission.ListIndex = n
+                    End If
+                Next
+            End If
+        End If
+     blnClearContr1 = True
+    End If
+
+Exit Sub
+
+ErrorCode:
+    objError.UbsErrMsg "cmbContractType1_Click", "ошибка выполнения"
+
+End Sub
+
+Private Sub cmbContractType2_Click()
+On Error GoTo ErrorCode
+    
+    ClearOpl (0)
+    
+    chkCash(0).Visible = False
+    
+    If cmbContractType2.ItemData(cmbContractType2.ListIndex) = 1 Then
+       Label8.Visible = CBool(cmbContractType1.ItemData(cmbContractType1.ListIndex) <> 0)
+       cmbComission.Visible = CBool(cmbContractType1.ItemData(cmbContractType1.ListIndex) <> 0)
+       cmbKindSupplyTrade.Text = "обезличенная"
+       cmbKindSupplyTrade.Enabled = False
+       
+       If intVidTrade = 0 Then
+          chkCash(0).Visible = True
+          chkCash(0).Value = 0
+       End If
+       
+    Else
+       If cmbContractType1.ItemData(cmbContractType1.ListIndex) = 1 Then
+          Label8.Visible = CBool(cmbContractType2.ItemData(cmbContractType2.ListIndex) <> 0)
+          cmbComission.Visible = CBool(cmbContractType2.ItemData(cmbContractType2.ListIndex) <> 0)
+          cmbKindSupplyTrade.Text = "обезличенная"
+          cmbKindSupplyTrade.Enabled = False
+       Else
+          Label8.Visible = False
+          cmbComission.Visible = False
+          cmbKindSupplyTrade.Enabled = True
+       End If
+    End If
+    
+    If Not CBool(lblCheckInstr(0).Visible) Then lblCheckInstr(0).Visible = True
+    If Not CBool(cmdListInstr(0).Visible) Then cmdListInstr(0).Visible = True
+    '----------------------------------------------------------------------
+    If cmbContractType2.ItemData(cmbContractType2.ListIndex) = 0 Then
+       If Not CBool(SSActiveTabs1.Tabs(2).Visible) Then SSActiveTabs1.Tabs(2).Visible = True
+       SSActiveTabs1.Tabs(2).Selected = True
+       If CBool(SSActiveTabs1.Tabs(1).Visible) Then SSActiveTabs1.Tabs(1).Visible = False
+    Else
+       If Not CBool(SSActiveTabs1.Tabs(1).Visible) Then SSActiveTabs1.Tabs(1).Visible = True
+       SSActiveTabs1.Tabs(1).Selected = True
+    End If
+    
+    If cmbContractType2.ItemData(cmbContractType2.ListIndex) <> 0 Then
+       If strRunParam <> "EDIT" Then
+          txtContractCode2.Text = ""
+          txtClientName2.Text = ""
+       Else
+          If blnClearContr2 Then
+             txtContractCode2.Text = ""
+             txtClientName2.Text = ""
+          Else
+             blnClearContr2 = True
+          End If
+       End If
+       cmdContract2.Enabled = True
+    Else
+        DDX.MemberData("Покупатель") = 0
+        
+        ' получить данные контракта
+        Call FillControlContract(DDX.MemberData("Покупатель"), txtContractCode2, txtClientName2, IdClient2)
+        
+        cmdContract2.Enabled = False
+        
+        
+        
+        'идентификатор комисии
+        If cmbContractType1.ItemData(cmbContractType1.ListIndex) = 1 Then
+            For n = 0 To cmbComission.ListCount - 1
+                If cmbComission.ItemData(n) = IdComission1 Then
+                    cmbComission.ListIndex = n
+                End If
+            Next
+        Else
+            cmbComission.ListIndex = -1
+        End If
+        blnClearContr2 = True
+    End If
+    
+    UpdateDisplayNDS
+    UpdateDisplayExport
+    
+    Exit Sub
+
+ErrorCode:
+    objError.UbsErrMsg "cmbContractType2_Click", "ошибка выполнения"
+
+End Sub
+Private Sub cmbCurOblig_Click()
+On Error GoTo ErrorCode
+If Not cmbCurOblig.ListIndex = -1 And Not cmbCurrencyOpl.ListIndex = -1 Then
+   GetRate_CB
+   GetRateForPM
+End If
+Exit Sub
+ErrorCode:
+    objError.UbsErrMsg "cmbCurOblig_Click", "ошибка выполнения"
+End Sub
+Private Sub cmbCurrencyOpl_Click()
+On Error GoTo ErrorCode
+If Not cmbCurOblig.ListIndex = -1 And _
+   Not cmbCurrencyOpl.ListIndex = -1 And _
+   Not cmbCurrencyPost.ListIndex = -1 Then
+   GetRate_CB
+   GetRateForPM
+End If
+Exit Sub
+ErrorCode:
+    objError.UbsErrMsg "cmbCurrencyOpl_Click", "ошибка выполнения"
+End Sub
+Function GetRate_CB()
+On Error GoTo ErrorCode
+  objParamIn.ClearParameters
+  objParamOut.ClearParameters
+  objParamIn.Parameter("Id_Currency_Opl") = cmbCurrencyOpl.ItemData(cmbCurrencyOpl.ListIndex)
+  objParamIn.Parameter("Id_Currency_Oblig") = cmbCurOblig.ItemData(cmbCurOblig.ListIndex)
+  objParamIn.Parameter("Date") = DDX.MemberData("DATE_TRADE")
+  UbsChannel1.Run "GetRate_CB", objParamIn, objParamOut
+  ' Курс пересчета
+  txtRateCurOblig.VariantValue = objFormat.Round(objParamOut.Parameter("Rate"), 10)
+  ' Цена за ед. в валюте оплаты
+  If Len(Trim(txtRateCurOblig.VariantValue)) > 0 And Len(Trim(txtCostUnit.CurrencyValue)) > 0 Then
+     'txtCostCurOpl.CurrencyValue = objFormat.Round(txtCostUnit.CurrencyValue * txtRateCurOblig.CurrencyValue, 4)
+     txtCostCurOpl.CurrencyValue = objFormat.Round(txtCostUnit.CurrencyValue * txtRateCurOblig.VariantValue, 4)
+     GetSumOpl
+  End If
+Exit Function
+ErrorCode:
+    objError.UbsErrMsg "GetRate_CB", "ошибка выполнения"
+End Function
+Function GetRateForPM()
+On Error GoTo ErrorCode
+  objParamIn.ClearParameters
+  objParamOut.ClearParameters
+  objParamIn.Parameter("Id_Pm") = cmbCurrencyPost.ItemData(cmbCurrencyPost.ListIndex)
+  objParamIn.Parameter("Id_Currency_Oblig") = cmbCurOblig.ItemData(cmbCurOblig.ListIndex)
+  objParamIn.Parameter("Date") = DDX.MemberData("DATE_TRADE")
+  UbsChannel1.Run "GetRateForPM", objParamIn, objParamOut
+  ' Цена за ед. в валюте обязательства
+  If cmbUnit.ListIndex = 1 Then
+      txtCostUnit.CurrencyValue = objFormat.Round(objParamOut.Parameter("Rate_PM") * 31.1035, 4)
+  Else
+      txtCostUnit.CurrencyValue = objFormat.Round(objParamOut.Parameter("Rate_PM"), 4)
+  End If
+  If Len(Trim(txtRateCurOblig.VariantValue)) > 0 And Len(Trim(txtCostUnit.CurrencyValue)) > 0 Then
+     ' Цена за ед. в валюте оплаты
+     'txtCostCurOpl.CurrencyValue = objFormat.Round(txtCostUnit.CurrencyValue * txtRateCurOblig.CurrencyValue, 4)
+     txtCostCurOpl.CurrencyValue = objFormat.Round(txtCostUnit.CurrencyValue * txtRateCurOblig.VariantValue, 4)
+     GetSumOblig
+     GetSumOpl
+  End If
+Exit Function
+ErrorCode:
+    objError.UbsErrMsg "GetRateForPM", "ошибка выполнения"
+End Function
+Private Sub cmbCurrencyPost_click()
+On Error GoTo ErrorCode
+'В соответствии с Инструкцией № 94-И: масса металла в граммах
+'определяется с точностью:
+
+' Золото в стандартных ¦Масса химически  ¦Граммы, с  точностью  до¦
+'¦и  мерных  слитках  и¦чистого          ¦0,1 г                   ¦
+'¦прокате              ¦драгоценного     ¦                        ¦
+'¦                     ¦металла          ¦                        ¦
+'+---------------------+-----------------+------------------------+
+'¦Серебро в стандартных¦Масса в лигатуре ¦Граммы,  с точностью  до¦
+'¦и   мерных   слитках,¦                 ¦1 г                     ¦
+'¦гранулах и прокате   ¦                 ¦                        ¦
+'+---------------------+-----------------+------------------------+
+'¦Металлы    платиновой¦Масса в лигатуре ¦Граммы, с  точностью  до¦
+'¦группы  в стандартных¦                 ¦0,1 г                   ¦
+'¦и   мерных   слитках,¦                 ¦                        ¦
+'¦прокате , порошке
+If cmbCurrencyPost.ItemData(cmbCurrencyPost.ListIndex) = intSave Then Exit Sub
+If Not cmbCurrencyPost.ListIndex = -1 Then
+   objParamIn.ClearParameters
+   objParamOut.ClearParameters
+   objParamIn.Parameter("IdCurrency") = cmbCurrencyPost.ItemData(cmbCurrencyPost.ListIndex)
+   UbsChannel1.Run "DefineCodCurrency", objParamIn, objParamOut
+   strCB = objParamOut.Parameter("CodCB")
+   txtMassaGramm.Precision = IIf(strCB = "A99", 0, 1)
+   If Not cmbUnit.ListIndex = -1 Then GetMassaPrecision
+   
+   objParamIn.ClearParameters
+   objParamOut.ClearParameters
+   objParamIn.Parameter("CodCB") = strCB
+   UbsChannel1.Run "PMConvert", objParamIn, objParamOut
+   blnConvert = objParamOut.Parameter("Флаг пересчета")
+End If
+
+
+'==================================================================
+    Dim ArrRez As Variant
+    ArrRez = Empty
+
+    If blnCurrencyPostClick And ExistObject Then
+       Call DefineArrStrNumInPart(ArrRez)
+       'удаляем список объектов по всем обязательствам
+       For n = LBound(ArrRez) To UBound(ArrRez)
+           objParamOblig.ClearParameter ("Object" & ArrRez(n))
+       Next
+           
+       bNeedSendOblig = True
+    End If
+
+    If Not cmbCurrencyPost.ListIndex = -1 And _
+       Not cmbCurOblig.ListIndex = -1 And _
+       Not cmbCurrencyPost.ListIndex = -1 Then
+       GetRateForPM
+    End If
+    '-----------------------------------------------
+intSave = cmbCurrencyPost.ItemData(cmbCurrencyPost.ListIndex)
+Exit Sub
+ErrorCode:
+    objError.UbsErrMsg "cmbCurrencyPost_click", "ошибка выполнения"
+
+End Sub
+
+Private Sub UpdateDisplayNDS()
+On Error GoTo ErrorCode
+    Dim IsLegalEnterprice, IsCheck
+    
+    MsgBox "пам.2", vbOKOnly + vbCritical, "Проверка свойств"
+    
+    If IdClient2 <> 0 Then
+        objParamIn.ClearParameters
+        objParamOut.ClearParameters
+        objParamIn.Parameter("ClientId") = IdClient2
+        UbsChannel1.Run "IsClientLegalEnterprise", objParamIn, objParamOut
+        IsLegalEnterprice = objParamOut.Parameter("Result")
+        IsCheck = Trim(cmbKindSupplyTrade.Text) = "физическая" _
+            And Trim(txtContractCode1.Text) = "банк" _
+            And Trim(txtContractCode2.Text) <> "банк" _
+            And IsLegalEnterprice
+    Else
+        IsCheck = False
+    End If
+    
+    If IsCheck Then
+        chkNDS.Visible = True
+    Else
+        chkNDS.Visible = False
+        chkNDS.Value = 0
+    End If
+Exit Sub
+ErrorCode:
+    objError.UbsErrMsg "UpdateDisplayNDS", "ошибка выполнения"
+End Sub
+
+Private Sub UpdateDisplayExport()
+On Error GoTo ErrorCode
+    Dim IsNotResident, IsCheck
+    
+    MsgBox "пам.3", vbOKOnly + vbCritical, "Проверка свойств"
+    
+    If IdClient2 <> 0 Then
+        objParamIn.ClearParameters
+        objParamOut.ClearParameters
+        objParamIn.Parameter("ClientId") = IdClient2
+        UbsChannel1.Run "IsClientNotResident", objParamIn, objParamOut
+        IsNotResident = objParamOut.Parameter("Result")
+        IsCheck = CBool(chkNDS.Value) And IsNotResident
+    Else
+        IsCheck = False
+    End If
+    
+    If IsCheck Then
+        chkExport.Visible = True
+    Else
+        chkExport.Visible = False
+        chkExport.Value = 0
+    End If
+Exit Sub
+ErrorCode:
+    objError.UbsErrMsg "UpdateDisplayExport", "ошибка выполнения"
+End Sub
+
+Private Sub cmbKindSupplyTrade_click()
+On Error GoTo ErrorCode
+
+    Dim ArrRez As Variant
+    ArrRez = Empty
+    
+    If cmbKindSupplyTrade.Text = "обезличенная" Then
+       txtStorageCode.Text = ""
+       txtStorageName.Text = ""
+       SSTabs.Tabs(4).Visible = False
+       If CBool(SSTabs1.Tabs(2).Visible) Then SSTabs1.Tabs(2).Visible = False
+    ElseIf cmbKindSupplyTrade.Text = "физическая" Then
+       SSTabs.Tabs(4).Visible = True
+       SSTabs1.Tabs(2).Visible = True
+    End If
+    '----------------------------------------------------------------------
+    If strRunParam <> "EDIT" Then
+       DelOblig
+    Else
+       If blnClearOblig Then
+          DelOblig
+          If SSTabs.Tabs(3).Enabled Then SSTabs.Tabs(3).Enabled = False
+       Else
+          blnClearOblig = True
+       End If
+    End If
+    
+    UpdateDisplayNDS
+    UpdateDisplayExport
+    
+    Exit Sub
+
+ErrorCode:
+    objError.UbsErrMsg "cmbKindSupplyTrade_click", "ошибка выполнения"
+
+End Sub
+Private Function DelOblig()
+On Error GoTo ErrorCode
+  Dim StrNumInPartDel As String
+  Dim arrIdObl As Variant
+  Dim itmX As ListItem
+  Dim n, t As Integer
+  If IsExistOblig() Then
+     If lstViewOblig.ListItems.Count > 0 Then
+        ReDim arrIdObl(lstViewOblig.ListItems.Count)
+        n = 1
+        For Each itmX In lstViewOblig.ListItems
+            arrIdObl(n) = lstViewOblig.ListItems.Item(n).SubItems(1)
+            n = n + 1
+        Next
+        For t = 1 To UBound(arrIdObl)
+            'при удалении обязательства удаляются его доп.данные
+            StrNumInPartDel = arrIdObl(t)
+            'objParamOblig.ClearParameter ("Instr" + StrNumInPartDel)
+            'objParamOblig.ClearParameter ("Storage" + StrNumInPartDel)
+            objParamOblig.ClearParameter ("Object" + StrNumInPartDel)
+            objParamOblig.Parameter("Delete" & StrNumInPartDel) = True
+        Next
+     End If
+     lstViewOblig.ListItems.Clear
+     lstViewOblig.Refresh
+     bNeedSendOblig = True
+  End If
+Exit Function
+ErrorCode:
+    objError.UbsErrMsg "DelOblig", "ошибка выполнения"
+End Function
+Private Sub cmbUnit_Click()
+  GetMassaPrecision
+  txtMassa.CurrencyValue = 0
+  txtMassaGramm.CurrencyValue = 0
+  If Not cmbCurOblig.ListIndex = -1 And Not cmbCurrencyOpl.ListIndex = -1 Then
+         GetRateForPM
+  End If
+End Sub
+
+
+Private Sub cmdAccounts_Click()
+On Error GoTo ErrorCode
+
+    If NumChildWinAccountsByObligation <> 0 Then
+        IParent.SetFocusToWindow NumChildWinAccountsByObligation
+        Exit Sub
+    End If
+    cmdAddObject.Enabled = False
+    IParent.GetWindow "UBS_FLT\PM\PM_ACCOUNTS_BY_OBLIGATION.flt", NumChildWinAccountsByObligation
+    '-------------------------------------------------------------------------------------
+    
+    If NumChildWinAccountsByObligation <> 0 Then
+        Dim objGridF As Object
+        Dim InitParamGrid As Variant
+        ReDim InitParamGrid(2)
+   
+        Set objGridF = IParent.ParamInfo(NumChildWinAccountsByObligation, "UbsGridList")
+        objGridF.ClearWhereList
+        objGridF.AddWhereItem "Идентификатор обязательства", 4, lstViewOblig.SelectedItem.Tag
+        
+        If IParent.IsExistParam(NumChildWinAccountsByObligation, "InitParamGrid") Then
+            InitParamGrid(0) = Numwin
+            InitParamGrid(2) = True
+            IParent.ParamInfo(NumChildWinAccountsByObligation, "InitParamGrid") = InitParamGrid
+            IParent.SetFocusToWindow NumChildWinAccountsByObligation
+        End If
+    End If
+    
+    Exit Sub
+ErrorCode:
+    objError.UbsErrMsg "cmdAccounts_Click", "ошибка выполнения"
+End Sub
+
+Private Sub cmdAddObject_Click()
+'вызываем списки
+On Error GoTo ErrorCode
+
+    If NumChildWinObject <> 0 Then
+        IParent.SetFocusToWindow NumChildWinObject
+        Exit Sub
+    End If
+    cmdAddObject.Enabled = False
+    If cmbContractType1.ListIndex = 0 Then
+        IParent.GetWindow "UBS_FLT\PM\PM_FOR_OPERATION_SALE.flt", NumChildWinObject
+    Else
+        IParent.GetWindow "UBS_FLT\PM\PM_FOR_OPERATION.flt", NumChildWinObject
+    End If
+    '-------------------------------------------------------------------------------------
+
+    If NumChildWinObject <> 0 Then
+        Dim objGridF As Object
+        Dim InitParamGrid As Variant
+        ReDim InitParamGrid(2)
+   
+        Set objGridF = IParent.ParamInfo(NumChildWinObject, "UbsGridList")
+        objGridF.ClearWhereList
+        objGridF.AddWhereItem "Наименование драгоценного металла", 4, cmbCurrencyPost.ItemData(cmbCurrencyPost.ListIndex)
+       
+        If IParent.IsExistParam(NumChildWinObject, "InitParamGrid") Then
+            InitParamGrid(0) = Numwin
+            InitParamGrid(2) = True
+            IParent.ParamInfo(NumChildWinObject, "InitParamGrid") = InitParamGrid
+            IParent.SetFocusToWindow NumChildWinObject
+        End If
+    End If
+    cmdAddObject.Enabled = True
+    blnAddObject = True
+    Exit Sub
+
+ErrorCode:
+    objError.UbsErrMsg "cmdAddObject_Click", "ошибка выполнения"
+
+End Sub
+
+Private Sub cmdAddOblig_Click()
+On Error GoTo ErrorCode
+
+    blnAddOblig = True
+    SSTabs.Tabs(3).Enabled = True
+    
+    SSTabs.Tabs(1).Enabled = False
+    SSTabs.Tabs(2).Enabled = False
+    SSTabs.Tabs(4).Enabled = False
+    SSTabs.Tabs(5).Enabled = False
+    SSTabs.Tabs(6).Enabled = False
+    '---------------------------
+    
+    sType = "Add"
+    CallOblig sType
+    If chkIsComposit And strRunParam = "EDIT" Then
+       cmbNaprTrade.Enabled = True
+    End If
+    
+    Exit Sub
+
+ErrorCode:
+    objError.UbsErrMsg "cmdAddOblig_Click", "ошибка выполнения"
+
+End Sub
+
+Private Sub cmdApplayOblig_Click()
+On Error GoTo ErrorCode
+
+    Dim NumPart As Integer, NumInPart As Integer
+    Dim ArrDataInstr As Variant, ArrObject As Variant
+
+    If CheckDataOblig = False Then
+        UserDocument.MousePointer = 0
+        Exit Sub
+    End If
+    
+    blnAddOblig = False
+    blnEditOblig = False
+    
+    SSTabs1.Tabs(1).Selected = True
+    SSTabs.Tabs(3).Enabled = False ' Данные
+    SSTabs.Tabs(5).Enabled = True ' Поставка
+    SSTabs.Tabs(6).Enabled = True ' Дополнительные
+    '----------------------------------------
+    SSTabs.Tabs(1).Enabled = True ' Основные
+    SSTabs.Tabs(2).Enabled = True ' Обязательства
+    SSTabs.Tabs(4).Enabled = True ' Оплата
+    
+    SSTabs.Tabs(2).Selected = True
+    
+    '============================================================
+    'увеличиваем номер в части при сохранении нового обязательства
+    'номер в части: 1 цифра - номер части, остальные - номер в части
+    If sType = "Add" Then
+        NumPart = cmbNaprTrade.ItemData(cmbNaprTrade.ListIndex)
+        Select Case NumPart
+            Case 1
+                DDX.MemberData("Макс.номер в части 1") = DDX.MemberData("Макс.номер в части 1") + 1
+                NumInPart = DDX.MemberData("Макс.номер в части 1")
+            Case 2
+                DDX.MemberData("Макс.номер в части 2") = DDX.MemberData("Макс.номер в части 2") + 1
+                NumInPart = DDX.MemberData("Макс.номер в части 2")
+        End Select
+        StrNumInPart = Trim(CStr(NumPart)) + "." + Trim(CStr(NumInPart))
+        
+        objParamOblig.Parameter("Add" & StrNumInPart) = True
+    ElseIf sType = "Edit" Then
+        If cmbNaprTrade.Text <> strNaprTrade Then
+            NumPart = cmbNaprTrade.ItemData(cmbNaprTrade.ListIndex)
+            Select Case NumPart
+                Case 1
+                    DDX.MemberData("Макс.номер в части 1") = DDX.MemberData("Макс.номер в части 1") + 1
+                    NumInPart = DDX.MemberData("Макс.номер в части 1")
+                Case 2
+                    DDX.MemberData("Макс.номер в части 2") = DDX.MemberData("Макс.номер в части 2") + 1
+                    NumInPart = DDX.MemberData("Макс.номер в части 2")
+            End Select
+            StrNumInPart = Trim(CStr(NumPart)) + "." + Trim(CStr(NumInPart))
+        Else
+            StrNumInPart = lstViewOblig.SelectedItem.SubItems(1)
+        End If
+        
+        objParamOblig.Parameter("Edit" & StrNumInPart) = True
+    End If
+    '============================================================
+    'сохраняем доп.данные обязательства сделки
+    ArrObject = Empty
+    FillArrObject ArrObject 'заполнить массив объектов
+    objParamOblig.Parameter("Object" + StrNumInPart) = ArrObject
+    '============================================================
+    bNeedSendOblig = True
+    SetResultsListOblig sType
+
+    cmdAddOblig.SetFocus
+    
+    Exit Sub
+    
+ErrorCode:
+    objError.UbsErrMsg "cmdApplayOblig_Click", "ошибка выполнения"
+
+End Sub
+
+Private Sub cmdDelOblig_Click()
+'удаляем элемент из списка
+On Error GoTo ErrorCode
+
+    Dim StrNumInPartDel As String
+    
+    If IsExistOblig() Then
+        Set objList = lstViewOblig.SelectedItem
+        
+        'при удалении обязательства удаляются его доп.данные
+        StrNumInPartDel = objList.SubItems(1)
+        
+        'objParamOblig.ClearParameter ("Instr" + StrNumInPartDel)
+        'objParamOblig.ClearParameter ("Storage" + StrNumInPartDel)
+        objParamOblig.ClearParameter ("Object" + StrNumInPartDel)
+        
+        lstViewOblig.ListItems.Remove (objList.Index)
+        
+        objParamOblig.Parameter("Delete" & StrNumInPartDel) = True
+    End If
+    lstViewOblig.Refresh
+    cmdAddOblig.SetFocus
+    bNeedSendOblig = True
+    
+    If IsExistOblig Then
+        SSTabs.Tabs(3).Enabled = True
+    Else
+        SSTabs.Tabs(3).Enabled = False
+    End If
+    
+    Exit Sub
+    
+ErrorCode:
+    objError.UbsErrMsg "cmdDelOblig_Click", "ошибка выполнения"
+
+End Sub
+
+Private Sub cmdEditOblig_Click()
+On Error GoTo ErrorCode
+    If lstViewOblig.ListItems.Count = 0 Then Exit Sub
+    
+    blnEditOblig = True
+    SSTabs.Tabs(3).Enabled = True
+    
+    SSTabs.Tabs(1).Enabled = False
+    SSTabs.Tabs(2).Enabled = False
+    SSTabs.Tabs(4).Enabled = False
+    SSTabs.Tabs(5).Enabled = False
+    SSTabs.Tabs(6).Enabled = False
+    '---------------------------
+    sType = "Edit"
+    blnAddObject = False
+    CallOblig sType
+    If chkIsComposit And strRunParam = "EDIT" Then
+       cmbNaprTrade.Enabled = False
+    End If
+    
+    Exit Sub
+    
+ErrorCode:
+    objError.UbsErrMsg "cmdEditOblig_Click", "ошибка выполнения"
+
+End Sub
+
+Private Sub cmdExitOblig_Click()
+On Error GoTo ErrorCode
+
+    blnAddOblig = False
+    blnEditOblig = False
+    
+    SSTabs1.Tabs(1).Selected = True
+    SSTabs.Tabs(3).Enabled = False
+    SSTabs.Tabs(5).Enabled = True
+    SSTabs.Tabs(6).Enabled = True
+    SSTabs.Tabs(1).Enabled = True
+    SSTabs.Tabs(2).Enabled = True
+    SSTabs.Tabs(4).Enabled = True
+    
+    SSTabs.Tabs(2).Selected = True
+    
+    Exit Sub
+    
+ErrorCode:
+    objError.UbsErrMsg "cmdExitOblig_Click", "ошибка выполнения"
+
+End Sub
+Private Sub cmdListInstr_Click(Index As Integer)
+On Error GoTo ErrorCode
+
+If Index = 0 Then ' нужны инструкции по покупателю
+   ClearOpl (0)
+   If Len(Trim(txtContractCode2.Text)) = 0 Or Trim(txtContractCode2.Text) = "банк" Then
+      MsgBox "Заполните данные о покупателе", vbExclamation + vbOKOnly, "Ошибка ввода"
+      SSTabs.Tabs(1).Selected = True
+      cmdContract2.SetFocus
+      Exit Sub
+   End If
+   objParamIn.ClearParameters
+   objParamOut.ClearParameters
+   objParamIn.Parameter("ID_CONTRACT") = DDX.MemberData("Покупатель")
+   UbsChannel1.Run "TradeFillInstr", objParamIn, objParamOut
+   Call StartDialog(0)
+ElseIf Index = 1 Then ' нужны инструкции по продавцу
+   ClearOpl (1)
+   If Len(Trim(txtContractCode1.Text)) = 0 Or Trim(txtContractCode1.Text) = "банк" Then
+      MsgBox "Заполните данные о продавце", vbExclamation + vbOKOnly, "Ошибка ввода"
+      SSTabs.Tabs(1).Selected = True
+      cmdContract1.SetFocus
+      Exit Sub
+   End If
+   objParamIn.ClearParameters
+   objParamOut.ClearParameters
+   objParamIn.Parameter("ID_CONTRACT") = DDX.MemberData("Продавец")
+   UbsChannel1.Run "TradeFillInstr", objParamIn, objParamOut
+   Call StartDialog(1)
+End If
+    
+Exit Sub
+    
+ErrorCode:
+    objError.UbsErrMsg "cmdListInstr_Click", "ошибка выполнения"
+
+End Sub
+
+Private Sub cmdSave_Click()
+On Error GoTo ErrorCode
+
+    Dim blnRun
+    Dim ArrChanged As Variant
+    Dim arrOblig As Variant
+    Dim varDataOpl
+
+    blnRun = False
+    
+    DDX.UpdateData (True)
+    
+    If Not CheckData Then Exit Sub
+    If Not CheckDatesOblig Then Exit Sub
+
+    objParamIn.ClearParameters
+    objParamOut.ClearParameters
+
+    If strRunParam = "EDIT" Then
+        objParamIn.Parameter("ID_TRADE") = DDX.MemberData("ID_TRADE")
+    Else
+        objParamIn.Parameter("ID_TRADE") = 0
+    End If
+    
+    ' нам нужно передать массив инструкции по оплате
+    If SSActiveTabs1.Tabs(1).Visible = True Then
+       ' Данные из контролов Инструкции по Оплате в массив
+       Call FillArrDataInstr(0, varDataOpl)
+       objParamIn.Parameter("Инструкция по оплате для покупателя") = varDataOpl
+    End If
+    ' и второй массив инструкции по оплате
+    If SSActiveTabs1.Tabs(2).Visible = True Then
+        Call FillArrDataInstr(1, varDataOpl)
+        objParamIn.Parameter("Инструкция по оплате для продавца") = varDataOpl
+    End If
+    objParamIn.Parameter("IsNDS") = chkNDS.Value
+    objParamIn.Parameter("IsExport") = chkExport.Value
+    '6060
+    objParamIn.Parameter("IsExternalStorage") = chkExternalStorage.Value
+    
+    
+    
+    '-----------------------------------------------
+     'изменение основных полей
+    If DDX.IsChange Then
+        DDX.ChangeMembersValue ArrChanged
+        objParamTrade.Parameters = ArrChanged
+        If objParamTrade.ExistParameter("Идентификатор валюты оплаты") Then
+            objParamTrade.Parameter("Идентификатор валюты оплаты") = cmbCurrencyOpl.ItemData(cmbCurrencyOpl.ListIndex)
+        End If
+        If objParamTrade.ExistParameter("Идентификатор драг.металла") Then
+            objParamTrade.Parameter("Идентификатор драг.металла") = cmbCurrencyPost.ItemData(cmbCurrencyPost.ListIndex)
+        End If
+        If objParamTrade.ExistParameter("Вид поставки по сделке") Then
+            objParamTrade.Parameter("Вид поставки по сделке") = cmbKindSupplyTrade.Text
+        End If
+        If objParamTrade.ExistParameter("Идентификатор комиссии") Then
+           If Not cmbComission.ListIndex = -1 Then
+              objParamTrade.Parameter("Идентификатор комиссии") = cmbComission.ItemData(cmbComission.ListIndex)
+           Else
+              objParamTrade.Parameter("Идентификатор комиссии") = 0
+           End If
+        End If
+        objParamIn.Parameter("Основные данные") = objParamTrade
+    
+        blnRun = True
+    End If
+
+    'изменение списка обязательств
+    If bNeedSendOblig Then
+        blnRun = True
+    
+        objParamIn.Parameter("ID_CLIENT1") = IdClient1
+        objParamIn.Parameter("ID_CLIENT2") = IdClient2
+
+        FillArrOblig arrOblig 'заполняем массив обязательств
+        objParamIn.Parameter("Обязательства сделки") = arrOblig
+        objParamIn.Parameter("Обязательства сделки2") = objParamOblig
+
+    End If
+
+    'изменение доп.полей
+    If blnAddFlChanged And strRunParam = "EDIT" Then
+        blnRun = True
+    End If
+    
+    If blnRun Then
+        UbsChannel1.Run "ModifyTrade", objParamIn, objParamOut
+        If objParamOut.ExistParameter("Ошибка") Then
+            MsgBox objParamOut.Parameter("Ошибка"), vbExclamation + vbOKOnly, "Ошибка ввода"
+        Else
+            DDX.MemberData("ID_TRADE") = objParamOut.Parameter("ID_TRADE")
+            strRunParam = "EDIT"
+    
+            blnNeedRefresh = True
+            blnNeedSelect = True
+            blnCloseForm = True
+            blnAddFlChanged = False
+            Info.Caption = "Данные сохранены"
+            Info.Visible = True
+            Info.Show
+            DDX.SetInitMemberData
+        End If
+    End If
+
+    If blnCloseForm Then
+        IParent.CloseWindow Numwin
+    End If
+
+    Exit Sub
+    
+ErrorCode:
+    objError.UbsErrMsg "cmdSave_Click", "ошибка выполнения"
+                   
+End Sub
+
+Private Sub cmdExit_Click()
+On Error GoTo ErrorCode
+
+    IParent.CloseWindow Numwin
+    
+    Exit Sub
+    
+ErrorCode:
+    objError.UbsErrMsg "cmdExit_Click", "ошибка выполнения"
+
+End Sub
+
+Private Sub SSTabs_BeforeTabClick(ByVal NewTab As ActiveTabs.SSTab, ByVal Cancel As ActiveTabs.SSReturnBoolean)
+On Error GoTo ErrorCode
+
+    If cmbContractType1.ItemData(cmbContractType1.ListIndex) = _
+        cmbContractType2.ItemData(cmbContractType2.ListIndex) Then
+        MsgBox "Тип договора покупателя и продавца не может совпадать", vbOKOnly + vbCritical, "Проверка свойств"
+        cmbContractType1.SetFocus
+        Cancel = True
+        Exit Sub
+    End If
+
+    If NewTab.Index = 2 Then 'переход на вкладку "Обязательства"
+        If txtTradeDate.DateValue = #1/1/2222# Or Not txtTradeDate.IsValid Then
+            MsgBox "Не указана дата сделки", vbOKOnly + vbCritical, "Проверка свойств"
+            If SSTabs.Tabs(1).Selected Then txtTradeDate.SetFocus
+            Cancel = True
+            Exit Sub
+        End If
+
+        If cmbCurrencyPost.ListIndex = -1 Then 'драг.металл не выбран
+            MsgBox "Не выбран драг.металл.", vbOKOnly + vbCritical, "Проверка свойств"
+            cmbCurrencyPost.SetFocus
+            Cancel = True
+            Exit Sub
+        End If
+    
+        If IsEmpty(DDX.MemberData("Покупатель")) Then
+            MsgBox "Не выбран покупатель", vbExclamation + vbOKOnly, "Ошибка ввода"
+            If cmdContract2.Enabled Then
+                cmdContract2.SetFocus
+            ElseIf cmbContractType2.Enabled Then
+                cmbContractType2.SetFocus
+            End If
+            Cancel = True
+            Exit Sub
+        End If
+        
+        If cmbKindSupplyTrade.ListIndex = -1 Then
+            MsgBox "Не выбран вид поставки по сделке", vbExclamation + vbOKOnly, "Ошибка ввода"
+            cmbKindSupplyTrade.SetFocus
+            Cancel = True
+            Exit Sub
+        End If
+        
+        If cmbKindSupplyTrade.Text = "физическая" Then
+            cmbUnit.ListIndex = 0
+            cmbUnit.Enabled = False
+            txtMassa.Enabled = False
+        ElseIf cmbKindSupplyTrade.Text = "обезличенная" Then
+            txtMassa.Enabled = True
+            cmbUnit.Enabled = True
+        End If
+    End If
+    
+    If NewTab.Index = 3 Then 'переход на вкладку "Данные"
+      If lstViewOblig.ListItems.Count <> 0 Then
+        cmdSave.Visible = False
+        cmdExit.Visible = False
+        
+        If Not blnAddOblig And Not blnEditOblig Then 'переход в режиме просмотра
+            cmdApplayOblig.Visible = False
+            cmdExitOblig.Visible = False
+            
+            'все контролы на вкладке disabled
+            Call EnableWindow(SSTabs1Panel1.hwnd, 0&)
+            Call EnableWindow(SSTabs1Panel4.hwnd, 0&)
+            
+            cmdAddObject.Enabled = False
+            cmdDelObject.Enabled = False
+            
+            SSTabs1.Tabs(1).Selected = True 'переход на вкладку "Обязательство"
+              
+            'заполнение данных обязательства
+            StrNumInPart = lstViewOblig.SelectedItem.SubItems(1)
+            sType = "Edit"
+            CallOblig sType
+        Else 'режим Add или Edit
+            cmdApplayOblig.Visible = True
+            cmdExitOblig.Visible = True
+            
+            'контролы на вкладке enabled
+            Call EnableWindow(SSTabs1Panel1.hwnd, 1&)
+            Call EnableWindow(SSTabs1Panel4.hwnd, 1&)
+            
+            If cmbKindSupplyTrade.Text = "физическая" Then
+                cmdAddObject.Enabled = True
+                cmdDelObject.Enabled = True
+            End If
+        End If
+      End If
+    Else 'переход на какую-нибудь другую вкладку, кроме "Данные"
+        cmdSave.Visible = True
+        cmdExit.Visible = True
+    End If
+        
+    If cmbContractType1.ItemData(cmbContractType1.ListIndex) = 0 Then
+       If Not CBool(SSActiveTabs1.Tabs(1).Visible) Then SSActiveTabs1.Tabs(1).Visible = True
+       SSActiveTabs1.Tabs(1).Selected = True
+       If CBool(SSActiveTabs1.Tabs(2).Visible) Then SSActiveTabs1.Tabs(2).Visible = False
+    ElseIf cmbContractType2.ItemData(cmbContractType2.ListIndex) = 0 Then
+       If Not CBool(SSActiveTabs1.Tabs(2).Visible) Then SSActiveTabs1.Tabs(2).Visible = True
+       SSActiveTabs1.Tabs(2).Selected = True
+       If CBool(SSActiveTabs1.Tabs(1).Visible) Then SSActiveTabs1.Tabs(1).Visible = False
+    Else
+       If Not CBool(SSActiveTabs1.Tabs(1).Visible) Then SSActiveTabs1.Tabs(1).Visible = True
+       If Not CBool(SSActiveTabs1.Tabs(2).Visible) Then SSActiveTabs1.Tabs(2).Visible = True
+       SSActiveTabs1.Tabs(1).Selected = True
+    End If
+    
+    Exit Sub
+    
+ErrorCode:
+    objError.UbsErrMsg "SSTabs_BeforeTabClick", "ошибка выполнения"
+
+End Sub
+
+Private Sub SSTabs1_BeforeTabClick(ByVal NewTab As ActiveTabs.SSTab, ByVal Cancel As ActiveTabs.SSReturnBoolean)
+On Error GoTo ErrorCode
+
+    If NewTab.Index = 4 Then 'переход на вкладку "Объекты"
+        'заполняем данные по обязательству
+        lblObligInfo1.Caption = "Дата оплаты: " & txtDateOpl.Text & Space(3) & _
+            "Дата поставки: " & txtDatePost.Text
+            
+        lblObligInfo2.Caption = "Цена: " & txtCostUnit.CurrencyValue & Space(3) & _
+            "Масса: " & txtMassa.Text & Space(3) & _
+            "Сумма: " & txtSumOpl.Text
+    End If
+    
+    Exit Sub
+    
+ErrorCode:
+    objError.UbsErrMsg "SSTabs1_BeforeTabClick", "ошибка выполнения"
+
+End Sub
+
+Private Sub txtMassa_LostFocus()
+On Error GoTo ErrorCode
+    '-------------------------------------------------------------------------
+    GetMassaGramm ' масса в граммах
+    GetSumOblig   ' сумма в валюте обязательства = цена за ед. в валюте обязательства * кол-во грамм
+    GetSumOpl     ' сумма в валюте оплаты
+    '-------------------------------------------------------------------------
+Exit Sub
+ErrorCode:
+    objError.UbsErrMsg "txtMassa_LostFocus", "ошибка выполнения"
+End Sub
+
+Private Sub txtCostUnit_LostFocus()
+On Error GoTo ErrorCode
+    GetSumOblig
+    If chkSumInCurValue.Value = 1 Then ' если вводим сразу Цену в сумме оплаты, то "скачем" от нее
+       GetRateCurOblig ' курс
+    Else
+       ' Цена за ед. в валюте оплаты = цена за ед. в валюте обязательства * курс
+       'txtCostCurOpl.CurrencyValue = objFormat.Round(txtCostUnit.CurrencyValue * txtRateCurOblig.CurrencyValue, 4)
+       txtCostCurOpl.CurrencyValue = objFormat.Round(txtCostUnit.CurrencyValue * txtRateCurOblig.VariantValue, 4)
+    End If
+    '----------------------------------------------------
+    GetSumOpl
+    
+    Exit Sub
+ErrorCode:
+    objError.UbsErrMsg "txtCostUnit_LostFocus", "ошибка выполнения"
+
+End Sub
+
+
+Private Sub txtRateCurOblig_LostFocus()
+On Error GoTo ErrorCode
+ ' Цена за ед. в валюте оплаты = цена за ед. в валюте обязательства * курс
+ 'txtCostCurOpl.CurrencyValue = objFormat.Round(txtCostUnit.CurrencyValue * txtRateCurOblig.CurrencyValue, 4)
+ txtCostCurOpl.CurrencyValue = objFormat.Round(txtCostUnit.CurrencyValue * txtRateCurOblig.VariantValue, 4)
+ GetSumOpl
+ '----------------------------------------------------
+Exit Sub
+ErrorCode:
+    objError.UbsErrMsg "txtRateCurOblig_LostFocus", "ошибка выполнения"
+End Sub
+
+Private Sub txtCostCurOpl_LostFocus()
+On Error GoTo ErrorCode
+ GetRateCurOblig ' Курс = Цена за ед. в валюте оплаты/цена за ед. в валюте обязательства
+ ' Сумма в валюте оплаты
+ GetSumOpl
+ '----------------------------------------------------
+ chkSumInCurValue.Value = 0
+ chkRate.Value = 1
+ 
+Exit Sub
+ErrorCode:
+    objError.UbsErrMsg "txtCostCurOpl_LostFocus", "ошибка выполнения"
+End Sub
+
+Private Sub txtTradeDate_LostFocus()
+    If Not txtTradeDate.IsValid Then
+       MsgBox "Введите корректную дату.", vbOKOnly + vbCritical, "Проверка свойств"
+       txtTradeDate.SetFocus
+       Exit Sub
+    End If
+    If CheckDatesOblig Then 'наличные сделки
+        DDX.MemberData("DATE_TRADE") = txtTradeDate.DateValue
+        If Not Not cmbCurOblig.ListIndex = -1 _
+           And Not cmbCurrencyOpl.ListIndex = -1 _
+           And Not cmbCurrencyPost.ListIndex = -1 Then
+           GetRate_CB
+           GetRateForPM
+         End If
+         bNeedSendOblig = True
+    End If
+    If blnSetFocus Then
+       txtTradeDate.SetFocus
+       blnSetFocus = False
+    End If
+End Sub
+
+Private Property Get UBSChild_ActualParameter() As Variant
+
+End Property
+
+Private Sub ucpParam_TextChange()
+On Error GoTo ErrorCode
+
+    blnAddFlChanged = True
+    
+    Exit Sub
+    
+ErrorCode:
+    objError.UbsErrMsg "ucpParam_TextChange", "ошибка выполнения"
+    
+End Sub
+
+
+Private Property Get UBSChild_Height() As Integer
+On Error GoTo ErrorCode
+
+    UBSChild_Height = UserDocument.MinHeight
+    
+    Exit Property
+    
+ErrorCode:
+    objError.UbsErrMsg "UBSChild_Height", "ошибка выполнения"
+
+End Property
+
+Private Property Let UBSChild_HeightBrowser(ByVal RHS As Variant)
+On Error GoTo ErrorCode
+
+    Dim SSTabs_Bottom As Long, SSTabsPanel1_Bottom As Long
+    Dim SSTabs1_Bottom As Long, SSTabs1Panel1_Bottom As Long
+    Dim lstViewOblig_Bottom As Long, lstViewObject_Bottom As Long
+    
+    If RHS < UserDocument.MinHeight Then RHS = UserDocument.MinHeight
+        
+    SSTabs.Height = RHS - 165
+    ucpParam.Height = RHS - 1300
+    cmdExit.Top = RHS - 630
+    cmdSave.Top = RHS - 630
+    Info.Top = RHS - 600
+    '------------------------------------------------------------
+    SSTabs_Bottom = 105
+    SSTabsPanel1_Bottom = 30
+    SSTabs1_Bottom = 570
+    SSTabs1Panel1_Bottom = 30
+    lstViewOblig_Bottom = 690
+    lstViewObject_Bottom = 570
+    '------------------------------------------------------------
+    lstViewOblig.Height = RHS - ( _
+    SSTabs.Top + SSTabsPanel1.Top + lstViewOblig.Top + _
+    SSTabs_Bottom + SSTabsPanel1_Bottom + lstViewOblig_Bottom)
+    '------------------------------------------------------------
+    SSTabs1.Height = RHS - ( _
+    SSTabs.Top + SSTabsPanel1.Top + SSTabs1.Top + _
+    SSTabs_Bottom + SSTabsPanel1_Bottom + SSTabs1_Bottom)
+    '------------------------------------------------------------
+    lstViewObject.Height = RHS - ( _
+    SSTabs.Top + SSTabsPanel1.Top + SSTabs1.Top + SSTabs1Panel1.Top + _
+    lstViewObject.Top + _
+    SSTabs_Bottom + SSTabsPanel1_Bottom + SSTabs1_Bottom + SSTabs1Panel1_Bottom + _
+    lstViewObject_Bottom)
+    '------------------------------------------------------------
+    cmdApplayOblig.Top = SSTabs1.Height - 120 - cmdApplayOblig.Height
+    cmdExitOblig.Top = SSTabs1.Height - 120 - cmdExitOblig.Height
+    
+    cmdAccounts.Top = SSTabs1.Height - cmdApplayOblig.Height
+    lblAccounts.Top = SSTabs1.Height - cmdApplayOblig.Height + 60
+    
+    Exit Property
+    
+ErrorCode:
+    objError.UbsErrMsg "UBSChild_HeightBrowser", "ошибка выполнения"
+
+End Property
+
+Private Property Get UBSChild_ImageList(Key As String) As Object
+On Error GoTo ErrorCode
+
+    Key = "CARD"
+    
+    Exit Property
+    
+ErrorCode:
+    objError.UbsErrMsg "UBSChild_ImageList", "ошибка выполнения"
+
+End Property
+
+Private Property Get UBSChild_IsExistParam(ByVal NameParam As String) As Boolean
+On Error GoTo ErrorCode
+
+    UBSChild_IsExistParam = objFormParam.ExistParameter(NameParam)
+    
+    Exit Property
+    
+ErrorCode:
+    objError.UbsErrMsg "UBSChild_IsExistParam", "ошибка выполнения"
+
+End Property
+
+Private Sub UBSChild_NotifyCloseWindow(ByVal NumWindow As Integer)
+On Error GoTo ErrorCode
+
+    If NumParentWindow <> 0 And NumParentWindow = NumWindow Then
+        bParentWindowClose = True
+        cmdExit_Click
+    End If
+    If NumWindow = NumChildWinContract1 Then
+        NumChildWinContract1 = 0
+    End If
+    If NumWindow = NumChildWinContract2 Then
+        NumChildWinContract2 = 0
+    End If
+    If NumWindow = NumChildWinStorage Then
+        NumChildWinStorage = 0
+    End If
+    If NumWindow = NumChildWinInstr Then
+        NumChildWinInstr = 0
+    End If
+    If NumWindow = NumChildWinObject Then
+        NumChildWinObject = 0
+    End If
+    If NumWindow = NumChildWinAccount Then
+        NumChildWinAccount = 0
+    End If
+    If NumWindow = NumChildWinAccountsByObligation Then
+        NumChildWinAccountsByObligation = 0
+    End If
+    
+    Exit Sub
+    
+ErrorCode:
+    objError.UbsErrMsg "UBSChild_NotifyCloseWindow", "ошибка выполнения"
+
+End Sub
+
+Private Sub UBSChild_NotifyFixWindow(ByVal NumWindow As Variant, ByVal FixState As Boolean)
+On Error GoTo ErrorCode
+
+    If NumWindow = Numwin And FixState Then
+        'Если пришпиливают наше окно
+        NumParentWindow = 0
+    End If
+    
+    Exit Sub
+    
+ErrorCode:
+    objError.UbsErrMsg "UBSChild_NotifyFixWindow", "ошибка выполнения"
+
+End Sub
+
+Private Property Let UBSChild_NumWindow(ByVal RHS As Integer)
+On Error GoTo ErrorCode
+
+    Numwin = RHS
+    
+    Exit Property
+    
+ErrorCode:
+    objError.UbsErrMsg "UBSChild_NumWindow", "ошибка выполнения"
+    
+End Property
+
+Private Property Let UBSChild_ParamInfo(ByVal NameParam As String, ByVal RHS As Variant)
+On Error GoTo ErrorCode
+
+    Dim ItemArray As Variant
+    Dim IdObject As Long
+    Dim ArrRez As Variant
+    Dim intPos As Integer
+
+    If Not objFormParam.ExistParameter(NameParam) Then
+        objError.UbsErrRaise "Проверка поддержки параметров", _
+                "Параметер '" & NameParam & "' не поддерживаетcя"
+    End If
+    
+    If NameParam = "InitParamForm" Then
+        blnSetFocus = False
+        NumParentWindow = RHS(0)
+        RSIdent = RHS(1)
+        strRunParam = RHS(2)
+        
+        If strRunParam <> "EDIT" Then
+            intPos = InStr(1, strRunParam, "#")
+            intVidTrade = Mid(strRunParam, intPos + 1, 1)
+        End If
+        
+        If IsEmpty(RHS(1)) And strRunParam = "EDIT" Then ' если с пустой формы вызываем на редактирование
+           MsgBox "Не выбрана запись для редактирования", vbCritical + vbOKOnly, "Ошибка"
+           cmdExit_Click
+           Exit Property
+        End If
+        
+        UserDocument_Initialize
+        DDX.InitControlData
+        InitChannel
+        InitDoc
+        IParent.WindowDraw(Numwin) = True
+        objInterfaces.NextCtrl
+        objInterfaces.PrevCtrl
+        ' в связи с возможным НЕРЕДАКТИРОВАНИЕМ СДЕЛКИ
+        If strRunParam = "EDIT" Then
+           If blnWasOper Then
+              cmdExit.SetFocus
+           Else
+              txtTradeDate.SetFocus
+              blnSetFocus = True
+           End If
+        Else
+           txtTradeDate.SetFocus
+        End If
+        '-----------------------------------------------------
+        
+    End If
+
+    If NameParam = "SetFocus" Then
+        If Not objFocusCtrl Is Nothing And Not SSTabs Is Nothing Then
+            If intFocusTab = SSTabs.SelectedTab.Index Then
+               objFocusCtrl.SetFocus
+            End If
+        End If
+    End If
+    
+
+    If NameParam = "LostFocus" Then
+        If Not UserDocument.ActiveControl Is Nothing Then Set objFocusCtrl = UserDocument.ActiveControl
+        If Not UserDocument.ActiveControl Is Nothing And Not SSTabs Is Nothing Then intFocusTab = SSTabs.SelectedTab.Index
+    End If
+
+    
+    If Not objFormParam.ExistParameter(NameParam) Then
+        objError.UbsErrRaise "Проверка поддержки параметров", _
+            "Параметер '" & NameParam & "' не поддерживается"
+    End If
+    
+    ' ---------------------------------------------
+    ' Работа со списком
+    If NameParam = "RetFromGrid" Then
+    
+        'продавец
+        If NumChildWinContract1 = RHS(0) Then
+            ItemArray = RHS(1)
+            If Not IsEmpty(ItemArray) Then
+                DDX.MemberData("Продавец") = ItemArray(0)
+            Else
+                MsgBox "Не выбрано записи для добавления.", vbCritical + vbOKOnly, "Ошибка"
+                Exit Property
+            End If
+            
+            ' получить данные контракта
+            Call FillControlContract(DDX.MemberData("Продавец"), txtContractCode1, txtClientName1, IdClient1)
+            
+            IdComission1 = objParamOut.Parameter("Идентификатор комиссии")
+            
+            'идентификатор комисии
+            If cmbContractType1.ItemData(cmbContractType1.ListIndex) = 1 And _
+                cmbContractType2.ItemData(cmbContractType2.ListIndex) <> 1 Then
+           
+                For n = 0 To cmbComission.ListCount - 1
+                    If cmbComission.ItemData(n) = IdComission1 Then
+                        cmbComission.ListIndex = n
+                    End If
+                Next
+            Else
+                cmbComission.ListIndex = -1
+            End If
+            '--------------------------------
+            IParent.CloseWindow NumChildWinContract1
+            IParent.SetFocusToWindow Numwin
+            objInterfaces.NextCtrl
+        End If
+        
+        'покупатель
+        If NumChildWinContract2 = RHS(0) Then
+            ItemArray = RHS(1)
+            If Not IsEmpty(ItemArray) Then
+                DDX.MemberData("Покупатель") = ItemArray(0)
+            Else
+                MsgBox "Не выбрано записи для добавления.", vbCritical + vbOKOnly, "Ошибка"
+                Exit Property
+            End If
+            
+            ' получить данные контракта
+            Call FillControlContract(DDX.MemberData("Покупатель"), txtContractCode2, txtClientName2, IdClient2)
+                
+             IdComission2 = objParamOut.Parameter("Идентификатор комиссии")
+            
+                'идентификатор комисии
+                If cmbContractType2.ItemData(cmbContractType2.ListIndex) = 1 And _
+                    cmbContractType1.ItemData(cmbContractType1.ListIndex) <> 1 Then
+           
+                    For n = 0 To cmbComission.ListCount - 1
+                        If cmbComission.ItemData(n) = IdComission2 Then
+                            cmbComission.ListIndex = n
+                        End If
+                    Next
+                Else
+                    cmbComission.ListIndex = -1
+                End If
+            UpdateDisplayNDS
+            UpdateDisplayExport
+            '--------------------------------
+            IParent.CloseWindow NumChildWinContract2
+            IParent.SetFocusToWindow Numwin
+            objInterfaces.NextCtrl
+        End If
+        
+        'хранилище
+        If NumChildWinStorage = RHS(0) Then
+            ItemArray = RHS(1)
+            If Not IsEmpty(ItemArray) Then
+                DDX.MemberData("Инструкция по поставке") = ItemArray(0)
+            '-------------------------------------------------------
+            Else
+                MsgBox "Не выбрано записи для добавления.", vbCritical + vbOKOnly, "Ошибка"
+                Exit Property
+            End If
+            
+            ' получить данные хранилища
+            Call FillControlStorage
+            '--------------------------------
+            IParent.CloseWindow NumChildWinStorage
+            IParent.SetFocusToWindow Numwin
+            objInterfaces.NextCtrl
+        End If
+        
+        'объект
+        If NumChildWinObject = RHS(0) Then
+            ItemArray = RHS(1)
+            If Not IsEmpty(ItemArray) Then
+                IdObject = ItemArray(0)
+            Else
+                MsgBox "Не выбрано записи для добавления.", vbCritical + vbOKOnly, "Ошибка"
+                Exit Property
+            End If
+            Dim blnFill As Boolean
+            If FillDataObject(IdObject) Then
+              'lstViewObject.SetFocus
+              '--------------------------------
+               IParent.CloseWindow NumChildWinObject
+               IParent.SetFocusToWindow Numwin
+               objInterfaces.NextCtrl
+            End If
+        End If
+        
+        'расчетный счет
+        If NumChildWinAccount = RHS(0) Then
+            ItemArray = RHS(1)
+            If Not IsEmpty(ItemArray) Then
+                IdAccount = ItemArray(0)
+            Else
+                MsgBox "Не выбрано записи для добавления.", vbCritical + vbOKOnly, "Ошибка"
+                Exit Property
+            End If
+            
+            ' получить наименование расчетного счета
+            objParamIn.ClearParameters
+            objParamOut.ClearParameters
+            objParamIn.Parameter("IdAccount") = IdAccount
+            UbsChannel1.Run "TradeGetAccountPM", objParamIn, objParamOut
+            txtRS(intTabAcc).Text = objParamOut.Parameter("Account Name")
+            '--------------------------------
+            IParent.CloseWindow NumChildWinAccount
+            IParent.SetFocusToWindow Numwin
+            objInterfaces.NextCtrl
+        End If
+    End If
+    ' Конец работы со списком
+    ' ---------------------------------------------
+                                                                                                                                                                           
+    Exit Property
+
+ErrorCode:
+    objError.UbsErrMsg "UBSChild_ParamInfo", "ошибка выполнения"
+    
+    If CheckParamForClose(NameParam) Then
+        cmdExit_Click
+    End If
+    
+End Property
+
+Private Property Get UBSChild_ParamInfo(ByVal NameParam As String) As Variant
+On Error GoTo ErrorCode
+
+    If NameParam = "WaitShow" Then
+        UBSChild_ParamInfo = True
+    End If
+    
+    Exit Property
+    
+ErrorCode:
+    objError.UbsErrMsg "UBSChild_ParamInfo_Get", "ошибка выполнения"
+
+End Property
+
+Private Property Let UBSChild_Parrent(ByVal RHS As Object)
+On Error GoTo ErrorCode
+
+    Set IParent = RHS
+    
+    Exit Property
+    
+ErrorCode:
+    objError.UbsErrMsg "UBSChild_Parrent", "ошибка выполнения"
+
+End Property
+
+Private Property Let UBSChild_RunParameter(ByVal RHS As String)
+
+End Property
+
+Private Property Get UBSChild_Sizable() As Boolean
+On Error GoTo ErrorCode
+
+    UBSChild_Sizable = True
+    
+    Exit Property
+    
+ErrorCode:
+    objError.UbsErrMsg "UBSChild_Sizable", "ошибка выполнения"
+
+End Property
+
+Private Property Get UBSChild_TitleWindow() As String
+On Error GoTo ErrorCode
+
+    UBSChild_TitleWindow = "Карточка сделки"
+    
+    Exit Property
+    
+ErrorCode:
+    objError.UbsErrMsg "UBSChild_TitleWindow", "ошибка выполнения"
+
+End Property
+
+Private Property Get UBSChild_Width() As Integer
+On Error GoTo ErrorCode
+
+    UBSChild_Width = UserDocument.MinWidth
+    
+    Exit Property
+    
+ErrorCode:
+    objError.UbsErrMsg "UBSChild_Width", "ошибка выполнения"
+
+End Property
+
+Private Property Let UBSChild_WidthBrowser(ByVal RHS As Variant)
+On Error GoTo ErrorCode
+
+    Dim SSTabs_Right As Long, SSTabsPanel1_Right As Long
+    Dim SSTabs1_Right As Long, SSTabs1Panel1_Right As Long
+    Dim lstViewOblig_Right As Long, lstViewObject_Right As Long
+
+    If RHS < UserDocument.MinWidth Then RHS = UserDocument.MinWidth
+    
+    SSTabs.Width = RHS - 165
+    ucpParam.Width = RHS - 1000 '345
+    cmdExit.Left = RHS - 1395
+    cmdSave.Left = RHS - 2655
+    '------------------------------------------------------------
+    SSTabs_Right = 105
+    SSTabsPanel1_Right = 30
+    SSTabs1_Right = 60
+    SSTabs1Panel1_Right = 30
+    lstViewOblig_Right = 1335
+    lstViewObject_Right = 1290
+    '------------------------------------------------------------
+    cmdAddOblig.Left = RHS - (SSTabs_Right + SSTabsPanel1_Right + 240 + cmdAddOblig.Width)
+    cmdEditOblig.Left = RHS - (SSTabs_Right + SSTabsPanel1_Right + 240 + cmdEditOblig.Width)
+    cmdDelOblig.Left = RHS - (SSTabs_Right + SSTabsPanel1_Right + 240 + cmdDelOblig.Width)
+    '------------------------------------------------------------
+    lstViewOblig.Width = RHS - ( _
+    SSTabs.Left + SSTabsPanel1.Left + lstViewOblig.Left + _
+    SSTabs_Right + SSTabsPanel1_Right + lstViewOblig_Right)
+    '------------------------------------------------------------
+    SSTabs1.Width = RHS - ( _
+    SSTabs.Left + SSTabsPanel1.Left + SSTabs1.Left + _
+    SSTabs_Right + SSTabsPanel1_Right + SSTabs1_Right)
+    '------------------------------------------------------------
+    cmdAddObject.Left = RHS - ( _
+    SSTabs_Right + SSTabsPanel1_Right + SSTabs1_Right + SSTabs1Panel1_Right + _
+    cmdAddObject.Width + 450)
+    '------------------------------------------------------------
+    cmdDelObject.Left = RHS - ( _
+    SSTabs_Right + SSTabsPanel1_Right + SSTabs1_Right + SSTabs1Panel1_Right + _
+    cmdDelObject.Width + 450)
+    '------------------------------------------------------------
+    lstViewObject.Width = RHS - ( _
+    SSTabs.Left + SSTabsPanel1.Left + SSTabs1.Left + SSTabs1Panel1.Left + _
+    lstViewObject.Left + _
+    SSTabs_Right + SSTabsPanel1_Right + SSTabs1_Right + SSTabs1Panel1_Right + _
+    lstViewObject_Right)
+    '------------------------------------------------------------
+    cmdApplayOblig.Left = SSTabs1.Width - 300 - cmdApplayOblig.Width - cmdExitOblig.Width - 60
+    cmdExitOblig.Left = SSTabs1.Width - 300 - cmdExitOblig.Width
+    
+    Exit Property
+    
+ErrorCode:
+    objError.UbsErrMsg "UBSChild_WidthBrowser", "ошибка выполнения"
+
+End Property
+
+Private Sub ArrayParam()
+On Error GoTo ErrorCode
+
+    objFormParam.Parameter("WaitShow") = True
+    objFormParam.Parameter("SetFocus") = True
+    objFormParam.Parameter("LostFocus") = True
+    objFormParam.Parameter("InitParamForm") = True
+    objFormParam.Parameter("RetFromGrid") = True
+    
+    Exit Sub
+    
+ErrorCode:
+    objError.UbsErrMsg "ArrayParam", "ошибка выполнения"
+
+End Sub
+
+Private Sub UserDocument_Hide()
+On Error GoTo ErrorCode
+
+    DDX.ReleaseControlData
+    objStub.ReleaseUbsChannel
+    
+    Set objError = Nothing
+    Set objInterfaces = Nothing
+    Set objFormParam = Nothing
+    Set objParamIn = Nothing
+    Set objParamOut = Nothing
+    Set objFocusCtrl = Nothing
+    Set objStub = Nothing
+    Set objFormat = Nothing
+    Set objArray = Nothing
+    
+    Set objParamOblig = Nothing
+    Set objParamTrade = Nothing
+
+    If Not bParentWindowClose And IParent.IsExistParam(NumParentWindow, "RefreshGrid") = True Then
+        IParent.ParamInfo(NumParentWindow, "RefreshGrid") = blnNeedRefresh
+    End If
+    
+    If Not bParentWindowClose And IParent.IsExistParam(NumParentWindow, "SelectItem") = True And blnNeedSelect Then
+        IParent.ParamInfo(NumParentWindow, "SelectItem") = DDX.MemberData("ID_TRADE")
+    End If
+
+    Exit Sub
+    
+ErrorCode:
+    objError.UbsErrMsg "UserDocument_Hide", "ошибка выполнения"
+    
+End Sub
+
+Private Sub UserDocument_Initialize()
+On Error GoTo ErrorCode
+
+    Set objFormParam = CreateObject("ToolPubs.IUbsParam")
+    Set objError = CreateObject("ToolPubs.IUbsError")
+    Set objInterfaces = CreateObject("ToolPubs.Interfaces")
+    Set objStub = CreateObject("UbsAddFiledsStub.IUbsAddFiledsStub")
+    Set objFormat = CreateObject("Lib3.IUbsFormat")
+    Set objArray = CreateObject("Lib1.IUbsArray")
+    ArrayParam
+    
+    Exit Sub
+    
+ErrorCode:
+    objError.UbsErrMsg "UserDocument_Initialize", "ошибка выполнения"
+
+End Sub
+
+Private Function CheckParamForClose(ByVal NameParam As String) As Boolean
+On Error GoTo ErrorCode
+
+    CheckParamForClose = False
+    If NameParam = "LoadFromMenu" Or _
+       NameParam = "InitParamForm" Or _
+       NameParam = "InitParamGrid" Then
+       CheckParamForClose = True
+    End If
+    
+    Exit Function
+    
+ErrorCode:
+    objError.UbsErrMsg "CheckParamForClose", "ошибка выполнения"
+
+End Function
+
+Private Sub UserDocument_KeyPress(KeyAscii As Integer)
+On Error GoTo ErrorCode
+
+    Select Case KeyAscii
+        Case 13
+            KeyAscii = 0
+            Select Case UserDocument.ActiveControl.Name
+                Case "cmbContractType2"
+                     If cmdContract2.Enabled Then
+                        cmdContract2.SetFocus
+                     Else
+                        If cmbComission.Enabled And cmbComission.Visible Then
+                           cmbComission.SetFocus
+                        Else
+                           SSTabs.Tabs(2).Selected = True
+                           If SSTabs.Tabs(2).Selected Then cmdAddOblig.SetFocus
+                        End If
+                     End If
+                Case "cmbUnit"
+                     txtCostUnit.SetFocus
+                Case "cmbCurOblig"
+                     If cmbUnit.Enabled Then
+                        cmbUnit.SetFocus
+                     Else
+                        txtCostUnit.SetFocus
+                     End If
+                Case "cmbComission"
+                     SSTabs.Tabs(2).Selected = True
+                     cmdAddOblig.SetFocus
+                Case "cmdAddOblig", "cmdEditOblig"
+                     SSTabs.Tabs(3).Selected = True
+                     SSTabs1.SetFocus
+                     SSTabs1.Tabs(1).Selected = True
+                     If cmbNaprTrade.Enabled Then
+                        cmbNaprTrade.SetFocus
+                     Else
+                        cmbCurOblig.SetFocus
+                     End If
+                Case "txtRateCurOblig"
+                     If txtDatePost.Enabled Then
+                        txtDatePost.SetFocus
+                     Else
+                        If txtMassa.Enabled Then
+                           txtMassa.SetFocus
+                        Else
+                           If SSTabs1.Tabs(2).Enabled And SSTabs1.Tabs(2).Visible Then
+                              SSTabs1.Tabs(2).Selected = True
+                              cmdAddObject.SetFocus
+                           Else
+                              cmdApplayOblig.SetFocus
+                           End If
+                        End If
+                     End If
+                '-------------------------------------------------------------
+                Case "txtBIK"
+                  If SSActiveTabs1.Tabs(2).Selected Then
+                     FillKS (1)
+                     objInterfaces.NextCtrl
+                  End If
+                  If SSActiveTabs1.Tabs(1).Selected Then
+                    FillKS (0)
+                    objInterfaces.NextCtrl
+                  End If
+                Case "txtRS"
+                  If SSActiveTabs1.Tabs(2).Selected Then
+                     If Not CheckKey(1) Then
+                        If txtRS(1).Enabled Then
+                            txtRS(1).SetFocus
+                        Else
+                            cmdAccount(1).SetFocus
+                        End If
+                     Else
+                        txtClient(1).SetFocus
+                     End If
+                  End If
+                  If SSActiveTabs1.Tabs(1).Selected Then
+                    'проверяем ключ счета
+                     If Not CheckKey(0) Then
+                        If txtRS(0).Enabled Then
+                            txtRS(0).SetFocus
+                        Else
+                            cmdAccount(0).SetFocus
+                        End If
+                     Else
+                        txtClient(0).SetFocus
+                     End If
+                  End If
+                  
+                Case "txtMassa"
+                   If txtDateOpl.Enabled Then
+                      txtDateOpl.SetFocus
+                   Else
+                      If SSTabs1.Tabs(2).Enabled And SSTabs1.Tabs(2).Visible Then
+                         SSTabs1.Tabs(2).Selected = True
+                         cmdAddObject.SetFocus
+                      Else
+                         cmdApplayOblig.SetFocus
+                      End If
+                   End If
+                Case "txtDateOpl"
+                   If SSTabs1.Tabs(2).Enabled And SSTabs1.Tabs(2).Visible Then
+                      SSTabs1.Tabs(2).Selected = True
+                      cmdAddObject.SetFocus
+                   Else
+                      cmdApplayOblig.SetFocus
+                   End If
+                     
+                Case "txtINN"
+                    'objInterfaces.NextCtrl
+                    'проверяем ИНН
+                    If SSActiveTabs1.Tabs(2).Selected Then
+                       If Not CheckINN(1) Then
+                          txtINN(1).SetFocus
+                       Else
+                          cmdSave.SetFocus
+                       End If
+                    End If
+                    If SSActiveTabs1.Tabs(1).Selected Then
+                       If Not CheckINN(0) Then
+                          txtINN(0).SetFocus
+                       Else
+                          If SSActiveTabs1.Tabs(2).Visible Then
+                             SSActiveTabs1.Tabs(2).Selected = True
+                             cmdListInstr(1).SetFocus
+                          Else
+                             cmdSave.SetFocus
+                          End If
+                       End If
+                    End If
+                    
+                Case Else
+                    objInterfaces.NextCtrl
+            End Select
+        Case 27
+            KeyAscii = 0
+            objInterfaces.PrevCtrl
+    End Select
+
+    Exit Sub
+    
+ErrorCode:
+    objError.UbsErrMsg "UserDocument_KeyPress", "ошибка выполнения"
+    
+End Sub
+
+Private Sub InitDoc()
+Dim varOpl, varOpl_1 As Variant
+On Error GoTo ErrorCode
+    
+    Dim ArrOut As Variant
+    Dim strName As String, varValue As Variant
+    Dim intContractType1 As Integer, intContractType2 As Integer
+    Dim intChkNDS As Integer, intChkExport As Integer
+    
+    blnNeedSelect = False
+    blnNeedRefresh = False
+    blnCloseForm = False
+    
+    blnAddOblig = False
+    blnEditOblig = False
+    
+    Set objStub.UbsChannel = UbsChannel1
+    
+    chkCash(0).Visible = False ' возможность расчета через кассу только для наличных сделок с клиентом (брокерский договор с клиентом)
+    chkCash(1).Visible = False ' возможность расчета через кассу только для наличных сделок с клиентом (брокерский договор с клиентом)
+    
+    FillCombos      'Заполнение комбо-боксов
+    
+    'значение нашего БИКа
+    objParamIn.ClearParameters
+    objParamOut.ClearParameters
+    UbsChannel1.Run "FillOurBIK", objParamIn, objParamOut
+    strOurBIK = objParamOut.Parameter("Наш БИК")
+    
+    'Заполнение полей
+    If strRunParam = "EDIT" Then
+        blnClearContr1 = False
+        blnClearContr2 = False
+        blnClearOblig = False
+        DDX.InitMemberData("ID_TRADE") = RSIdent(0)
+        DDX.MemberData("ID_TRADE") = RSIdent(0)
+        
+        objParamIn.ClearParameters
+        objParamOut.ClearParameters
+        objParamIn.Parameter("ID_TRADE") = DDX.MemberData("ID_TRADE")
+        UbsChannel1.Run "GetOneTrade", objParamIn, objParamOut
+        
+        If objParamOut.ExistParameter("IsNDS") Then
+            intChkNDS = Abs(objParamOut.Parameter("IsNDS"))
+        End If
+        
+        If objParamOut.ExistParameter("IsExport") Then
+            intChkExport = Abs(objParamOut.Parameter("IsExport"))
+        End If
+        
+        '6060
+        If objParamOut.ExistParameter("IsExternalStorage") Then
+            chkExternalStorage.Value = Abs(objParamOut.Parameter("IsExternalStorage"))
+        End If
+               
+        ArrOut = objParamOut.Parameters
+        For n = LBound(ArrOut, 2) To UBound(ArrOut, 2)
+            strName = ArrOut(0, n)
+            varValue = ArrOut(1, n)
+            If Not (strName = "Инструкция по оплате для покупателя" Or strName = "Инструкция по оплате для продавца") Then
+               DDX.InitMemberData(strName) = varValue
+               DDX.MemberData(strName) = varValue
+            End If
+        Next
+        
+        '0 наличные
+        '1 срочные
+        intVidTrade = DDX.MemberData("Вид сделки")
+        
+        If Not intVidTrade = 0 Then
+            cmdAccounts.Visible = True
+            lblAccounts.Visible = True
+        End If
+        
+        If objParamOut.ExistParameter("Инструкция по оплате для покупателя") Then
+           varOpl = objParamOut.Parameter("Инструкция по оплате для покупателя")
+        End If
+        If objParamOut.ExistParameter("Инструкция по оплате для продавца") Then
+           varOpl_1 = objParamOut.Parameter("Инструкция по оплате для продавца")
+        End If
+        
+        ' получить данные хранилища
+        Call FillControlStorage
+        
+        '-------------------------------------------------------------------------
+        'инициализация DDX-переменных, связанных с combo-контролами
+        '----------------------
+        'тип сделки
+        For n = 0 To cmbTradeType.ListCount - 1
+            If cmbTradeType.ItemData(n) = DDX.MemberData("TYPE_TRADE") Then
+                DDX.InitMemberData("TYPE_TRADE") = n
+                DDX.MemberData("TYPE_TRADE") = n
+            End If
+        Next
+        '----------------------
+        'вид поставки по сделке
+        For n = 0 To cmbKindSupplyTrade.ListCount - 1
+            If cmbKindSupplyTrade.ItemData(n) = DDX.MemberData("Вид поставки по сделке") Then
+                DDX.InitMemberData("Вид поставки по сделке") = n
+                DDX.MemberData("Вид поставки по сделке") = n
+            End If
+        Next
+        '----------------------
+        
+        'идентификатор базовой валюты
+        objParamIn.ClearParameters
+        objParamOut.ClearParameters
+        UbsChannel1.Run "FillBaseCurrency", objParamIn, objParamOut
+        idBaseCurrency = objParamOut.Parameter("Идентификатор базовой валюты")
+
+        'валюта обязательства
+        For n = 0 To cmbCurOblig.ListCount - 1
+            If cmbCurOblig.ItemData(n) = idBaseCurrency Then
+               DDX.MemberData("Идентификатор валюты обязательства") = n
+            End If
+         Next
+        '---------------------------------------------------------
+        '--------------------------------
+        'валюта оплаты
+        For n = 0 To cmbCurrencyOpl.ListCount - 1
+            If cmbCurrencyOpl.ItemData(n) = DDX.MemberData("Идентификатор валюты оплаты") Then
+                DDX.InitMemberData("Идентификатор валюты оплаты") = n
+                DDX.MemberData("Идентификатор валюты оплаты") = n
+            End If
+        Next
+        '----------------------
+        'драг.металл
+        blnCurrencyPostClick = False
+
+        For n = 0 To cmbCurrencyPost.ListCount - 1
+            If cmbCurrencyPost.ItemData(n) = DDX.MemberData("Идентификатор драг.металла") Then
+                DDX.InitMemberData("Идентификатор драг.металла") = n
+                DDX.MemberData("Идентификатор драг.металла") = n
+            End If
+        Next
+        
+        strCurrencyPost = cmbCurrencyPost.Text
+        '-------------------------------------------------------------------
+        'стороны сделки
+        
+        'продавец
+        Call FillControlContract(DDX.MemberData("Продавец"), txtContractCode1, txtClientName1, IdClient1)
+        intContractType1 = objParamOut.Parameter("TYPE_CONTRACT")
+        
+        'покупатель
+        Call FillControlContract(DDX.MemberData("Покупатель"), txtContractCode2, txtClientName2, IdClient2)
+        intContractType2 = objParamOut.Parameter("TYPE_CONTRACT")
+
+        For n = 0 To cmbContractType1.ListCount - 1
+            If cmbContractType1.ItemData(n) = intContractType1 Then
+                cmbContractType1.ListIndex = n
+            End If
+        Next
+        For n = 0 To cmbContractType2.ListCount - 1
+            If cmbContractType2.ItemData(n) = intContractType2 Then
+                cmbContractType2.ListIndex = n
+            End If
+        Next
+        '----------------------
+        'идентификатор комиссии
+        For n = 0 To cmbComission.ListCount - 1
+            If cmbComission.ItemData(n) = DDX.MemberData("Идентификатор комиссии") Then
+                DDX.InitMemberData("Идентификатор комиссии") = n
+                DDX.MemberData("Идентификатор комиссии") = n
+            End If
+        Next
+        '------------------------------------------------------------------
+        'заполнить список обязательств
+        objParamIn.ClearParameters
+        objParamOut.ClearParameters
+        objParamIn.Parameter("ID_TRADE") = DDX.MemberData("ID_TRADE")
+        UbsChannel1.Run "FillObligPM", objParamIn, objParamOut
+        FillListOblig objParamOut.Parameter("Обязательства сделки")
+        ' при вынесении инструкций из обязательства, параметром обязательства остаются _
+        одни объекты, которых при обезличенной сделке нет, следовательно параметра _
+        "Обязательства сделки2" может и не быть
+        If objParamOut.ExistParameter("Обязательства сделки2") Then
+           objParamOblig.Parameters = _
+                objParamOut.Parameter("Обязательства сделки2").Parameters
+        End If
+        '------------------------------------------------------------------
+        ' заполняем Инструкции по Оплате
+        Call FillControlInstrOplata(0, varOpl)
+
+        Call FillControlInstrOplata(1, varOpl_1)
+        
+        If intVidTrade = 0 Then
+           If intContractType1 = 1 Then
+              If CStr(txtBIK(1).Text) = CStr(strOurBIK) And CStr(Left(txtRS(1).Text, 5)) = "20202" Then
+                 chkCash(1).Visible = True
+                 chkCash(1).Value = 1
+                 cmdListInstr(1).Visible = False
+                 lblCheckInstr(1).Visible = False
+              End If
+           End If
+           If intContractType2 = 1 Then
+              If CStr(txtBIK(0).Text) = CStr(strOurBIK) And CStr(Left(txtRS(0).Text, 5)) = "20202" Then
+                 chkCash(0).Visible = True
+                 chkCash(0).Value = 1
+                 cmdListInstr(0).Visible = False
+                 lblCheckInstr(0).Visible = False
+              End If
+           End If
+        End If
+        '------------------------------------------------------------------
+        
+        ' НДС и Экспортная
+        If Not IsEmpty(intChkExport) And intChkNDS = 1 Then
+            chkNDS.Visible = True
+            chkNDS.Value = 1
+        Else
+            UpdateDisplayNDS
+        End If
+        
+        If Not IsEmpty(intChkExport) And intChkExport = 1 Then
+            chkExport.Visible = True
+            chkExport.Value = 1
+        Else
+            UpdateDisplayExport
+        End If
+        '------------------------------------------------------------------
+        
+        'Проверка, если были операции по сделке, то редактировать сделку нельзя
+        objParamIn.Parameter("ID_TRADE") = DDX.MemberData("ID_TRADE")
+        UbsChannel1.Run "PMCheckOperationByTrade", objParamIn, objParamOut
+        blnWasOper = objParamOut.Parameter("Was_Operation")
+        '------------------------------------------------------------------
+    Else 'ADD
+        DDX.InitMemberData("ID_TRADE") = Empty
+        DDX.InitMemberData("DATE_TRADE") = #1/1/2222#
+        DDX.InitMemberData("NUM_TRADE") = ""
+        DDX.InitMemberData("IS_COMPOSIT") = Empty
+        DDX.InitMemberData("TYPE_TRADE") = -1
+        DDX.InitMemberData("Вид сделки") = -1
+        DDX.InitMemberData("Вид поставки по сделке") = -1
+        DDX.InitMemberData("Идентификатор валюты оплаты") = -1
+        DDX.InitMemberData("Инструкция по поставке") = 0
+        '----------------------------------------------------------
+        DDX.InitMemberData("Идентификатор драг.металла") = -1
+        DDX.InitMemberData("Идентификатор комиссии") = -1
+        DDX.MemberData("DATE_TRADE") = Date
+        DDX.MemberData("Вид поставки по сделке") = 1
+        DDX.MemberData("Вид сделки") = intVidTrade
+        '----------------------
+        'драг.металл
+        blnCurrencyPostClick = False
+
+        For n = 0 To cmbCurrencyPost.ListCount - 1
+            If cmbCurrencyPost.ItemData(n) = 1001 Then
+                DDX.MemberData("Идентификатор драг.металла") = n
+            End If
+        Next
+        
+        strCurrencyPost = cmbCurrencyPost.Text
+        '--------------------
+        'идентификатор базовой валюты
+        objParamIn.ClearParameters
+        objParamOut.ClearParameters
+        UbsChannel1.Run "FillBaseCurrency", objParamIn, objParamOut
+        idBaseCurrency = objParamOut.Parameter("Идентификатор базовой валюты")
+
+        'валюта оплаты
+        For n = 0 To cmbCurrencyOpl.ListCount - 1
+            If cmbCurrencyOpl.ItemData(n) = idBaseCurrency Then
+                DDX.MemberData("Идентификатор валюты оплаты") = n
+            End If
+        Next
+        'валюта обязательства
+        For n = 0 To cmbCurOblig.ListCount - 1
+            If cmbCurOblig.ItemData(n) = idBaseCurrency Then
+               DDX.MemberData("Идентификатор валюты обязательства") = n
+            End If
+         Next
+        '------------------------------------------------------------
+        
+        '----------------------
+        'стороны сделки
+        DDX.InitMemberData("Продавец") = Empty 'id договора
+        DDX.InitMemberData("Покупатель") = Empty 'id договора
+        
+        blnCheckType2 = False
+        cmbContractType1.ListIndex = 0 '-1
+        cmbContractType2.ListIndex = 0 '-1
+        blnCheckType2 = True
+        
+        'номер в части
+        DDX.InitMemberData("Макс.номер в части 1") = 0
+        DDX.InitMemberData("Макс.номер в части 2") = 0
+        DDX.MemberData("Макс.номер в части 1") = 0
+        DDX.MemberData("Макс.номер в части 2") = 0
+    End If
+    
+    '======================================================
+    'видимость контролов
+    '------------------------------------------------------
+    'эти контролы включаться не будут
+    
+    'Основные
+    'cmbCurrencyOpl.Enabled = False 'будем отрабатывать оплату в валюте
+    txtContractCode1.Enabled = False
+    txtClientName1.Enabled = False
+    txtContractCode2.Enabled = False
+    txtClientName2.Enabled = False
+    
+    'Данные, Обязательство
+    txtSumOpl.Enabled = False
+    
+    'Данные, Инструкция по оплате
+    txtKS(0).Enabled = False
+    txtName(0).Enabled = False
+    txtKS(1).Enabled = False
+    txtName(1).Enabled = False
+
+    'Данные, Инстукция по поставке
+    txtStorageCode.Enabled = False
+    txtStorageName.Enabled = False
+    '------------------------------------------------------
+    'эти контролы включаются в процессе работы
+    
+    chkIsComposit.Visible = CBool(intVidTrade <> 0)
+    
+    'Основные
+    cmdContract1.Enabled = False
+    cmdContract2.Enabled = False
+    
+    'Данные, Обязательство
+    txtMassa.Enabled = False
+    cmbNaprTrade.Text = "прямая"
+    cmbNaprTrade.Enabled = False
+
+    'Данные, Инструкция по оплате
+    txtRS(0).Enabled = False
+    cmdAccount(0).Enabled = False
+    txtRS(1).Enabled = False
+    cmdAccount(1).Enabled = False
+    '======================================================
+    'видимость вкладок
+    SSTabs.Tabs(3).Enabled = CBool(IsExistOblig)
+
+    DDX.UpdateData (False)
+    ucpParam.UbsAddFields = objStub
+    ucpParam.Refresh
+    'получение Курса пересчета валюты обязательства и Цену за един. в валюте обязательства
+       GetRate_CB
+       GetRateForPM
+    '----------------------------------
+    If strRunParam = "EDIT" Then
+       If blnWasOper Then
+           'Call EnableWindow(SSTabsPanel2.hwnd, 0&) ' обязательства
+           Call EnableWindow(SSTabsPanel4.hwnd, 0&) ' Поставка
+           Call EnableWindow(SSActiveTabPanel1.hwnd, 0&) ' Оплата
+           Call EnableWindow(SSActiveTabPanel2.hwnd, 0&) ' Дополнительные
+           Call EnableWindow(SSTabs1Panel1.hwnd, 0&) ' обязательство
+           cmdAddOblig.Enabled = False
+           cmdEditOblig.Enabled = False
+           cmdDelOblig.Enabled = False
+           Call EnableWindow(SSTabs1Panel4.hwnd, 0&) ' объекты
+           Call EnableWindow(SSTabsPanel1.hwnd, 0&)
+           cmdSave.Enabled = False
+       End If
+    End If
+    blnCurrencyPostClick = True
+    
+    Exit Sub
+
+ErrorCode:
+    objError.UbsMsgRaise "InitDoc", "ошибка выполнения"
+    
+End Sub
+
+Private Sub FillCombos()
+On Error GoTo ErrorCode
+
+    Dim arrItem As Variant
+    
+    objParamIn.ClearParameters
+    objParamOut.ClearParameters
+    objParamIn.Parameter("ID_PATTERN") = 1
+    UbsChannel1.Run "TradeCombo_FillPM", objParamIn, objParamOut
+    
+    'тип сделки
+    cmbTradeType.AddItem "тип1", 0
+    cmbTradeType.ItemData(0) = 1
+    
+    'направление сделки
+    cmbNaprTrade.AddItem "прямая", 0
+    cmbNaprTrade.ItemData(0) = 1
+    
+    cmbNaprTrade.AddItem "обратная", 1
+    cmbNaprTrade.ItemData(1) = 2
+    
+    ' Единица измерения веса
+    cmbUnit.List(0) = "грамм"
+    cmbUnit.ItemData(0) = 1
+    cmbUnit.List(1) = "унция"
+    cmbUnit.ItemData(0) = 2
+    cmbUnit.ListIndex = 0
+    '==================================================================
+    
+    'типы договоров для поставщика
+    If objParamOut.ExistParameter("Типы договоров") Then
+        arrItem = objParamOut.Parameter("Типы договоров")
+        For n = 0 To UBound(arrItem, 2)
+            cmbContractType1.AddItem arrItem(1, n), n
+            cmbContractType1.ItemData(n) = arrItem(0, n)
+        Next
+    Else
+        cmbContractType1.AddItem "", 0
+    End If
+    
+    'типы договоров для покупателя
+    If objParamOut.ExistParameter("Типы договоров") Then
+        arrItem = objParamOut.Parameter("Типы договоров")
+        For n = 0 To UBound(arrItem, 2)
+            cmbContractType2.AddItem arrItem(1, n), n
+            cmbContractType2.ItemData(n) = arrItem(0, n)
+        Next
+    Else
+        cmbContractType2.AddItem "", 0
+    End If
+    
+    'валюты поставки
+    If objParamOut.ExistParameter("Валюты поставки") Then
+        arrItem = objParamOut.Parameter("Валюты поставки")
+        For n = 0 To UBound(arrItem, 2)
+            cmbCurrencyPost.AddItem arrItem(1, n), n
+            cmbCurrencyPost.ItemData(n) = arrItem(0, n)
+        Next
+    Else
+        cmbCurrencyPost.AddItem "", 0
+    End If
+
+    'валюты оплаты и обязательства
+    If objParamOut.ExistParameter("Валюты оплаты") Then
+        arrCurrency = objParamOut.Parameter("Валюты оплаты")
+        For n = 0 To UBound(arrCurrency, 2)
+            cmbCurrencyOpl.AddItem arrCurrency(1, n), n
+            cmbCurrencyOpl.ItemData(n) = arrCurrency(0, n)
+            ' заполнение комбобокса валюта обязательства
+            cmbCurOblig.List(n) = arrCurrency(1, n)
+            cmbCurOblig.ItemData(n) = arrCurrency(0, n)
+            '------------------------------------------------------
+        Next
+    Else
+        cmbCurrencyOpl.AddItem "", 0
+    End If
+    
+    'вид поставки по сделке
+    cmbKindSupplyTrade.AddItem "обезличенная", 0
+    cmbKindSupplyTrade.ItemData(0) = 1
+    
+    cmbKindSupplyTrade.AddItem "физическая", 1
+    cmbKindSupplyTrade.ItemData(1) = 2
+    
+    'список комиссий
+    If objParamOut.ExistParameter("Список комиссий") Then
+        arrItem = objParamOut.Parameter("Список комиссий")
+        For n = 0 To UBound(arrItem, 2)
+            cmbComission.AddItem arrItem(1, n), n
+            cmbComission.ItemData(n) = arrItem(0, n)
+        Next
+    Else
+        cmbComission.AddItem "", 0
+    End If
+
+    Exit Sub
+    
+ErrorCode:
+    objError.UbsErrMsg "FillCombos", "ошибка выполнения"
+    
+End Sub
+
+Private Sub UserDocument_KeyDown(KeyCode As Integer, Shift As Integer)
+On Error GoTo ErrorCode
+    If Shift = 2 And KeyCode = vbKeyTab Then
+        Set objFocusCtrl = UserDocument.ActiveControl
+        intFocusTab = SSTabs.SelectedTab.Index
+        IParent.LoaderParamInfo(0, "NextWindow") = Numwin
+    End If
+    
+    Exit Sub
+
+ErrorCode:
+    objError.UbsErrMsg "UserDocument_KeyDown", "ошибка выполнения"
+    
+End Sub
+
+Private Sub InitChannel()
+On Error GoTo ErrorCode
+ 
+    UbsChannel1.HostAddress = IParent.LoaderParamInfo(Numwin, "HostAddress")
+    UbsChannel1.UserGUID = IParent.LoaderParamInfo(Numwin, "GuidSession")
+    UbsChannel1.ParentHwnd = UserDocument.hwnd
+    UbsChannel1.LoadResource = "VBS:UBS_VBD\PM\Pm_Trade.vbs"
+ 
+    Set objParamIn = CreateObject("Lib2.IUbsParam")
+    Set objParamOut = CreateObject("Lib2.IUbsParam")
+    Set objParamOblig = CreateObject("Lib2.IUbsParam")
+    Set objParamTrade = CreateObject("Lib2.IUbsParam")
+    
+    Exit Sub
+    
+ErrorCode:
+    objError.UbsMsgRaise "InitChannel", "ошибка выполнения"
+    
+End Sub
+
+Private Function CheckData() As Boolean
+On Error GoTo ErrorCode
+    
+    CheckData = True
+    If cmbContractType1.ItemData(cmbContractType1.ListIndex) = _
+        cmbContractType2.ItemData(cmbContractType2.ListIndex) Then
+        MsgBox "Тип договора покупателя и продавца не может совпадать", vbOKOnly + vbCritical, "Проверка свойств"
+        CheckData = False
+        Exit Function
+    End If
+    
+    If cmbKindSupplyTrade.ListIndex = -1 Then
+        MsgBox "Не указан вид поставки по сделке", vbExclamation + vbOKOnly, "Ошибка ввода"
+        If SSTabs.Tabs(1).Selected Then cmbKindSupplyTrade.SetFocus
+        CheckData = False
+        Exit Function
+    End If
+    
+    If txtTradeDate.DateValue = #1/1/2222# Or Not txtTradeDate.IsValid Then
+        MsgBox "Не указана дата сделки", vbOKOnly + vbCritical, "Проверка свойств"
+        If SSTabs.Tabs(1).Selected Then txtTradeDate.SetFocus
+        CheckData = False
+        Exit Function
+    End If
+
+    If Len(Trim(txtTradeNum.Text)) = 0 Then
+        MsgBox "Не указан номер сделки", vbExclamation + vbOKOnly, "Ошибка ввода"
+        SSTabs.Tabs(1).Selected = True
+        txtTradeNum.SetFocus
+        CheckData = False
+        Exit Function
+    End If
+    
+    If cmbCurrencyPost.ListIndex = -1 Then
+        MsgBox "Не выбран драг.металл", vbExclamation + vbOKOnly, "Ошибка ввода"
+        If SSTabs.Tabs(1).Selected Then cmbCurrencyPost.SetFocus
+        CheckData = False
+        Exit Function
+    End If
+    
+    If cmbCurrencyOpl.ListIndex = -1 Then
+        MsgBox "Не выбрана валюта оплаты", vbExclamation + vbOKOnly, "Ошибка ввода"
+        If SSTabs.Tabs(1).Selected Then cmbCurrencyOpl.SetFocus
+        CheckData = False
+        Exit Function
+    End If
+    If cmbCurOblig.ListIndex = -1 Then
+        MsgBox "Не выбрана валюта обязательства", vbExclamation + vbOKOnly, "Ошибка ввода"
+        SSTabs.Tabs(3).Selected = True
+        SSTabs1.Tabs(1).Selected = True
+        cmbCurOblig.SetFocus
+        CheckData = False
+        Exit Function
+    End If
+    
+    If cmbUnit.ListIndex = -1 Then
+        MsgBox "Не указана единица измерения веса", vbExclamation + vbOKOnly, "Ошибка ввода"
+        SSTabs.Tabs(3).Selected = True
+        SSTabs1.Tabs(1).Selected = True
+        cmbUnit.SetFocus
+        CheckData = False
+        Exit Function
+    End If
+    
+    '------------------------------------------------------------------
+
+    If Len(txtContractCode1.Text) = 0 Then
+        MsgBox "Не выбран продавец", vbExclamation + vbOKOnly, "Ошибка ввода"
+        If SSTabs.Tabs(1).Selected Then
+            If cmdContract1.Enabled Then
+                cmdContract1.SetFocus
+            Else
+                cmbContractType1.SetFocus
+            End If
+        End If
+        CheckData = False
+        Exit Function
+    End If
+    
+    If Len(txtContractCode2.Text) = 0 Then
+        MsgBox "Не выбран покупатель", vbExclamation + vbOKOnly, "Ошибка ввода"
+        If SSTabs.Tabs(1).Selected Then
+            If cmdContract2.Enabled Then
+                cmdContract2.SetFocus
+            Else
+                cmbContractType2.SetFocus
+            End If
+        End If
+        CheckData = False
+        Exit Function
+    End If
+    
+    If lstViewOblig.ListItems.Count = 0 Then
+        MsgBox "Отсутствуют обязательства", vbExclamation + vbOKOnly, "Ошибка ввода"
+        CheckData = False
+        Exit Function
+    End If
+    
+    If SSActiveTabs1.Tabs(1).Visible = True Then
+       If Len(Trim(txtBIK(0).Text)) = 0 Or _
+          txtKS(0).Text = "0" Or _
+          txtRS(0).Text = "0" Then
+          MsgBox "Отсутствует инструкция по оплате у покупателя", vbExclamation + vbOKOnly, "Ошибка ввода"
+          SSTabs.Tabs(5).Selected = True
+          SSActiveTabs1.Tabs(1).Selected = True
+          cmdListInstr(0).SetFocus
+          CheckData = False
+          Exit Function
+       End If
+    End If
+    
+    If SSActiveTabs1.Tabs(2).Visible And SSActiveTabs1.Tabs(2).Enabled Then
+       If Len(Trim(txtBIK(1).Text)) = 0 Or _
+          txtKS(1).Text = "0" Or _
+          txtRS(1).Text = "0" Then
+          MsgBox "Отсутствует инструкция по оплате у продавца", vbExclamation + vbOKOnly, "Ошибка ввода"
+          SSTabs.Tabs(5).Selected = True
+          SSActiveTabs1.Tabs(2).Selected = True
+          cmdListInstr(1).SetFocus
+          CheckData = False
+          Exit Function
+       End If
+    End If
+    '-----------------------------------------------------
+    'проверка наличия списка объектов по всем обязательствам (для физической сделки)
+    If cmbKindSupplyTrade.Text = "физическая" Then
+        For n = 1 To lstViewOblig.ListItems.Count
+            If Not objParamOblig.ExistParameter("Object" & lstViewOblig.ListItems(n).SubItems(1)) Then
+                MsgBox "Отсутствует список объектов по обязательству", vbExclamation + vbOKOnly, "Ошибка ввода"
+                CheckData = False
+                Exit Function
+            End If
+        Next
+    End If
+    
+    ' проверка инструкции по поставке
+    If SSTabs.Tabs(4).Visible Then
+       If Len(Trim(txtStorageCode.Text)) = 0 Then
+          MsgBox "Отсутствует инструкция по поставке", vbExclamation + vbOKOnly, "Ошибка ввода"
+          SSTabs.Tabs(4).Selected = True
+          cmdStorage.SetFocus
+          CheckData = False
+          Exit Function
+       End If
+    End If
+
+    Exit Function
+    
+ErrorCode:
+    objError.UbsMsgRaise "CheckData", "ошибка выполнения"
+    
+End Function
+
+Private Sub cmdContract1_Click()
+On Error GoTo ErrorCode
+    
+    If Not CBool(chkCash(1).Value) Then ClearOpl (1)
+    
+    If NumChildWinContract1 <> 0 Then
+        IParent.SetFocusToWindow NumChildWinContract1
+        Exit Sub
+    End If
+    cmdContract1.Enabled = False
+    DDX.UpdateData True
+    
+    'список в зависимости от выбранного типа договора
+    Select Case cmbContractType1.ItemData(cmbContractType1.ListIndex)
+        Case 1
+            IParent.GetWindow "UBS_FLT\PM\BROKER.flt", NumChildWinContract1
+        Case 2
+            IParent.GetWindow "UBS_FLT\PM\CONTRACT.flt", NumChildWinContract1
+    End Select
+
+    If NumChildWinContract1 <> 0 Then
+        Dim objGridF As Object
+        Dim InitParamGrid As Variant
+        ReDim InitParamGrid(5)
+        Set objGridF = IParent.ParamInfo(NumChildWinContract1, "UbsGridList")
+        If IParent.IsExistParam(NumChildWinContract1, "InitParamGrid") Then
+            InitParamGrid(0) = Numwin
+            InitParamGrid(2) = True
+            InitParamGrid(5) = 1
+            IParent.ParamInfo(NumChildWinContract1, "InitParamGrid") = InitParamGrid
+            If IParent.IsExistParam(NumChildWinContract1, "SelectItem") Then
+                IParent.ParamInfo(NumChildWinContract1, "SelectItem") = DDX.MemberData("Продавец")
+            End If
+            IParent.SetFocusToWindow NumChildWinContract1
+        End If
+    End If
+    cmdContract1.Enabled = True
+    Exit Sub
+
+ErrorCode:
+    objError.UbsErrMsg "cmdContract1_Click", "ошибка выполнения"
+    
+End Sub
+
+Private Sub cmdContract2_Click()
+On Error GoTo ErrorCode
+    
+    If Not CBool(chkCash(0).Value) Then ClearOpl (0)
+
+    If NumChildWinContract2 <> 0 Then
+        IParent.SetFocusToWindow NumChildWinContract2
+        Exit Sub
+    End If
+    cmdContract2.Enabled = False
+    DDX.UpdateData True
+    
+    'список в зависимости от выбранного типа договора
+    Select Case cmbContractType2.ItemData(cmbContractType2.ListIndex)
+        Case 1
+            IParent.GetWindow "UBS_FLT\PM\BROKER.flt", NumChildWinContract2
+        Case 2
+            IParent.GetWindow "UBS_FLT\PM\CONTRACT.flt", NumChildWinContract2
+    End Select
+
+    If NumChildWinContract2 <> 0 Then
+        Dim objGridF As Object
+        Dim InitParamGrid As Variant
+        ReDim InitParamGrid(5)
+        Set objGridF = IParent.ParamInfo(NumChildWinContract2, "UbsGridList")
+        If IParent.IsExistParam(NumChildWinContract2, "InitParamGrid") Then
+            InitParamGrid(0) = Numwin
+            InitParamGrid(2) = True
+            InitParamGrid(5) = 1
+            IParent.ParamInfo(NumChildWinContract2, "InitParamGrid") = InitParamGrid
+            If IParent.IsExistParam(NumChildWinContract2, "SelectItem") Then
+                IParent.ParamInfo(NumChildWinContract2, "SelectItem") = DDX.MemberData("Покупатель")
+            End If
+            IParent.SetFocusToWindow NumChildWinContract2
+        End If
+    End If
+    cmdContract2.Enabled = True
+    Exit Sub
+
+ErrorCode:
+    objError.UbsErrMsg "cmdContract2_Click", "ошибка выполнения"
+    
+End Sub
+
+Private Sub cmdStorage_Click()
+On Error GoTo ErrorCode
+
+    If NumChildWinStorage <> 0 Then
+        IParent.SetFocusToWindow NumChildWinStorage
+        Exit Sub
+    End If
+    cmdStorage.Enabled = False
+    txtStorageCode.Text = ""
+    txtStorageName.Text = ""
+
+    DDX.UpdateData True
+    
+    If chkExternalStorage.Value = 1 Then
+        IParent.GetWindow "UBS_FLT\PM\EXTERNAL_STORAGES_LIST.flt", NumChildWinStorage
+    Else
+        IParent.GetWindow "UBS_FLT\PM\STORAGE.flt", NumChildWinStorage
+    End If
+    
+    If NumChildWinStorage <> 0 Then
+        Dim objGridF As Object
+        Dim InitParamGrid As Variant
+        ReDim InitParamGrid(5)
+        Set objGridF = IParent.ParamInfo(NumChildWinStorage, "UbsGridList")
+        If IParent.IsExistParam(NumChildWinStorage, "InitParamGrid") Then
+            InitParamGrid(0) = Numwin
+            InitParamGrid(2) = True
+            InitParamGrid(5) = 2
+            IParent.ParamInfo(NumChildWinStorage, "InitParamGrid") = InitParamGrid
+            If IParent.IsExistParam(NumChildWinStorage, "SelectItem") Then
+                IParent.ParamInfo(NumChildWinStorage, "SelectItem") = IdStorage
+            End If
+            IParent.SetFocusToWindow NumChildWinStorage
+        End If
+    End If
+    cmdStorage.Enabled = True
+    Exit Sub
+
+ErrorCode:
+    objError.UbsErrMsg "cmdStorage_Click", "ошибка выполнения"
+    
+End Sub
+
+Private Sub cmdAccount_Click(Index As Integer)
+'вызываем списки
+On Error GoTo ErrorCode
+
+    If NumChildWinAccount <> 0 Then
+        IParent.SetFocusToWindow NumChildWinAccount
+        Exit Sub
+    End If
+    cmdAccount(Index).Enabled = False
+    IParent.GetWindow "UBS_FLT\OD\account0.flt", NumChildWinAccount
+    intTabAcc = Index
+    
+    If NumChildWinAccount <> 0 Then
+        Dim objGridF As Object
+        Dim InitParamGrid As Variant
+        ReDim InitParamGrid(2)
+   
+        Set objGridF = IParent.ParamInfo(NumChildWinAccount, "UbsGridList")
+        objGridF.ClearWhereList
+        objGridF.AddWhereItem "Идентификатор счета", 5, 0
+        
+        objGridF.AddWhereItem "Идентификатор клиента", 4, IdClient2
+        objGridF.AddWhereItem "Идентификатор валюты", 3, 1000
+
+        If IParent.IsExistParam(NumChildWinAccount, "InitParamGrid") Then
+            InitParamGrid(0) = Numwin
+            InitParamGrid(2) = True
+            IParent.ParamInfo(NumChildWinAccount, "InitParamGrid") = InitParamGrid
+            IParent.SetFocusToWindow NumChildWinAccount
+        End If
+    End If
+    cmdAccount(Index).Enabled = True
+    Exit Sub
+
+ErrorCode:
+    objError.UbsErrMsg "cmdAccount_Click", "ошибка выполнения"
+
+End Sub
+
+Private Sub StartDialog(g As Integer)
+On Error GoTo ErrorCode
+
+    Dim ArrOut As Variant
+
+    Load frmInstr
+    Call frmInstr.StartForm(objError, objParamOut.Parameter("ArrInstr"))
+    frmInstr.Show vbModal, Me
+    
+    If frmInstr.IsChoice Then 'нажали кнопку "Выбор"
+        ArrOut = frmInstr.GetInstr 'считываем выбранные данные
+        
+        'заполняем контролы выбранными данными
+        txtBIK(g).Text = ArrOut(0)
+        txtName(g).Text = ArrOut(1)
+        txtKS(g).Text = ArrOut(2)
+        txtRS(g).Text = ArrOut(3)
+        txtClient(g).Text = ArrOut(4)
+        txtNote(g).Text = ArrOut(5)
+        txtINN(g).Text = ArrOut(6)
+        chkNotAkcept(g).Value = CInt(ArrOut(7))
+        
+        If txtBIK(g).Text = strOurBIK Then 'наш БИК
+            txtRS(g).Enabled = False
+            cmdAccount(g).Enabled = True
+            cmdAccount(g).SetFocus
+        Else
+            txtRS(g).Enabled = True
+            cmdAccount(g).Enabled = False
+            txtRS(g).SetFocus
+        End If
+    End If
+    Unload frmInstr
+    
+    Exit Sub
+    
+ErrorCode:
+    objError.UbsMsgRaise "StartDialog", "ошибка выполнения"
+    
+End Sub
+
+Private Function IsExistOblig() As Boolean
+On Error GoTo ErrorCode
+
+   IsExistOblig = CBool(lstViewOblig.ListItems.Count > 0)
+    
+   Exit Function
+    
+ErrorCode:
+    objError.UbsMsgRaise "IsExistOblig", "ошибка выполнения"
+
+End Function
+
+Private Sub CallOblig(ByVal sType As String)
+On Error GoTo ErrorCode
+
+    Dim strNapr As String
+    Dim dDateOpl As Variant, dDatePost As Variant, curCostUnit As Currency
+    Dim curSumOpl As Currency, curMassa As Currency
+    Dim h As Integer
+    
+    If sType = "Add" Then
+        strNapr = "прямая"
+        StrNumInPart = ""
+        If intVidTrade = 0 Then
+            'наличные сделки
+            dDateOpl = txtTradeDate.DateValue
+            dDatePost = txtTradeDate.DateValue
+            
+            txtDateOpl.Enabled = False
+            txtDatePost.Enabled = False
+        Else
+            dDateOpl = Date
+            dDatePost = Date
+        End If
+        
+        curCostUnit = 0
+        curMassa = 0
+        curSumOpl = 0
+        
+        txtDateOpl.DateValue = dDateOpl
+        txtDatePost.DateValue = dDatePost
+        txtSumOpl.CurrencyValue = curSumOpl
+        txtMassa.CurrencyValue = curMassa
+        txtMassaGramm.CurrencyValue = curMassa
+        txtSumOblig.CurrencyValue = 0
+        lblObligInfo2.Caption = "Цена: " & txtCostUnit.CurrencyValue & Space(3) & _
+        "Масса: " & txtMassa.Text & Space(3) & _
+        "Сумма: " & txtSumOpl.Text
+        chkRate.Value = 0
+        ClearDataOblig 'очистка контролов
+    Else '"Edit"
+        If Not IsExistOblig() Then Exit Sub
+     
+        'наличные сделки
+        txtDateOpl.Enabled = CBool(intVidTrade <> 0)
+        txtDatePost.Enabled = CBool(intVidTrade <> 0)
+
+        strNapr = lstViewOblig.SelectedItem ' направление
+        StrNumInPart = lstViewOblig.SelectedItem.SubItems(1) ' номер в части
+        dDateOpl = lstViewOblig.SelectedItem.SubItems(2) ' дата оплаты
+        dDatePost = lstViewOblig.SelectedItem.SubItems(3) ' дата поставки
+        curMassa = lstViewOblig.SelectedItem.SubItems(5) ' масса
+        
+        For h = 0 To UBound(arrCurrency, 2)
+            If arrCurrency(0, h) = lstViewOblig.SelectedItem.SubItems(7) Then ' Валюта обязательства
+               cmbCurOblig.Text = arrCurrency(1, h)
+            End If
+        Next
+        'txtRateCurOblig.CurrencyValue = lstViewOblig.SelectedItem.SubItems(8) ' Курс пересчета
+        txtRateCurOblig.VariantValue = lstViewOblig.SelectedItem.SubItems(8) ' Курс пересчета
+        '--------------------------------------------------------------
+        cmbUnit.ListIndex = IIf(lstViewOblig.SelectedItem.SubItems(9) = "грамм", 0, 1)
+        txtCostUnit.CurrencyValue = lstViewOblig.SelectedItem.SubItems(4) ' цена за ед. в валюте обяз.
+        'curCostUnit = objFormat.Round((txtCostUnit.CurrencyValue * txtRateCurOblig.CurrencyValue), 4) ' цена за ед. в валюте оплаты
+        curCostUnit = objFormat.Round((txtCostUnit.CurrencyValue * txtRateCurOblig.VariantValue), 4) ' цена за ед. в валюте оплаты
+        txtSumOblig.CurrencyValue = lstViewOblig.SelectedItem.SubItems(6) ' сумма в валюте обяз.
+
+        'curSumOpl = objFormat.Round(txtSumOblig.CurrencyValue * txtRateCurOblig.CurrencyValue, 2)   ' сумма в валюте оплаты
+        curSumOpl = objFormat.Round(txtSumOblig.CurrencyValue * txtRateCurOblig.VariantValue, 2)   ' сумма в валюте оплаты
+        strNaprTrade = strNapr
+
+        txtDateOpl.DateValue = dDateOpl
+        txtDatePost.DateValue = dDatePost
+        txtMassa.CurrencyValue = curMassa
+        GetMassaGramm
+        txtCostCurOpl.CurrencyValue = curCostUnit
+        txtSumOpl.CurrencyValue = curSumOpl
+        '=================================================================================
+        chkRate.Value = lstViewOblig.SelectedItem.SubItems(10)
+        FillDataOblig 'заполнение контролов
+    End If
+    
+    If Len(strNapr) = 0 Then
+        If chkIsComposit Then
+            cmbNaprTrade.ListIndex = -1
+        End If
+    Else
+        cmbNaprTrade.Text = strNapr
+    End If
+    
+    If blnAddOblig Or blnEditOblig Then 'не в режиме просмотра
+        SSTabs.Tabs(3).Selected = True
+        SSTabs1.SetFocus
+        SSTabs1.Tabs(1).Selected = True
+        If cmbNaprTrade.Enabled Then
+           cmbNaprTrade.SetFocus
+        Else
+           cmbCurOblig.SetFocus
+        End If
+        '------------------------
+    End If
+    
+    Exit Sub
+    
+ErrorCode:
+    objError.UbsErrMsg "CallOblig", "ошибка выполнения"
+    
+End Sub
+
+Function CheckDataOblig() As Boolean
+On Error GoTo ErrorCode
+
+    Dim eTitle As String, n As Long
+    eTitle = "Проверка свойств"
+    
+    'направление
+    If cmbNaprTrade.ListIndex = -1 Then
+        MsgBox "Не указано направление.", vbOKOnly + vbCritical, "Проверка свойств"
+        CheckDataOblig = False
+        Exit Function
+    End If
+        
+    'обязательство
+    If txtCostUnit.CurrencyValue = 0 Then
+        MsgBox "Не указана цена за единицу.", vbOKOnly + vbCritical, "Проверка свойств"
+        SSTabs.Tabs(3).Selected = True
+        SSTabs1.Tabs(1).Selected = True
+        txtCostUnit.SetFocus
+        CheckDataOblig = False
+        Exit Function
+    End If
+    
+    If txtDatePost.DateValue = #1/1/2222# Or Not txtDatePost.IsValid Then
+        MsgBox "Не указана дата поставки.", vbOKOnly + vbCritical, "Проверка свойств"
+        If SSTabs.Tabs(3).Selected And SSTabs1.Tabs(1).Selected Then
+            txtDatePost.SetFocus
+        End If
+        CheckDataOblig = False
+        Exit Function
+    End If
+    
+    If txtDatePost.DateValue < txtTradeDate.DateValue Then
+        MsgBox "Дата поставки не может быть меньше даты сделки.", vbOKOnly + vbCritical, "Проверка свойств"
+        If SSTabs.Tabs(3).Selected And SSTabs1.Tabs(1).Selected Then
+            txtDatePost.SetFocus
+        End If
+        CheckDataOblig = False
+        Exit Function
+    End If
+
+    If txtDateOpl.DateValue = #1/1/2222# Or Not txtDateOpl.IsValid Then
+        MsgBox "Не указана дата оплаты.", vbOKOnly + vbCritical, "Проверка свойств"
+        If SSTabs.Tabs(3).Selected And SSTabs1.Tabs(1).Selected Then
+            txtDateOpl.SetFocus
+        End If
+        CheckDataOblig = False
+        Exit Function
+    End If
+    
+    If txtDateOpl.DateValue < txtTradeDate.DateValue Then
+        MsgBox "Дата оплаты не может быть меньше даты сделки.", vbOKOnly + vbCritical, "Проверка свойств"
+        If SSTabs.Tabs(3).Selected And SSTabs1.Tabs(1).Selected Then
+            txtDateOpl.SetFocus
+        End If
+        CheckDataOblig = False
+        Exit Function
+    End If
+    
+    ' проверка курса пересчета
+    If txtRateCurOblig.CurrencyValue = 0 Then
+       MsgBox "Не указан курс пересчета", vbOKOnly + vbCritical, "Проверка свойств"
+       SSTabs.Tabs(3).Selected = True
+       SSTabs1.Tabs(1).Selected = True
+       txtRateCurOblig.SetFocus
+       CheckDataOblig = False
+       Exit Function
+    End If
+    
+    'масса для обезличенной сделки
+    If cmbKindSupplyTrade.ItemData(cmbKindSupplyTrade.ListIndex) = 1 Then
+        If txtMassa.CurrencyValue = 0 Then
+            MsgBox "Не указана масса металла.", vbOKOnly + vbCritical, "Проверка свойств"
+            SSTabs.Tabs(3).Selected = True
+            SSTabs1.Tabs(1).Selected = True
+            txtMassa.SetFocus
+            CheckDataOblig = False
+            Exit Function
+        End If
+    End If
+
+    '----------------------------------------------------------------------
+    'список объектов для физической сделки
+    If cmbKindSupplyTrade.ItemData(cmbKindSupplyTrade.ListIndex) = 2 Then
+        If lstViewObject.ListItems.Count = 0 Then
+            MsgBox "Не заполнен список объектов по обязательству", vbOKOnly + vbCritical, eTitle
+            SSTabs.Tabs(3).Selected = True
+            SSTabs1.Tabs(2).Selected = True
+            cmdAddObject.SetFocus
+            CheckDataOblig = False
+            Exit Function
+        End If
+    End If
+    
+    CheckDataOblig = True
+    
+    Exit Function
+    
+ErrorCode:
+     objError.UbsMsgRaise "CheckDataOblig", "ошибка выполнения"
+     
+End Function
+
+Private Sub SetResultsListOblig(ByVal sType As String)
+On Error GoTo ErrorCode
+
+    If sType = "Add" Then
+        Set objList = lstViewOblig.ListItems.Add(, , cmbNaprTrade.Text) ' направление
+        objList.SubItems(1) = StrNumInPart      ' номер в части
+        objList.SubItems(2) = txtDateOpl.DateValue   ' дата оплаты
+        objList.SubItems(3) = txtDatePost.DateValue  ' дата поставки
+        objList.SubItems(4) = txtCostUnit.CurrencyValue ' цена за ед. в валюте обяз.
+        objList.SubItems(5) = txtMassa.CurrencyValue    ' масса
+        objList.SubItems(6) = txtSumOblig.CurrencyValue   ' сумма в валюте обязат.
+        objList.SubItems(7) = cmbCurOblig.ItemData(cmbCurOblig.ListIndex)  ' Валюта обязательства
+        'objList.SubItems(8) = txtRateCurOblig.CurrencyValue  ' Курс пересчета
+        objList.SubItems(8) = txtRateCurOblig.VariantValue    ' Курс пересчета
+        objList.SubItems(9) = cmbUnit.Text ' Единица измерения веса
+        objList.SubItems(10) = Abs(CInt(chkRate.Value))  ' Курс пересчета - фиксированный
+        '---------------------------------------
+        Set objList = lstViewOblig.SelectedItem
+    Else
+        lstViewOblig.SelectedItem.Text = cmbNaprTrade.Text
+        lstViewOblig.SelectedItem.SubItems(1) = StrNumInPart
+        lstViewOblig.SelectedItem.SubItems(2) = txtDateOpl.DateValue
+        lstViewOblig.SelectedItem.SubItems(3) = txtDatePost.DateValue
+        lstViewOblig.SelectedItem.SubItems(4) = txtCostUnit.CurrencyValue
+        lstViewOblig.SelectedItem.SubItems(5) = txtMassa.CurrencyValue
+        lstViewOblig.SelectedItem.SubItems(6) = txtSumOblig.CurrencyValue
+        lstViewOblig.SelectedItem.SubItems(7) = cmbCurOblig.ItemData(cmbCurOblig.ListIndex)  ' Валюта обязательства
+        'lstViewOblig.SelectedItem.SubItems(8) = txtRateCurOblig.CurrencyValue  ' Курс пересчета
+        lstViewOblig.SelectedItem.SubItems(8) = txtRateCurOblig.VariantValue    ' Курс пересчета
+        lstViewOblig.SelectedItem.SubItems(9) = cmbUnit.Text ' Единица измерения веса
+        objList.SubItems(10) = Abs(CInt(chkRate.Value))  ' Курс пересчета - фиксированный
+        '---------------------------------------
+        
+    End If
+    
+    Exit Sub
+
+ErrorCode:
+    objError.UbsMsgRaise "SetResultsListOblig", "ошибка выполнения"
+
+End Sub
+
+Private Sub cmdDelObject_Click()
+'удаляем элемент из списка
+On Error GoTo ErrorCode
+
+    Dim curLigMassa As Currency, curProba As Currency
+    
+    If lstViewObject.ListItems.Count <> 0 Then
+        Set objListObject = lstViewObject.SelectedItem
+        
+        curLigMassa = objListObject.SubItems(2)
+        curProba = objListObject.SubItems(3)
+        
+        lstViewObject.ListItems.Remove (objListObject.Index)
+    End If
+    lstViewObject.Refresh
+    lstViewObject.SetFocus
+    
+    If lstViewObject.ListItems.Count = 0 Then
+       txtMassa.CurrencyValue = 0
+    Else
+    ' пересчитываем массу для металлов, которые указаны в установке
+    If blnConvert Then
+       If cmbUnit.Text = "грамм" Then
+          curLigMassa = IIf(strCB = "A99", (objFormat.Round((CCur(curLigMassa) * CCur(curProba) / 100), 0)), (objFormat.Round((CCur(curLigMassa) * CCur(curProba) / 100), 1)))
+       Else
+          curLigMassa = objFormat.Round((CCur(curLigMassa) * CCur(curProba) / 100), 2)
+       End If
+    End If
+    txtMassa.CurrencyValue = txtMassa.CurrencyValue - CCur(curLigMassa)
+    End If
+    
+    GetMassaGramm
+    GetSumOblig
+    GetSumOpl
+    
+    lblObligInfo2.Caption = "Цена: " & txtCostUnit.CurrencyValue & Space(3) & _
+        "Масса: " & txtMassa.Text & Space(3) & _
+        "Сумма: " & txtSumOpl.Text
+    
+    Exit Sub
+    
+ErrorCode:
+    objError.UbsErrMsg "cmdDelObject_Click", "ошибка выполнения"
+
+End Sub
+
+Private Function CheckKey(g As Integer) As Boolean
+'проверяем ключ
+On Error GoTo ErrorCode
+
+    CheckKey = False
+    If Len(txtBIK(g).Text) > 0 And Len(txtRS(g).Text) > 0 Then
+        objParamIn.ClearParameters
+        objParamOut.ClearParameters
+
+        objParamIn.Parameter("БИК") = txtBIK(g).Text
+        objParamIn.Parameter("РС") = txtRS(g).Text
+        objParamIn.Parameter("КС") = txtKS(g).Text
+        
+        UbsChannel1.Run "TradeCheckKey", objParamIn, objParamOut
+        If Len(objParamOut.Parameter("Отчет")) > 0 Then
+            MsgBox objParamOut.Parameter("Отчет"), vbCritical + vbOKOnly, "Проверка ключа"
+            Exit Function
+        End If
+    End If
+    CheckKey = True
+    
+    Exit Function
+    
+ErrorCode:
+    UserDocument.MousePointer = 0
+    objError.UbsErrMsg "CheckKey", "ошибка выполнения"
+
+End Function
+
+Private Function CheckINN(g As Integer)
+'проверяем ИНН
+On Error GoTo ErrorCode
+
+    CheckINN = False
+    objParamIn.ClearParameters
+    objParamOut.ClearParameters
+
+    objParamIn.Parameter("ИНН") = txtINN(g).Text
+    
+    UbsChannel1.Run "TradeCheckINN", objParamIn, objParamOut
+    If Len(objParamOut.Parameter("Отчет")) > 0 Then
+        MsgBox objParamOut.Parameter("Отчет"), vbCritical + vbOKOnly, "Проверка ИНН"
+        Exit Function
+    End If
+    CheckINN = True
+    
+    Exit Function
+    
+ErrorCode:
+    UserDocument.MousePointer = 0
+    objError.UbsErrMsg "CheckINN", "ошибка выполнения"
+    
+End Function
+
+Function FillKS(g As Integer) As Boolean
+On Error GoTo ErrorCode
+
+    FillKS = False
+    txtClient(g).Locked = False
+    txtNote(g).Locked = False
+    
+    objParamIn.ClearParameters
+    objParamOut.ClearParameters
+    objParamIn.Parameter("БИК") = txtBIK(g).Text
+    UbsChannel1.Run "FillRekv", objParamIn, objParamOut
+    
+    If objParamOut.ExistParameter("Отчет") Then
+        MsgBox objParamOut.Parameter("Отчет"), vbCritical + vbOKOnly, "Проверка БИК"
+        txtName(g).Text = ""
+        txtKS(g).Text = ""
+        txtBIK(g).SetFocus
+        Exit Function
+    End If
+    
+    txtName(g).Text = objParamOut.Parameter("Банк")
+    
+    If objParamOut.ExistParameter("КС") Then
+        txtKS(g).Text = objParamOut.Parameter("КС")
+    End If
+      
+    If objParamOut.Parameter("Наш БИК") = True Then
+        txtRS(g).Enabled = False
+        cmdAccount(g).Enabled = True
+        If SSTabs1.Tabs(2).Selected Then
+            cmdAccount(g).SetFocus
+        End If
+        
+        If objParamOut.ExistParameter("КС") Then
+            txtKS(g).Text = objParamOut.Parameter("КС")
+        End If
+    Else
+        txtRS(g).Enabled = True
+        cmdAccount(g).Enabled = False
+        If SSTabs1.Tabs(2).Selected Then
+            txtRS(g).SetFocus
+        End If
+    End If
+    
+    'проверяем ключ
+    If Not CheckKey(g) Then
+        If txtRS(g).Enabled Then
+            txtRS(g).SetFocus
+        Else
+            cmdAccount(g).SetFocus
+        End If
+    End If
+    
+    FillKS = True
+    
+    Exit Function
+
+ErrorCode:
+     objError.UbsMsgRaise "FillKS", "ошибка выполнения"
+     
+End Function
+
+Private Sub FillArrOblig(varArr As Variant)
+On Error GoTo ErrorCode
+    
+    If lstViewOblig.ListItems.Count > 0 Then
+        ReDim varArr(11, lstViewOblig.ListItems.Count - 1)
+        For n = 1 To lstViewOblig.ListItems.Count
+            varArr(0, n - 1) = lstViewOblig.ListItems(n)
+            varArr(1, n - 1) = lstViewOblig.ListItems(n).SubItems(1)
+            varArr(2, n - 1) = lstViewOblig.ListItems(n).SubItems(2)
+            varArr(3, n - 1) = lstViewOblig.ListItems(n).SubItems(3)
+            varArr(4, n - 1) = CCur(lstViewOblig.ListItems(n).SubItems(4))
+            varArr(5, n - 1) = CCur(lstViewOblig.ListItems(n).SubItems(5))
+            varArr(6, n - 1) = CCur(lstViewOblig.ListItems(n).SubItems(6))
+            varArr(7, n - 1) = cmbCurrencyOpl.ItemData(cmbCurrencyOpl.ListIndex) 'ид.валюты оплаты
+            varArr(8, n - 1) = cmbCurrencyPost.ItemData(cmbCurrencyPost.ListIndex) 'ид.валюты поставки
+            varArr(9, n - 1) = lstViewOblig.ListItems(n).SubItems(7)
+            If lstViewOblig.ListItems(n).SubItems(10) = 1 Then
+                varArr(10, n - 1) = CDbl(lstViewOblig.ListItems(n).SubItems(8))
+            Else
+                varArr(10, n - 1) = CCur(0)
+            End If
+            varArr(11, n - 1) = lstViewOblig.ListItems(n).SubItems(9)
+        Next
+    End If
+    
+    Exit Sub
+ErrorCode:
+    objError.UbsMsgRaise "FillArrOblig", "ошибка выполнения"
+
+End Sub
+
+Private Sub FillArrObject(varArr As Variant)
+On Error GoTo ErrorCode
+
+    If lstViewObject.ListItems.Count > 0 Then
+        ReDim varArr(0, lstViewObject.ListItems.Count - 1)
+        For n = 1 To lstViewObject.ListItems.Count
+            varArr(0, n - 1) = lstViewObject.ListItems(n).SubItems(6) 'id объекта
+        Next
+    End If
+    
+    Exit Sub
+
+ErrorCode:
+    objError.UbsMsgRaise "FillArrObject", "ошибка выполнения"
+
+End Sub
+
+Sub FillControlInstrOplata(k As Integer, varOplata As Variant)
+
+    If Not IsArray(varOplata) Then Exit Sub
+    
+    txtBIK(k).Text = varOplata(0, 0)
+    txtName(k).Text = varOplata(1, 0)
+    txtKS(k).Text = varOplata(2, 0)
+    txtRS(k).Text = varOplata(3, 0)
+    txtClient(k).Text = varOplata(4, 0)
+    txtNote(k).Text = varOplata(5, 0)
+    txtINN(k).Text = varOplata(6, 0)
+    chkNotAkcept(k).Value = Abs(CInt(varOplata(7, 0)))
+    
+End Sub
+
+Private Sub FillArrDataInstr(ByVal k As Integer, ByRef varArr As Variant)
+On Error GoTo ErrorCode
+    
+    ReDim varArr(7, 0)
+    
+    varArr(0, 0) = txtBIK(k).Text
+    varArr(1, 0) = txtName(k).Text
+    varArr(2, 0) = txtKS(k).Text
+    varArr(3, 0) = txtRS(k).Text
+    varArr(4, 0) = txtClient(k).Text
+    varArr(5, 0) = txtNote(k).Text
+    varArr(6, 0) = txtINN(k).Text
+    varArr(7, 0) = Abs(CInt(chkNotAkcept(k).Value))
+        
+    Exit Sub
+
+ErrorCode:
+    objError.UbsMsgRaise "FillArrDataInstr", "ошибка выполнения"
+
+End Sub
+
+Private Sub FillListOblig(arrOblig As Variant)
+On Error GoTo ErrorCode
+    If Not IsEmpty(arrOblig) Then
+        Dim opIn As Object, opOut As Object
+        
+        Set opIn = CreateObject("Lib2.IUbsParam")
+        Set opOut = CreateObject("Lib2.IUbsParam")
+        For n = LBound(arrOblig, 2) To UBound(arrOblig, 2)
+            Set objList = lstViewOblig.ListItems.Add(, , arrOblig(0, n)) 'направление
+            
+            objList.Tag = arrOblig(11, n)
+            
+            objList.SubItems(1) = arrOblig(1, n) 'номер в части
+            objList.SubItems(2) = arrOblig(2, n) 'дата оплаты
+            objList.SubItems(3) = arrOblig(3, n) 'дата поставки
+            objList.SubItems(4) = arrOblig(4, n) 'цена за единицу
+            objList.SubItems(5) = arrOblig(5, n) 'масса
+            objList.SubItems(6) = arrOblig(6, n) 'сумма оплаты
+            objList.SubItems(7) = arrOblig(7, n) 'ид валюты обязательства
+            If arrOblig(8, n) <> 0 Then
+                objList.SubItems(8) = arrOblig(8, n) 'курс пересчета - фиксированный
+                objList.SubItems(10) = 1
+            Else
+                opIn.ClearParameters
+                opOut.ClearParameters
+                opIn.Parameter("Id_Currency_Opl") = cmbCurrencyOpl.ItemData(DDX.MemberData("Идентификатор валюты оплаты"))
+                opIn.Parameter("Id_Currency_Oblig") = arrOblig(7, n)
+                opIn.Parameter("Date") = DDX.MemberData("DATE_TRADE")
+                UbsChannel1.Run "GetRate_CB", opIn, opOut
+                objList.SubItems(8) = objFormat.Round(opOut.Parameter("Rate"), 10) 'курс пересчета
+                objList.SubItems(10) = 0
+            End If
+            objList.SubItems(9) = arrOblig(9, n)
+        Next
+        Set opIn = Nothing
+        Set opOut = Nothing
+    End If
+
+    Exit Sub
+    
+ErrorCode:
+    objError.UbsMsgRaise "FillListOblig", "ошибка выполнения"
+
+End Sub
+
+Private Sub ClearDataOblig()
+On Error GoTo ErrorCode
+
+    'очистка контролов
+    '================
+    'список объектов
+    lstViewObject.ListItems.Clear
+    
+    Exit Sub
+    
+ErrorCode:
+    objError.UbsMsgRaise "ClearDataOblig", "ошибка выполнения"
+
+End Sub
+
+Private Sub FillDataOblig()
+On Error GoTo ErrorCode
+    Dim ArrInstr As Variant, ArrObject As Variant, i As Integer
+
+    'заполнение контролов
+    '====================
+    'обязательство
+    
+    If objParamOblig.ExistParameter("Object" & StrNumInPart) Then
+        ArrObject = objParamOblig.Parameter("Object" & StrNumInPart)
+        If IsArray(ArrObject) Then
+           lstViewObject.ListItems.Clear
+           txtMassa.CurrencyValue = 0
+           For i = LBound(ArrObject, 2) To UBound(ArrObject, 2)
+               FillDataObject (ArrObject(0, i)) 'add item
+           Next
+        End If
+    Else 'нет объектов
+        If cmbKindSupplyTrade.Text = "физическая" Then
+            txtMassa.CurrencyValue = 0
+            txtSumOpl.CurrencyValue = 0
+            
+            lblObligInfo2.Caption = "Цена: " & txtCostUnit.CurrencyValue & Space(3) & _
+            "Масса: " & txtMassa.Text & Space(3) & _
+            "Сумма: " & txtSumOpl.Text
+            
+            lstViewObject.ListItems.Clear
+        End If
+    End If
+    
+    Exit Sub
+    
+ErrorCode:
+    objError.UbsMsgRaise "FillDataOblig", "ошибка выполнения"
+
+End Sub
+
+Private Function ExistObject() As Boolean
+On Error GoTo ErrorCode
+
+    'true - если есть объекты
+    'false - иначе
+    
+    Dim ArrTemp As Variant
+        
+    ArrTemp = Empty
+    If objParamOblig.CountParameters > 0 Then
+        ArrTemp = objParamOblig.Parameters
+    End If
+    ExistObject = False
+    
+    If Not IsEmpty(ArrTemp) Then
+        For n = LBound(ArrTemp, 2) To UBound(ArrTemp, 2)
+            If Left(ArrTemp(0, n), 6) = "Object" Then
+                ExistObject = True
+                Exit For
+            End If
+        Next
+    End If
+    
+    Exit Function
+    
+ErrorCode:
+    objError.UbsMsgRaise "ExistObject", "ошибка выполнения"
+
+End Function
+
+Private Function FillDataObject(IdObject As Long) As Boolean
+Dim arrIdObj, varCheck, varParam, varObject As Variant
+Dim n, m, p, i, intCheck As Integer
+Dim itmX As ListItem
+On Error GoTo ErrorCode
+FillDataObject = False
+    Dim ArrOut As Variant
+    Dim curLigMassa As Currency, curProba As Currency
+   ' проверка на повторяющиеся объекты учета в одном списке
+   ' ========================================================
+   If lstViewObject.ListItems.Count > 0 Then
+       ReDim arrIdObj(lstViewObject.ListItems.Count - 1)
+       n = 0
+       For Each itmX In lstViewObject.ListItems
+           arrIdObj(n) = lstViewObject.ListItems.Item(n + 1).SubItems(6)
+           n = n + 1
+       Next
+       For i = 0 To UBound(arrIdObj)
+           If IdObject = arrIdObj(i) Then
+              MsgBox "Объект Учета с Идентификатором " & IdObject & " в списке уже существует. Выберите другой объект пожалуйста!", vbCritical + vbOKOnly, "Ошибка"
+              Exit Function
+           End If
+       Next
+   End If
+   ' проверка на повторяющиеся объекты учета в разных обязательствах одного направления
+   ' ========================================================
+If blnAddObject And lstViewOblig.ListItems.Count > 0 Then
+   intCheck = cmbNaprTrade.ItemData(cmbNaprTrade.ListIndex)
+   varCheck = objParamOblig.Parameters
+    If IsArray(varCheck) Then
+     For m = 0 To UBound(varCheck, 2)
+         If Left(varCheck(0, m), 7) = "Object" & intCheck Then
+            varParam = objParamOblig.Parameter(varCheck(0, m))
+            For p = 0 To UBound(varParam, 2)
+                If varParam(0, p) = IdObject Then
+                   MsgBox "Объект Учета с Идентификатором " & IdObject & " уже существует в обязательстве " & Mid(varCheck(0, m), 7, 3) & ". Выберите другой объект пожалуйста!", vbCritical + vbOKOnly, "Ошибка"
+                   Exit Function
+                End If
+            Next
+         End If
+     Next
+    End If
+End If
+'=========================================================
+    ' получить данные объекта
+    objParamIn.ClearParameters
+    objParamOut.ClearParameters
+    objParamIn.Parameter("ID_OBJECT") = IdObject
+    UbsChannel1.Run "GetObjectPM", objParamIn, objParamOut
+            
+    ArrOut = objParamOut.Parameter("Данные объекта")
+    Set objListObject = lstViewObject.ListItems.Add(, , cmbCurrencyPost.Text)
+    For n = 1 To UBound(ArrOut, 1) + 1
+        objListObject.SubItems(n) = ArrOut(n - 1, 0)
+    Next
+            
+    'форматирование
+            
+    'лигатурная масса
+    objListObject.SubItems(2) = FormatNumber(objListObject.SubItems(2), 2)
+    curLigMassa = objListObject.SubItems(2)
+            
+    'проба
+    objListObject.SubItems(3) = FormatNumber(objListObject.SubItems(3), 2)
+    curProba = objListObject.SubItems(3)
+ 
+    Set objListObject = lstViewObject.SelectedItem
+
+    'добавляем массу выбранного объекта к массе по обязательству
+    If blnConvert Then
+        If cmbUnit.Text = "грамм" Then
+           curLigMassa = IIf(strCB = "A99", (objFormat.Round((CCur(curLigMassa) * CCur(curProba) / 100), 0)), (objFormat.Round((CCur(curLigMassa) * CCur(curProba) / 100), 1)))
+        ElseIf cmbUnit.Text = "унция" Then
+           curLigMassa = objFormat.Round((CCur(curLigMassa) * CCur(curProba) / 100), 2)
+        End If
+    End If
+    txtMassa.CurrencyValue = txtMassa.CurrencyValue + CCur(curLigMassa)
+
+    GetMassaGramm
+    GetSumOblig
+    GetSumOpl
+    '------------------------------------------------
+     
+    lblObligInfo2.Caption = "Цена: " & txtCostUnit.CurrencyValue & Space(3) & _
+        "Масса: " & txtMassa.Text & Space(3) & _
+        "Сумма: " & txtSumOpl.Text
+FillDataObject = True
+    Exit Function
+    
+ErrorCode:
+    objError.UbsMsgRaise "FillDataObject", "ошибка выполнения"
+
+End Function
+
+Private Sub DefineArrStrNumInPart(ArrRez As Variant)
+On Error GoTo ErrorCode
+
+    'получить список пар (номер части,номер в части)
+    'одномерный массив
+    
+    If lstViewOblig.ListItems.Count > 0 Then
+        ReDim ArrRez(lstViewOblig.ListItems.Count - 1)
+        For n = 1 To lstViewOblig.ListItems.Count
+            ArrRez(n - 1) = lstViewOblig.ListItems(n).SubItems(1)
+        Next
+    End If
+    
+    Exit Sub
+    
+ErrorCode:
+    objError.UbsMsgRaise "DefineArrStrNumInPart", "ошибка выполнения"
+    
+End Sub
+
+Private Function ClearOpl(g As Integer)
+' очистка контролов обязательства оплаты
+' необходимо при клике cmbContractType1, _
+                       cmbContractType2, _
+                       cmdContract1, _
+                       cmdContract2, _
+                       cmdListInstr
+txtBIK(g).Text = ""
+txtName(g).Text = ""
+txtKS(g).Text = 0
+txtRS(g).Text = 0
+txtClient(g).Text = ""
+txtNote(g).Text = ""
+txtINN(g).Text = ""
+chkNotAkcept(g).Value = 0
+
+'---------------------------------------
+End Function
+
+Private Function CheckDatesOblig()
+On Error GoTo ErrorCode
+    Dim dDateOpl As Variant
+    Dim dDatePost As Variant
+    
+    Dim strCurrNumInPart As String, arrCurrInstr As Variant, strCurrRS As String
+    Dim strCodCurrencyRS As String, strCodCurrencyOpl As String
+    Dim strCodCurrencyRS_1 As String
+    Dim objTools As Object
+    
+    MsgBox "пам.1", vbOKOnly + vbCritical, "Проверка свойств"
+    
+    Set objTools = CreateObject("LibTools.IUbsTools")
+
+    CheckDatesOblig = True
+    If txtTradeDate.DateValue = #1/1/2222# Or Not txtTradeDate.IsValid Then
+       MsgBox "Укажите дату сделки", vbOKOnly + vbCritical, "Проверка свойств"
+       SSTabs.Tabs(1).Selected = True
+       txtTradeDate.SetFocus
+       CheckDatesOblig = False
+       Exit Function
+    End If
+    
+    If lstViewOblig.ListItems.Count > 0 Then
+        For n = 1 To lstViewOblig.ListItems.Count
+        
+            dDateOpl = CDate(lstViewOblig.ListItems(n).SubItems(2))
+            dDatePost = CDate(lstViewOblig.ListItems(n).SubItems(3))
+            
+            If intVidTrade = 0 Then 'наличные сделки
+                lstViewOblig.ListItems(n).SubItems(2) = txtTradeDate.DateValue
+                lstViewOblig.ListItems(n).SubItems(3) = txtTradeDate.DateValue
+            Else 'срочные сделки
+                If dDatePost < txtTradeDate.DateValue Then
+                    MsgBox "Дата поставки не может быть меньше даты сделки.", vbOKOnly + vbCritical, "Проверка свойств"
+                    If SSTabs.Tabs(3).Selected And SSTabs1.Tabs(1).Selected Then
+                        txtDatePost.SetFocus
+                    End If
+                    CheckDatesOblig = False
+                    Exit Function
+                End If
+
+                If dDateOpl < txtTradeDate.DateValue Then
+                    MsgBox "Дата оплаты не может быть меньше даты сделки.", vbOKOnly + vbCritical, "Проверка свойств"
+                    If SSTabs.Tabs(3).Selected And SSTabs1.Tabs(1).Selected Then
+                        txtDateOpl.SetFocus
+                    End If
+                    CheckDatesOblig = False
+                    Exit Function
+                End If
+            End If
+        Next
+    End If
+        'определяем код ЦБ валюты оплаты по ее идентификатору
+        objParamIn.ClearParameters
+        objParamOut.ClearParameters
+        objParamIn.Parameter("IdCurrency") = cmbCurrencyOpl.ItemData(DDX.MemberData("Идентификатор валюты оплаты"))
+        UbsChannel1.Run "DefineCodCurrency", objParamIn, objParamOut
+        strCodCurrencyOpl = objParamOut.Parameter("CodCB")
+        
+        If SSActiveTabs1.Tabs(1).Visible And _
+           cmbContractType2.ItemData(cmbContractType2.ListIndex) <> 0 Then
+           strCodCurrencyRS = Mid(txtRS(0).Text, 6, 3)
+           If Trim(txtBIK(0).Text) = strOurBIK Then ' если наш БИК - проверяем
+              If Not objTools.IsEqualNumCodeCurr(strCodCurrencyOpl, strCodCurrencyRS) Then
+                 MsgBox "Валюта расчетного счета инструкции оплаты покупателя должна соответствовать валюте оплаты.", vbOKOnly + vbCritical, "Проверка свойств"
+                 CheckDatesOblig = False
+                 Exit Function
+              End If
+           Else
+              If txtRS(0).Text <> "00000000000000000000" Then
+                 If Not objTools.IsEqualNumCodeCurr(strCodCurrencyOpl, strCodCurrencyRS) Then
+                    MsgBox "Валюта расчетного счета инструкции оплаты покупателя должна соответствовать валюте оплаты.", vbOKOnly + vbCritical, "Проверка свойств"
+                    CheckDatesOblig = False
+                    Exit Function
+                 End If
+              End If
+           End If
+        End If
+        
+        If SSActiveTabs1.Tabs(2).Visible And _
+           cmbContractType1.ItemData(cmbContractType1.ListIndex) <> 0 Then
+           strCodCurrencyRS_1 = Mid(txtRS(1).Text, 6, 3)
+           If Trim(txtBIK(1).Text) = strOurBIK Then ' если наш БИК - проверяем
+              If Not objTools.IsEqualNumCodeCurr(strCodCurrencyOpl, strCodCurrencyRS_1) Then
+                 MsgBox "Валюта расчетного счета инструкции оплаты продавца должна соответствовать валюте оплаты.", vbOKOnly + vbCritical, "Проверка свойств"
+                 CheckDatesOblig = False
+                 Exit Function
+              End If
+           Else
+              If txtRS(1).Text <> "00000000000000000000" Then
+                 If Not objTools.IsEqualNumCodeCurr(strCodCurrencyOpl, strCodCurrencyRS_1) Then
+                    MsgBox "Валюта расчетного счета инструкции оплаты продавца должна соответствовать валюте оплаты.", vbOKOnly + vbCritical, "Проверка свойств"
+                    CheckDatesOblig = False
+                    Exit Function
+                 End If
+              End If
+           End If
+        End If
+        '-----------------------------------
+    Set objTools = Nothing
+    Exit Function
+
+ErrorCode:
+    objError.UbsMsgRaise "CheckDatesOblig", "ошибка выполнения"
+
+End Function
+Sub GetRateCurOblig()
+    If txtCostUnit.CurrencyValue > 0 Then
+       txtRateCurOblig.VariantValue = objFormat.Round((CDbl(txtCostCurOpl.CurrencyValue) / CDbl(txtCostUnit.CurrencyValue)), 10)
+    Else
+       txtRateCurOblig.CurrencyValue = 0
+    End If
+End Sub
+Sub GetSumOpl()
+    If chkSumInCurValue.Value = 1 Then ' если руками вводим сумму за ед. в валюте оплаты, то "скачем" от нее
+       txtSumOpl.CurrencyValue = objFormat.Round(txtCostCurOpl.CurrencyValue * txtMassa.CurrencyValue, 2)
+    Else
+       'txtSumOpl.CurrencyValue = objFormat.Round(txtSumOblig.CurrencyValue * txtRateCurOblig.CurrencyValue, 2)
+       txtSumOpl.CurrencyValue = objFormat.Round(txtSumOblig.CurrencyValue * txtRateCurOblig.VariantValue, 2)
+    End If
+End Sub
+Sub GetSumOblig()
+     txtSumOblig.CurrencyValue = objFormat.Round(txtCostUnit.CurrencyValue * txtMassa.CurrencyValue, 2)
+End Sub
+Sub GetMassaGramm()
+ If strCB = "A99" Then
+    txtMassaGramm.CurrencyValue = objFormat.Round(txtMassa.CurrencyValue * IIf(cmbUnit.Text = "унция", 31.1035, 1), 0)
+ Else
+    txtMassaGramm.CurrencyValue = objFormat.Round(txtMassa.CurrencyValue * IIf(cmbUnit.Text = "унция", 31.1035, 1), 1)
+ End If
+End Sub
+Sub GetMassaPrecision()
+   If cmbUnit.Text = "грамм" Then
+      txtMassa.Precision = IIf(strCB = "A99", 0, 1)
+   End If
+   If cmbUnit.Text = "унция" Then
+      txtMassa.Precision = 3
+   Else
+      txtMassa.Precision = 2
+   End If
+End Sub
+
+Sub FillControlStorage()
+    ' получить данные хранилища
+    objParamIn.ClearParameters
+    objParamOut.ClearParameters
+    
+    objParamIn.Parameter("IsExternalStorage") = chkExternalStorage.Value
+    
+    objParamIn.Parameter("Id") = DDX.MemberData("Инструкция по поставке")
+    UbsChannel1.Run "GetStorage", objParamIn, objParamOut
+    txtStorageCode.Text = objParamOut.Parameter("Code")
+    txtStorageName.Text = objParamOut.Parameter("Name")
+    
+End Sub
+
+
+Sub FillControlContract(ByVal lngIdContract, ByRef ContractCode As Object, ByRef ClientName As Object, ByRef lngIdClient As Long)
+    ' получить данные контракта
+    objParamIn.ClearParameters
+    objParamOut.ClearParameters
+    
+    objParamIn.Parameter("ID_CONTRACT") = lngIdContract
+    
+    UbsChannel1.Run "GetContractPM", objParamIn, objParamOut
+    ContractCode.Text = objParamOut.Parameter("CODE_CONTRACT")
+    ClientName.Text = objParamOut.Parameter("LONG_NAME")
+    lngIdClient = objParamOut.Parameter("ID_CLIENT")
+        
+End Sub
+
+'--------------------------------
+Function GetVarValue(Var)
+    Dim strResult, strTN
+    Dim i, j
+    Dim k, n
+
+    strResult = TypeName(Var) & vbCrLf
+    Select Case TypeName(Var)
+        Case "Variant()"
+            i = UBound(Var)
+            j = UBound(Var, 2)
+            For k = 0 To j
+                For n = 0 To i
+                    If Not IsArray(Var(n, k)) Then
+                        strResult = strResult & GetStrFromType(Var(n, k)) & " : "
+                    Else
+                        strResult = strResult & GetStrFromArray(Var(n, k)) & " : "
+                    End If
+                Next
+                strResult = strResult & vbCrLf
+            Next
+        Case Else
+            strResult = strResult & Var & vbCrLf
+    End Select
+    
+    MsgBox strResult
+End Function
+
+Function GetStrFromType(Var)
+    If IsDate(Var) Then
+        GetStrFromType = CDate(Var)
+    Else
+        GetStrFromType = Var
+    End If
+End Function
+Function GetStrFromArray(varArr)
+    Dim i, j
+    Dim k, n, strResult
+    i = UBound(varArr)
+    j = UBound(varArr, 2)
+    strResult = "| "
+    For k = 0 To j
+        For n = 0 To i
+            If Not IsArray(varArr(n, k)) Then
+                strResult = strResult & varArr(n, k) & " | "
+             Else
+                 strResult = strResult & "Array" & " | "
+             End If
+          Next
+          strResult = strResult & vbCrLf
+       Next
+       GetStrFromArray = strResult
+End Function
+'------------------------------------------
