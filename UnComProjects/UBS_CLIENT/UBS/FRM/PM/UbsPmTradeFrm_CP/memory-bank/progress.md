@@ -5,7 +5,7 @@
 | Phase | Status | Date |
 |-------|--------|------|
 | VAN (Initialization) | ✅ Complete | 2026-03-24 |
-| PLAN | ⬜ Not started | — |
+| PLAN (designer) | ✅ Complete | 2026-03-24 |
 | CREATIVE | ⬜ Not started | — |
 | VAN QA | ⬜ Not started | — |
 | BUILD | ⬜ Not started | — |
@@ -38,7 +38,8 @@
 
 ## What Remains
 
-- [ ] PLAN: Create detailed plan documents (conversion goals + legacy source mapping)
+- [x] PLAN (designer): `plan-trade-designer-conversion.md` — control inventory, 14 build steps, all 6 tabs ✅
+- [ ] PLAN (full): `plan-trade-conversion-goals.md` + `plan-trade-legacy-source-conversion.md` (can be done in parallel with BUILD)
 - [ ] CREATIVE: Architecture decisions (layout, sub-forms, data binding, obligations model)
 - [ ] Phase 1 Prep: Constants partial, channel contract doc, add references, rename UbsForm1 → UbsPmTradeFrm
 - [ ] Phase 2 Conversion: Full UI (6 tabs), InitDoc, ListKey, all channel handlers, Save

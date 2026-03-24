@@ -2,15 +2,15 @@
 
 ## Current Phase
 
-**VAN MODE — Initialization Complete**  
+**PLAN MODE — Designer Conversion Plan Complete**  
 Date: 2026-03-24
 
 Memory bank created. This is a **Level 4 (Complex System)** task. Per VAN mode rules, implementation requires PLAN → CREATIVE → VAN QA → BUILD progression.
 
 ## Current Focus
 
-- Memory bank initialized with full legacy source analysis.
-- Next step: **PLAN mode** — create detailed conversion plan documents.
+- Designer conversion plan created: `plan-trade-designer-conversion.md`.
+- Next step: **BUILD Phase 1 Prep** — rename `UbsForm1` → `UbsPmTradeFrm`, add missing references, then build designer step-by-step.
 
 ## What Was Just Done
 
@@ -28,10 +28,13 @@ Memory bank created. This is a **Level 4 (Complex System)** task. Per VAN mode r
 
 ## Immediate Next Actions
 
-1. Switch to **PLAN mode**.
-2. Create `memory-bank/plan-trade-conversion-goals.md` — main conversion goal and phased roadmap.
-3. Create `memory-bank/plan-trade-legacy-source-conversion.md` — legacy source ↔ target mapping inventory.
-4. Proceed to CREATIVE phase for layout and architecture decisions.
+1. **Phase 1 Prep (BUILD):**
+   - Add `UbsCtrlDecimal`, `UbsCtrlDate`, `UbsCtrlAddFields` references to `.csproj`
+   - Rename `UbsForm1` → `UbsPmTradeFrm` in all files
+   - Verify build compiles clean
+2. **Designer BUILD steps 2–10** per `plan-trade-designer-conversion.md`:
+   - Bottom strip → TabControl → Tab 1 → Tab 2 → Tab 3 → Tab 4 → Tab 5 → Tab 6 → verify
+3. After designer is complete: implement code-behind (`ListKey`, `InitDoc`, channel handlers, `Save`)
 
 ## Open Questions / Risks
 

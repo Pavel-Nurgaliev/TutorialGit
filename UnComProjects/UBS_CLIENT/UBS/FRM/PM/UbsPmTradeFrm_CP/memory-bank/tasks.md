@@ -6,9 +6,10 @@
 
 **Complexity:** Level 4 (Complex System)
 
-**Plans (to be created):**
-- `memory-bank/plan-trade-conversion-goals.md` — main goal, conversion roadmap, phased plan
-- `memory-bank/plan-trade-legacy-source-conversion.md` — legacy source ↔ target mapping and inventory
+**Plans:**
+- `memory-bank/plan-trade-designer-conversion.md` ✅ — **Designer first**: full control inventory for all 6 tabs, anchor strategy, control-array replacement, 14 build steps
+- `memory-bank/plan-trade-conversion-goals.md` — (to create) main goal, full conversion roadmap
+- `memory-bank/plan-trade-legacy-source-conversion.md` — (to create) legacy source ↔ target mapping
 
 ---
 
@@ -137,4 +138,5 @@
 ## Status
 
 - **VAN initialization complete** — memory bank created.
-- **Awaiting PLAN mode** — create plan documents before CREATIVE and BUILD.
+- **PLAN (designer) complete** — `plan-trade-designer-conversion.md` created. Full 6-tab control inventory, 14-step build plan, control-array replacement strategy, anchor/resize strategy.
+- **Awaiting BUILD (Phase 1 Prep then designer)** — complete rename + references, then build designer step-by-step.
