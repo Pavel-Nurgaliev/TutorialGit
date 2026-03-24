@@ -306,16 +306,14 @@ namespace UbsBusiness
             if (!paramOut.Contains("Список документов")) return;
             var docArr = paramOut.Value("Список документов") as Array;
             if (docArr == null || docArr.Rank < 2) return;
-            try
+
+            int row = docArr.GetLength(0);
+            for (int i = 0; i < row; i++)
             {
-                int row = docArr.GetLength(0);
-                for (int i = 0; i < row; i++)
-                {
-                    object v = docArr.GetValue(i, 0);
-                    cmbDocument.Items.Add(v != null ? Convert.ToString(v) : "");
-                }
+                object v = docArr.GetValue(i, 0);
+                cmbDocument.Items.Add(v != null ? Convert.ToString(v) : "");
             }
-            catch { }
+
             if (cmbDocument.Items.Count > 0) cmbDocument.SelectedIndex = 0;
         }
 
@@ -328,20 +326,18 @@ namespace UbsBusiness
             if (arr == null || arr.Rank < 2) return;
             m_valArr = arr;
             var list = new List<KeyValuePair<int, string>>();
-            try
-            {
-                int rows = arr.GetLength(0);
-                for (int i = 0; i < rows; i++)
-                {
-                    object o0 = arr.GetValue(i, 0);
-                    object o2 = arr.GetLength(1) > 2 ? arr.GetValue(i, 2) : null;
-                    int id = o0 != null ? Convert.ToInt32(o0) : 0;
-                    string text = o2 != null ? Convert.ToString(o2) : string.Empty;
 
-                    list.Add(new KeyValuePair<int, string>(id, text));
-                }
+            int rows = arr.GetLength(0);
+            for (int i = 0; i < rows; i++)
+            {
+                object o0 = arr.GetValue(i, 0);
+                object o2 = arr.GetLength(1) > 2 ? arr.GetValue(i, 2) : null;
+                int id = o0 != null ? Convert.ToInt32(o0) : 0;
+                string text = o2 != null ? Convert.ToString(o2) : string.Empty;
+
+                list.Add(new KeyValuePair<int, string>(id, text));
             }
-            catch { }
+
             if (list.Count > 0)
             {
                 var data = new List<KeyValuePair<int, string>>(list);
@@ -425,7 +421,7 @@ namespace UbsBusiness
             int cmbComissionId = GetcmbComissionId();
             base.IUbsChannel.ParamIn("Валюта комиссии", cmbComissionId >= 0 ? cmbComissionId : 0);
             base.IUbsChannel.ParamIn("Валюта принятая", txtCurrencyNominal.Text != string.Empty ? Convert.ToInt32(txtCurrencyNominal.Text) : 0);
-            base.IUbsChannel.ParamIn("Сумма принятая", 0m);
+            base.IUbsChannel.ParamIn("Сумма принятая", ucdSumNominal.DecimalValue);
             base.IUbsChannel.ParamIn("Платежный документ", 0);
 
             if (!chkPayMoney.Checked)
@@ -444,25 +440,22 @@ namespace UbsBusiness
         private void SetOperParamFromOperArr()
         {
             if (m_operArr == null) return;
-            try
+
+            for (int i = 0; i < m_operArr.GetLength(0); i++)
             {
-                for (int i = 0; i < m_operArr.GetLength(0); i++)
+                object op0 = m_operArr.GetValue(i, 0);
+                object op2 = m_operArr.GetValue(i, 2);
+                string sid = op2 != null ? Convert.ToString(op2) : string.Empty;
+                if ((m_sidOper == "INCASH" && sid == "INCASH_RET") ||
+                    (m_sidOper == "INCASH_PAYDOC" && sid == "INCASH_RET_PAYDOC") ||
+                    (m_sidOper == "EXPERT" && sid == "EXPERT_RET") ||
+                    (m_sidOper == "EXPERT_PAYDOC" && sid == "EXPERT_RET_PAYDOC"))
                 {
-                    object op0 = m_operArr.GetValue(i, 0);
-                    object op2 = m_operArr.GetValue(i, 2);
-                    string sid = op2 != null ? Convert.ToString(op2) : string.Empty;
-                    if ((m_sidOper == "INCASH" && sid == "INCASH_RET") ||
-                        (m_sidOper == "INCASH_PAYDOC" && sid == "INCASH_RET_PAYDOC") ||
-                        (m_sidOper == "EXPERT" && sid == "EXPERT_RET") ||
-                        (m_sidOper == "EXPERT_PAYDOC" && sid == "EXPERT_RET_PAYDOC"))
-                    {
-                        base.IUbsChannel.ParamIn("SID Операции", sid);
-                        base.IUbsChannel.ParamIn("Операция", op0);
-                        break;
-                    }
+                    base.IUbsChannel.ParamIn("SID Операции", sid);
+                    base.IUbsChannel.ParamIn("Операция", op0);
+                    break;
                 }
             }
-            catch { }
         }
 
         private void RecalcucdValueMinus()
@@ -509,8 +502,8 @@ namespace UbsBusiness
         private static decimal ToDecimal(object v)
         {
             if (v == null || v == DBNull.Value) return 0m;
-            try { return Convert.ToDecimal(v); }
-            catch { return 0m; }
+            decimal result;
+            return decimal.TryParse(Convert.ToString(v), out result) ? result : 0m;
         }
 
         private static int ParseInt(string s)

@@ -118,6 +118,26 @@ namespace UbsBusiness
 
                 base.IUbsChannel.LoadResource = LoadResource;
 
+                if (m_command == DeleteCommand)
+                {
+                    if (m_id == 0)
+                    {
+                        base.Ubs_ShowErrorBox(RecordsIsNotChosen);
+                        return false;
+                    }
+
+                    if (MessageBox.Show(AreYouSureAboutDeletingRecords, MsgDeletingRecords, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        base.IUbsChannel.ParamIn("KeyArray", param_in);
+                        base.IUbsChannel.Run("Del_Set");
+
+                        IUbs iubs = Control.FromHandle((IntPtr)base.IUbs.Run("ParentHandle", null)) as IUbs;
+                        if (iubs != null && iubs.ExistName("RefreshGrid")) iubs.Run("RefreshGrid", null);
+                    }
+
+                    return false;
+                }
+
                 if (m_command == EditCommand && m_id == 0)
                 {
                     base.Ubs_ShowErrorBox(MsgListEmpty);
@@ -142,11 +162,11 @@ namespace UbsBusiness
 
             if (m_command == AddCommand)
             {
-                cmbCommission.SelectedIndex = -1;
-                cmbOperation.SelectedIndex = -1;
-                cmbValue.SelectedIndex = -1;
-                cmbDiv.SelectedIndex = -1;
-                cmbCurrency.SelectedIndex = -1;
+                cmbCommission.SelectedIndex = 0;
+                cmbOperation.SelectedIndex = 0;
+                cmbValue.SelectedIndex = 0;
+                cmbDiv.SelectedIndex = 0;
+                cmbCurrency.SelectedIndex = 0;
                 cmbValue.Enabled = false;
             }
             else
@@ -172,8 +192,6 @@ namespace UbsBusiness
                 base.IUbsChannel.Run("Combo_fill");
                 var paramOut = new UbsParam(base.IUbsChannel.ParamsOut);
 
-                // VB6 arr(column, row) → .NET transposed to arr[row, column]
-                // arr.GetLength(0)=item count, arr.GetValue(n,0)=ID, arr.GetValue(n,1)=Text
                 if (paramOut.Contains("Комиссии"))
                     FillCombo(cmbCommission, paramOut.Value("Комиссии") as Array, null);
                 if (paramOut.Contains("Операции"))
@@ -197,8 +215,6 @@ namespace UbsBusiness
 
             if (arr != null && arr.Rank == 2)
             {
-                // VB6: arr(column, row) → .NET transposed to arr[row, column]
-                // arr.GetLength(0) = item count (was UBound(arr,2) in VB6)
                 int count = arr.GetLength(0);
                 for (int n = 0; n < count; n++)
                 {
@@ -208,7 +224,6 @@ namespace UbsBusiness
                 }
             }
 
-            // "Все" inserted at index 0 (mirrors VB6: AddItem "Все", 0)
             if (allItemText != null)
                 list.Insert(0, new KeyValuePair<int, string>(0, allItemText));
 

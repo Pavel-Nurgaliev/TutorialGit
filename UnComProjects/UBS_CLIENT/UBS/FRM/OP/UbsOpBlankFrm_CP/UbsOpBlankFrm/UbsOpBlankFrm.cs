@@ -151,8 +151,7 @@ namespace UbsBusiness
                 object v = paramOut.Value("Дата учета");
                 if (v != null && v != DBNull.Value)
                 {
-                    try { dateCalc.DateValue = Convert.ToDateTime(v); }
-                    catch { }
+                    dateCalc.DateValue = Convert.ToDateTime(v);
                 }
             }
             if (paramOut.Contains("Серия")) txbSer.Text = Convert.ToString(paramOut.Value("Серия"));

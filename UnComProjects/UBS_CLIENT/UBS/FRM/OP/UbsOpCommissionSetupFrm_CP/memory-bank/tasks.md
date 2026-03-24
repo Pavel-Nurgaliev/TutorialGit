@@ -29,7 +29,7 @@
 
 ### Phase 3 (Post)
 - [x] Build and verify — **0 warnings, 0 errors** (MSB3073 PostBuild copy is deploy-only, expected in dev)
-- [ ] Reflection doc; update progress.md
+- [x] Reflection doc; update progress.md (`memory-bank/reflection/reflection-ubs-op-commission-setup.md`, `memory-bank/progress.md`)
 - [ ] Archiving
 
 ---
@@ -48,7 +48,15 @@
 ## Status
 
 - [x] VAN analysis complete
+- [x] Planning complete (implementation plan in this file)
 - [x] Implementation complete (Phase 1–2)
 - [x] Build verification — clean (2026-03-18)
-- [ ] Reflection
+- [x] Reflection complete (2026-03-24) — `memory-bank/reflection/reflection-ubs-op-commission-setup.md`
 - [ ] Archiving
+
+## Reflection highlights
+
+- **What went well:** Channel contract documented early; reuse of `UbsFormBase` / `ListKey` / `FillCombo` patterns; UI scope held to five combos + bottom strip.
+- **Challenges:** `m_filling` guard for combo events; empty EDIT list handling; value combo enable/disable and save params aligned with `Check_PayDoc` / `Документ`.
+- **Lessons learned:** Treat combo side-effect guards as part of the plan; distinguish dev PostBuild copy issues from compile failures.
+- **Next steps:** Run `/archive`; optional live-channel smoke tests in target environment.
