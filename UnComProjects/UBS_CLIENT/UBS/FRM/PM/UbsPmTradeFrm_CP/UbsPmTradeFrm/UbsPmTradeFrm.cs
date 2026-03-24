@@ -1,30 +1,29 @@
 ﻿using System;
 using UbsService;
 
-namespace UbsBusiness
+namespace UbsPmTradeFrm
 {
     /// <summary>
-    /// Шаблон класса формы
+    /// Форма сделки с драгоценными металлами
     /// </summary>
-    public partial class UbsForm1 : UbsFormBase
+    public partial class UbsPmTradeFrm : UbsFormBase
     {
         #region Блок объявления переменных
 
-        private string m_command = string.Empty;    //параметер запуска формы
+        private string m_command = string.Empty;
 
         #endregion
 
         /// <summary>
         /// Конструктор
         /// </summary>
-        public UbsForm1()
+        public UbsPmTradeFrm()
         {
-            m_addCommand(); //зарегистрировать обработчики команд интерфейса IUbs
+            m_addCommand();
 
             InitializeComponent();
 
-            // установить имя ресурса, с которым будет работать канал
-            this.IUbsChannel.LoadResource = "ASM:UBS_ASM\\Business\\DllName.dll->UbsBusiness.NameClass";
+            this.IUbsChannel.LoadResource = "ASM:UBS_ASM\\Business\\UbsPmTradeFrm.dll->UbsPmTradeFrm.UbsPmTradeFrm";
 
             base.Ubs_CommandLock = true;
         }

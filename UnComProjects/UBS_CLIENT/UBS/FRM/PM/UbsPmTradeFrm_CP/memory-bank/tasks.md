@@ -142,4 +142,8 @@
 - **PLAN (designer v1) complete** — `plan-trade-designer-conversion.md` created. Full 6-tab control inventory, 14-step build plan.
 - **BUILD (Phase 1 Prep + Designer v1) complete** — `UbsPmTradeFrm.Designer.cs` built: 0 errors, DLL 34 KB. *(File lost after session; needs rebuild)*
 - **PLAN (designer revision) complete** — `plan-trade-designer-revision.md` created from 7 legacy screens. All layout/name/order corrections documented with pixel coordinates.
-- **NEXT: BUILD (designer revision)** — recreate `UbsPmTradeFrm.Designer.cs` following `plan-trade-designer-revision.md`.
+- **BUILD (designer v2) complete** — `UbsPmTradeFrm.Designer.cs` built: 0 errors, DLL produced at `bin\Release\UbsPmTradeFrm.dll`.
+- **REFLECT (designer phase) complete** — `memory-bank/reflection/reflection-trade-designer.md` created.
+- **BUILD (TabIndex correction) complete** — all 50+ TabIndex values corrected per-container; 10 display-only controls given `TabStop=false`; `plan-tabindex-order.md` created; 0 errors.
+- **REFLECT (TabIndex correction) complete** — Addendum section appended to `reflection-trade-designer.md`.
+- **NEXT: PLAN** — create `plan-trade-conversion-goals.md` to begin Phase 2 (business logic).

@@ -9,8 +9,10 @@
 | BUILD (Phase 1 Prep + Designer v1) | ✅ Complete | 2026-03-24 |
 | PLAN (designer revision — screens) | ✅ Complete | 2026-03-24 |
 | CREATIVE | ⬜ Not started | — |
-| BUILD (Designer v2 — screen-corrected) | ⬜ Pending | — |
-| REFLECT | ⬜ Not started | — |
+| BUILD (Designer v2 — screen-corrected) | ✅ Complete | 2026-03-24 |
+| REFLECT (designer phase) | ✅ Complete | 2026-03-24 |
+| BUILD (TabIndex correction) | ✅ Complete | 2026-03-24 |
+| REFLECT (TabIndex correction) | ✅ Complete | 2026-03-24 |
 | ARCHIVE | ⬜ Not started | — |
 
 ## Detailed Log
@@ -55,9 +57,27 @@
 - **`RootNamespace`/`AssemblyName`:** `UbsPmTradeFrm`.
 - **Legacy screens analyzed:** 7 PNG screenshots covering all 6 tabs.
 
+### 2026-03-24 — BUILD (Designer v2 — screen-corrected)
+
+- Recreated `UbsPmTradeFrm.Designer.cs` from scratch combining both plan documents.
+- Applied all screen-based corrections: correct tab names, swapped tab 4/5 content, layout fixes.
+- Fixed `.csproj`: `RootNamespace`/`AssemblyName` → `UbsPmTradeFrm`; added 3 control references; fixed `UbsForm1` → `UbsPmTradeFrm` compile entries.
+- Fixed `UbsPmTradeFrm.cs`: correct class name (`UbsPmTradeFrm`), namespace (`UbsPmTradeFrm`), LoadResource path.
+- **Result: 0 errors, 1 XML-doc warning. DLL produced at `bin\Release\UbsPmTradeFrm.dll`.**
+
+### 2026-03-24 — TabIndex Correction Pass
+
+- Discovered Designer.cs had been improved by user between sessions (UbsCtrlDate, LinkLabel, larger form size).
+- Audited all TabIndex values across 12 containers (~110 controls).
+- Found 7 categories of errors: duplicate=15, form-wide numbering in GroupBoxes, chkCash at 0, linkBuyer/Seller at 0, display fields missing TabStop=false, container siblings both at 0, button style.
+- Created `plan-tabindex-order.md` — full before/after table per container.
+- Applied ~50 StrReplace edits + 10 TabStop=false additions.
+- Verified: `rg 'TabIndex\s*=\s*[2-9][0-9]+'` → 0 matches.
+- **Result: 0 errors. Designer.cs now has correct per-container TabIndex order.**
+- Appended Addendum section to `reflection-trade-designer.md`.
+
 ## What Remains
 
-- [ ] BUILD (Designer v2): Recreate `UbsPmTradeFrm.Designer.cs` following `plan-trade-designer-revision.md`
 - [ ] PLAN (full): `plan-trade-conversion-goals.md` + `plan-trade-legacy-source-conversion.md`
 - [ ] CREATIVE: Architecture decisions (sub-forms, obligations model, tab-disable)
 - [ ] Phase 2 Conversion: InitDoc, ListKey, FillCombos, all event handlers, Save logic
