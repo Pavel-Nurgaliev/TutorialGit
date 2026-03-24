@@ -5,10 +5,11 @@
 | Phase | Status | Date |
 |-------|--------|------|
 | VAN (Initialization) | ✅ Complete | 2026-03-24 |
-| PLAN (designer) | ✅ Complete | 2026-03-24 |
+| PLAN (designer v1 — DOB source) | ✅ Complete | 2026-03-24 |
+| BUILD (Phase 1 Prep + Designer v1) | ✅ Complete | 2026-03-24 |
+| PLAN (designer revision — screens) | ✅ Complete | 2026-03-24 |
 | CREATIVE | ⬜ Not started | — |
-| VAN QA | ⬜ Not started | — |
-| BUILD | ⬜ Not started | — |
+| BUILD (Designer v2 — screen-corrected) | ⬜ Pending | — |
 | REFLECT | ⬜ Not started | — |
 | ARCHIVE | ⬜ Not started | — |
 
@@ -19,28 +20,45 @@
 - Analyzed legacy form `Pm_Trade_ud.dob` (5365 lines, 6-tab complex form).
 - Identified all channel commands (14+ commands), tab structure, control inventory, business logic rules.
 - Reviewed successful OP conversion references: UbsOpRetoperFrm_CP (Level 3), UbsOpCommissionFrm_CP (Level 3).
-- Created memory bank structure:
-  - `projectbrief.md` ✅
-  - `productContext.md` ✅
-  - `techContext.md` ✅
-  - `systemPatterns.md` ✅
-  - `activeContext.md` ✅
-  - `progress.md` ✅ (this file)
-  - `tasks.md` ✅
+- Created full memory bank (projectbrief, productContext, techContext, systemPatterns, activeContext, progress, tasks, style-guide).
 - Determined complexity: **Level 4** (complex multi-tab form).
-- Confirmed: requires PLAN → CREATIVE → VAN QA → BUILD progression.
+
+### 2026-03-24 — PLAN (designer v1)
+
+- Created `plan-trade-designer-conversion.md` from DOB source analysis.
+- Mapped 6 tabs, all controls, anchoring strategy, control-array replacement.
+
+### 2026-03-24 — BUILD (Phase 1 Prep + Designer v1)
+
+- Renamed project: `UbsForm1` → `UbsPmTradeFrm` (class, files, namespace).
+- Updated `.csproj`: `RootNamespace`/`AssemblyName` = `UbsPmTradeFrm`, added 3 references (UbsCtrlDecimal, UbsCtrlDate, UbsCtrlFields), PostBuildEvent.
+- Wrote `UbsPmTradeFrm.Designer.cs` — 6 tabs, 100+ controls, 0 compile errors, DLL 34 KB.
+- **Note:** Designer.cs file was lost after session end (Cursor workspace issue). Needs rebuild.
+
+### 2026-03-24 — PLAN (designer revision — screen-based)
+
+- Read all 7 legacy screen screenshots (1.png–7.png).
+- Identified **major discrepancies** between DOB-based plan and actual legacy form:
+  - All 6 tab names were wrong
+  - Tabs 4 ("Поставка") and 5 ("Оплата") content were SWAPPED
+  - Tab 1: grpTrade layout (delivery+type on same row); grpContracts layout (code/name on 2nd row)
+  - Tab 3: control order changed, GroupBox names changed, massa fields side-by-side, lblObligInfo1/2 move to sub-tab 2, new accounts button
+  - Tab 4 "Поставка": new title label, "Номер" label, "выбор хранилища" label; remove lblStorageNote
+  - Tab 5 "Оплата": sub-tab order swapped (Buyer first), 14 new labels, txtKS on same row as txtBIK, cmdAccount right of txtRS
+  - Bottom strip: simplified to 3 columns (lblAccounts/cmdAccounts → move to tabPage3)
+- Created `plan-trade-designer-revision.md` with pixel coordinates and all 28 build sub-steps.
 
 ## What Is Already in Place
 
-- `.NET project skeleton:** `UbsPmTradeFrm/` with `UbsForm1.cs` (stub: CommandLine, ListKey, btnSave, btnExit).
-- **Assembly references:** UbsBase, UbsChannel, UbsCollections, UbsCtrlInfo, UbsForm, UbsFormBase, UbsInterface.
-- **Missing references:** UbsCtrlDecimal, UbsCtrlDate, UbsCtrlAddFields (to be added in Phase 1 Prep).
+- **Project renamed:** `UbsPmTradeFrm.cs` + `.csproj` + `.resx` (UbsForm1 renamed).
+- **Assembly references:** UbsBase, UbsChannel, UbsCollections, UbsCtrlInfo, UbsForm, UbsFormBase, UbsInterface, UbsCtrlDecimal, UbsCtrlDate, UbsCtrlFields.
+- **`RootNamespace`/`AssemblyName`:** `UbsPmTradeFrm`.
+- **Legacy screens analyzed:** 7 PNG screenshots covering all 6 tabs.
 
 ## What Remains
 
-- [x] PLAN (designer): `plan-trade-designer-conversion.md` — control inventory, 14 build steps, all 6 tabs ✅
-- [ ] PLAN (full): `plan-trade-conversion-goals.md` + `plan-trade-legacy-source-conversion.md` (can be done in parallel with BUILD)
-- [ ] CREATIVE: Architecture decisions (layout, sub-forms, data binding, obligations model)
-- [ ] Phase 1 Prep: Constants partial, channel contract doc, add references, rename UbsForm1 → UbsPmTradeFrm
-- [ ] Phase 2 Conversion: Full UI (6 tabs), InitDoc, ListKey, all channel handlers, Save
-- [ ] Phase 3 Post: Partials, reflection doc, systemPatterns update
+- [ ] BUILD (Designer v2): Recreate `UbsPmTradeFrm.Designer.cs` following `plan-trade-designer-revision.md`
+- [ ] PLAN (full): `plan-trade-conversion-goals.md` + `plan-trade-legacy-source-conversion.md`
+- [ ] CREATIVE: Architecture decisions (sub-forms, obligations model, tab-disable)
+- [ ] Phase 2 Conversion: InitDoc, ListKey, FillCombos, all event handlers, Save logic
+- [ ] Phase 3 Post: Partials, reflection, archive

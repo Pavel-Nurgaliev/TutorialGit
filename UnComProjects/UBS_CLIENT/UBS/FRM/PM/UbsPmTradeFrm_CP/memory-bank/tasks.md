@@ -8,6 +8,7 @@
 
 **Plans:**
 - `memory-bank/plan-trade-designer-conversion.md` ✅ — **Designer first**: full control inventory for all 6 tabs, anchor strategy, control-array replacement, 14 build steps
+- `memory-bank/plan-trade-designer-revision.md` ✅ — **Screen-based correction**: 7 screenshot analysis, all layout/name/order differences documented, 8 build steps
 - `memory-bank/plan-trade-conversion-goals.md` — (to create) main goal, full conversion roadmap
 - `memory-bank/plan-trade-legacy-source-conversion.md` — (to create) legacy source ↔ target mapping
 
@@ -138,5 +139,7 @@
 ## Status
 
 - **VAN initialization complete** — memory bank created.
-- **PLAN (designer) complete** — `plan-trade-designer-conversion.md` created. Full 6-tab control inventory, 14-step build plan, control-array replacement strategy, anchor/resize strategy.
-- **Awaiting BUILD (Phase 1 Prep then designer)** — complete rename + references, then build designer step-by-step.
+- **PLAN (designer v1) complete** — `plan-trade-designer-conversion.md` created. Full 6-tab control inventory, 14-step build plan.
+- **BUILD (Phase 1 Prep + Designer v1) complete** — `UbsPmTradeFrm.Designer.cs` built: 0 errors, DLL 34 KB. *(File lost after session; needs rebuild)*
+- **PLAN (designer revision) complete** — `plan-trade-designer-revision.md` created from 7 legacy screens. All layout/name/order corrections documented with pixel coordinates.
+- **NEXT: BUILD (designer revision)** — recreate `UbsPmTradeFrm.Designer.cs` following `plan-trade-designer-revision.md`.
