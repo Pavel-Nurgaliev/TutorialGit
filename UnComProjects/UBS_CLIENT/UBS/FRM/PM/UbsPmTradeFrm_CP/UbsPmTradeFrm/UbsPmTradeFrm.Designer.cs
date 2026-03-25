@@ -29,7 +29,7 @@ namespace UbsPmTradeFrm
             this.dateTrade = new UbsControl.UbsCtrlDate();
             this.lblNum = new System.Windows.Forms.Label();
             this.txtTradeNum = new System.Windows.Forms.TextBox();
-            this.chkIsComposit = new System.Windows.Forms.CheckBox();
+            this.chkComposit = new System.Windows.Forms.CheckBox();
             this.lblDelivery = new System.Windows.Forms.Label();
             this.cmbKindSupplyTrade = new System.Windows.Forms.ComboBox();
             this.lblTradeType = new System.Windows.Forms.Label();
@@ -37,10 +37,10 @@ namespace UbsPmTradeFrm
             this.lblCurrencyPost = new System.Windows.Forms.Label();
             this.cmbCurrencyPost = new System.Windows.Forms.ComboBox();
             this.lblCurrencyOpl = new System.Windows.Forms.Label();
-            this.cmbCurrencyOpl = new System.Windows.Forms.ComboBox();
+            this.cmbCurrencyPayment = new System.Windows.Forms.ComboBox();
             this.grpContracts = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblBuyer = new System.Windows.Forms.Label();
+            this.lblSeller = new System.Windows.Forms.Label();
             this.btnContract2 = new System.Windows.Forms.Button();
             this.btnContract1 = new System.Windows.Forms.Button();
             this.cmbContractType1 = new System.Windows.Forms.ComboBox();
@@ -55,7 +55,7 @@ namespace UbsPmTradeFrm
             this.cmbComission = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.lstViewOblig = new System.Windows.Forms.ListView();
+            this.lvwObligation = new System.Windows.Forms.ListView();
             this.colObligDir = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colObligNum = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colObligDateOpl = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -68,17 +68,17 @@ namespace UbsPmTradeFrm
             this.colObligUnit = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colObligFixRate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.cmdAddOblig = new System.Windows.Forms.Button();
-            this.cmdDelOblig = new System.Windows.Forms.Button();
-            this.cmdEditOblig = new System.Windows.Forms.Button();
+            this.cmdAddObligation = new System.Windows.Forms.Button();
+            this.cmdDelObligation = new System.Windows.Forms.Button();
+            this.cmdEditObligation = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.tabControlOblig = new System.Windows.Forms.TabControl();
             this.tabPageOblig1 = new System.Windows.Forms.TabPage();
-            this.lblNaprTrade = new System.Windows.Forms.Label();
-            this.cmbNaprTrade = new System.Windows.Forms.ComboBox();
-            this.lblCurOblig = new System.Windows.Forms.Label();
-            this.cmbCurOblig = new System.Windows.Forms.ComboBox();
+            this.lblTradeDirection = new System.Windows.Forms.Label();
+            this.cmbTradeDirection = new System.Windows.Forms.ComboBox();
+            this.lblObligationCurrency = new System.Windows.Forms.Label();
+            this.cmbObligationCurrency = new System.Windows.Forms.ComboBox();
             this.lblUnit = new System.Windows.Forms.Label();
             this.cmbUnit = new System.Windows.Forms.ComboBox();
             this.lblCostUnit = new System.Windows.Forms.Label();
@@ -90,22 +90,22 @@ namespace UbsPmTradeFrm
             this.grpMetalChar = new System.Windows.Forms.GroupBox();
             this.lblDatePost = new System.Windows.Forms.Label();
             this.datePost = new UbsControl.UbsCtrlDate();
-            this.lblMassa = new System.Windows.Forms.Label();
-            this.ucdMassa = new UbsControl.UbsCtrlDecimal();
-            this.lblMassaGramm = new System.Windows.Forms.Label();
-            this.ucdMassaGramm = new UbsControl.UbsCtrlDecimal();
+            this.lblMass = new System.Windows.Forms.Label();
+            this.ucdMass = new UbsControl.UbsCtrlDecimal();
+            this.lblMassGramm = new System.Windows.Forms.Label();
+            this.ucdMassGramm = new UbsControl.UbsCtrlDecimal();
             this.grpMetalCharPost = new System.Windows.Forms.GroupBox();
-            this.lblDateOpl = new System.Windows.Forms.Label();
-            this.dateOpl = new UbsControl.UbsCtrlDate();
-            this.lblSumOblig = new System.Windows.Forms.Label();
-            this.ucdSumOblig = new UbsControl.UbsCtrlDecimal();
-            this.lblSumOpl = new System.Windows.Forms.Label();
-            this.ucdSumOpl = new UbsControl.UbsCtrlDecimal();
+            this.lblDatePayment = new System.Windows.Forms.Label();
+            this.datePayment = new UbsControl.UbsCtrlDate();
+            this.lblSumObligation = new System.Windows.Forms.Label();
+            this.ucdSumObligation = new UbsControl.UbsCtrlDecimal();
+            this.lblSumPayment = new System.Windows.Forms.Label();
+            this.ucdSumPayment = new UbsControl.UbsCtrlDecimal();
             this.tabPageOblig2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.lblObligInfo1 = new System.Windows.Forms.Label();
+            this.lblObligationInfo1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.lstViewObject = new System.Windows.Forms.ListView();
+            this.lvwObject = new System.Windows.Forms.ListView();
             this.colObjInstr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colObjCode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colObjLigMassa = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -116,14 +116,14 @@ namespace UbsPmTradeFrm
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.cmdAddObject = new System.Windows.Forms.Button();
             this.cmdDelObject = new System.Windows.Forms.Button();
-            this.lblObligInfo2 = new System.Windows.Forms.Label();
+            this.lblObligationInfo2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.linkAccountsOblig = new System.Windows.Forms.LinkLabel();
-            this.cmdExitOblig = new System.Windows.Forms.Button();
-            this.cmdApplayOblig = new System.Windows.Forms.Button();
+            this.linkAccountsObligation = new System.Windows.Forms.LinkLabel();
+            this.cmdExitObligation = new System.Windows.Forms.Button();
+            this.cmdApplayObligation = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.linkStorage = new System.Windows.Forms.LinkLabel();
-            this.lblDeliveryInstrTitle = new System.Windows.Forms.Label();
+            this.lblDeliveryInstructionTitle = new System.Windows.Forms.Label();
             this.chkExternalStorage = new System.Windows.Forms.CheckBox();
             this.lblStorageNum = new System.Windows.Forms.Label();
             this.txtStorageCode = new System.Windows.Forms.TextBox();
@@ -132,43 +132,43 @@ namespace UbsPmTradeFrm
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabControlInstr = new System.Windows.Forms.TabControl();
             this.tabPageInstr1 = new System.Windows.Forms.TabPage();
-            this.linkAccountPay = new System.Windows.Forms.LinkLabel();
-            this.linkListInstr = new System.Windows.Forms.LinkLabel();
-            this.lblInstrTitle_0 = new System.Windows.Forms.Label();
-            this.chkCash_0 = new System.Windows.Forms.CheckBox();
-            this.lblBIK_0 = new System.Windows.Forms.Label();
-            this.txtBIK_0 = new System.Windows.Forms.TextBox();
-            this.lblKS_0 = new System.Windows.Forms.Label();
-            this.txtKS_0 = new System.Windows.Forms.TextBox();
-            this.lblNameBank_0 = new System.Windows.Forms.Label();
-            this.txtName_0 = new System.Windows.Forms.TextBox();
-            this.txtRS_0 = new System.Windows.Forms.TextBox();
-            this.lblClient_0 = new System.Windows.Forms.Label();
-            this.txtClient_0 = new System.Windows.Forms.TextBox();
-            this.lblNote_0 = new System.Windows.Forms.Label();
-            this.txtNote_0 = new System.Windows.Forms.TextBox();
-            this.lblINN_0 = new System.Windows.Forms.Label();
-            this.txtINN_0 = new System.Windows.Forms.TextBox();
-            this.chkNotAkcept_0 = new System.Windows.Forms.CheckBox();
+            this.linkAccountPayment0 = new System.Windows.Forms.LinkLabel();
+            this.linkListInstr0 = new System.Windows.Forms.LinkLabel();
+            this.lblInstrTitlePayment0 = new System.Windows.Forms.Label();
+            this.chkCash0 = new System.Windows.Forms.CheckBox();
+            this.lblBIK0 = new System.Windows.Forms.Label();
+            this.txtBIK0 = new System.Windows.Forms.TextBox();
+            this.lblKS0 = new System.Windows.Forms.Label();
+            this.txtKS0 = new System.Windows.Forms.TextBox();
+            this.lblNameBank0 = new System.Windows.Forms.Label();
+            this.txtName0 = new System.Windows.Forms.TextBox();
+            this.txtRS0 = new System.Windows.Forms.TextBox();
+            this.lblClient0 = new System.Windows.Forms.Label();
+            this.txtClient0 = new System.Windows.Forms.TextBox();
+            this.lblNote0 = new System.Windows.Forms.Label();
+            this.txtNote0 = new System.Windows.Forms.TextBox();
+            this.lblINN0 = new System.Windows.Forms.Label();
+            this.txtINN0 = new System.Windows.Forms.TextBox();
+            this.chkNotAkcept0 = new System.Windows.Forms.CheckBox();
             this.tabPageInstr2 = new System.Windows.Forms.TabPage();
-            this.linkAccountSeller = new System.Windows.Forms.LinkLabel();
-            this.linkListInstrSeller = new System.Windows.Forms.LinkLabel();
-            this.lblInstrTitle_1 = new System.Windows.Forms.Label();
-            this.chkCash_1 = new System.Windows.Forms.CheckBox();
-            this.lblBIK_1 = new System.Windows.Forms.Label();
-            this.txtBIK_1 = new System.Windows.Forms.TextBox();
-            this.lblKS_1 = new System.Windows.Forms.Label();
-            this.txtKS_1 = new System.Windows.Forms.TextBox();
-            this.lblNameBank_1 = new System.Windows.Forms.Label();
-            this.txtName_1 = new System.Windows.Forms.TextBox();
-            this.txtRS_1 = new System.Windows.Forms.TextBox();
-            this.lblClient_1 = new System.Windows.Forms.Label();
-            this.txtClient_1 = new System.Windows.Forms.TextBox();
-            this.lblNote_1 = new System.Windows.Forms.Label();
-            this.txtNote_1 = new System.Windows.Forms.TextBox();
-            this.lblINN_1 = new System.Windows.Forms.Label();
-            this.txtINN_1 = new System.Windows.Forms.TextBox();
-            this.chkNotAkcept_1 = new System.Windows.Forms.CheckBox();
+            this.linkAccountPayment1 = new System.Windows.Forms.LinkLabel();
+            this.linkListInstr1 = new System.Windows.Forms.LinkLabel();
+            this.lblInstrTitlePayment1 = new System.Windows.Forms.Label();
+            this.chkCash1 = new System.Windows.Forms.CheckBox();
+            this.lblBIK1 = new System.Windows.Forms.Label();
+            this.txtBIK1 = new System.Windows.Forms.TextBox();
+            this.lblKS1 = new System.Windows.Forms.Label();
+            this.txtKS1 = new System.Windows.Forms.TextBox();
+            this.lblNameBank1 = new System.Windows.Forms.Label();
+            this.txtName1 = new System.Windows.Forms.TextBox();
+            this.txtRS1 = new System.Windows.Forms.TextBox();
+            this.lblClient1 = new System.Windows.Forms.Label();
+            this.txtClient1 = new System.Windows.Forms.TextBox();
+            this.lblNote1 = new System.Windows.Forms.Label();
+            this.txtNote1 = new System.Windows.Forms.TextBox();
+            this.lblINN1 = new System.Windows.Forms.Label();
+            this.txtINN1 = new System.Windows.Forms.TextBox();
+            this.chkNotAkcept1 = new System.Windows.Forms.CheckBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.ubsCtrlField = new UbsControl.UbsCtrlFields();
             this.panelMain.SuspendLayout();
@@ -281,7 +281,7 @@ namespace UbsPmTradeFrm
             this.tabPage1.Controls.Add(this.lblCurrencyPost);
             this.tabPage1.Controls.Add(this.cmbCurrencyPost);
             this.tabPage1.Controls.Add(this.lblCurrencyOpl);
-            this.tabPage1.Controls.Add(this.cmbCurrencyOpl);
+            this.tabPage1.Controls.Add(this.cmbCurrencyPayment);
             this.tabPage1.Controls.Add(this.grpContracts);
             this.tabPage1.Controls.Add(this.lblCommission);
             this.tabPage1.Controls.Add(this.cmbComission);
@@ -301,7 +301,7 @@ namespace UbsPmTradeFrm
             this.grpTrade.Controls.Add(this.dateTrade);
             this.grpTrade.Controls.Add(this.lblNum);
             this.grpTrade.Controls.Add(this.txtTradeNum);
-            this.grpTrade.Controls.Add(this.chkIsComposit);
+            this.grpTrade.Controls.Add(this.chkComposit);
             this.grpTrade.Controls.Add(this.lblDelivery);
             this.grpTrade.Controls.Add(this.cmbKindSupplyTrade);
             this.grpTrade.Controls.Add(this.lblTradeType);
@@ -349,15 +349,15 @@ namespace UbsPmTradeFrm
             this.txtTradeNum.Size = new System.Drawing.Size(134, 20);
             this.txtTradeNum.TabIndex = 2;
             // 
-            // chkIsComposit
+            // chkComposit
             // 
-            this.chkIsComposit.AutoSize = true;
-            this.chkIsComposit.Location = new System.Drawing.Point(389, 22);
-            this.chkIsComposit.Name = "chkIsComposit";
-            this.chkIsComposit.Size = new System.Drawing.Size(86, 17);
-            this.chkIsComposit.TabIndex = 3;
-            this.chkIsComposit.Text = "Составная?";
-            this.chkIsComposit.UseVisualStyleBackColor = true;
+            this.chkComposit.AutoSize = true;
+            this.chkComposit.Location = new System.Drawing.Point(389, 22);
+            this.chkComposit.Name = "chkComposit";
+            this.chkComposit.Size = new System.Drawing.Size(86, 17);
+            this.chkComposit.TabIndex = 3;
+            this.chkComposit.Text = "Составная?";
+            this.chkComposit.UseVisualStyleBackColor = true;
             // 
             // lblDelivery
             // 
@@ -419,20 +419,20 @@ namespace UbsPmTradeFrm
             this.lblCurrencyOpl.TabIndex = 0;
             this.lblCurrencyOpl.Text = "Валюта оплаты";
             // 
-            // cmbCurrencyOpl
+            // cmbCurrencyPayment
             // 
-            this.cmbCurrencyOpl.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCurrencyOpl.Location = new System.Drawing.Point(112, 115);
-            this.cmbCurrencyOpl.Name = "cmbCurrencyOpl";
-            this.cmbCurrencyOpl.Size = new System.Drawing.Size(173, 21);
-            this.cmbCurrencyOpl.TabIndex = 2;
+            this.cmbCurrencyPayment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCurrencyPayment.Location = new System.Drawing.Point(112, 115);
+            this.cmbCurrencyPayment.Name = "cmbCurrencyPayment";
+            this.cmbCurrencyPayment.Size = new System.Drawing.Size(173, 21);
+            this.cmbCurrencyPayment.TabIndex = 2;
             // 
             // grpContracts
             // 
             this.grpContracts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpContracts.Controls.Add(this.label2);
-            this.grpContracts.Controls.Add(this.label1);
+            this.grpContracts.Controls.Add(this.lblBuyer);
+            this.grpContracts.Controls.Add(this.lblSeller);
             this.grpContracts.Controls.Add(this.btnContract2);
             this.grpContracts.Controls.Add(this.btnContract1);
             this.grpContracts.Controls.Add(this.cmbContractType1);
@@ -450,23 +450,23 @@ namespace UbsPmTradeFrm
             this.grpContracts.TabStop = false;
             this.grpContracts.Text = "Стороны сделки";
             // 
-            // label2
+            // lblBuyer
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 73);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(67, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Покупатель";
+            this.lblBuyer.AutoSize = true;
+            this.lblBuyer.Location = new System.Drawing.Point(8, 73);
+            this.lblBuyer.Name = "lblBuyer";
+            this.lblBuyer.Size = new System.Drawing.Size(67, 13);
+            this.lblBuyer.TabIndex = 6;
+            this.lblBuyer.Text = "Покупатель";
             // 
-            // label1
+            // lblSeller
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Продавец";
+            this.lblSeller.AutoSize = true;
+            this.lblSeller.Location = new System.Drawing.Point(8, 22);
+            this.lblSeller.Name = "lblSeller";
+            this.lblSeller.Size = new System.Drawing.Size(57, 13);
+            this.lblSeller.TabIndex = 1;
+            this.lblSeller.Text = "Продавец";
             // 
             // btnContract2
             // 
@@ -582,7 +582,7 @@ namespace UbsPmTradeFrm
             this.cmbComission.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbComission.Location = new System.Drawing.Point(95, 297);
             this.cmbComission.Name = "cmbComission";
-            this.cmbComission.Size = new System.Drawing.Size(130, 21);
+            this.cmbComission.Size = new System.Drawing.Size(208, 21);
             this.cmbComission.TabIndex = 4;
             // 
             // tabPage2
@@ -601,7 +601,7 @@ namespace UbsPmTradeFrm
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 87.48137F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.51863F));
-            this.tableLayoutPanel1.Controls.Add(this.lstViewOblig, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lvwObligation, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
@@ -611,9 +611,9 @@ namespace UbsPmTradeFrm
             this.tableLayoutPanel1.Size = new System.Drawing.Size(671, 559);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
-            // lstViewOblig
+            // lvwObligation
             // 
-            this.lstViewOblig.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lvwObligation.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colObligDir,
             this.colObligNum,
             this.colObligDateOpl,
@@ -625,17 +625,17 @@ namespace UbsPmTradeFrm
             this.colObligRate,
             this.colObligUnit,
             this.colObligFixRate});
-            this.lstViewOblig.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstViewOblig.FullRowSelect = true;
-            this.lstViewOblig.GridLines = true;
-            this.lstViewOblig.HideSelection = false;
-            this.lstViewOblig.Location = new System.Drawing.Point(3, 3);
-            this.lstViewOblig.MultiSelect = false;
-            this.lstViewOblig.Name = "lstViewOblig";
-            this.lstViewOblig.Size = new System.Drawing.Size(581, 553);
-            this.lstViewOblig.TabIndex = 0;
-            this.lstViewOblig.UseCompatibleStateImageBehavior = false;
-            this.lstViewOblig.View = System.Windows.Forms.View.Details;
+            this.lvwObligation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwObligation.FullRowSelect = true;
+            this.lvwObligation.GridLines = true;
+            this.lvwObligation.HideSelection = false;
+            this.lvwObligation.Location = new System.Drawing.Point(3, 3);
+            this.lvwObligation.MultiSelect = false;
+            this.lvwObligation.Name = "lvwObligation";
+            this.lvwObligation.Size = new System.Drawing.Size(581, 553);
+            this.lvwObligation.TabIndex = 0;
+            this.lvwObligation.UseCompatibleStateImageBehavior = false;
+            this.lvwObligation.View = System.Windows.Forms.View.Details;
             // 
             // colObligDir
             // 
@@ -696,9 +696,9 @@ namespace UbsPmTradeFrm
             // 
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.cmdAddOblig, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.cmdDelOblig, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.cmdEditOblig, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.cmdAddObligation, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.cmdDelObligation, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.cmdEditObligation, 0, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(590, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -710,35 +710,35 @@ namespace UbsPmTradeFrm
             this.tableLayoutPanel2.Size = new System.Drawing.Size(78, 553);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
-            // cmdAddOblig
+            // cmdAddObligation
             // 
-            this.cmdAddOblig.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdAddOblig.Location = new System.Drawing.Point(3, 3);
-            this.cmdAddOblig.Name = "cmdAddOblig";
-            this.cmdAddOblig.Size = new System.Drawing.Size(72, 26);
-            this.cmdAddOblig.TabIndex = 1;
-            this.cmdAddOblig.Text = "Добавить";
-            this.cmdAddOblig.UseVisualStyleBackColor = true;
+            this.cmdAddObligation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmdAddObligation.Location = new System.Drawing.Point(3, 3);
+            this.cmdAddObligation.Name = "cmdAddObligation";
+            this.cmdAddObligation.Size = new System.Drawing.Size(72, 26);
+            this.cmdAddObligation.TabIndex = 1;
+            this.cmdAddObligation.Text = "Добавить";
+            this.cmdAddObligation.UseVisualStyleBackColor = true;
             // 
-            // cmdDelOblig
+            // cmdDelObligation
             // 
-            this.cmdDelOblig.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdDelOblig.Location = new System.Drawing.Point(3, 67);
-            this.cmdDelOblig.Name = "cmdDelOblig";
-            this.cmdDelOblig.Size = new System.Drawing.Size(72, 26);
-            this.cmdDelOblig.TabIndex = 3;
-            this.cmdDelOblig.Text = "Удалить";
-            this.cmdDelOblig.UseVisualStyleBackColor = true;
+            this.cmdDelObligation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmdDelObligation.Location = new System.Drawing.Point(3, 67);
+            this.cmdDelObligation.Name = "cmdDelObligation";
+            this.cmdDelObligation.Size = new System.Drawing.Size(72, 26);
+            this.cmdDelObligation.TabIndex = 3;
+            this.cmdDelObligation.Text = "Удалить";
+            this.cmdDelObligation.UseVisualStyleBackColor = true;
             // 
-            // cmdEditOblig
+            // cmdEditObligation
             // 
-            this.cmdEditOblig.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdEditOblig.Location = new System.Drawing.Point(3, 35);
-            this.cmdEditOblig.Name = "cmdEditOblig";
-            this.cmdEditOblig.Size = new System.Drawing.Size(72, 26);
-            this.cmdEditOblig.TabIndex = 2;
-            this.cmdEditOblig.Text = "Изменить";
-            this.cmdEditOblig.UseVisualStyleBackColor = true;
+            this.cmdEditObligation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmdEditObligation.Location = new System.Drawing.Point(3, 35);
+            this.cmdEditObligation.Name = "cmdEditObligation";
+            this.cmdEditObligation.Size = new System.Drawing.Size(72, 26);
+            this.cmdEditObligation.TabIndex = 2;
+            this.cmdEditObligation.Text = "Изменить";
+            this.cmdEditObligation.UseVisualStyleBackColor = true;
             // 
             // tabPage3
             // 
@@ -781,10 +781,10 @@ namespace UbsPmTradeFrm
             // 
             // tabPageOblig1
             // 
-            this.tabPageOblig1.Controls.Add(this.lblNaprTrade);
-            this.tabPageOblig1.Controls.Add(this.cmbNaprTrade);
-            this.tabPageOblig1.Controls.Add(this.lblCurOblig);
-            this.tabPageOblig1.Controls.Add(this.cmbCurOblig);
+            this.tabPageOblig1.Controls.Add(this.lblTradeDirection);
+            this.tabPageOblig1.Controls.Add(this.cmbTradeDirection);
+            this.tabPageOblig1.Controls.Add(this.lblObligationCurrency);
+            this.tabPageOblig1.Controls.Add(this.cmbObligationCurrency);
             this.tabPageOblig1.Controls.Add(this.lblUnit);
             this.tabPageOblig1.Controls.Add(this.cmbUnit);
             this.tabPageOblig1.Controls.Add(this.lblCostUnit);
@@ -803,43 +803,43 @@ namespace UbsPmTradeFrm
             this.tabPageOblig1.Text = "Обязательство";
             this.tabPageOblig1.UseVisualStyleBackColor = true;
             // 
-            // lblNaprTrade
+            // lblTradeDirection
             // 
-            this.lblNaprTrade.AutoSize = true;
-            this.lblNaprTrade.Location = new System.Drawing.Point(6, 10);
-            this.lblNaprTrade.Name = "lblNaprTrade";
-            this.lblNaprTrade.Size = new System.Drawing.Size(114, 13);
-            this.lblNaprTrade.TabIndex = 0;
-            this.lblNaprTrade.Text = "Направление сделки";
+            this.lblTradeDirection.AutoSize = true;
+            this.lblTradeDirection.Location = new System.Drawing.Point(6, 10);
+            this.lblTradeDirection.Name = "lblTradeDirection";
+            this.lblTradeDirection.Size = new System.Drawing.Size(114, 13);
+            this.lblTradeDirection.TabIndex = 0;
+            this.lblTradeDirection.Text = "Направление сделки";
             // 
-            // cmbNaprTrade
+            // cmbTradeDirection
             // 
-            this.cmbNaprTrade.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cmbTradeDirection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbNaprTrade.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbNaprTrade.Location = new System.Drawing.Point(168, 6);
-            this.cmbNaprTrade.Name = "cmbNaprTrade";
-            this.cmbNaprTrade.Size = new System.Drawing.Size(482, 21);
-            this.cmbNaprTrade.TabIndex = 1;
+            this.cmbTradeDirection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTradeDirection.Location = new System.Drawing.Point(168, 6);
+            this.cmbTradeDirection.Name = "cmbTradeDirection";
+            this.cmbTradeDirection.Size = new System.Drawing.Size(482, 21);
+            this.cmbTradeDirection.TabIndex = 1;
             // 
-            // lblCurOblig
+            // lblObligationCurrency
             // 
-            this.lblCurOblig.AutoSize = true;
-            this.lblCurOblig.Location = new System.Drawing.Point(6, 35);
-            this.lblCurOblig.Name = "lblCurOblig";
-            this.lblCurOblig.Size = new System.Drawing.Size(124, 13);
-            this.lblCurOblig.TabIndex = 0;
-            this.lblCurOblig.Text = "Валюта обязательства";
+            this.lblObligationCurrency.AutoSize = true;
+            this.lblObligationCurrency.Location = new System.Drawing.Point(6, 35);
+            this.lblObligationCurrency.Name = "lblObligationCurrency";
+            this.lblObligationCurrency.Size = new System.Drawing.Size(124, 13);
+            this.lblObligationCurrency.TabIndex = 0;
+            this.lblObligationCurrency.Text = "Валюта обязательства";
             // 
-            // cmbCurOblig
+            // cmbObligationCurrency
             // 
-            this.cmbCurOblig.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cmbObligationCurrency.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbCurOblig.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCurOblig.Location = new System.Drawing.Point(168, 31);
-            this.cmbCurOblig.Name = "cmbCurOblig";
-            this.cmbCurOblig.Size = new System.Drawing.Size(482, 21);
-            this.cmbCurOblig.TabIndex = 2;
+            this.cmbObligationCurrency.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbObligationCurrency.Location = new System.Drawing.Point(168, 31);
+            this.cmbObligationCurrency.Name = "cmbObligationCurrency";
+            this.cmbObligationCurrency.Size = new System.Drawing.Size(482, 21);
+            this.cmbObligationCurrency.TabIndex = 2;
             // 
             // lblUnit
             // 
@@ -924,10 +924,10 @@ namespace UbsPmTradeFrm
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpMetalChar.Controls.Add(this.lblDatePost);
             this.grpMetalChar.Controls.Add(this.datePost);
-            this.grpMetalChar.Controls.Add(this.lblMassa);
-            this.grpMetalChar.Controls.Add(this.ucdMassa);
-            this.grpMetalChar.Controls.Add(this.lblMassaGramm);
-            this.grpMetalChar.Controls.Add(this.ucdMassaGramm);
+            this.grpMetalChar.Controls.Add(this.lblMass);
+            this.grpMetalChar.Controls.Add(this.ucdMass);
+            this.grpMetalChar.Controls.Add(this.lblMassGramm);
+            this.grpMetalChar.Controls.Add(this.ucdMassGramm);
             this.grpMetalChar.Location = new System.Drawing.Point(6, 158);
             this.grpMetalChar.Name = "grpMetalChar";
             this.grpMetalChar.Size = new System.Drawing.Size(645, 77);
@@ -954,51 +954,51 @@ namespace UbsPmTradeFrm
             this.datePost.Text = "  .  .    ";
             this.datePost.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // lblMassa
+            // lblMass
             // 
-            this.lblMassa.AutoSize = true;
-            this.lblMassa.Location = new System.Drawing.Point(8, 52);
-            this.lblMassa.Name = "lblMassa";
-            this.lblMassa.Size = new System.Drawing.Size(93, 13);
-            this.lblMassa.TabIndex = 0;
-            this.lblMassa.Text = "Масса в ед. изм.";
+            this.lblMass.AutoSize = true;
+            this.lblMass.Location = new System.Drawing.Point(8, 52);
+            this.lblMass.Name = "lblMass";
+            this.lblMass.Size = new System.Drawing.Size(93, 13);
+            this.lblMass.TabIndex = 0;
+            this.lblMass.Text = "Масса в ед. изм.";
             // 
-            // ucdMassa
+            // ucdMass
             // 
-            this.ucdMassa.Location = new System.Drawing.Point(110, 49);
-            this.ucdMassa.Name = "ucdMassa";
-            this.ucdMassa.Size = new System.Drawing.Size(120, 20);
-            this.ucdMassa.TabIndex = 2;
-            this.ucdMassa.Text = "0";
+            this.ucdMass.Location = new System.Drawing.Point(110, 49);
+            this.ucdMass.Name = "ucdMass";
+            this.ucdMass.Size = new System.Drawing.Size(120, 20);
+            this.ucdMass.TabIndex = 2;
+            this.ucdMass.Text = "0";
             // 
-            // lblMassaGramm
+            // lblMassGramm
             // 
-            this.lblMassaGramm.AutoSize = true;
-            this.lblMassaGramm.Location = new System.Drawing.Point(281, 52);
-            this.lblMassaGramm.Name = "lblMassaGramm";
-            this.lblMassaGramm.Size = new System.Drawing.Size(142, 13);
-            this.lblMassaGramm.TabIndex = 0;
-            this.lblMassaGramm.Text = "Масса металла в граммах";
+            this.lblMassGramm.AutoSize = true;
+            this.lblMassGramm.Location = new System.Drawing.Point(281, 52);
+            this.lblMassGramm.Name = "lblMassGramm";
+            this.lblMassGramm.Size = new System.Drawing.Size(142, 13);
+            this.lblMassGramm.TabIndex = 0;
+            this.lblMassGramm.Text = "Масса металла в граммах";
             // 
-            // ucdMassaGramm
+            // ucdMassGramm
             // 
-            this.ucdMassaGramm.Enabled = false;
-            this.ucdMassaGramm.Location = new System.Drawing.Point(429, 49);
-            this.ucdMassaGramm.Name = "ucdMassaGramm";
-            this.ucdMassaGramm.Size = new System.Drawing.Size(112, 20);
-            this.ucdMassaGramm.TabIndex = 3;
-            this.ucdMassaGramm.Text = "0";
+            this.ucdMassGramm.Enabled = false;
+            this.ucdMassGramm.Location = new System.Drawing.Point(429, 49);
+            this.ucdMassGramm.Name = "ucdMassGramm";
+            this.ucdMassGramm.Size = new System.Drawing.Size(112, 20);
+            this.ucdMassGramm.TabIndex = 3;
+            this.ucdMassGramm.Text = "0";
             // 
             // grpMetalCharPost
             // 
             this.grpMetalCharPost.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpMetalCharPost.Controls.Add(this.lblDateOpl);
-            this.grpMetalCharPost.Controls.Add(this.dateOpl);
-            this.grpMetalCharPost.Controls.Add(this.lblSumOblig);
-            this.grpMetalCharPost.Controls.Add(this.ucdSumOblig);
-            this.grpMetalCharPost.Controls.Add(this.lblSumOpl);
-            this.grpMetalCharPost.Controls.Add(this.ucdSumOpl);
+            this.grpMetalCharPost.Controls.Add(this.lblDatePayment);
+            this.grpMetalCharPost.Controls.Add(this.datePayment);
+            this.grpMetalCharPost.Controls.Add(this.lblSumObligation);
+            this.grpMetalCharPost.Controls.Add(this.ucdSumObligation);
+            this.grpMetalCharPost.Controls.Add(this.lblSumPayment);
+            this.grpMetalCharPost.Controls.Add(this.ucdSumPayment);
             this.grpMetalCharPost.Location = new System.Drawing.Point(6, 241);
             this.grpMetalCharPost.Name = "grpMetalCharPost";
             this.grpMetalCharPost.Size = new System.Drawing.Size(645, 100);
@@ -1006,60 +1006,60 @@ namespace UbsPmTradeFrm
             this.grpMetalCharPost.TabStop = false;
             this.grpMetalCharPost.Text = "Обязательство оплаты";
             // 
-            // lblDateOpl
+            // lblDatePayment
             // 
-            this.lblDateOpl.AutoSize = true;
-            this.lblDateOpl.Location = new System.Drawing.Point(8, 23);
-            this.lblDateOpl.Name = "lblDateOpl";
-            this.lblDateOpl.Size = new System.Drawing.Size(73, 13);
-            this.lblDateOpl.TabIndex = 0;
-            this.lblDateOpl.Text = "Дата оплаты";
+            this.lblDatePayment.AutoSize = true;
+            this.lblDatePayment.Location = new System.Drawing.Point(8, 23);
+            this.lblDatePayment.Name = "lblDatePayment";
+            this.lblDatePayment.Size = new System.Drawing.Size(73, 13);
+            this.lblDatePayment.TabIndex = 0;
+            this.lblDatePayment.Text = "Дата оплаты";
             // 
-            // dateOpl
+            // datePayment
             // 
-            this.dateOpl.Location = new System.Drawing.Point(175, 19);
-            this.dateOpl.MaxLength = 10;
-            this.dateOpl.Name = "dateOpl";
-            this.dateOpl.Size = new System.Drawing.Size(100, 20);
-            this.dateOpl.TabIndex = 1;
-            this.dateOpl.Text = "  .  .    ";
-            this.dateOpl.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.datePayment.Location = new System.Drawing.Point(175, 19);
+            this.datePayment.MaxLength = 10;
+            this.datePayment.Name = "datePayment";
+            this.datePayment.Size = new System.Drawing.Size(100, 20);
+            this.datePayment.TabIndex = 1;
+            this.datePayment.Text = "  .  .    ";
+            this.datePayment.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // lblSumOblig
+            // lblSumObligation
             // 
-            this.lblSumOblig.AutoSize = true;
-            this.lblSumOblig.Location = new System.Drawing.Point(8, 50);
-            this.lblSumOblig.Name = "lblSumOblig";
-            this.lblSumOblig.Size = new System.Drawing.Size(132, 13);
-            this.lblSumOblig.TabIndex = 0;
-            this.lblSumOblig.Text = "Сумма в валюте обяз-ва";
+            this.lblSumObligation.AutoSize = true;
+            this.lblSumObligation.Location = new System.Drawing.Point(8, 50);
+            this.lblSumObligation.Name = "lblSumObligation";
+            this.lblSumObligation.Size = new System.Drawing.Size(132, 13);
+            this.lblSumObligation.TabIndex = 0;
+            this.lblSumObligation.Text = "Сумма в валюте обяз-ва";
             // 
-            // ucdSumOblig
+            // ucdSumObligation
             // 
-            this.ucdSumOblig.Enabled = false;
-            this.ucdSumOblig.Location = new System.Drawing.Point(175, 47);
-            this.ucdSumOblig.Name = "ucdSumOblig";
-            this.ucdSumOblig.Size = new System.Drawing.Size(120, 20);
-            this.ucdSumOblig.TabIndex = 2;
-            this.ucdSumOblig.Text = "0";
+            this.ucdSumObligation.Enabled = false;
+            this.ucdSumObligation.Location = new System.Drawing.Point(175, 47);
+            this.ucdSumObligation.Name = "ucdSumObligation";
+            this.ucdSumObligation.Size = new System.Drawing.Size(120, 20);
+            this.ucdSumObligation.TabIndex = 2;
+            this.ucdSumObligation.Text = "0";
             // 
-            // lblSumOpl
+            // lblSumPayment
             // 
-            this.lblSumOpl.AutoSize = true;
-            this.lblSumOpl.Location = new System.Drawing.Point(8, 76);
-            this.lblSumOpl.Name = "lblSumOpl";
-            this.lblSumOpl.Size = new System.Drawing.Size(130, 13);
-            this.lblSumOpl.TabIndex = 0;
-            this.lblSumOpl.Text = "Сумма в валюте оплаты";
+            this.lblSumPayment.AutoSize = true;
+            this.lblSumPayment.Location = new System.Drawing.Point(8, 76);
+            this.lblSumPayment.Name = "lblSumPayment";
+            this.lblSumPayment.Size = new System.Drawing.Size(130, 13);
+            this.lblSumPayment.TabIndex = 0;
+            this.lblSumPayment.Text = "Сумма в валюте оплаты";
             // 
-            // ucdSumOpl
+            // ucdSumPayment
             // 
-            this.ucdSumOpl.Enabled = false;
-            this.ucdSumOpl.Location = new System.Drawing.Point(175, 73);
-            this.ucdSumOpl.Name = "ucdSumOpl";
-            this.ucdSumOpl.Size = new System.Drawing.Size(120, 20);
-            this.ucdSumOpl.TabIndex = 3;
-            this.ucdSumOpl.Text = "0";
+            this.ucdSumPayment.Enabled = false;
+            this.ucdSumPayment.Location = new System.Drawing.Point(175, 73);
+            this.ucdSumPayment.Name = "ucdSumPayment";
+            this.ucdSumPayment.Size = new System.Drawing.Size(120, 20);
+            this.ucdSumPayment.TabIndex = 3;
+            this.ucdSumPayment.Text = "0";
             // 
             // tabPageOblig2
             // 
@@ -1076,9 +1076,9 @@ namespace UbsPmTradeFrm
             // 
             this.tableLayoutPanel5.ColumnCount = 1;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Controls.Add(this.lblObligInfo1, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.lblObligationInfo1, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.tableLayoutPanel3, 0, 2);
-            this.tableLayoutPanel5.Controls.Add(this.lblObligInfo2, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.lblObligationInfo2, 0, 1);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
@@ -1089,23 +1089,23 @@ namespace UbsPmTradeFrm
             this.tableLayoutPanel5.Size = new System.Drawing.Size(651, 489);
             this.tableLayoutPanel5.TabIndex = 5;
             // 
-            // lblObligInfo1
+            // lblObligationInfo1
             // 
-            this.lblObligInfo1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblObligationInfo1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblObligInfo1.Location = new System.Drawing.Point(3, 0);
-            this.lblObligInfo1.Name = "lblObligInfo1";
-            this.lblObligInfo1.Size = new System.Drawing.Size(645, 15);
-            this.lblObligInfo1.TabIndex = 0;
-            this.lblObligInfo1.Text = "Дата оплаты, Дата поставки";
-            this.lblObligInfo1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblObligationInfo1.Location = new System.Drawing.Point(3, 0);
+            this.lblObligationInfo1.Name = "lblObligationInfo1";
+            this.lblObligationInfo1.Size = new System.Drawing.Size(645, 15);
+            this.lblObligationInfo1.TabIndex = 0;
+            this.lblObligationInfo1.Text = "Дата оплаты, Дата поставки";
+            this.lblObligationInfo1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.ColumnCount = 2;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 87.5969F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.4031F));
-            this.tableLayoutPanel3.Controls.Add(this.lstViewObject, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.lvwObject, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 1, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 43);
@@ -1115,9 +1115,9 @@ namespace UbsPmTradeFrm
             this.tableLayoutPanel3.Size = new System.Drawing.Size(645, 443);
             this.tableLayoutPanel3.TabIndex = 4;
             // 
-            // lstViewObject
+            // lvwObject
             // 
-            this.lstViewObject.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lvwObject.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colObjInstr,
             this.colObjCode,
             this.colObjLigMassa,
@@ -1125,17 +1125,17 @@ namespace UbsPmTradeFrm
             this.colObjMassa1,
             this.colObjMassa2,
             this.colObjId});
-            this.lstViewObject.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstViewObject.FullRowSelect = true;
-            this.lstViewObject.GridLines = true;
-            this.lstViewObject.HideSelection = false;
-            this.lstViewObject.Location = new System.Drawing.Point(3, 3);
-            this.lstViewObject.MultiSelect = false;
-            this.lstViewObject.Name = "lstViewObject";
-            this.lstViewObject.Size = new System.Drawing.Size(559, 437);
-            this.lstViewObject.TabIndex = 1;
-            this.lstViewObject.UseCompatibleStateImageBehavior = false;
-            this.lstViewObject.View = System.Windows.Forms.View.Details;
+            this.lvwObject.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwObject.FullRowSelect = true;
+            this.lvwObject.GridLines = true;
+            this.lvwObject.HideSelection = false;
+            this.lvwObject.Location = new System.Drawing.Point(3, 3);
+            this.lvwObject.MultiSelect = false;
+            this.lvwObject.Name = "lvwObject";
+            this.lvwObject.Size = new System.Drawing.Size(559, 437);
+            this.lvwObject.TabIndex = 1;
+            this.lvwObject.UseCompatibleStateImageBehavior = false;
+            this.lvwObject.View = System.Windows.Forms.View.Details;
             // 
             // colObjInstr
             // 
@@ -1207,16 +1207,16 @@ namespace UbsPmTradeFrm
             this.cmdDelObject.Text = "Удалить";
             this.cmdDelObject.UseVisualStyleBackColor = true;
             // 
-            // lblObligInfo2
+            // lblObligationInfo2
             // 
-            this.lblObligInfo2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblObligationInfo2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblObligInfo2.Location = new System.Drawing.Point(3, 20);
-            this.lblObligInfo2.Name = "lblObligInfo2";
-            this.lblObligInfo2.Size = new System.Drawing.Size(645, 15);
-            this.lblObligInfo2.TabIndex = 0;
-            this.lblObligInfo2.Text = "Цена, Масса, Сумма";
-            this.lblObligInfo2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblObligationInfo2.Location = new System.Drawing.Point(3, 20);
+            this.lblObligationInfo2.Name = "lblObligationInfo2";
+            this.lblObligationInfo2.Size = new System.Drawing.Size(645, 15);
+            this.lblObligationInfo2.TabIndex = 0;
+            this.lblObligationInfo2.Text = "Цена, Масса, Сумма";
+            this.lblObligationInfo2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel7
             // 
@@ -1224,9 +1224,9 @@ namespace UbsPmTradeFrm
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 88F));
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 88F));
-            this.tableLayoutPanel7.Controls.Add(this.linkAccountsOblig, 0, 0);
-            this.tableLayoutPanel7.Controls.Add(this.cmdExitOblig, 2, 0);
-            this.tableLayoutPanel7.Controls.Add(this.cmdApplayOblig, 1, 0);
+            this.tableLayoutPanel7.Controls.Add(this.linkAccountsObligation, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.cmdExitObligation, 2, 0);
+            this.tableLayoutPanel7.Controls.Add(this.cmdApplayObligation, 1, 0);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 530);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
@@ -1235,43 +1235,43 @@ namespace UbsPmTradeFrm
             this.tableLayoutPanel7.Size = new System.Drawing.Size(665, 26);
             this.tableLayoutPanel7.TabIndex = 1;
             // 
-            // linkAccountsOblig
+            // linkAccountsObligation
             // 
-            this.linkAccountsOblig.AutoSize = true;
-            this.linkAccountsOblig.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.linkAccountsOblig.Location = new System.Drawing.Point(3, 13);
-            this.linkAccountsOblig.Name = "linkAccountsOblig";
-            this.linkAccountsOblig.Size = new System.Drawing.Size(483, 13);
-            this.linkAccountsOblig.TabIndex = 1;
-            this.linkAccountsOblig.TabStop = true;
-            this.linkAccountsOblig.Text = "Счета по обязательству";
+            this.linkAccountsObligation.AutoSize = true;
+            this.linkAccountsObligation.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.linkAccountsObligation.Location = new System.Drawing.Point(3, 13);
+            this.linkAccountsObligation.Name = "linkAccountsObligation";
+            this.linkAccountsObligation.Size = new System.Drawing.Size(483, 13);
+            this.linkAccountsObligation.TabIndex = 1;
+            this.linkAccountsObligation.TabStop = true;
+            this.linkAccountsObligation.Text = "Счета по обязательству";
             // 
-            // cmdExitOblig
+            // cmdExitObligation
             // 
-            this.cmdExitOblig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdExitOblig.Location = new System.Drawing.Point(580, 3);
-            this.cmdExitOblig.Name = "cmdExitOblig";
-            this.cmdExitOblig.Size = new System.Drawing.Size(82, 20);
-            this.cmdExitOblig.TabIndex = 3;
-            this.cmdExitOblig.Text = "Отмена";
-            this.cmdExitOblig.UseVisualStyleBackColor = true;
-            this.cmdExitOblig.Visible = false;
+            this.cmdExitObligation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdExitObligation.Location = new System.Drawing.Point(580, 3);
+            this.cmdExitObligation.Name = "cmdExitObligation";
+            this.cmdExitObligation.Size = new System.Drawing.Size(82, 20);
+            this.cmdExitObligation.TabIndex = 3;
+            this.cmdExitObligation.Text = "Отмена";
+            this.cmdExitObligation.UseVisualStyleBackColor = true;
+            this.cmdExitObligation.Visible = false;
             // 
-            // cmdApplayOblig
+            // cmdApplayObligation
             // 
-            this.cmdApplayOblig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdApplayOblig.Location = new System.Drawing.Point(492, 3);
-            this.cmdApplayOblig.Name = "cmdApplayOblig";
-            this.cmdApplayOblig.Size = new System.Drawing.Size(82, 20);
-            this.cmdApplayOblig.TabIndex = 2;
-            this.cmdApplayOblig.Text = "Применить";
-            this.cmdApplayOblig.UseVisualStyleBackColor = true;
-            this.cmdApplayOblig.Visible = false;
+            this.cmdApplayObligation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdApplayObligation.Location = new System.Drawing.Point(492, 3);
+            this.cmdApplayObligation.Name = "cmdApplayObligation";
+            this.cmdApplayObligation.Size = new System.Drawing.Size(82, 20);
+            this.cmdApplayObligation.TabIndex = 2;
+            this.cmdApplayObligation.Text = "Применить";
+            this.cmdApplayObligation.UseVisualStyleBackColor = true;
+            this.cmdApplayObligation.Visible = false;
             // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.linkStorage);
-            this.tabPage4.Controls.Add(this.lblDeliveryInstrTitle);
+            this.tabPage4.Controls.Add(this.lblDeliveryInstructionTitle);
             this.tabPage4.Controls.Add(this.chkExternalStorage);
             this.tabPage4.Controls.Add(this.lblStorageNum);
             this.tabPage4.Controls.Add(this.txtStorageCode);
@@ -1295,17 +1295,17 @@ namespace UbsPmTradeFrm
             this.linkStorage.TabStop = true;
             this.linkStorage.Text = "выбор хранилища";
             // 
-            // lblDeliveryInstrTitle
+            // lblDeliveryInstructionTitle
             // 
-            this.lblDeliveryInstrTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblDeliveryInstructionTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblDeliveryInstrTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.lblDeliveryInstrTitle.Location = new System.Drawing.Point(6, 16);
-            this.lblDeliveryInstrTitle.Name = "lblDeliveryInstrTitle";
-            this.lblDeliveryInstrTitle.Size = new System.Drawing.Size(663, 20);
-            this.lblDeliveryInstrTitle.TabIndex = 0;
-            this.lblDeliveryInstrTitle.Text = "Инструкция по поставке";
-            this.lblDeliveryInstrTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblDeliveryInstructionTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.lblDeliveryInstructionTitle.Location = new System.Drawing.Point(6, 16);
+            this.lblDeliveryInstructionTitle.Name = "lblDeliveryInstructionTitle";
+            this.lblDeliveryInstructionTitle.Size = new System.Drawing.Size(663, 20);
+            this.lblDeliveryInstructionTitle.TabIndex = 0;
+            this.lblDeliveryInstructionTitle.Text = "Инструкция по поставке";
+            this.lblDeliveryInstructionTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // chkExternalStorage
             // 
@@ -1355,7 +1355,7 @@ namespace UbsPmTradeFrm
             this.txtStorageName.MaxLength = 50;
             this.txtStorageName.Name = "txtStorageName";
             this.txtStorageName.ReadOnly = true;
-            this.txtStorageName.Size = new System.Drawing.Size(575, 20);
+            this.txtStorageName.Size = new System.Drawing.Size(573, 20);
             this.txtStorageName.TabIndex = 4;
             this.txtStorageName.TabStop = false;
             // 
@@ -1383,24 +1383,24 @@ namespace UbsPmTradeFrm
             // 
             // tabPageInstr1
             // 
-            this.tabPageInstr1.Controls.Add(this.linkAccountPay);
-            this.tabPageInstr1.Controls.Add(this.linkListInstr);
-            this.tabPageInstr1.Controls.Add(this.lblInstrTitle_0);
-            this.tabPageInstr1.Controls.Add(this.chkCash_0);
-            this.tabPageInstr1.Controls.Add(this.lblBIK_0);
-            this.tabPageInstr1.Controls.Add(this.txtBIK_0);
-            this.tabPageInstr1.Controls.Add(this.lblKS_0);
-            this.tabPageInstr1.Controls.Add(this.txtKS_0);
-            this.tabPageInstr1.Controls.Add(this.lblNameBank_0);
-            this.tabPageInstr1.Controls.Add(this.txtName_0);
-            this.tabPageInstr1.Controls.Add(this.txtRS_0);
-            this.tabPageInstr1.Controls.Add(this.lblClient_0);
-            this.tabPageInstr1.Controls.Add(this.txtClient_0);
-            this.tabPageInstr1.Controls.Add(this.lblNote_0);
-            this.tabPageInstr1.Controls.Add(this.txtNote_0);
-            this.tabPageInstr1.Controls.Add(this.lblINN_0);
-            this.tabPageInstr1.Controls.Add(this.txtINN_0);
-            this.tabPageInstr1.Controls.Add(this.chkNotAkcept_0);
+            this.tabPageInstr1.Controls.Add(this.linkAccountPayment0);
+            this.tabPageInstr1.Controls.Add(this.linkListInstr0);
+            this.tabPageInstr1.Controls.Add(this.lblInstrTitlePayment0);
+            this.tabPageInstr1.Controls.Add(this.chkCash0);
+            this.tabPageInstr1.Controls.Add(this.lblBIK0);
+            this.tabPageInstr1.Controls.Add(this.txtBIK0);
+            this.tabPageInstr1.Controls.Add(this.lblKS0);
+            this.tabPageInstr1.Controls.Add(this.txtKS0);
+            this.tabPageInstr1.Controls.Add(this.lblNameBank0);
+            this.tabPageInstr1.Controls.Add(this.txtName0);
+            this.tabPageInstr1.Controls.Add(this.txtRS0);
+            this.tabPageInstr1.Controls.Add(this.lblClient0);
+            this.tabPageInstr1.Controls.Add(this.txtClient0);
+            this.tabPageInstr1.Controls.Add(this.lblNote0);
+            this.tabPageInstr1.Controls.Add(this.txtNote0);
+            this.tabPageInstr1.Controls.Add(this.lblINN0);
+            this.tabPageInstr1.Controls.Add(this.txtINN0);
+            this.tabPageInstr1.Controls.Add(this.chkNotAkcept0);
             this.tabPageInstr1.Location = new System.Drawing.Point(4, 22);
             this.tabPageInstr1.Name = "tabPageInstr1";
             this.tabPageInstr1.Padding = new System.Windows.Forms.Padding(3);
@@ -1409,200 +1409,200 @@ namespace UbsPmTradeFrm
             this.tabPageInstr1.Text = "Покупатель";
             this.tabPageInstr1.UseVisualStyleBackColor = true;
             // 
-            // linkAccountPay
+            // linkAccountPayment0
             // 
-            this.linkAccountPay.AutoSize = true;
-            this.linkAccountPay.Location = new System.Drawing.Point(6, 139);
-            this.linkAccountPay.Name = "linkAccountPay";
-            this.linkAccountPay.Size = new System.Drawing.Size(59, 13);
-            this.linkAccountPay.TabIndex = 7;
-            this.linkAccountPay.TabStop = true;
-            this.linkAccountPay.Text = "Расч. счет";
+            this.linkAccountPayment0.AutoSize = true;
+            this.linkAccountPayment0.Location = new System.Drawing.Point(6, 139);
+            this.linkAccountPayment0.Name = "linkAccountPayment0";
+            this.linkAccountPayment0.Size = new System.Drawing.Size(59, 13);
+            this.linkAccountPayment0.TabIndex = 7;
+            this.linkAccountPayment0.TabStop = true;
+            this.linkAccountPayment0.Text = "Расч. счет";
             // 
-            // linkListInstr
+            // linkListInstr0
             // 
-            this.linkListInstr.AutoSize = true;
-            this.linkListInstr.Location = new System.Drawing.Point(6, 72);
-            this.linkListInstr.Name = "linkListInstr";
-            this.linkListInstr.Size = new System.Drawing.Size(237, 13);
-            this.linkListInstr.TabIndex = 2;
-            this.linkListInstr.TabStop = true;
-            this.linkListInstr.Text = "Выбор платежной инструкции по покупателю";
+            this.linkListInstr0.AutoSize = true;
+            this.linkListInstr0.Location = new System.Drawing.Point(6, 72);
+            this.linkListInstr0.Name = "linkListInstr0";
+            this.linkListInstr0.Size = new System.Drawing.Size(237, 13);
+            this.linkListInstr0.TabIndex = 2;
+            this.linkListInstr0.TabStop = true;
+            this.linkListInstr0.Text = "Выбор платежной инструкции по покупателю";
             // 
-            // lblInstrTitle_0
+            // lblInstrTitlePayment0
             // 
-            this.lblInstrTitle_0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblInstrTitlePayment0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblInstrTitle_0.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.lblInstrTitle_0.Location = new System.Drawing.Point(6, 12);
-            this.lblInstrTitle_0.Name = "lblInstrTitle_0";
-            this.lblInstrTitle_0.Size = new System.Drawing.Size(651, 20);
-            this.lblInstrTitle_0.TabIndex = 0;
-            this.lblInstrTitle_0.Text = "Инструкция по оплате";
-            this.lblInstrTitle_0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblInstrTitlePayment0.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.lblInstrTitlePayment0.Location = new System.Drawing.Point(6, 12);
+            this.lblInstrTitlePayment0.Name = "lblInstrTitlePayment0";
+            this.lblInstrTitlePayment0.Size = new System.Drawing.Size(651, 20);
+            this.lblInstrTitlePayment0.TabIndex = 0;
+            this.lblInstrTitlePayment0.Text = "Инструкция по оплате";
+            this.lblInstrTitlePayment0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // chkCash_0
+            // chkCash0
             // 
-            this.chkCash_0.AutoSize = true;
-            this.chkCash_0.Location = new System.Drawing.Point(9, 40);
-            this.chkCash_0.Name = "chkCash_0";
-            this.chkCash_0.Size = new System.Drawing.Size(125, 17);
-            this.chkCash_0.TabIndex = 1;
-            this.chkCash_0.Text = "Расчет через кассу";
-            this.chkCash_0.UseVisualStyleBackColor = true;
+            this.chkCash0.AutoSize = true;
+            this.chkCash0.Location = new System.Drawing.Point(9, 40);
+            this.chkCash0.Name = "chkCash0";
+            this.chkCash0.Size = new System.Drawing.Size(125, 17);
+            this.chkCash0.TabIndex = 1;
+            this.chkCash0.Text = "Расчет через кассу";
+            this.chkCash0.UseVisualStyleBackColor = true;
             // 
-            // lblBIK_0
+            // lblBIK0
             // 
-            this.lblBIK_0.AutoSize = true;
-            this.lblBIK_0.Location = new System.Drawing.Point(6, 92);
-            this.lblBIK_0.Name = "lblBIK_0";
-            this.lblBIK_0.Size = new System.Drawing.Size(29, 13);
-            this.lblBIK_0.TabIndex = 0;
-            this.lblBIK_0.Text = "БИК";
+            this.lblBIK0.AutoSize = true;
+            this.lblBIK0.Location = new System.Drawing.Point(6, 92);
+            this.lblBIK0.Name = "lblBIK0";
+            this.lblBIK0.Size = new System.Drawing.Size(29, 13);
+            this.lblBIK0.TabIndex = 0;
+            this.lblBIK0.Text = "БИК";
             // 
-            // txtBIK_0
+            // txtBIK0
             // 
-            this.txtBIK_0.Location = new System.Drawing.Point(90, 88);
-            this.txtBIK_0.MaxLength = 9;
-            this.txtBIK_0.Name = "txtBIK_0";
-            this.txtBIK_0.Size = new System.Drawing.Size(80, 20);
-            this.txtBIK_0.TabIndex = 3;
+            this.txtBIK0.Location = new System.Drawing.Point(90, 88);
+            this.txtBIK0.MaxLength = 9;
+            this.txtBIK0.Name = "txtBIK0";
+            this.txtBIK0.Size = new System.Drawing.Size(80, 20);
+            this.txtBIK0.TabIndex = 3;
             // 
-            // lblKS_0
+            // lblKS0
             // 
-            this.lblKS_0.AutoSize = true;
-            this.lblKS_0.Location = new System.Drawing.Point(176, 92);
-            this.lblKS_0.Name = "lblKS_0";
-            this.lblKS_0.Size = new System.Drawing.Size(60, 13);
-            this.lblKS_0.TabIndex = 0;
-            this.lblKS_0.Text = "Корр. счет";
+            this.lblKS0.AutoSize = true;
+            this.lblKS0.Location = new System.Drawing.Point(176, 92);
+            this.lblKS0.Name = "lblKS0";
+            this.lblKS0.Size = new System.Drawing.Size(60, 13);
+            this.lblKS0.TabIndex = 0;
+            this.lblKS0.Text = "Корр. счет";
             // 
-            // txtKS_0
+            // txtKS0
             // 
-            this.txtKS_0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtKS0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtKS_0.Enabled = false;
-            this.txtKS_0.Location = new System.Drawing.Point(242, 88);
-            this.txtKS_0.Name = "txtKS_0";
-            this.txtKS_0.ReadOnly = true;
-            this.txtKS_0.Size = new System.Drawing.Size(415, 20);
-            this.txtKS_0.TabIndex = 4;
-            this.txtKS_0.TabStop = false;
+            this.txtKS0.Enabled = false;
+            this.txtKS0.Location = new System.Drawing.Point(242, 88);
+            this.txtKS0.Name = "txtKS0";
+            this.txtKS0.ReadOnly = true;
+            this.txtKS0.Size = new System.Drawing.Size(415, 20);
+            this.txtKS0.TabIndex = 4;
+            this.txtKS0.TabStop = false;
             // 
-            // lblNameBank_0
+            // lblNameBank0
             // 
-            this.lblNameBank_0.AutoSize = true;
-            this.lblNameBank_0.Location = new System.Drawing.Point(6, 116);
-            this.lblNameBank_0.Name = "lblNameBank_0";
-            this.lblNameBank_0.Size = new System.Drawing.Size(71, 13);
-            this.lblNameBank_0.TabIndex = 0;
-            this.lblNameBank_0.Text = "Наим. банка";
+            this.lblNameBank0.AutoSize = true;
+            this.lblNameBank0.Location = new System.Drawing.Point(6, 116);
+            this.lblNameBank0.Name = "lblNameBank0";
+            this.lblNameBank0.Size = new System.Drawing.Size(71, 13);
+            this.lblNameBank0.TabIndex = 0;
+            this.lblNameBank0.Text = "Наим. банка";
             // 
-            // txtName_0
+            // txtName0
             // 
-            this.txtName_0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtName0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtName_0.Location = new System.Drawing.Point(90, 112);
-            this.txtName_0.Name = "txtName_0";
-            this.txtName_0.ReadOnly = true;
-            this.txtName_0.Size = new System.Drawing.Size(567, 20);
-            this.txtName_0.TabIndex = 5;
-            this.txtName_0.TabStop = false;
+            this.txtName0.Location = new System.Drawing.Point(90, 112);
+            this.txtName0.Name = "txtName0";
+            this.txtName0.ReadOnly = true;
+            this.txtName0.Size = new System.Drawing.Size(567, 20);
+            this.txtName0.TabIndex = 5;
+            this.txtName0.TabStop = false;
             // 
-            // txtRS_0
+            // txtRS0
             // 
-            this.txtRS_0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtRS0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRS_0.Enabled = false;
-            this.txtRS_0.Location = new System.Drawing.Point(90, 136);
-            this.txtRS_0.Name = "txtRS_0";
-            this.txtRS_0.Size = new System.Drawing.Size(567, 20);
-            this.txtRS_0.TabIndex = 6;
-            this.txtRS_0.TabStop = false;
+            this.txtRS0.Enabled = false;
+            this.txtRS0.Location = new System.Drawing.Point(90, 136);
+            this.txtRS0.Name = "txtRS0";
+            this.txtRS0.Size = new System.Drawing.Size(567, 20);
+            this.txtRS0.TabIndex = 6;
+            this.txtRS0.TabStop = false;
             // 
-            // lblClient_0
+            // lblClient0
             // 
-            this.lblClient_0.AutoSize = true;
-            this.lblClient_0.Location = new System.Drawing.Point(6, 164);
-            this.lblClient_0.Name = "lblClient_0";
-            this.lblClient_0.Size = new System.Drawing.Size(43, 13);
-            this.lblClient_0.TabIndex = 0;
-            this.lblClient_0.Text = "Клиент";
+            this.lblClient0.AutoSize = true;
+            this.lblClient0.Location = new System.Drawing.Point(6, 164);
+            this.lblClient0.Name = "lblClient0";
+            this.lblClient0.Size = new System.Drawing.Size(43, 13);
+            this.lblClient0.TabIndex = 0;
+            this.lblClient0.Text = "Клиент";
             // 
-            // txtClient_0
+            // txtClient0
             // 
-            this.txtClient_0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtClient0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtClient_0.Location = new System.Drawing.Point(90, 160);
-            this.txtClient_0.Name = "txtClient_0";
-            this.txtClient_0.Size = new System.Drawing.Size(567, 20);
-            this.txtClient_0.TabIndex = 8;
+            this.txtClient0.Location = new System.Drawing.Point(90, 160);
+            this.txtClient0.Name = "txtClient0";
+            this.txtClient0.Size = new System.Drawing.Size(567, 20);
+            this.txtClient0.TabIndex = 8;
             // 
-            // lblNote_0
+            // lblNote0
             // 
-            this.lblNote_0.AutoSize = true;
-            this.lblNote_0.Location = new System.Drawing.Point(6, 188);
-            this.lblNote_0.Name = "lblNote_0";
-            this.lblNote_0.Size = new System.Drawing.Size(70, 13);
-            this.lblNote_0.TabIndex = 0;
-            this.lblNote_0.Text = "Примечание";
+            this.lblNote0.AutoSize = true;
+            this.lblNote0.Location = new System.Drawing.Point(6, 188);
+            this.lblNote0.Name = "lblNote0";
+            this.lblNote0.Size = new System.Drawing.Size(70, 13);
+            this.lblNote0.TabIndex = 0;
+            this.lblNote0.Text = "Примечание";
             // 
-            // txtNote_0
+            // txtNote0
             // 
-            this.txtNote_0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtNote0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNote_0.Location = new System.Drawing.Point(90, 184);
-            this.txtNote_0.Multiline = true;
-            this.txtNote_0.Name = "txtNote_0";
-            this.txtNote_0.Size = new System.Drawing.Size(567, 65);
-            this.txtNote_0.TabIndex = 9;
+            this.txtNote0.Location = new System.Drawing.Point(90, 184);
+            this.txtNote0.Multiline = true;
+            this.txtNote0.Name = "txtNote0";
+            this.txtNote0.Size = new System.Drawing.Size(567, 65);
+            this.txtNote0.TabIndex = 9;
             // 
-            // lblINN_0
+            // lblINN0
             // 
-            this.lblINN_0.AutoSize = true;
-            this.lblINN_0.Location = new System.Drawing.Point(6, 257);
-            this.lblINN_0.Name = "lblINN_0";
-            this.lblINN_0.Size = new System.Drawing.Size(31, 13);
-            this.lblINN_0.TabIndex = 0;
-            this.lblINN_0.Text = "ИНН";
+            this.lblINN0.AutoSize = true;
+            this.lblINN0.Location = new System.Drawing.Point(6, 257);
+            this.lblINN0.Name = "lblINN0";
+            this.lblINN0.Size = new System.Drawing.Size(31, 13);
+            this.lblINN0.TabIndex = 0;
+            this.lblINN0.Text = "ИНН";
             // 
-            // txtINN_0
+            // txtINN0
             // 
-            this.txtINN_0.Location = new System.Drawing.Point(90, 253);
-            this.txtINN_0.Name = "txtINN_0";
-            this.txtINN_0.Size = new System.Drawing.Size(150, 20);
-            this.txtINN_0.TabIndex = 10;
+            this.txtINN0.Location = new System.Drawing.Point(90, 253);
+            this.txtINN0.Name = "txtINN0";
+            this.txtINN0.Size = new System.Drawing.Size(150, 20);
+            this.txtINN0.TabIndex = 10;
             // 
-            // chkNotAkcept_0
+            // chkNotAkcept0
             // 
-            this.chkNotAkcept_0.AutoSize = true;
-            this.chkNotAkcept_0.Location = new System.Drawing.Point(90, 281);
-            this.chkNotAkcept_0.Name = "chkNotAkcept_0";
-            this.chkNotAkcept_0.Size = new System.Drawing.Size(149, 17);
-            this.chkNotAkcept_0.TabIndex = 11;
-            this.chkNotAkcept_0.Text = "Безакцептное списание";
-            this.chkNotAkcept_0.UseVisualStyleBackColor = true;
+            this.chkNotAkcept0.AutoSize = true;
+            this.chkNotAkcept0.Location = new System.Drawing.Point(90, 281);
+            this.chkNotAkcept0.Name = "chkNotAkcept0";
+            this.chkNotAkcept0.Size = new System.Drawing.Size(149, 17);
+            this.chkNotAkcept0.TabIndex = 11;
+            this.chkNotAkcept0.Text = "Безакцептное списание";
+            this.chkNotAkcept0.UseVisualStyleBackColor = true;
             // 
             // tabPageInstr2
             // 
-            this.tabPageInstr2.Controls.Add(this.linkAccountSeller);
-            this.tabPageInstr2.Controls.Add(this.linkListInstrSeller);
-            this.tabPageInstr2.Controls.Add(this.lblInstrTitle_1);
-            this.tabPageInstr2.Controls.Add(this.chkCash_1);
-            this.tabPageInstr2.Controls.Add(this.lblBIK_1);
-            this.tabPageInstr2.Controls.Add(this.txtBIK_1);
-            this.tabPageInstr2.Controls.Add(this.lblKS_1);
-            this.tabPageInstr2.Controls.Add(this.txtKS_1);
-            this.tabPageInstr2.Controls.Add(this.lblNameBank_1);
-            this.tabPageInstr2.Controls.Add(this.txtName_1);
-            this.tabPageInstr2.Controls.Add(this.txtRS_1);
-            this.tabPageInstr2.Controls.Add(this.lblClient_1);
-            this.tabPageInstr2.Controls.Add(this.txtClient_1);
-            this.tabPageInstr2.Controls.Add(this.lblNote_1);
-            this.tabPageInstr2.Controls.Add(this.txtNote_1);
-            this.tabPageInstr2.Controls.Add(this.lblINN_1);
-            this.tabPageInstr2.Controls.Add(this.txtINN_1);
-            this.tabPageInstr2.Controls.Add(this.chkNotAkcept_1);
+            this.tabPageInstr2.Controls.Add(this.linkAccountPayment1);
+            this.tabPageInstr2.Controls.Add(this.linkListInstr1);
+            this.tabPageInstr2.Controls.Add(this.lblInstrTitlePayment1);
+            this.tabPageInstr2.Controls.Add(this.chkCash1);
+            this.tabPageInstr2.Controls.Add(this.lblBIK1);
+            this.tabPageInstr2.Controls.Add(this.txtBIK1);
+            this.tabPageInstr2.Controls.Add(this.lblKS1);
+            this.tabPageInstr2.Controls.Add(this.txtKS1);
+            this.tabPageInstr2.Controls.Add(this.lblNameBank1);
+            this.tabPageInstr2.Controls.Add(this.txtName1);
+            this.tabPageInstr2.Controls.Add(this.txtRS1);
+            this.tabPageInstr2.Controls.Add(this.lblClient1);
+            this.tabPageInstr2.Controls.Add(this.txtClient1);
+            this.tabPageInstr2.Controls.Add(this.lblNote1);
+            this.tabPageInstr2.Controls.Add(this.txtNote1);
+            this.tabPageInstr2.Controls.Add(this.lblINN1);
+            this.tabPageInstr2.Controls.Add(this.txtINN1);
+            this.tabPageInstr2.Controls.Add(this.chkNotAkcept1);
             this.tabPageInstr2.Location = new System.Drawing.Point(4, 22);
             this.tabPageInstr2.Name = "tabPageInstr2";
             this.tabPageInstr2.Padding = new System.Windows.Forms.Padding(3);
@@ -1611,179 +1611,179 @@ namespace UbsPmTradeFrm
             this.tabPageInstr2.Text = "Продавец";
             this.tabPageInstr2.UseVisualStyleBackColor = true;
             // 
-            // linkAccountSeller
+            // linkAccountPayment1
             // 
-            this.linkAccountSeller.AutoSize = true;
-            this.linkAccountSeller.Location = new System.Drawing.Point(6, 139);
-            this.linkAccountSeller.Name = "linkAccountSeller";
-            this.linkAccountSeller.Size = new System.Drawing.Size(59, 13);
-            this.linkAccountSeller.TabIndex = 7;
-            this.linkAccountSeller.TabStop = true;
-            this.linkAccountSeller.Text = "Расч. счет";
+            this.linkAccountPayment1.AutoSize = true;
+            this.linkAccountPayment1.Location = new System.Drawing.Point(6, 139);
+            this.linkAccountPayment1.Name = "linkAccountPayment1";
+            this.linkAccountPayment1.Size = new System.Drawing.Size(59, 13);
+            this.linkAccountPayment1.TabIndex = 7;
+            this.linkAccountPayment1.TabStop = true;
+            this.linkAccountPayment1.Text = "Расч. счет";
             // 
-            // linkListInstrSeller
+            // linkListInstr1
             // 
-            this.linkListInstrSeller.AutoSize = true;
-            this.linkListInstrSeller.Location = new System.Drawing.Point(6, 72);
-            this.linkListInstrSeller.Name = "linkListInstrSeller";
-            this.linkListInstrSeller.Size = new System.Drawing.Size(224, 13);
-            this.linkListInstrSeller.TabIndex = 2;
-            this.linkListInstrSeller.TabStop = true;
-            this.linkListInstrSeller.Text = "Выбор платежной инструкции по продавцу";
+            this.linkListInstr1.AutoSize = true;
+            this.linkListInstr1.Location = new System.Drawing.Point(6, 72);
+            this.linkListInstr1.Name = "linkListInstr1";
+            this.linkListInstr1.Size = new System.Drawing.Size(224, 13);
+            this.linkListInstr1.TabIndex = 2;
+            this.linkListInstr1.TabStop = true;
+            this.linkListInstr1.Text = "Выбор платежной инструкции по продавцу";
             // 
-            // lblInstrTitle_1
+            // lblInstrTitlePayment1
             // 
-            this.lblInstrTitle_1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblInstrTitlePayment1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblInstrTitle_1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.lblInstrTitle_1.Location = new System.Drawing.Point(6, 12);
-            this.lblInstrTitle_1.Name = "lblInstrTitle_1";
-            this.lblInstrTitle_1.Size = new System.Drawing.Size(651, 20);
-            this.lblInstrTitle_1.TabIndex = 0;
-            this.lblInstrTitle_1.Text = "Инструкция по оплате";
-            this.lblInstrTitle_1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblInstrTitlePayment1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.lblInstrTitlePayment1.Location = new System.Drawing.Point(6, 12);
+            this.lblInstrTitlePayment1.Name = "lblInstrTitlePayment1";
+            this.lblInstrTitlePayment1.Size = new System.Drawing.Size(651, 20);
+            this.lblInstrTitlePayment1.TabIndex = 0;
+            this.lblInstrTitlePayment1.Text = "Инструкция по оплате";
+            this.lblInstrTitlePayment1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // chkCash_1
+            // chkCash1
             // 
-            this.chkCash_1.AutoSize = true;
-            this.chkCash_1.Location = new System.Drawing.Point(9, 40);
-            this.chkCash_1.Name = "chkCash_1";
-            this.chkCash_1.Size = new System.Drawing.Size(125, 17);
-            this.chkCash_1.TabIndex = 1;
-            this.chkCash_1.Text = "Расчет через кассу";
-            this.chkCash_1.UseVisualStyleBackColor = true;
+            this.chkCash1.AutoSize = true;
+            this.chkCash1.Location = new System.Drawing.Point(9, 40);
+            this.chkCash1.Name = "chkCash1";
+            this.chkCash1.Size = new System.Drawing.Size(125, 17);
+            this.chkCash1.TabIndex = 1;
+            this.chkCash1.Text = "Расчет через кассу";
+            this.chkCash1.UseVisualStyleBackColor = true;
             // 
-            // lblBIK_1
+            // lblBIK1
             // 
-            this.lblBIK_1.AutoSize = true;
-            this.lblBIK_1.Location = new System.Drawing.Point(6, 92);
-            this.lblBIK_1.Name = "lblBIK_1";
-            this.lblBIK_1.Size = new System.Drawing.Size(29, 13);
-            this.lblBIK_1.TabIndex = 0;
-            this.lblBIK_1.Text = "БИК";
+            this.lblBIK1.AutoSize = true;
+            this.lblBIK1.Location = new System.Drawing.Point(6, 92);
+            this.lblBIK1.Name = "lblBIK1";
+            this.lblBIK1.Size = new System.Drawing.Size(29, 13);
+            this.lblBIK1.TabIndex = 0;
+            this.lblBIK1.Text = "БИК";
             // 
-            // txtBIK_1
+            // txtBIK1
             // 
-            this.txtBIK_1.Location = new System.Drawing.Point(90, 88);
-            this.txtBIK_1.MaxLength = 9;
-            this.txtBIK_1.Name = "txtBIK_1";
-            this.txtBIK_1.Size = new System.Drawing.Size(80, 20);
-            this.txtBIK_1.TabIndex = 3;
+            this.txtBIK1.Location = new System.Drawing.Point(90, 88);
+            this.txtBIK1.MaxLength = 9;
+            this.txtBIK1.Name = "txtBIK1";
+            this.txtBIK1.Size = new System.Drawing.Size(80, 20);
+            this.txtBIK1.TabIndex = 3;
             // 
-            // lblKS_1
+            // lblKS1
             // 
-            this.lblKS_1.AutoSize = true;
-            this.lblKS_1.Location = new System.Drawing.Point(176, 92);
-            this.lblKS_1.Name = "lblKS_1";
-            this.lblKS_1.Size = new System.Drawing.Size(60, 13);
-            this.lblKS_1.TabIndex = 0;
-            this.lblKS_1.Text = "Корр. счет";
+            this.lblKS1.AutoSize = true;
+            this.lblKS1.Location = new System.Drawing.Point(176, 92);
+            this.lblKS1.Name = "lblKS1";
+            this.lblKS1.Size = new System.Drawing.Size(60, 13);
+            this.lblKS1.TabIndex = 0;
+            this.lblKS1.Text = "Корр. счет";
             // 
-            // txtKS_1
+            // txtKS1
             // 
-            this.txtKS_1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtKS1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtKS_1.Enabled = false;
-            this.txtKS_1.Location = new System.Drawing.Point(242, 88);
-            this.txtKS_1.Name = "txtKS_1";
-            this.txtKS_1.ReadOnly = true;
-            this.txtKS_1.Size = new System.Drawing.Size(415, 20);
-            this.txtKS_1.TabIndex = 4;
-            this.txtKS_1.TabStop = false;
+            this.txtKS1.Enabled = false;
+            this.txtKS1.Location = new System.Drawing.Point(242, 88);
+            this.txtKS1.Name = "txtKS1";
+            this.txtKS1.ReadOnly = true;
+            this.txtKS1.Size = new System.Drawing.Size(415, 20);
+            this.txtKS1.TabIndex = 4;
+            this.txtKS1.TabStop = false;
             // 
-            // lblNameBank_1
+            // lblNameBank1
             // 
-            this.lblNameBank_1.AutoSize = true;
-            this.lblNameBank_1.Location = new System.Drawing.Point(6, 116);
-            this.lblNameBank_1.Name = "lblNameBank_1";
-            this.lblNameBank_1.Size = new System.Drawing.Size(71, 13);
-            this.lblNameBank_1.TabIndex = 0;
-            this.lblNameBank_1.Text = "Наим. банка";
+            this.lblNameBank1.AutoSize = true;
+            this.lblNameBank1.Location = new System.Drawing.Point(6, 116);
+            this.lblNameBank1.Name = "lblNameBank1";
+            this.lblNameBank1.Size = new System.Drawing.Size(71, 13);
+            this.lblNameBank1.TabIndex = 0;
+            this.lblNameBank1.Text = "Наим. банка";
             // 
-            // txtName_1
+            // txtName1
             // 
-            this.txtName_1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtName1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtName_1.Location = new System.Drawing.Point(90, 112);
-            this.txtName_1.Name = "txtName_1";
-            this.txtName_1.ReadOnly = true;
-            this.txtName_1.Size = new System.Drawing.Size(567, 20);
-            this.txtName_1.TabIndex = 5;
-            this.txtName_1.TabStop = false;
+            this.txtName1.Location = new System.Drawing.Point(90, 112);
+            this.txtName1.Name = "txtName1";
+            this.txtName1.ReadOnly = true;
+            this.txtName1.Size = new System.Drawing.Size(567, 20);
+            this.txtName1.TabIndex = 5;
+            this.txtName1.TabStop = false;
             // 
-            // txtRS_1
+            // txtRS1
             // 
-            this.txtRS_1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtRS1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRS_1.Enabled = false;
-            this.txtRS_1.Location = new System.Drawing.Point(90, 136);
-            this.txtRS_1.Name = "txtRS_1";
-            this.txtRS_1.Size = new System.Drawing.Size(567, 20);
-            this.txtRS_1.TabIndex = 6;
-            this.txtRS_1.TabStop = false;
+            this.txtRS1.Enabled = false;
+            this.txtRS1.Location = new System.Drawing.Point(90, 136);
+            this.txtRS1.Name = "txtRS1";
+            this.txtRS1.Size = new System.Drawing.Size(567, 20);
+            this.txtRS1.TabIndex = 6;
+            this.txtRS1.TabStop = false;
             // 
-            // lblClient_1
+            // lblClient1
             // 
-            this.lblClient_1.AutoSize = true;
-            this.lblClient_1.Location = new System.Drawing.Point(6, 164);
-            this.lblClient_1.Name = "lblClient_1";
-            this.lblClient_1.Size = new System.Drawing.Size(43, 13);
-            this.lblClient_1.TabIndex = 0;
-            this.lblClient_1.Text = "Клиент";
+            this.lblClient1.AutoSize = true;
+            this.lblClient1.Location = new System.Drawing.Point(6, 164);
+            this.lblClient1.Name = "lblClient1";
+            this.lblClient1.Size = new System.Drawing.Size(43, 13);
+            this.lblClient1.TabIndex = 0;
+            this.lblClient1.Text = "Клиент";
             // 
-            // txtClient_1
+            // txtClient1
             // 
-            this.txtClient_1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtClient1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtClient_1.Location = new System.Drawing.Point(90, 160);
-            this.txtClient_1.Name = "txtClient_1";
-            this.txtClient_1.Size = new System.Drawing.Size(567, 20);
-            this.txtClient_1.TabIndex = 8;
+            this.txtClient1.Location = new System.Drawing.Point(90, 160);
+            this.txtClient1.Name = "txtClient1";
+            this.txtClient1.Size = new System.Drawing.Size(567, 20);
+            this.txtClient1.TabIndex = 8;
             // 
-            // lblNote_1
+            // lblNote1
             // 
-            this.lblNote_1.AutoSize = true;
-            this.lblNote_1.Location = new System.Drawing.Point(6, 188);
-            this.lblNote_1.Name = "lblNote_1";
-            this.lblNote_1.Size = new System.Drawing.Size(70, 13);
-            this.lblNote_1.TabIndex = 0;
-            this.lblNote_1.Text = "Примечание";
+            this.lblNote1.AutoSize = true;
+            this.lblNote1.Location = new System.Drawing.Point(6, 188);
+            this.lblNote1.Name = "lblNote1";
+            this.lblNote1.Size = new System.Drawing.Size(70, 13);
+            this.lblNote1.TabIndex = 0;
+            this.lblNote1.Text = "Примечание";
             // 
-            // txtNote_1
+            // txtNote1
             // 
-            this.txtNote_1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtNote1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNote_1.Location = new System.Drawing.Point(90, 184);
-            this.txtNote_1.Multiline = true;
-            this.txtNote_1.Name = "txtNote_1";
-            this.txtNote_1.Size = new System.Drawing.Size(567, 65);
-            this.txtNote_1.TabIndex = 9;
+            this.txtNote1.Location = new System.Drawing.Point(90, 184);
+            this.txtNote1.Multiline = true;
+            this.txtNote1.Name = "txtNote1";
+            this.txtNote1.Size = new System.Drawing.Size(567, 65);
+            this.txtNote1.TabIndex = 9;
             // 
-            // lblINN_1
+            // lblINN1
             // 
-            this.lblINN_1.AutoSize = true;
-            this.lblINN_1.Location = new System.Drawing.Point(6, 257);
-            this.lblINN_1.Name = "lblINN_1";
-            this.lblINN_1.Size = new System.Drawing.Size(31, 13);
-            this.lblINN_1.TabIndex = 0;
-            this.lblINN_1.Text = "ИНН";
+            this.lblINN1.AutoSize = true;
+            this.lblINN1.Location = new System.Drawing.Point(6, 257);
+            this.lblINN1.Name = "lblINN1";
+            this.lblINN1.Size = new System.Drawing.Size(31, 13);
+            this.lblINN1.TabIndex = 0;
+            this.lblINN1.Text = "ИНН";
             // 
-            // txtINN_1
+            // txtINN1
             // 
-            this.txtINN_1.Location = new System.Drawing.Point(90, 253);
-            this.txtINN_1.Name = "txtINN_1";
-            this.txtINN_1.Size = new System.Drawing.Size(150, 20);
-            this.txtINN_1.TabIndex = 10;
+            this.txtINN1.Location = new System.Drawing.Point(90, 253);
+            this.txtINN1.Name = "txtINN1";
+            this.txtINN1.Size = new System.Drawing.Size(150, 20);
+            this.txtINN1.TabIndex = 10;
             // 
-            // chkNotAkcept_1
+            // chkNotAkcept1
             // 
-            this.chkNotAkcept_1.AutoSize = true;
-            this.chkNotAkcept_1.Location = new System.Drawing.Point(90, 281);
-            this.chkNotAkcept_1.Name = "chkNotAkcept_1";
-            this.chkNotAkcept_1.Size = new System.Drawing.Size(149, 17);
-            this.chkNotAkcept_1.TabIndex = 11;
-            this.chkNotAkcept_1.Text = "Безакцептное списание";
-            this.chkNotAkcept_1.UseVisualStyleBackColor = true;
+            this.chkNotAkcept1.AutoSize = true;
+            this.chkNotAkcept1.Location = new System.Drawing.Point(90, 281);
+            this.chkNotAkcept1.Name = "chkNotAkcept1";
+            this.chkNotAkcept1.Size = new System.Drawing.Size(149, 17);
+            this.chkNotAkcept1.TabIndex = 11;
+            this.chkNotAkcept1.Text = "Безакцептное списание";
+            this.chkNotAkcept1.UseVisualStyleBackColor = true;
             // 
             // tabPage6
             // 
@@ -1876,7 +1876,7 @@ namespace UbsPmTradeFrm
         private UbsControl.UbsCtrlDate dateTrade;
         private System.Windows.Forms.Label lblNum;
         private System.Windows.Forms.TextBox txtTradeNum;
-        private System.Windows.Forms.CheckBox chkIsComposit;
+        private System.Windows.Forms.CheckBox chkComposit;
         private System.Windows.Forms.Label lblDelivery;
         private System.Windows.Forms.ComboBox cmbKindSupplyTrade;
         private System.Windows.Forms.Label lblTradeType;
@@ -1884,7 +1884,7 @@ namespace UbsPmTradeFrm
         private System.Windows.Forms.Label lblCurrencyPost;
         private System.Windows.Forms.ComboBox cmbCurrencyPost;
         private System.Windows.Forms.Label lblCurrencyOpl;
-        private System.Windows.Forms.ComboBox cmbCurrencyOpl;
+        private System.Windows.Forms.ComboBox cmbCurrencyPayment;
         private System.Windows.Forms.GroupBox grpContracts;
         private System.Windows.Forms.ComboBox cmbContractType1;
         private System.Windows.Forms.TextBox txtContractCode1;
@@ -1898,7 +1898,7 @@ namespace UbsPmTradeFrm
         private System.Windows.Forms.ComboBox cmbComission;
 
         // ── Tab 2 ─────────────────────────────────────────────────────────────────
-        private System.Windows.Forms.ListView lstViewOblig;
+        private System.Windows.Forms.ListView lvwObligation;
         private System.Windows.Forms.ColumnHeader colObligDir;
         private System.Windows.Forms.ColumnHeader colObligNum;
         private System.Windows.Forms.ColumnHeader colObligDateOpl;
@@ -1910,16 +1910,16 @@ namespace UbsPmTradeFrm
         private System.Windows.Forms.ColumnHeader colObligRate;
         private System.Windows.Forms.ColumnHeader colObligUnit;
         private System.Windows.Forms.ColumnHeader colObligFixRate;
-        private System.Windows.Forms.Button cmdAddOblig;
-        private System.Windows.Forms.Button cmdEditOblig;
-        private System.Windows.Forms.Button cmdDelOblig;
+        private System.Windows.Forms.Button cmdAddObligation;
+        private System.Windows.Forms.Button cmdEditObligation;
+        private System.Windows.Forms.Button cmdDelObligation;
 
         // ── Tab 3 ─────────────────────────────────────────────────────────────────
         private System.Windows.Forms.TabControl tabControlOblig;
         private System.Windows.Forms.TabPage tabPageOblig2;
-        private System.Windows.Forms.Label lblObligInfo1;
-        private System.Windows.Forms.Label lblObligInfo2;
-        private System.Windows.Forms.ListView lstViewObject;
+        private System.Windows.Forms.Label lblObligationInfo1;
+        private System.Windows.Forms.Label lblObligationInfo2;
+        private System.Windows.Forms.ListView lvwObject;
         private System.Windows.Forms.ColumnHeader colObjInstr;
         private System.Windows.Forms.ColumnHeader colObjCode;
         private System.Windows.Forms.ColumnHeader colObjLigMassa;
@@ -1931,7 +1931,7 @@ namespace UbsPmTradeFrm
         private System.Windows.Forms.Button cmdDelObject;
 
         // ── Tab 4 (Поставка) ──────────────────────────────────────────────────────
-        private System.Windows.Forms.Label lblDeliveryInstrTitle;
+        private System.Windows.Forms.Label lblDeliveryInstructionTitle;
         private System.Windows.Forms.CheckBox chkExternalStorage;
         private System.Windows.Forms.Label lblStorageNum;
         private System.Windows.Forms.TextBox txtStorageCode;
@@ -1943,64 +1943,64 @@ namespace UbsPmTradeFrm
         private System.Windows.Forms.TabPage tabPageInstr1;
         private System.Windows.Forms.TabPage tabPageInstr2;
         // Покупатель (index 0)
-        private System.Windows.Forms.Label lblInstrTitle_0;
-        private System.Windows.Forms.CheckBox chkCash_0;
-        private System.Windows.Forms.Label lblBIK_0;
-        private System.Windows.Forms.TextBox txtBIK_0;
-        private System.Windows.Forms.Label lblKS_0;
-        private System.Windows.Forms.TextBox txtKS_0;
-        private System.Windows.Forms.Label lblNameBank_0;
-        private System.Windows.Forms.TextBox txtName_0;
-        private System.Windows.Forms.TextBox txtRS_0;
-        private System.Windows.Forms.Label lblClient_0;
-        private System.Windows.Forms.TextBox txtClient_0;
-        private System.Windows.Forms.Label lblNote_0;
-        private System.Windows.Forms.TextBox txtNote_0;
-        private System.Windows.Forms.Label lblINN_0;
-        private System.Windows.Forms.TextBox txtINN_0;
-        private System.Windows.Forms.CheckBox chkNotAkcept_0;
+        private System.Windows.Forms.Label lblInstrTitlePayment0;
+        private System.Windows.Forms.CheckBox chkCash0;
+        private System.Windows.Forms.Label lblBIK0;
+        private System.Windows.Forms.TextBox txtBIK0;
+        private System.Windows.Forms.Label lblKS0;
+        private System.Windows.Forms.TextBox txtKS0;
+        private System.Windows.Forms.Label lblNameBank0;
+        private System.Windows.Forms.TextBox txtName0;
+        private System.Windows.Forms.TextBox txtRS0;
+        private System.Windows.Forms.Label lblClient0;
+        private System.Windows.Forms.TextBox txtClient0;
+        private System.Windows.Forms.Label lblNote0;
+        private System.Windows.Forms.TextBox txtNote0;
+        private System.Windows.Forms.Label lblINN0;
+        private System.Windows.Forms.TextBox txtINN0;
+        private System.Windows.Forms.CheckBox chkNotAkcept0;
         // Продавец (index 1)
-        private System.Windows.Forms.Label lblInstrTitle_1;
-        private System.Windows.Forms.CheckBox chkCash_1;
-        private System.Windows.Forms.Label lblBIK_1;
-        private System.Windows.Forms.TextBox txtBIK_1;
-        private System.Windows.Forms.Label lblKS_1;
-        private System.Windows.Forms.TextBox txtKS_1;
-        private System.Windows.Forms.Label lblNameBank_1;
-        private System.Windows.Forms.TextBox txtName_1;
-        private System.Windows.Forms.TextBox txtRS_1;
-        private System.Windows.Forms.Label lblClient_1;
-        private System.Windows.Forms.TextBox txtClient_1;
-        private System.Windows.Forms.Label lblNote_1;
-        private System.Windows.Forms.TextBox txtNote_1;
-        private System.Windows.Forms.Label lblINN_1;
-        private System.Windows.Forms.TextBox txtINN_1;
-        private System.Windows.Forms.CheckBox chkNotAkcept_1;
+        private System.Windows.Forms.Label lblInstrTitlePayment1;
+        private System.Windows.Forms.CheckBox chkCash1;
+        private System.Windows.Forms.Label lblBIK1;
+        private System.Windows.Forms.TextBox txtBIK1;
+        private System.Windows.Forms.Label lblKS1;
+        private System.Windows.Forms.TextBox txtKS1;
+        private System.Windows.Forms.Label lblNameBank1;
+        private System.Windows.Forms.TextBox txtName1;
+        private System.Windows.Forms.TextBox txtRS1;
+        private System.Windows.Forms.Label lblClient1;
+        private System.Windows.Forms.TextBox txtClient1;
+        private System.Windows.Forms.Label lblNote1;
+        private System.Windows.Forms.TextBox txtNote1;
+        private System.Windows.Forms.Label lblINN1;
+        private System.Windows.Forms.TextBox txtINN1;
+        private System.Windows.Forms.CheckBox chkNotAkcept1;
 
         // ── Tab 6 (Дополнительные) ────────────────────────────────────────────────
         private UbsControl.UbsCtrlFields ubsCtrlField;
         private Button btnContract1;
         private Button btnContract2;
         private LinkLabel linkStorage;
-        private LinkLabel linkListInstr;
-        private LinkLabel linkAccountPay;
-        private LinkLabel linkListInstrSeller;
-        private LinkLabel linkAccountSeller;
-        private Button cmdExitOblig;
-        private Button cmdApplayOblig;
-        private LinkLabel linkAccountsOblig;
+        private LinkLabel linkListInstr0;
+        private LinkLabel linkAccountPayment0;
+        private LinkLabel linkListInstr1;
+        private LinkLabel linkAccountPayment1;
+        private Button cmdExitObligation;
+        private Button cmdApplayObligation;
+        private LinkLabel linkAccountsObligation;
         private TableLayoutPanel tableLayoutPanel1;
         private TableLayoutPanel tableLayoutPanel2;
         private TableLayoutPanel tableLayoutPanel3;
         private TableLayoutPanel tableLayoutPanel4;
         private TableLayoutPanel tableLayoutPanel5;
-        private Label label2;
-        private Label label1;
+        private Label lblBuyer;
+        private Label lblSeller;
         private TabPage tabPageOblig1;
-        private Label lblNaprTrade;
-        private ComboBox cmbNaprTrade;
-        private Label lblCurOblig;
-        private ComboBox cmbCurOblig;
+        private Label lblTradeDirection;
+        private ComboBox cmbTradeDirection;
+        private Label lblObligationCurrency;
+        private ComboBox cmbObligationCurrency;
         private Label lblUnit;
         private ComboBox cmbUnit;
         private Label lblCostUnit;
@@ -2012,17 +2012,17 @@ namespace UbsPmTradeFrm
         private GroupBox grpMetalChar;
         private Label lblDatePost;
         private UbsControl.UbsCtrlDate datePost;
-        private Label lblMassa;
-        private UbsControl.UbsCtrlDecimal ucdMassa;
-        private Label lblMassaGramm;
-        private UbsControl.UbsCtrlDecimal ucdMassaGramm;
+        private Label lblMass;
+        private UbsControl.UbsCtrlDecimal ucdMass;
+        private Label lblMassGramm;
+        private UbsControl.UbsCtrlDecimal ucdMassGramm;
         private GroupBox grpMetalCharPost;
-        private Label lblDateOpl;
-        private UbsControl.UbsCtrlDate dateOpl;
-        private Label lblSumOblig;
-        private UbsControl.UbsCtrlDecimal ucdSumOblig;
-        private Label lblSumOpl;
-        private UbsControl.UbsCtrlDecimal ucdSumOpl;
+        private Label lblDatePayment;
+        private UbsControl.UbsCtrlDate datePayment;
+        private Label lblSumObligation;
+        private UbsControl.UbsCtrlDecimal ucdSumObligation;
+        private Label lblSumPayment;
+        private UbsControl.UbsCtrlDecimal ucdSumPayment;
         private TableLayoutPanel tableLayoutPanel6;
         private TableLayoutPanel tableLayoutPanel7;
     }
