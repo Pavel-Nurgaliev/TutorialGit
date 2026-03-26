@@ -1,6 +1,6 @@
 using UbsService;
 
-namespace UbsPmTradeFrm
+namespace UbsBusiness
 {
     public partial class UbsPmTradeFrm : UbsFormBase
     {
@@ -16,6 +16,8 @@ namespace UbsPmTradeFrm
         private const string MsgWarningTitle = "Предупреждение";
 
         private const string TextTradeDirectionReverse = "обратная";
+
+        private const string TextContractCodeBank = "банк";
     }
 }
 

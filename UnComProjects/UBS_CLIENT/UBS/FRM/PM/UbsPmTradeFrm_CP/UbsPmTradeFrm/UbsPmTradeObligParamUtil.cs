@@ -1,6 +1,6 @@
 using System;
 
-namespace UbsPmTradeFrm
+namespace UbsBusiness
 {
     internal static class UbsPmTradeObligParamUtil
     {

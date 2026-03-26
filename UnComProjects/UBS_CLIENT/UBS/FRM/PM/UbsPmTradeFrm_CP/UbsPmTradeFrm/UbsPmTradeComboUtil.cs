@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using UbsService;
 
-namespace UbsPmTradeFrm
+namespace UbsBusiness
 {
     internal static class UbsPmTradeComboUtil
     {
@@ -16,7 +16,6 @@ namespace UbsPmTradeFrm
                 cmb.DataSource = new List<KeyValuePair<int, string>> { new KeyValuePair<int, string>(0, "") };
                 cmb.ValueMember = "Key";
                 cmb.DisplayMember = "Value";
-                cmb.SelectedIndex = -1;
                 return;
             }
 
@@ -45,7 +44,6 @@ namespace UbsPmTradeFrm
             cmb.DataSource = list;
             cmb.ValueMember = "Key";
             cmb.DisplayMember = "Value";
-            cmb.SelectedIndex = -1;
         }
 
         public static void SetComboByKey(ComboBox cmb, int key)
@@ -64,6 +62,19 @@ namespace UbsPmTradeFrm
                     }
                 }
             }
+        }
+
+        public static bool TryGetSelectedKey(ComboBox cmb, out int key)
+        {
+            key = 0;
+            if (cmb == null || cmb.SelectedItem == null)
+                return false;
+            if (cmb.SelectedItem is KeyValuePair<int, string>)
+            {
+                key = ((KeyValuePair<int, string>)cmb.SelectedItem).Key;
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -1,9 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using UbsService;
 
-namespace UbsPmTradeFrm
+namespace UbsBusiness
 {
     /// <summary>
     /// Форма сделки с драгоценными металлами
@@ -15,6 +15,16 @@ namespace UbsPmTradeFrm
         private int m_idTrade = 0;
         private string m_command = string.Empty;
         private int m_kindTrade = 0;
+
+        private int m_idClient1;
+        private int m_idClient2;
+
+        private bool m_suppressContractTypeEvent;
+        private bool m_checkCommissionRestoreType2;
+        private bool m_armedClearContract1FieldsOnTypeChange;
+        private bool m_armedClearContract2FieldsOnTypeChange;
+        private int m_idComission1;
+        private int m_idComission2;
 
         private bool m_suppressCompositEvent;
         private bool m_needSendOblig;
@@ -34,9 +44,7 @@ namespace UbsPmTradeFrm
 
             InitializeComponent();
 
-            base.UbsCtrlFieldsSupportCollection.Add("Параметры", ubsCtrlField);
-
-            this.IUbsChannel.LoadResource = LoadResource;
+            base.UbsCtrlFieldsSupportCollection.Add("Доп. поля", ubsCtrlField);
 
             base.Ubs_CommandLock = true;
         }
@@ -98,6 +106,8 @@ namespace UbsPmTradeFrm
                 }
 
                 InitDoc();
+
+                this.ubsCtrlField.Refresh();
 
                 if (dateTrade != null) dateTrade.Focus();
                 return null;
@@ -177,6 +187,95 @@ namespace UbsPmTradeFrm
             }
         }
 
+        private void chkNDS_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDisplayExport();
+        }
+
+        private void UpdateDisplayExport()
+        {
+            try
+            {
+                bool isCheck = false;
+                if (m_idClient2 != 0)
+                {
+                    base.IUbsChannel.ParamIn("ClientId", m_idClient2);
+                    base.IUbsChannel.Run("IsClientNotResident");
+                    var paramOut = new UbsParam(base.IUbsChannel.ParamsOut);
+                    bool isNotResident = false;
+                    if (paramOut.Contains("Result"))
+                    {
+                        object r = paramOut.Value("Result");
+                        if (r != null && r != DBNull.Value)
+                        {
+                            if (r is bool)
+                                isNotResident = (bool)r;
+                            else
+                                isNotResident = Convert.ToInt32(r) != 0;
+                        }
+                    }
+                    isCheck = chkNDS.Checked && isNotResident;
+                }
+                if (isCheck)
+                {
+                    chkExport.Visible = true;
+                }
+                else
+                {
+                    chkExport.Visible = false;
+                    chkExport.Checked = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.Ubs_ShowError(ex);
+                chkExport.Visible = false;
+                chkExport.Checked = false;
+            }
+        }
+
+        private void chkRate_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (chkRate.Checked)
+                {
+                    ucdRateCurOblig.Enabled = true;
+                    chkSumInCurValue.Checked = false;
+                    ucdCostCurOpl.Enabled = false;
+                }
+                else
+                {
+                    ucdRateCurOblig.Enabled = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.Ubs_ShowError(ex);
+            }
+        }
+
+        private void chkSumInCurValue_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (chkSumInCurValue.Checked)
+                {
+                    chkRate.Checked = false;
+                    ucdRateCurOblig.Enabled = false;
+                    ucdCostCurOpl.Enabled = true;
+                }
+                else
+                {
+                    ucdCostCurOpl.Enabled = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.Ubs_ShowError(ex);
+            }
+        }
+
         private void chkCash_Click(object sender, EventArgs e)
         {
             try
@@ -219,8 +318,10 @@ namespace UbsPmTradeFrm
             try
             {
                 base.IUbsChannel.Run("InitForm");
+
                 base.UbsInit();
 
+                m_checkCommissionRestoreType2 = false;
                 FillCombos();
                 FillOurBIK();
 
@@ -228,6 +329,9 @@ namespace UbsPmTradeFrm
 
                 if (isEdit)
                 {
+                    m_armedClearContract1FieldsOnTypeChange = false;
+                    m_armedClearContract2FieldsOnTypeChange = false;
+
                     base.IUbsChannel.ParamIn("ID_TRADE", m_idTrade);
                     base.IUbsChannel.Run("GetOneTrade");
 
@@ -242,6 +346,9 @@ namespace UbsPmTradeFrm
                 }
                 else
                 {
+                    m_armedClearContract1FieldsOnTypeChange = false;
+                    m_armedClearContract2FieldsOnTypeChange = false;
+
                     chkComposit.Visible = m_kindTrade != 0;
 
                     UbsPmTradeComboUtil.SetComboByKey(cmbTradeDirection, 1);
@@ -249,19 +356,26 @@ namespace UbsPmTradeFrm
 
                     base.IUbsChannel.Run("FillBaseCurrency");
                     var baseCurOut = new UbsParam(base.IUbsChannel.ParamsOut);
-                    if (baseCurOut.Contains("ИдентификаторБазовойВалюты"))
+                    if (baseCurOut.Contains("Идентификатор базовой валюты"))
                     {
-                        int idBase = Convert.ToInt32(baseCurOut.Value("ИдентификаторБазовойВалюты"));
+                        int idBase = Convert.ToInt32(baseCurOut.Value("Идентификатор базовой валюты"));
                         UbsPmTradeComboUtil.SetComboByKey(cmbCurrencyPayment, idBase);
                         UbsPmTradeComboUtil.SetComboByKey(cmbObligationCurrency, idBase);
                     }
                 }
+
+                ApplyContractType1Change(false);
+                ApplyContractType2Change(false);
+                m_checkCommissionRestoreType2 = true;
             }
             catch (Exception ex) { this.Ubs_ShowError(ex); }
         }
 
         private void FillCombos()
         {
+            m_suppressContractTypeEvent = true;
+            try
+            {
             cmbTradeType.DataSource = null;
             cmbTradeDirection.DataSource = null;
             cmbUnit.DataSource = null;
@@ -290,7 +404,6 @@ namespace UbsPmTradeFrm
             cmbTradeType.DataSource = new List<KeyValuePair<int, string>> { new KeyValuePair<int, string>(1, "тип1") };
             cmbTradeType.ValueMember = "Key";
             cmbTradeType.DisplayMember = "Value";
-            cmbTradeType.SelectedIndex = -1;
 
             cmbTradeDirection.DataSource = new List<KeyValuePair<int, string>>
             {
@@ -299,7 +412,6 @@ namespace UbsPmTradeFrm
             };
             cmbTradeDirection.ValueMember = "Key";
             cmbTradeDirection.DisplayMember = "Value";
-            cmbTradeDirection.SelectedIndex = -1;
 
             cmbUnit.DataSource = new List<KeyValuePair<int, string>>
             {
@@ -308,7 +420,6 @@ namespace UbsPmTradeFrm
             };
             cmbUnit.ValueMember = "Key";
             cmbUnit.DisplayMember = "Value";
-            cmbUnit.SelectedIndex = -1;
 
             cmbKindSupplyTrade.DataSource = new List<KeyValuePair<int, string>>
             {
@@ -317,7 +428,6 @@ namespace UbsPmTradeFrm
             };
             cmbKindSupplyTrade.ValueMember = "Key";
             cmbKindSupplyTrade.DisplayMember = "Value";
-            cmbKindSupplyTrade.SelectedIndex = -1;
 
             base.IUbsChannel.ParamIn("ID_PATTERN", 1);
             base.IUbsChannel.Run("TradeCombo_FillPM");
@@ -332,6 +442,348 @@ namespace UbsPmTradeFrm
             UbsPmTradeComboUtil.FillComboFrom2DArray(cmbObligationCurrency, paramOut, "Валюты оплаты");
 
             UbsPmTradeComboUtil.FillComboFrom2DArray(cmbComission, paramOut, "Список комиссий");
+            }
+            finally
+            {
+                m_suppressContractTypeEvent = false;
+            }
+        }
+
+        private void cmbContractType1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ApplyContractType1Change(true);
+        }
+
+        private void cmbContractType2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ApplyContractType2Change(true);
+        }
+
+        private void ApplyContractType1Change(bool clearPayment)
+        {
+            if (m_suppressContractTypeEvent)
+                return;
+            try
+            {
+                int key1;
+                if (!UbsPmTradeComboUtil.TryGetSelectedKey(cmbContractType1, out key1))
+                    return;
+
+                if (clearPayment)
+                    ClearPayment(1);
+                chkCash1.Visible = false;
+
+                int key2;
+                bool hasType2 = UbsPmTradeComboUtil.TryGetSelectedKey(cmbContractType2, out key2);
+
+                if (key1 == 1)
+                {
+                    if (hasType2)
+                    {
+                        lblCommission.Visible = (key2 != 0);
+                        cmbComission.Visible = (key2 != 0);
+                        UbsPmTradeComboUtil.SetComboByKey(cmbKindSupplyTrade, 1);
+                        cmbKindSupplyTrade.Enabled = false;
+                    }
+                    if (m_kindTrade == 0)
+                    {
+                        chkCash1.Visible = true;
+                        chkCash1.Checked = false;
+                        GetInstrLink(1).Visible = true;
+                        GetInstrAccountLink(1).Visible = true;
+                    }
+                }
+                else
+                {
+                    if (hasType2)
+                    {
+                        if (key2 == 1)
+                        {
+                            lblCommission.Visible = (key1 != 0);
+                            cmbComission.Visible = (key1 != 0);
+                            UbsPmTradeComboUtil.SetComboByKey(cmbKindSupplyTrade, 1);
+                            cmbKindSupplyTrade.Enabled = false;
+                        }
+                        else
+                        {
+                            lblCommission.Visible = false;
+                            cmbComission.Visible = false;
+                            cmbKindSupplyTrade.Enabled = true;
+                        }
+                    }
+                }
+
+                linkListInstr1.Visible = true;
+
+                if (key1 == 0)
+                    SetPaymentInstrTabsSellerOnly();
+                else
+                    SetPaymentInstrTabsBothBuyerSelected();
+
+                bool isEdit = string.Equals(m_command, CmdEdit, StringComparison.Ordinal);
+                if (key1 != 0)
+                {
+                    if (!isEdit)
+                    {
+                        txtContractCode1.Text = "";
+                        txtClientName1.Text = "";
+                    }
+                    else
+                    {
+                        if (m_armedClearContract1FieldsOnTypeChange)
+                        {
+                            txtContractCode1.Text = "";
+                            txtClientName1.Text = "";
+                        }
+                        else
+                            m_armedClearContract1FieldsOnTypeChange = true;
+                    }
+                    btnContract1.Enabled = true;
+                }
+                else
+                {
+                    m_idClient1 = FillContractRowFromPm(0, txtContractCode1, txtClientName1);
+                    btnContract1.Enabled = false;
+                    ClearComissionSelection();
+                    if (m_checkCommissionRestoreType2 && hasType2 && key2 == 1)
+                        TrySelectComissionById(m_idComission2);
+                    m_armedClearContract1FieldsOnTypeChange = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.Ubs_ShowError(ex);
+            }
+        }
+
+        private void ApplyContractType2Change(bool clearPayment)
+        {
+            if (m_suppressContractTypeEvent)
+                return;
+            try
+            {
+                int key2;
+                if (!UbsPmTradeComboUtil.TryGetSelectedKey(cmbContractType2, out key2))
+                    return;
+
+                if (clearPayment)
+                    ClearPayment(0);
+                chkCash0.Visible = false;
+
+                int key1;
+                bool hasType1 = UbsPmTradeComboUtil.TryGetSelectedKey(cmbContractType1, out key1);
+
+                if (key2 == 1)
+                {
+                    if (hasType1)
+                    {
+                        lblCommission.Visible = (key1 != 0);
+                        cmbComission.Visible = (key1 != 0);
+                        UbsPmTradeComboUtil.SetComboByKey(cmbKindSupplyTrade, 1);
+                        cmbKindSupplyTrade.Enabled = false;
+                    }
+                    if (m_kindTrade == 0)
+                    {
+                        chkCash0.Visible = true;
+                        chkCash0.Checked = false;
+                        GetInstrLink(0).Visible = true;
+                        GetInstrAccountLink(0).Visible = true;
+                    }
+                }
+                else
+                {
+                    if (hasType1 && key1 == 1)
+                    {
+                        lblCommission.Visible = (key2 != 0);
+                        cmbComission.Visible = (key2 != 0);
+                        UbsPmTradeComboUtil.SetComboByKey(cmbKindSupplyTrade, 1);
+                        cmbKindSupplyTrade.Enabled = false;
+                    }
+                    else
+                    {
+                        lblCommission.Visible = false;
+                        cmbComission.Visible = false;
+                        cmbKindSupplyTrade.Enabled = true;
+                    }
+                }
+
+                linkListInstr0.Visible = true;
+
+                if (key2 == 0)
+                    SetPaymentInstrTabsSellerOnly();
+                else
+                    SetPaymentInstrTabsBothBuyerSelected();
+
+                bool isEdit = string.Equals(m_command, CmdEdit, StringComparison.Ordinal);
+                if (key2 != 0)
+                {
+                    if (!isEdit)
+                    {
+                        txtContractCode2.Text = "";
+                        txtClientName2.Text = "";
+                    }
+                    else
+                    {
+                        if (m_armedClearContract2FieldsOnTypeChange)
+                        {
+                            txtContractCode2.Text = "";
+                            txtClientName2.Text = "";
+                        }
+                        else
+                            m_armedClearContract2FieldsOnTypeChange = true;
+                    }
+                    btnContract2.Enabled = true;
+                }
+                else
+                {
+                    m_idClient2 = FillContractRowFromPm(0, txtContractCode2, txtClientName2);
+                    btnContract2.Enabled = false;
+                    if (hasType1 && key1 == 1)
+                        TrySelectComissionById(m_idComission1);
+                    else
+                        ClearComissionSelection();
+                    m_armedClearContract2FieldsOnTypeChange = true;
+                }
+
+                UpdateDisplayNDS();
+                UpdateDisplayExport();
+            }
+            catch (Exception ex)
+            {
+                this.Ubs_ShowError(ex);
+            }
+        }
+
+        private void SetPaymentInstrTabsSellerOnly()
+        {
+            tabControlInstr.SuspendLayout();
+            try
+            {
+                tabControlInstr.TabPages.Clear();
+                tabControlInstr.TabPages.Add(tabPageInstr2);
+                tabControlInstr.SelectedTab = tabPageInstr2;
+            }
+            finally
+            {
+                tabControlInstr.ResumeLayout(true);
+            }
+        }
+
+        private void SetPaymentInstrTabsBothBuyerSelected()
+        {
+            tabControlInstr.SuspendLayout();
+            try
+            {
+                tabControlInstr.TabPages.Clear();
+                tabControlInstr.TabPages.Add(tabPageInstr1);
+                tabControlInstr.TabPages.Add(tabPageInstr2);
+                tabControlInstr.SelectedTab = tabPageInstr1;
+            }
+            finally
+            {
+                tabControlInstr.ResumeLayout(true);
+            }
+        }
+
+        private int FillContractRowFromPm(int idContract, TextBox contractCode, TextBox clientName)
+        {
+            base.IUbsChannel.ParamIn("ID_CONTRACT", idContract);
+
+            base.IUbsChannel.Run("GetContractPM");
+
+            var po = new UbsParam(base.IUbsChannel.ParamsOut);
+
+            if (contractCode != null && po.Contains("CODE_CONTRACT"))
+                contractCode.Text = Convert.ToString(po.Value("CODE_CONTRACT"));
+
+            if (clientName != null && po.Contains("LONG_NAME"))
+                clientName.Text = Convert.ToString(po.Value("LONG_NAME"));
+
+            if (!po.Contains("ID_CLIENT"))
+                return 0;
+
+            return Convert.ToInt32(po.Value("ID_CLIENT"));
+        }
+
+        private void UpdateDisplayNDS()
+        {
+            try
+            {
+                bool isCheck = false;
+                if (m_idClient2 != 0)
+                {
+                    base.IUbsChannel.ParamIn("ClientId", m_idClient2);
+
+                    base.IUbsChannel.Run("IsClientLegalEnterprise");
+
+                    var po = new UbsParam(base.IUbsChannel.ParamsOut);
+
+                    bool isLegal = false;
+                    if (po.Contains("Result"))
+                    {
+                        object r = po.Value("Result");
+                        if (r != null && r != DBNull.Value)
+                        {
+                            if (r is bool)
+                                isLegal = (bool)r;
+                            else
+                                isLegal = Convert.ToInt32(r) != 0;
+                        }
+                    }
+
+                    int kindKey;
+                    bool kindPhysical = UbsPmTradeComboUtil.TryGetSelectedKey(cmbKindSupplyTrade, out kindKey)
+                        && kindKey == 2;
+                    bool sellerBank = string.Equals(txtContractCode1.Text.Trim(), TextContractCodeBank, StringComparison.OrdinalIgnoreCase);
+                    bool buyerBank = string.Equals(txtContractCode2.Text.Trim(), TextContractCodeBank, StringComparison.OrdinalIgnoreCase);
+                    isCheck = kindPhysical && sellerBank && !buyerBank && isLegal;
+                }
+                if (isCheck)
+                    chkNDS.Visible = true;
+                else
+                {
+                    chkNDS.Visible = false;
+                    chkNDS.Checked = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.Ubs_ShowError(ex);
+                chkNDS.Visible = false;
+                chkNDS.Checked = false;
+            }
+        }
+
+        private void ClearComissionSelection()
+        {
+            if (cmbComission.Items == null || cmbComission.Items.Count == 0)
+                return;
+            try
+            {
+                cmbComission.SelectedIndex = -1;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+            }
+        }
+
+        private bool TrySelectComissionById(int commissionId)
+        {
+            if (commissionId == 0 || cmbComission.Items == null)
+                return false;
+            foreach (object item in cmbComission.Items)
+            {
+                if (item is KeyValuePair<int, string>)
+                {
+                    KeyValuePair<int, string> kv = (KeyValuePair<int, string>)item;
+                    if (kv.Key == commissionId)
+                    {
+                        cmbComission.SelectedItem = item;
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         private void FillOurBIK()
