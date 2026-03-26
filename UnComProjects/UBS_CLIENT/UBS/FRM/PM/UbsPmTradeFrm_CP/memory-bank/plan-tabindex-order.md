@@ -158,6 +158,24 @@ so the keyboard focus skips them.
 | txtINN_1 | 60 | 10 | true |
 | chkNotAkcept_1 | 61 | 11 | true |
 
+---
+
+## 11. CREATIVE / BUILD: `UbsCtrlAccount` replaces `txtKS` / `txtRS` (Tab 5)
+
+**VB6:** `UBSCTRLLibCtl.UbsControlAccount`. **.NET:** `UbsCtrlAccount`.
+
+When migrating the designer:
+
+| Replace | TabIndex | TabStop |
+|---------|----------|---------|
+| `txtKS0` / `txtKS1` → `ucaKS0` / `ucaKS1` | **4** (unchanged slot) | **false** while read-only/disabled |
+| `txtRS0` / `txtRS1` → `ucaRS0` / `ucaRS1` | **6** (unchanged slot) | **false** while display-only |
+
+- Keep **per-container** ordering: the sequence **1→11** above is unchanged; only the **control type** at slots 4 and 6 changes.
+- Set `TabIndex` on the **hosted** `UbsCtrlAccount` in the `TabPage`, not on legacy form-wide numbers.
+- If `cmdAccount` is added beside RS, insert it into the sequence and **renumber** so no duplicate `TabIndex` among siblings (see `memory-bank/creative/creative-trade-account-control-and-indexes.md`).
+- Update **TabStop=false additions** list: remove `txtKS_*`, `txtRS_*` after migration; apply the same policy to `ucaKS_*` / `ucaRS_*`.
+
 ### tabPage6 child
 | Control | Old | New |
 |---------|-----|-----|
@@ -168,9 +186,9 @@ so the keyboard focus skips them.
 ## TabStop=false additions (display-only fields)
 - `txtContractCode1`, `txtContractCode2` — ReadOnly
 - `txtClientName1`, `txtClientName2` — ReadOnly  
-- `txtKS_0`, `txtKS_1` — ReadOnly + Disabled
+- `txtKS_0`, `txtKS_1` — ReadOnly + Disabled (**→ `ucaKS_*` after `UbsCtrlAccount` migration**)
 - `txtName_0`, `txtName_1` — ReadOnly (bank name, auto-filled)
-- `txtRS_0`, `txtRS_1` — Disabled (set via linkAccountPay/Seller)
+- `txtRS_0`, `txtRS_1` — Disabled (set via linkAccountPay/Seller) (**→ `ucaRS_*` after migration**)
 - `txtStorageCode`, `txtStorageName` — ReadOnly + Disabled
 
 ---

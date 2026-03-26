@@ -308,17 +308,17 @@ Inside **"Обязательство оплаты"** (grpMetalCharPost):
 |---------|----------------------|---|---|---|---|-------|
 | Label | lblInstrTitle_0/_1 | 6 | 12 | 660 | 20 | **NEW** — "Инструкция по оплате", Bold, Center, Anchor=TLR |
 | CheckBox | chkCash_0/_1 | 6 | 40 | 155 | 17 | **Visible=true** (was false) |
-| Button | cmdListInstr_0/_1 | 6 | 64 | 26 | 21 | Text="...", TabIndex=47/53 |
+| Button | cmdListInstr_0/_1 | 6 | 64 | 26 | 21 | Text="..."; TabIndex=**2** per sub-tab (per-container order, not legacy 47/53) |
 | Label | lblCheckInstr_0/_1 | 38 | 67 | 295 | 15 | **move to RIGHT of button**; Text="Выбор платежной инструкции по покупателю/продавцу" |
 | Label | lblBIK_0/_1 | 6 | 92 | 28 | 15 | Text="БИК" |
 | TextBox | txtBIK_0/_1 | 36 | 88 | 80 | 20 | MaxLength=9 |
 | Label | **lblKS_0/_1** | 130 | 92 | 75 | 15 | **NEW** — Text="Корр. счет" |
-| TextBox | txtKS_0/_1 | 212 | 88 | 450 | 20 | **SAME ROW as txtBIK**, ReadOnly, Enabled=false, Anchor=TLR |
+| **UbsCtrlAccount** | ucaKS_0/_1 | 212 | 88 | 450 | 20 | **SAME ROW as BIK**; TabIndex=**4**, TabStop=false when display-only — VB6 `UbsControlAccount` |
 | Label | **lblNameBank_0/_1** | 6 | 116 | 80 | 15 | **NEW** — Text="Наим. банка" |
 | TextBox | txtName_0/_1 | 92 | 112 | 573 | 20 | ReadOnly=true, Anchor=TLR |
 | Label | lblRS_0/_1 | 6 | 140 | 70 | 15 | Text="Расч. счет" |
-| TextBox | txtRS_0/_1 | 82 | 136 | 568 | 20 | Enabled=false, Anchor=TLR |
-| Button | cmdAccount_0/_1 | 656 | 136 | 26 | 21 | **RIGHT of txtRS**, Enabled=false, Anchor=TR |
+| **UbsCtrlAccount** | ucaRS_0/_1 | 82 | 136 | 568 | 20 | TabIndex=**6**, TabStop=false when display-only; **RIGHT:** `cmdAccount` / link |
+| Button | cmdAccount_0/_1 | 656 | 136 | 26 | 21 | **RIGHT of ucaRS**, Enabled=false, Anchor=TR |
 | Label | **lblClient_0/_1** | 6 | 165 | 45 | 15 | **NEW** — Text="Клиент" |
 | TextBox | txtClient_0/_1 | 56 | 161 | 608 | 20 | Anchor=TLR |
 | Label | **lblNote_0/_1** | 6 | 189 | 80 | 15 | **NEW** — Text="Примечание" |
@@ -505,3 +505,30 @@ Anchoring ensures the form remains fully functional at larger sizes.
 - Screen 5.png → Tab 5 "Оплата" / sub-tab "Покупатель"  
 - Screen 6.png → Tab 5 "Оплата" / sub-tab "Продавец"  
 - Screen 7.png → Tab 6 "Дополнительные" (ucpParam grid)
+
+---
+
+## 10. Addendum — CREATIVE: `UbsCtrlAccount` + TabIndex (Tab 5 «Оплата»)
+
+**Authoritative detail:** `memory-bank/creative/creative-trade-account-control-and-indexes.md`.
+
+### 10.1 Control type
+
+- VB6 **`UbsControlAccount`** for **корр. счёт (KS)** and **расч. счёт (RS)** → .NET **`UbsCtrlAccount`** (not `TextBox`). Current `txtRS*`, `txtKS*` in `Designer.cs` are placeholders until BUILD.
+
+### 10.2 TabIndex (proper WinForms usage)
+
+- Tab order is **per parent**: `tabPageInstr1` and `tabPageInstr2` each define their own **0…N** sequence among **siblings** (labels at 0, non-duplicate interactive 1…11).
+- After swap to **`ucaKS`** / **`ucaRS`**, keep the **same numeric slots** as today’s `txtKS` / `txtRS`: **KS = 4**, **RS = 6**, with **`TabStop = false`** when the control is display-only (picker/cash fills value), matching `plan-tabindex-order.md`.
+- Do **not** reintroduce form-wide VB6 TabIndex values (e.g. 47/53) on these pages — the 2026-03-24 correction pass is the source of truth.
+
+### 10.3 Layout table correction (§2.5)
+
+Replace **TextBox** rows for RS/KS with:
+
+| Control type | Name pattern | TabIndex (per sub-tab) |
+|--------------|--------------|-------------------------|
+| **UbsCtrlAccount** | `ucaKS_0/_1` | 4, `TabStop=false` when read-only |
+| **UbsCtrlAccount** | `ucaRS_0/_1` | 6, `TabStop=false` when display-only |
+
+`cmdAccount` (when added) must sit in the tab sequence **without duplicating** an existing index; renumber if needed.

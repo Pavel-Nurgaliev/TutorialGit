@@ -14,6 +14,9 @@
 | BUILD (TabIndex correction) | ✅ Complete | 2026-03-24 |
 | REFLECT (TabIndex correction) | ✅ Complete | 2026-03-24 |
 | ARCHIVE | ⬜ Not started | — |
+| BUILD (Phase 2 logic — partial bootstrap) | ✅ In progress / milestone | 2026-03-25 |
+| REFLECT (Phase 2 bootstrap) | ✅ Complete | 2026-03-25 |
+| BUILD (form refactor — regions + utils) | ✅ Complete | 2026-03-26 |
 
 ## Detailed Log
 
@@ -75,6 +78,17 @@
 - Verified: `rg 'TabIndex\s*=\s*[2-9][0-9]+'` → 0 matches.
 - **Result: 0 errors. Designer.cs now has correct per-container TabIndex order.**
 - Appended Addendum section to `reflection-trade-designer.md`.
+
+### 2026-03-25 — Phase 2 logic bootstrap + reflection
+
+- Implemented partial Phase 2 code-behind: `InitDoc`, combo fill from `TradeCombo_FillPM` (`[n,2]` row-major), `FillOurBIK`, EDIT/ADD branching, `chkCash` + `GetInstructionOplataCash` with instruction matrix **`[0, col]`** (VB6 `(fieldIdx,0)` transpose). Documented 2D conventions in `techContext.md`, `CONVERSION-HANDOFF.md`, `systemPatterns.md`, `tasks.md`.
+- Reflection: `memory-bank/reflection/reflection-phase2-logic-bootstrap.md`. Full Phase 2 checklist in `tasks.md` still largely pending (`LoadFromParams`, Save, obligations UI, etc.).
+
+### 2026-03-26 — Form refactor (CREATIVE: regions + support extraction)
+
+- Reordered `UbsPmTradeFrm.cs`: `Обработчики команд IUbs` → `Обработчики событий — кнопки` → `— чекбоксы` → support regions (`инициализация`, `обязательства`, `оплата`).
+- New internal static helpers: `UbsPmTradeComboUtil` (combo fill / `SetComboByKey`), `UbsPmTradeMatrixUtil` (2D cell readers), `UbsPmTradeObligParamUtil` (`IsObjectParamPart2Key` with prefix parameter).
+- **Verification:** `MSBuild` Release, `UbsPmTradeFrm.dll` produced; no new errors (existing CS0414, CS1591).
 
 ## What Remains
 

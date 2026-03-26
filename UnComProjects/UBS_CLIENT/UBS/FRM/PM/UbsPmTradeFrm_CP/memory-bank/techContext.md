@@ -19,7 +19,7 @@
 ## Legacy VB6 Specifics
 
 - **Interface:** `UBSChild` (Implements UBSChild)
-- **Entry point:** `UBSChild_ParamInfo("InitParamForm")` receives `(NumParentWindow, RSIdent(), strRunParam)` where `RSIdent(0) = ID_TRADE` and `strRunParam = "EDIT"` or `"ADD#<vidTrade>"`
+- **Entry point:** `UBSChild_ParamInfo("InitParamForm")` receives `(NumParentWindow, RSIdent(), strRunParam)` where `RSIdent(0) = ID_TRADE` and `strRunParam = CmdEdit` (i.e. `"EDIT"`) or `strRunParam = CmdAdd + "#<vidTrade>"` (i.e. `"ADD#<vidTrade>"`)
 - **Data binding:** DDX (UbsDDXCtrl) — replaced by explicit LoadFromParams/BuildSaveParams in .NET
 - **OCX controls used:**
   - `UbsDDXCtrl.ocx` — data binding (DDX) → replaced by .NET data mapping
@@ -34,6 +34,13 @@
 
 - **LoadResource:** `"VBS:UBS_VBD\PM\Pm_Trade.vbs"` (VB6) → .NET ASM path TBD (pattern: `"ASM:UBS_ASM\PM\DllName.dll->UbsBusiness.ClassName"`)
 
+### 2D arrays from the server (`object[,]`)
+
+- The .NET channel exposes 2D data as **`object[row, column]`** (row index first, column index second).
+- **VB6 legacy** often indexed the same logical data as **`variant(firstIndex, secondIndex)`** where the first dimension was *not* always “row” in the .NET sense (e.g. `FillControlInstrOplata` used `varOplata(fieldIndex, 0)`).
+- When porting, **transpose mentally**: map VB `(i, 0)` to .NET `[0, i]` when the server packs one record as a single row and fields as columns.
+- **Combo list arrays** from `TradeCombo_FillPM`: shape **`[n, 2]`** — row `r` has id at `[r, 0]` and text at `[r, 1]`.
+
 ### Channel Commands
 
 | Command | In Parameters | Out Parameters | Usage |
@@ -46,7 +53,7 @@
 | `FillBaseCurrency` | — | `ИдентификаторБазовойВалюты` | Default currency selection in ADD |
 | `GetContractPM` | `ID_CONTRACT` | `CODE_CONTRACT`, `LONG_NAME`, `ID_CLIENT` | Load contract details |
 | `TradeFillInstr` | `ID_CONTRACT` | Instruction array | Fill payment instruction from contract |
-| `GetInstructionOplataCash` | — | `ИнструкцияПоОплатеДляНаличныхСредствБанка` | Load cash instruction |
+| `GetInstructionOplataCash` | — | `Инструкции по оплате для расчета через кассу` (2D: `[0..n-1, 0..7]`; single row uses row `0`, cols `0`=BIK … `7`=безакцепт) | Load cash instruction for `chkCash` |
 | `GetObjectPM` | `ID_OBJECT` | `ДанныеОбъекта` | Load precious metal object details |
 | `GetStorage` | `IsExternalStorage`, `Id` | `Code`, `Name` | Load storage info |
 | `GetRate_CB` | `Id_Currency_Opl`, `Id_Currency_Oblig`, `Date` | `Rate` | Exchange rate for obligation |

@@ -92,9 +92,19 @@
       <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsCtrlFields.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UbsCtrlAccount">
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsCtrlAccount.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="UbsPmTradeFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UbsPmTradeComboUtil.cs" />
+    <Compile Include="UbsPmTradeMatrixUtil.cs" />
+    <Compile Include="UbsPmTradeObligParamUtil.cs" />
+    <Compile Include="UbsPmTradeFrm.Constants.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UbsPmTradeFrm.Designer.cs">

@@ -4,7 +4,7 @@
 
 - **Legacy → .NET conversion:** Phased approach per OP reference conversions:
   - Phase 1 (Prep): Constants partial, channel contract doc, add missing assembly references
-  - Phase 2 (Conversion): UI designer, InitDoc (EDIT/ADD), ListKey/CommandLine, channel handlers, Save
+  - Phase 2 (Conversion): UI designer, InitDoc (CmdEdit/CmdAdd), ListKey/CommandLine, channel handlers, Save
   - Phase 3 (Post): Partials split when file grows, Reflection doc, systemPatterns update
 - **Form pattern:** `UbsFormBase` (or equivalent); IUbs (`ListKey`/`CommandLine` for init params); `TabControl` for 6-tab layout; bottom strip (Save, Exit, Info).
 
@@ -17,20 +17,21 @@
 ## Patterns in Use
 
 - **Explicit data binding:** Replace VB6 DDX with `LoadFromParams(paramOut)` and `BuildSaveParams()` for form↔channel param mapping.
-- **ListKey for list-opened forms:** `ListKey` handler receives the ID (`RSIdent(0) = ID_TRADE`) and run param (`strRunParam`). `InitDoc` uses it for `GetOneTrade` (EDIT) or default init (ADD).
+- **ListKey for list-opened forms:** `ListKey` handler receives the ID (`RSIdent(0) = ID_TRADE`) and run param (`strRunParam`). `InitDoc` uses it for `GetOneTrade` (`CmdEdit`) or default init (`CmdAdd`).
+- **Tab 5 payment (Оплата):** Sub-tabs **Покупатель (0)** / **Продавец (1)**; RS/KS → **`UbsCtrlAccount`**. **TabIndex** is **per `TabPage`**: KS **4**, RS **6**, `TabStop=false` when display-only — see `memory-bank/plan-tabindex-order.md` §11 and `memory-bank/creative/creative-trade-account-control-and-indexes.md`.
 - **InitDoc pattern:**
   1. FillCombos — call `TradeCombo_FillPM` and populate all ComboBox controls
   2. `FillOurBIK` — get own BIK for payment instruction validation
-  3. If EDIT: call `GetOneTrade`, populate all fields via `LoadFromParams`, fill obligation list
-  4. If ADD: set default DDX values, default currencies, default dates
+  3. If CmdEdit: call `GetOneTrade`, populate all fields via `LoadFromParams`, fill obligation list
+  4. If CmdAdd: set default DDX values, default currencies, default dates
   5. Apply enabled/disabled states based on mode and trade type
-  6. If EDIT and `Was_Operation=true`: lock all editing (disable Save, all panels)
+  6. If CmdEdit and `Was_Operation=true`: lock all editing (disable Save, all panels)
 - **Save pattern (cmdSave_Click):**
   1. Validate all fields (`CheckData`, `CheckDatesOblig`)
   2. Build params: `ID_TRADE`, obligation array, instruction arrays, DDX changed fields, AddFields changes
   3. Call `ModifyTrade`; on success show info, close form, signal parent to refresh
-- **ComboBox data binding:** Use `KeyValuePair<int, string>` + `DataSource` (align with UbsOpBlankFrm/UbsOpRetoperFrm). Fill from channel array output (2D: `[0,n]=id`, `[1,n]=text`).
-- **Array parameters (Variant arrays):** VB6 passes obligations as a 2D Variant array and instruction as a 2D array. .NET equivalent: `object[,]` or `Array`. Channel contract doc defines the exact column mapping.
+- **ComboBox data binding:** Use `KeyValuePair<int, string>` + `DataSource` (align with UbsOpBlankFrm/UbsOpRetoperFrm). Fill from channel 2D output **`object[row, column]`** with combo rows **`[n, 2]`**: id at **`[r, 0]`**, text at **`[r, 1]`** (see `FillComboFrom2DArray`).
+- **Array parameters (Variant arrays):** VB6 used 2D `Variant` with index order that may differ from .NET. Server returns **`object[row, column]`**; map legacy `(i, j)` carefully (e.g. instruction strip: VB `varOplata(k, 0)` → .NET `[0, k]`). Channel contract / `techContext.md` defines field order per param.
 - **Sub-form integration:** VB6 opens child windows via `IParent.LoadForm`. .NET equivalent TBD during CREATIVE phase (may use modal dialogs or inline panels).
 - **UbsCtrlDecimal for money fields:** All `UbsControlMoney` instances → `UbsCtrlDecimal` (same as OP forms).
 - **ListView for obligations:** `System.Windows.Forms.ListView` with ColumnHeaders. 7 columns: Direction, PartNumber, DateOpl, DatePost, PriceUnit, Mass, Sum, CurrencyId, Rate, Unit, RateFlag.

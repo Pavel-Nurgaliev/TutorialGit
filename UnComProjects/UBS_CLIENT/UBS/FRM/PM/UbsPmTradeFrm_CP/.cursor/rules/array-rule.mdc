@@ -1,0 +1,5 @@
+---
+alwaysApply: true
+---
+
+While convert vb form to .net. If we expect object[,] it always object[row, column] (while vb variant is variant(column, row))

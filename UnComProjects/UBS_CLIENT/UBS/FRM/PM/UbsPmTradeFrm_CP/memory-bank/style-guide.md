@@ -28,7 +28,7 @@ this.IUbsChannel.Run("GetOneTrade");
 // UbsPmTradeFrm.Constants.cs
 public partial class UbsPmTradeFrm : UbsFormBase
 {
-    private const string LoadResource = "ASM:UBS_ASM\\PM\\...dll->UbsBusiness.UbsPmTradeFrm";
+    private const string LoadResource = VBS:SOURCE;
     private const string MsgSaved = "Данные сохранены";
     private const string MsgNoTradeDate = "Не задана дата сделки";
     // ... other user-facing messages

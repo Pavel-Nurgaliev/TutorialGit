@@ -97,7 +97,9 @@ Document full In/Out keys in `memory-bank/techContext.md` and (when created) `me
 
 **LoadResource:** VB6 `"VBS:UBS_VBD\PM\Pm_Trade.vbs"` → .NET ASM string TBD (follow OP pattern).
 
-**Coding rule:** channel **command names and param keys** stay **explicit string literals** in code; user-facing UI strings go in **`UbsPmTradeFrm.Constants.cs`** partial.
+**Coding rule:** channel **command names and param keys** stay **explicit string literals** in code; run-mode tokens passed via `strRunParam` must use constants `CmdAdd`/`CmdEdit` from `UbsPmTradeFrm.Constants.cs` (no inline `"ADD"`/`"EDIT"` comparisons); user-facing UI strings go in **`UbsPmTradeFrm.Constants.cs`** partial.
+
+**2D channel arrays:** server-side shape is **`object[row, column]`**. VB6 `Variant` indexing in legacy code is often **`(firstDim, secondDim)`** with the first dimension *not* equal to .NET “row” (example: `FillControlInstrOplata` used `varOplata(fieldIdx, 0)` → .NET read **`[0, fieldIdx]`** for one instruction row). Combo rows from `TradeCombo_FillPM`: **`[n, 2]`** with id/text at **`[r, 0]` / `[r, 1]`**.
 
 ---
 
@@ -118,7 +120,7 @@ Document full In/Out keys in `memory-bank/techContext.md` and (when created) `me
 
 ## 8. Init entry (legacy parity)
 
-- **`ListKey` / `CommandLine`:** `RSIdent(0) = ID_TRADE`, `strRunParam` = `"EDIT"` or `"ADD#<vidTrade>"`.
+- **`ListKey` / `CommandLine`:** `RSIdent(0) = ID_TRADE`, `strRunParam` = `CmdEdit` or `CmdAdd + "#<vidTrade>"`.
 - **InitDoc order (high level):** FillCombos → FillOurBIK → EDIT: GetOneTrade + LoadFromParams + obligations list; ADD: defaults → enable/disable by mode → if EDIT and `Was_Operation`, lock UI.
 
 ---
@@ -142,7 +144,7 @@ Document full In/Out keys in `memory-bank/techContext.md` and (when created) `me
 
 ## 11. Designer hygiene (avoid repeat mistakes)
 
-- **TabIndex:** unique **per parent container**; do not reuse form-wide sequence inside `GroupBox` children; set **TabStop = false** on read-only/display labels/fields as appropriate; watch **duplicate index 0** on sibling controls (`chkCash`, links, etc.). Audit pass documented in `memory-bank/plan-tabindex-order.md` / `progress.md` (2026-03-24).
+- **TabIndex:** unique **per parent container**; do not reuse form-wide sequence inside `GroupBox` children; set **TabStop = false** on read-only/display labels/fields as appropriate; watch **duplicate index 0** on sibling controls (`chkCash`, links, etc.). Audit pass documented in `memory-bank/plan-tabindex-order.md` / `progress.md` (2026-03-24). **Tab 5 payment:** when **RS/KS** become **`UbsCtrlAccount`**, keep slots **TabIndex 4 (KS)** and **6 (RS)** per sub-tab (`plan-tabindex-order.md` §11, `creative-trade-account-control-and-indexes.md`).
 
 ---
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 
 namespace UbsPmTradeFrm
@@ -139,10 +139,10 @@ namespace UbsPmTradeFrm
             this.lblBIK0 = new System.Windows.Forms.Label();
             this.txtBIK0 = new System.Windows.Forms.TextBox();
             this.lblKS0 = new System.Windows.Forms.Label();
-            this.txtKS0 = new System.Windows.Forms.TextBox();
+            this.ucaKS0 = new UbsControl.UbsCtrlAccount();
             this.lblNameBank0 = new System.Windows.Forms.Label();
             this.txtName0 = new System.Windows.Forms.TextBox();
-            this.txtRS0 = new System.Windows.Forms.TextBox();
+            this.ucaRS0 = new UbsControl.UbsCtrlAccount();
             this.lblClient0 = new System.Windows.Forms.Label();
             this.txtClient0 = new System.Windows.Forms.TextBox();
             this.lblNote0 = new System.Windows.Forms.Label();
@@ -158,10 +158,10 @@ namespace UbsPmTradeFrm
             this.lblBIK1 = new System.Windows.Forms.Label();
             this.txtBIK1 = new System.Windows.Forms.TextBox();
             this.lblKS1 = new System.Windows.Forms.Label();
-            this.txtKS1 = new System.Windows.Forms.TextBox();
+            this.ucaKS1 = new UbsControl.UbsCtrlAccount();
             this.lblNameBank1 = new System.Windows.Forms.Label();
             this.txtName1 = new System.Windows.Forms.TextBox();
-            this.txtRS1 = new System.Windows.Forms.TextBox();
+            this.ucaRS1 = new UbsControl.UbsCtrlAccount();
             this.lblClient1 = new System.Windows.Forms.Label();
             this.txtClient1 = new System.Windows.Forms.TextBox();
             this.lblNote1 = new System.Windows.Forms.Label();
@@ -203,6 +203,7 @@ namespace UbsPmTradeFrm
             // 
             this.panelMain.Controls.Add(this.tabControl);
             this.panelMain.Controls.Add(this.tableLayoutPanel);
+            this.panelMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelMain.Size = new System.Drawing.Size(685, 623);
             // 
             // tableLayoutPanel
@@ -287,7 +288,7 @@ namespace UbsPmTradeFrm
             this.tabPage1.Controls.Add(this.cmbComission);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.tabPage1.Size = new System.Drawing.Size(677, 565);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Основные";
@@ -358,6 +359,7 @@ namespace UbsPmTradeFrm
             this.chkComposit.TabIndex = 3;
             this.chkComposit.Text = "Составная?";
             this.chkComposit.UseVisualStyleBackColor = true;
+            this.chkComposit.CheckedChanged += new System.EventHandler(this.chkComposit_CheckedChanged);
             // 
             // lblDelivery
             // 
@@ -590,7 +592,7 @@ namespace UbsPmTradeFrm
             this.tabPage2.Controls.Add(this.tableLayoutPanel1);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.tabPage2.Size = new System.Drawing.Size(677, 565);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Обязательства";
@@ -745,7 +747,7 @@ namespace UbsPmTradeFrm
             this.tabPage3.Controls.Add(this.tableLayoutPanel6);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.tabPage3.Size = new System.Drawing.Size(677, 565);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Данные";
@@ -768,11 +770,9 @@ namespace UbsPmTradeFrm
             // 
             // tabControlOblig
             // 
-            this.tabControlOblig.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlOblig.Controls.Add(this.tabPageOblig1);
             this.tabControlOblig.Controls.Add(this.tabPageOblig2);
+            this.tabControlOblig.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlOblig.Location = new System.Drawing.Point(3, 3);
             this.tabControlOblig.Name = "tabControlOblig";
             this.tabControlOblig.SelectedIndex = 0;
@@ -797,7 +797,7 @@ namespace UbsPmTradeFrm
             this.tabPageOblig1.Controls.Add(this.grpMetalCharPost);
             this.tabPageOblig1.Location = new System.Drawing.Point(4, 22);
             this.tabPageOblig1.Name = "tabPageOblig1";
-            this.tabPageOblig1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageOblig1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.tabPageOblig1.Size = new System.Drawing.Size(657, 495);
             this.tabPageOblig1.TabIndex = 0;
             this.tabPageOblig1.Text = "Обязательство";
@@ -819,7 +819,7 @@ namespace UbsPmTradeFrm
             this.cmbTradeDirection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTradeDirection.Location = new System.Drawing.Point(168, 6);
             this.cmbTradeDirection.Name = "cmbTradeDirection";
-            this.cmbTradeDirection.Size = new System.Drawing.Size(482, 21);
+            this.cmbTradeDirection.Size = new System.Drawing.Size(481, 21);
             this.cmbTradeDirection.TabIndex = 1;
             // 
             // lblObligationCurrency
@@ -838,7 +838,7 @@ namespace UbsPmTradeFrm
             this.cmbObligationCurrency.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbObligationCurrency.Location = new System.Drawing.Point(168, 31);
             this.cmbObligationCurrency.Name = "cmbObligationCurrency";
-            this.cmbObligationCurrency.Size = new System.Drawing.Size(482, 21);
+            this.cmbObligationCurrency.Size = new System.Drawing.Size(481, 21);
             this.cmbObligationCurrency.TabIndex = 2;
             // 
             // lblUnit
@@ -857,7 +857,7 @@ namespace UbsPmTradeFrm
             this.cmbUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbUnit.Location = new System.Drawing.Point(168, 56);
             this.cmbUnit.Name = "cmbUnit";
-            this.cmbUnit.Size = new System.Drawing.Size(482, 21);
+            this.cmbUnit.Size = new System.Drawing.Size(481, 21);
             this.cmbUnit.TabIndex = 3;
             // 
             // lblCostUnit
@@ -930,7 +930,7 @@ namespace UbsPmTradeFrm
             this.grpMetalChar.Controls.Add(this.ucdMassGramm);
             this.grpMetalChar.Location = new System.Drawing.Point(6, 158);
             this.grpMetalChar.Name = "grpMetalChar";
-            this.grpMetalChar.Size = new System.Drawing.Size(645, 77);
+            this.grpMetalChar.Size = new System.Drawing.Size(644, 77);
             this.grpMetalChar.TabIndex = 9;
             this.grpMetalChar.TabStop = false;
             this.grpMetalChar.Text = "Обязательство поставки";
@@ -1001,7 +1001,7 @@ namespace UbsPmTradeFrm
             this.grpMetalCharPost.Controls.Add(this.ucdSumPayment);
             this.grpMetalCharPost.Location = new System.Drawing.Point(6, 241);
             this.grpMetalCharPost.Name = "grpMetalCharPost";
-            this.grpMetalCharPost.Size = new System.Drawing.Size(645, 100);
+            this.grpMetalCharPost.Size = new System.Drawing.Size(644, 100);
             this.grpMetalCharPost.TabIndex = 10;
             this.grpMetalCharPost.TabStop = false;
             this.grpMetalCharPost.Text = "Обязательство оплаты";
@@ -1066,7 +1066,7 @@ namespace UbsPmTradeFrm
             this.tabPageOblig2.Controls.Add(this.tableLayoutPanel5);
             this.tabPageOblig2.Location = new System.Drawing.Point(4, 22);
             this.tabPageOblig2.Name = "tabPageOblig2";
-            this.tabPageOblig2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageOblig2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.tabPageOblig2.Size = new System.Drawing.Size(657, 495);
             this.tabPageOblig2.TabIndex = 1;
             this.tabPageOblig2.Text = "Объекты";
@@ -1249,9 +1249,9 @@ namespace UbsPmTradeFrm
             // cmdExitObligation
             // 
             this.cmdExitObligation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdExitObligation.Location = new System.Drawing.Point(580, 3);
+            this.cmdExitObligation.Location = new System.Drawing.Point(580, 4);
             this.cmdExitObligation.Name = "cmdExitObligation";
-            this.cmdExitObligation.Size = new System.Drawing.Size(82, 20);
+            this.cmdExitObligation.Size = new System.Drawing.Size(82, 19);
             this.cmdExitObligation.TabIndex = 3;
             this.cmdExitObligation.Text = "Отмена";
             this.cmdExitObligation.UseVisualStyleBackColor = true;
@@ -1260,9 +1260,9 @@ namespace UbsPmTradeFrm
             // cmdApplayObligation
             // 
             this.cmdApplayObligation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdApplayObligation.Location = new System.Drawing.Point(492, 3);
+            this.cmdApplayObligation.Location = new System.Drawing.Point(492, 4);
             this.cmdApplayObligation.Name = "cmdApplayObligation";
-            this.cmdApplayObligation.Size = new System.Drawing.Size(82, 20);
+            this.cmdApplayObligation.Size = new System.Drawing.Size(82, 19);
             this.cmdApplayObligation.TabIndex = 2;
             this.cmdApplayObligation.Text = "Применить";
             this.cmdApplayObligation.UseVisualStyleBackColor = true;
@@ -1279,7 +1279,7 @@ namespace UbsPmTradeFrm
             this.tabPage4.Controls.Add(this.txtStorageName);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.tabPage4.Size = new System.Drawing.Size(677, 565);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Поставка";
@@ -1364,7 +1364,7 @@ namespace UbsPmTradeFrm
             this.tabPage5.Controls.Add(this.tabControlInstr);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.tabPage5.Size = new System.Drawing.Size(677, 565);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Оплата";
@@ -1390,10 +1390,10 @@ namespace UbsPmTradeFrm
             this.tabPageInstr1.Controls.Add(this.lblBIK0);
             this.tabPageInstr1.Controls.Add(this.txtBIK0);
             this.tabPageInstr1.Controls.Add(this.lblKS0);
-            this.tabPageInstr1.Controls.Add(this.txtKS0);
+            this.tabPageInstr1.Controls.Add(this.ucaKS0);
             this.tabPageInstr1.Controls.Add(this.lblNameBank0);
             this.tabPageInstr1.Controls.Add(this.txtName0);
-            this.tabPageInstr1.Controls.Add(this.txtRS0);
+            this.tabPageInstr1.Controls.Add(this.ucaRS0);
             this.tabPageInstr1.Controls.Add(this.lblClient0);
             this.tabPageInstr1.Controls.Add(this.txtClient0);
             this.tabPageInstr1.Controls.Add(this.lblNote0);
@@ -1403,7 +1403,7 @@ namespace UbsPmTradeFrm
             this.tabPageInstr1.Controls.Add(this.chkNotAkcept0);
             this.tabPageInstr1.Location = new System.Drawing.Point(4, 22);
             this.tabPageInstr1.Name = "tabPageInstr1";
-            this.tabPageInstr1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageInstr1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.tabPageInstr1.Size = new System.Drawing.Size(663, 533);
             this.tabPageInstr1.TabIndex = 0;
             this.tabPageInstr1.Text = "Покупатель";
@@ -1436,7 +1436,7 @@ namespace UbsPmTradeFrm
             this.lblInstrTitlePayment0.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.lblInstrTitlePayment0.Location = new System.Drawing.Point(6, 12);
             this.lblInstrTitlePayment0.Name = "lblInstrTitlePayment0";
-            this.lblInstrTitlePayment0.Size = new System.Drawing.Size(651, 20);
+            this.lblInstrTitlePayment0.Size = new System.Drawing.Size(650, 20);
             this.lblInstrTitlePayment0.TabIndex = 0;
             this.lblInstrTitlePayment0.Text = "Инструкция по оплате";
             this.lblInstrTitlePayment0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1450,6 +1450,7 @@ namespace UbsPmTradeFrm
             this.chkCash0.TabIndex = 1;
             this.chkCash0.Text = "Расчет через кассу";
             this.chkCash0.UseVisualStyleBackColor = true;
+            this.chkCash0.CheckedChanged += new System.EventHandler(this.chkCash_Click);
             // 
             // lblBIK0
             // 
@@ -1477,17 +1478,18 @@ namespace UbsPmTradeFrm
             this.lblKS0.TabIndex = 0;
             this.lblKS0.Text = "Корр. счет";
             // 
-            // txtKS0
+            // ucaKS0
             // 
-            this.txtKS0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.ucaKS0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtKS0.Enabled = false;
-            this.txtKS0.Location = new System.Drawing.Point(242, 88);
-            this.txtKS0.Name = "txtKS0";
-            this.txtKS0.ReadOnly = true;
-            this.txtKS0.Size = new System.Drawing.Size(415, 20);
-            this.txtKS0.TabIndex = 4;
-            this.txtKS0.TabStop = false;
+            this.ucaKS0.Enabled = false;
+            this.ucaKS0.Location = new System.Drawing.Point(242, 88);
+            this.ucaKS0.MaxLength = 24;
+            this.ucaKS0.Name = "ucaKS0";
+            this.ucaKS0.ReadOnly = true;
+            this.ucaKS0.Size = new System.Drawing.Size(414, 20);
+            this.ucaKS0.TabIndex = 4;
+            this.ucaKS0.TabStop = false;
             // 
             // lblNameBank0
             // 
@@ -1509,16 +1511,17 @@ namespace UbsPmTradeFrm
             this.txtName0.TabIndex = 5;
             this.txtName0.TabStop = false;
             // 
-            // txtRS0
+            // ucaRS0
             // 
-            this.txtRS0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.ucaRS0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRS0.Enabled = false;
-            this.txtRS0.Location = new System.Drawing.Point(90, 136);
-            this.txtRS0.Name = "txtRS0";
-            this.txtRS0.Size = new System.Drawing.Size(567, 20);
-            this.txtRS0.TabIndex = 6;
-            this.txtRS0.TabStop = false;
+            this.ucaRS0.Enabled = false;
+            this.ucaRS0.Location = new System.Drawing.Point(90, 136);
+            this.ucaRS0.MaxLength = 24;
+            this.ucaRS0.Name = "ucaRS0";
+            this.ucaRS0.Size = new System.Drawing.Size(567, 20);
+            this.ucaRS0.TabIndex = 6;
+            this.ucaRS0.TabStop = false;
             // 
             // lblClient0
             // 
@@ -1592,10 +1595,10 @@ namespace UbsPmTradeFrm
             this.tabPageInstr2.Controls.Add(this.lblBIK1);
             this.tabPageInstr2.Controls.Add(this.txtBIK1);
             this.tabPageInstr2.Controls.Add(this.lblKS1);
-            this.tabPageInstr2.Controls.Add(this.txtKS1);
+            this.tabPageInstr2.Controls.Add(this.ucaKS1);
             this.tabPageInstr2.Controls.Add(this.lblNameBank1);
             this.tabPageInstr2.Controls.Add(this.txtName1);
-            this.tabPageInstr2.Controls.Add(this.txtRS1);
+            this.tabPageInstr2.Controls.Add(this.ucaRS1);
             this.tabPageInstr2.Controls.Add(this.lblClient1);
             this.tabPageInstr2.Controls.Add(this.txtClient1);
             this.tabPageInstr2.Controls.Add(this.lblNote1);
@@ -1605,7 +1608,7 @@ namespace UbsPmTradeFrm
             this.tabPageInstr2.Controls.Add(this.chkNotAkcept1);
             this.tabPageInstr2.Location = new System.Drawing.Point(4, 22);
             this.tabPageInstr2.Name = "tabPageInstr2";
-            this.tabPageInstr2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageInstr2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.tabPageInstr2.Size = new System.Drawing.Size(663, 533);
             this.tabPageInstr2.TabIndex = 1;
             this.tabPageInstr2.Text = "Продавец";
@@ -1638,7 +1641,7 @@ namespace UbsPmTradeFrm
             this.lblInstrTitlePayment1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.lblInstrTitlePayment1.Location = new System.Drawing.Point(6, 12);
             this.lblInstrTitlePayment1.Name = "lblInstrTitlePayment1";
-            this.lblInstrTitlePayment1.Size = new System.Drawing.Size(651, 20);
+            this.lblInstrTitlePayment1.Size = new System.Drawing.Size(650, 20);
             this.lblInstrTitlePayment1.TabIndex = 0;
             this.lblInstrTitlePayment1.Text = "Инструкция по оплате";
             this.lblInstrTitlePayment1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1652,6 +1655,7 @@ namespace UbsPmTradeFrm
             this.chkCash1.TabIndex = 1;
             this.chkCash1.Text = "Расчет через кассу";
             this.chkCash1.UseVisualStyleBackColor = true;
+            this.chkCash1.CheckedChanged += new System.EventHandler(this.chkCash_Click);
             // 
             // lblBIK1
             // 
@@ -1679,17 +1683,18 @@ namespace UbsPmTradeFrm
             this.lblKS1.TabIndex = 0;
             this.lblKS1.Text = "Корр. счет";
             // 
-            // txtKS1
+            // ucaKS1
             // 
-            this.txtKS1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.ucaKS1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtKS1.Enabled = false;
-            this.txtKS1.Location = new System.Drawing.Point(242, 88);
-            this.txtKS1.Name = "txtKS1";
-            this.txtKS1.ReadOnly = true;
-            this.txtKS1.Size = new System.Drawing.Size(415, 20);
-            this.txtKS1.TabIndex = 4;
-            this.txtKS1.TabStop = false;
+            this.ucaKS1.Enabled = false;
+            this.ucaKS1.Location = new System.Drawing.Point(242, 88);
+            this.ucaKS1.MaxLength = 24;
+            this.ucaKS1.Name = "ucaKS1";
+            this.ucaKS1.ReadOnly = true;
+            this.ucaKS1.Size = new System.Drawing.Size(414, 20);
+            this.ucaKS1.TabIndex = 4;
+            this.ucaKS1.TabStop = false;
             // 
             // lblNameBank1
             // 
@@ -1711,16 +1716,17 @@ namespace UbsPmTradeFrm
             this.txtName1.TabIndex = 5;
             this.txtName1.TabStop = false;
             // 
-            // txtRS1
+            // ucaRS1
             // 
-            this.txtRS1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.ucaRS1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRS1.Enabled = false;
-            this.txtRS1.Location = new System.Drawing.Point(90, 136);
-            this.txtRS1.Name = "txtRS1";
-            this.txtRS1.Size = new System.Drawing.Size(567, 20);
-            this.txtRS1.TabIndex = 6;
-            this.txtRS1.TabStop = false;
+            this.ucaRS1.Enabled = false;
+            this.ucaRS1.Location = new System.Drawing.Point(90, 136);
+            this.ucaRS1.MaxLength = 24;
+            this.ucaRS1.Name = "ucaRS1";
+            this.ucaRS1.Size = new System.Drawing.Size(567, 20);
+            this.ucaRS1.TabIndex = 6;
+            this.ucaRS1.TabStop = false;
             // 
             // lblClient1
             // 
@@ -1790,7 +1796,7 @@ namespace UbsPmTradeFrm
             this.tabPage6.Controls.Add(this.ubsCtrlField);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.tabPage6.Size = new System.Drawing.Size(677, 565);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Дополнительные";
@@ -1800,6 +1806,7 @@ namespace UbsPmTradeFrm
             // 
             this.ubsCtrlField.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ubsCtrlField.Location = new System.Drawing.Point(3, 3);
+            this.ubsCtrlField.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ubsCtrlField.Name = "ubsCtrlField";
             this.ubsCtrlField.ReadOnly = false;
             this.ubsCtrlField.Size = new System.Drawing.Size(671, 559);
@@ -1810,6 +1817,7 @@ namespace UbsPmTradeFrm
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(685, 623);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "UbsPmTradeFrm";
             this.Text = "Сделка";
             this.panelMain.ResumeLayout(false);
@@ -1948,10 +1956,10 @@ namespace UbsPmTradeFrm
         private System.Windows.Forms.Label lblBIK0;
         private System.Windows.Forms.TextBox txtBIK0;
         private System.Windows.Forms.Label lblKS0;
-        private System.Windows.Forms.TextBox txtKS0;
+        private UbsControl.UbsCtrlAccount ucaKS0;
         private System.Windows.Forms.Label lblNameBank0;
         private System.Windows.Forms.TextBox txtName0;
-        private System.Windows.Forms.TextBox txtRS0;
+        private UbsControl.UbsCtrlAccount ucaRS0;
         private System.Windows.Forms.Label lblClient0;
         private System.Windows.Forms.TextBox txtClient0;
         private System.Windows.Forms.Label lblNote0;
@@ -1965,10 +1973,10 @@ namespace UbsPmTradeFrm
         private System.Windows.Forms.Label lblBIK1;
         private System.Windows.Forms.TextBox txtBIK1;
         private System.Windows.Forms.Label lblKS1;
-        private System.Windows.Forms.TextBox txtKS1;
+        private UbsControl.UbsCtrlAccount ucaKS1;
         private System.Windows.Forms.Label lblNameBank1;
         private System.Windows.Forms.TextBox txtName1;
-        private System.Windows.Forms.TextBox txtRS1;
+        private UbsControl.UbsCtrlAccount ucaRS1;
         private System.Windows.Forms.Label lblClient1;
         private System.Windows.Forms.TextBox txtClient1;
         private System.Windows.Forms.Label lblNote1;

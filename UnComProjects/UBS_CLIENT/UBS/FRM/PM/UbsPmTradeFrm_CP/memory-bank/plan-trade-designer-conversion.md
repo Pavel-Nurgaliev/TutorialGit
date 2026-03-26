@@ -258,7 +258,7 @@ Two rows — Продавец (seller = contract 1) and Покупатель (bu
 
 ### Nested TabControl `tabControlInstr` — 2 sub-tabs
 
-**Sub-tab 1 = Seller (Index=1 controls), Sub-tab 2 = Buyer (Index=0 controls)**
+**Screen-correct order:** **Sub-tab 1 = Покупатель** (`InstrSideBuyer`, `_0`), **Sub-tab 2 = Продавец** (`InstrSideSeller`, `_1`).
 
 Both sub-tabs share the same control layout — one set for Index=1, one for Index=0:
 
