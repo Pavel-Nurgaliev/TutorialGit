@@ -275,6 +275,7 @@ namespace UbsBusiness
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(685, 591);
             this.tabControl.TabIndex = 0;
+            this.tabControl.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl_Selecting);
             // 
             // tabPage1
             // 

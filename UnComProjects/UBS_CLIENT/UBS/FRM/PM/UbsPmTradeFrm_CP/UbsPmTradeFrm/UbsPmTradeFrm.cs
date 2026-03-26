@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Windows.Forms;
 using UbsService;
 
@@ -25,6 +26,10 @@ namespace UbsBusiness
         private bool m_armedClearContract2FieldsOnTypeChange;
         private int m_idComission1;
         private int m_idComission2;
+
+        private bool m_suppressMainTabSelecting;
+        private bool m_blnAddOblig;
+        private bool m_blnEditOblig;
 
         private bool m_suppressCompositEvent;
         private bool m_needSendOblig;
@@ -516,7 +521,7 @@ namespace UbsBusiness
                 linkListInstr1.Visible = true;
 
                 if (key1 == 0)
-                    SetPaymentInstrTabsSellerOnly();
+                    SetPaymentInstrTabsBuyerOnly();
                 else
                     SetPaymentInstrTabsBothBuyerSelected();
 
@@ -651,6 +656,21 @@ namespace UbsBusiness
             catch (Exception ex)
             {
                 this.Ubs_ShowError(ex);
+            }
+        }
+
+        private void SetPaymentInstrTabsBuyerOnly()
+        {
+            tabControlInstr.SuspendLayout();
+            try
+            {
+                tabControlInstr.TabPages.Clear();
+                tabControlInstr.TabPages.Add(tabPageInstr1);
+                tabControlInstr.SelectedTab = tabPageInstr1;
+            }
+            finally
+            {
+                tabControlInstr.ResumeLayout(true);
             }
         }
 
@@ -805,6 +825,222 @@ namespace UbsBusiness
             btnSave.Enabled = false;
             tabControl.Enabled = false;
             btnExit.Enabled = true;
+        }
+
+        private void tabControl_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            if (m_suppressMainTabSelecting)
+                return;
+            try
+            {
+                TabPage target = e.TabPage;
+
+                int k1;
+                int k2;
+                bool hasK1 = UbsPmTradeComboUtil.TryGetSelectedKey(cmbContractType1, out k1);
+                bool hasK2 = UbsPmTradeComboUtil.TryGetSelectedKey(cmbContractType2, out k2);
+                if (hasK1 && hasK2 && k1 == k2)
+                {
+                    MessageBox.Show(this, MsgContractTypesMustDiffer, MsgTitleValidationProps, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    cmbContractType1.Focus();
+                    e.Cancel = true;
+                    return;
+                }
+
+                if (target == tabPage2)
+                {
+                    if (IsTradeDateMissingOrInvalid())
+                    {
+                        MessageBox.Show(this, MsgNoTradeDate, MsgTitleValidationProps, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (tabControl.SelectedTab == tabPage1 && dateTrade != null)
+                            dateTrade.Focus();
+                        e.Cancel = true;
+                        return;
+                    }
+                    if (cmbCurrencyPost.SelectedIndex < 0)
+                    {
+                        MessageBox.Show(this, MsgNoCurrencyPost, MsgTitleValidationProps, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        cmbCurrencyPost.Focus();
+                        e.Cancel = true;
+                        return;
+                    }
+                    if (IsBuyerContractMissing())
+                    {
+                        MessageBox.Show(this, MsgNoBuyer, MsgTitleInputError, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        if (btnContract2.Enabled)
+                            btnContract2.Focus();
+                        else if (cmbContractType2.Enabled)
+                            cmbContractType2.Focus();
+                        e.Cancel = true;
+                        return;
+                    }
+                    if (cmbKindSupplyTrade.SelectedIndex < 0)
+                    {
+                        MessageBox.Show(this, MsgNoKindSupply, MsgTitleInputError, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        cmbKindSupplyTrade.Focus();
+                        e.Cancel = true;
+                        return;
+                    }
+                    ApplyKindSupplyMassUnitForObligationsTab();
+                }
+
+                if (target == tabPage3)
+                    ApplyDataTabUiOnSelecting();
+                else
+                {
+                    btnSave.Visible = true;
+                    btnExit.Visible = true;
+                }
+
+                SyncPaymentInstrTabsFromContractTypes();
+            }
+            catch (Exception ex)
+            {
+                this.Ubs_ShowError(ex);
+                e.Cancel = true;
+            }
+        }
+
+        private static bool IsTradeDateMissingOrInvalid(UbsControl.UbsCtrlDate ctrl)
+        {
+            if (ctrl == null)
+                return true;
+            try
+            {
+                Type t = ctrl.GetType();
+                PropertyInfo pIs = t.GetProperty("IsValid");
+                if (pIs != null)
+                {
+                    object v = pIs.GetValue(ctrl, null);
+                    if (v is bool && !(bool)v)
+                        return true;
+                }
+                PropertyInfo pDate = t.GetProperty("DateValue");
+                if (pDate == null)
+                    pDate = t.GetProperty("Value");
+                if (pDate != null)
+                {
+                    object o = pDate.GetValue(ctrl, null);
+                    if (o is DateTime)
+                    {
+                        DateTime d = (DateTime)o;
+                        if (d.Year == 2222 && d.Month == 1 && d.Day == 1)
+                            return true;
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch
+            {
+                return true;
+            }
+        }
+
+        private bool IsTradeDateMissingOrInvalid()
+        {
+            return IsTradeDateMissingOrInvalid(dateTrade);
+        }
+
+        private bool IsBuyerContractMissing()
+        {
+            int k2;
+            if (!UbsPmTradeComboUtil.TryGetSelectedKey(cmbContractType2, out k2))
+                return true;
+            if (k2 == 0)
+                return false;
+            return string.IsNullOrEmpty(txtContractCode2.Text.Trim());
+        }
+
+        private void ApplyKindSupplyMassUnitForObligationsTab()
+        {
+            int kk;
+            if (!UbsPmTradeComboUtil.TryGetSelectedKey(cmbKindSupplyTrade, out kk))
+                return;
+            if (kk == 2)
+            {
+                if (cmbUnit.Items.Count > 0)
+                    cmbUnit.SelectedIndex = 0;
+                cmbUnit.Enabled = false;
+                ucdMass.Enabled = false;
+            }
+            else if (kk == 1)
+            {
+                ucdMass.Enabled = true;
+                cmbUnit.Enabled = true;
+            }
+        }
+
+        private void ApplyDataTabUiOnSelecting()
+        {
+            if (lvwObligation.Items.Count == 0)
+                return;
+
+            btnSave.Visible = false;
+            btnExit.Visible = false;
+
+            if (!m_blnAddOblig && !m_blnEditOblig)
+            {
+                cmdApplayObligation.Visible = false;
+                cmdExitObligation.Visible = false;
+
+                tabPageOblig1.Enabled = false;
+                tabPageOblig2.Enabled = false;
+
+                cmdAddObject.Enabled = false;
+                cmdDelObject.Enabled = false;
+
+                tabControlOblig.SelectedTab = tabPageOblig1;
+
+                if (lvwObligation.SelectedItems.Count == 0 && lvwObligation.Items.Count > 0)
+                    lvwObligation.Items[0].Selected = true;
+
+                if (lvwObligation.SelectedItems.Count > 0)
+                {
+                    ListViewItem sel = lvwObligation.SelectedItems[0];
+                    CallOblig("Edit");
+                }
+            }
+            else
+            {
+                cmdApplayObligation.Visible = true;
+                cmdExitObligation.Visible = true;
+
+                tabPageOblig1.Enabled = true;
+                tabPageOblig2.Enabled = true;
+
+                int kk;
+                if (UbsPmTradeComboUtil.TryGetSelectedKey(cmbKindSupplyTrade, out kk) && kk == 2)
+                {
+                    cmdAddObject.Enabled = true;
+                    cmdDelObject.Enabled = true;
+                }
+                else
+                {
+                    cmdAddObject.Enabled = false;
+                    cmdDelObject.Enabled = false;
+                }
+            }
+        }
+
+        private void SyncPaymentInstrTabsFromContractTypes()
+        {
+            int k1;
+            int k2;
+            if (!UbsPmTradeComboUtil.TryGetSelectedKey(cmbContractType1, out k1))
+                return;
+            if (!UbsPmTradeComboUtil.TryGetSelectedKey(cmbContractType2, out k2))
+                return;
+            if (k1 == 0)
+                SetPaymentInstrTabsBuyerOnly();
+            else if (k2 == 0)
+                SetPaymentInstrTabsSellerOnly();
+            else
+                SetPaymentInstrTabsBothBuyerSelected();
+        }
+
+        private void CallOblig(string sType)
+        {
         }
 
         #endregion

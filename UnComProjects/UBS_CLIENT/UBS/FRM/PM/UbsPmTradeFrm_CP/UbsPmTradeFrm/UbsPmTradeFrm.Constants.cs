@@ -18,6 +18,15 @@ namespace UbsBusiness
         private const string TextTradeDirectionReverse = "обратная";
 
         private const string TextContractCodeBank = "банк";
+
+        private const string MsgTitleValidationProps = "Проверка свойств";
+        private const string MsgTitleInputError = "Ошибка ввода";
+
+        private const string MsgContractTypesMustDiffer = "Тип договора покупателя и продавца не может совпадать";
+        private const string MsgNoTradeDate = "Не указана дата сделки";
+        private const string MsgNoCurrencyPost = "Не выбран драг.металл.";
+        private const string MsgNoBuyer = "Не выбран покупатель";
+        private const string MsgNoKindSupply = "Не выбран вид поставки по сделке";
     }
 }
 
