@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Windows.Forms;
 using UbsService;
 
@@ -381,72 +380,72 @@ namespace UbsBusiness
             m_suppressContractTypeEvent = true;
             try
             {
-            cmbTradeType.DataSource = null;
-            cmbTradeDirection.DataSource = null;
-            cmbUnit.DataSource = null;
-            cmbContractType1.DataSource = null;
-            cmbContractType2.DataSource = null;
-            cmbCurrencyPost.DataSource = null;
-            cmbCurrencyPayment.DataSource = null;
-            cmbObligationCurrency.DataSource = null;
-            cmbKindSupplyTrade.DataSource = null;
-            cmbComission.DataSource = null;
+                cmbTradeType.DataSource = null;
+                cmbTradeDirection.DataSource = null;
+                cmbUnit.DataSource = null;
+                cmbContractType1.DataSource = null;
+                cmbContractType2.DataSource = null;
+                cmbCurrencyPost.DataSource = null;
+                cmbCurrencyPayment.DataSource = null;
+                cmbObligationCurrency.DataSource = null;
+                cmbKindSupplyTrade.DataSource = null;
+                cmbComission.DataSource = null;
 
-            cmbTradeType.Items.Clear();
-            cmbTradeDirection.Items.Clear();
-            cmbUnit.Items.Clear();
-            cmbContractType1.Items.Clear();
-            cmbContractType2.Items.Clear();
-            cmbCurrencyPost.Items.Clear();
-            cmbCurrencyPayment.Items.Clear();
-            cmbObligationCurrency.Items.Clear();
-            cmbKindSupplyTrade.Items.Clear();
-            cmbComission.Items.Clear();
+                cmbTradeType.Items.Clear();
+                cmbTradeDirection.Items.Clear();
+                cmbUnit.Items.Clear();
+                cmbContractType1.Items.Clear();
+                cmbContractType2.Items.Clear();
+                cmbCurrencyPost.Items.Clear();
+                cmbCurrencyPayment.Items.Clear();
+                cmbObligationCurrency.Items.Clear();
+                cmbKindSupplyTrade.Items.Clear();
+                cmbComission.Items.Clear();
 
-            chkCash0.Visible = false;
-            chkCash1.Visible = false;
+                chkCash0.Visible = false;
+                chkCash1.Visible = false;
 
-            cmbTradeType.DataSource = new List<KeyValuePair<int, string>> { new KeyValuePair<int, string>(1, "тип1") };
-            cmbTradeType.ValueMember = "Key";
-            cmbTradeType.DisplayMember = "Value";
+                cmbTradeType.DataSource = new List<KeyValuePair<int, string>> { new KeyValuePair<int, string>(1, "тип1") };
+                cmbTradeType.ValueMember = "Key";
+                cmbTradeType.DisplayMember = "Value";
 
-            cmbTradeDirection.DataSource = new List<KeyValuePair<int, string>>
+                cmbTradeDirection.DataSource = new List<KeyValuePair<int, string>>
             {
                 new KeyValuePair<int, string>(1, "прямая"),
                 new KeyValuePair<int, string>(2, "обратная")
             };
-            cmbTradeDirection.ValueMember = "Key";
-            cmbTradeDirection.DisplayMember = "Value";
+                cmbTradeDirection.ValueMember = "Key";
+                cmbTradeDirection.DisplayMember = "Value";
 
-            cmbUnit.DataSource = new List<KeyValuePair<int, string>>
+                cmbUnit.DataSource = new List<KeyValuePair<int, string>>
             {
                 new KeyValuePair<int, string>(1, "грамм"),
                 new KeyValuePair<int, string>(2, "унция")
             };
-            cmbUnit.ValueMember = "Key";
-            cmbUnit.DisplayMember = "Value";
+                cmbUnit.ValueMember = "Key";
+                cmbUnit.DisplayMember = "Value";
 
-            cmbKindSupplyTrade.DataSource = new List<KeyValuePair<int, string>>
+                cmbKindSupplyTrade.DataSource = new List<KeyValuePair<int, string>>
             {
                 new KeyValuePair<int, string>(1, "обезличенная"),
                 new KeyValuePair<int, string>(2, "физическая")
             };
-            cmbKindSupplyTrade.ValueMember = "Key";
-            cmbKindSupplyTrade.DisplayMember = "Value";
+                cmbKindSupplyTrade.ValueMember = "Key";
+                cmbKindSupplyTrade.DisplayMember = "Value";
 
-            base.IUbsChannel.ParamIn("ID_PATTERN", 1);
-            base.IUbsChannel.Run("TradeCombo_FillPM");
-            var paramOut = new UbsParam(base.IUbsChannel.ParamsOut);
+                base.IUbsChannel.ParamIn("ID_PATTERN", 1);
+                base.IUbsChannel.Run("TradeCombo_FillPM");
+                var paramOut = new UbsParam(base.IUbsChannel.ParamsOut);
 
-            UbsPmTradeComboUtil.FillComboFrom2DArray(cmbContractType1, paramOut, "Типы договоров");
-            UbsPmTradeComboUtil.FillComboFrom2DArray(cmbContractType2, paramOut, "Типы договоров");
+                UbsPmTradeComboUtil.FillComboFrom2DArray(cmbContractType1, paramOut, "Типы договоров");
+                UbsPmTradeComboUtil.FillComboFrom2DArray(cmbContractType2, paramOut, "Типы договоров");
 
-            UbsPmTradeComboUtil.FillComboFrom2DArray(cmbCurrencyPost, paramOut, "Валюты поставки");
+                UbsPmTradeComboUtil.FillComboFrom2DArray(cmbCurrencyPost, paramOut, "Валюты поставки");
 
-            UbsPmTradeComboUtil.FillComboFrom2DArray(cmbCurrencyPayment, paramOut, "Валюты оплаты");
-            UbsPmTradeComboUtil.FillComboFrom2DArray(cmbObligationCurrency, paramOut, "Валюты оплаты");
+                UbsPmTradeComboUtil.FillComboFrom2DArray(cmbCurrencyPayment, paramOut, "Валюты оплаты");
+                UbsPmTradeComboUtil.FillComboFrom2DArray(cmbObligationCurrency, paramOut, "Валюты оплаты");
 
-            UbsPmTradeComboUtil.FillComboFrom2DArray(cmbComission, paramOut, "Список комиссий");
+                UbsPmTradeComboUtil.FillComboFrom2DArray(cmbComission, paramOut, "Список комиссий");
             }
             finally
             {
@@ -907,27 +906,18 @@ namespace UbsBusiness
                 return true;
             try
             {
-                Type t = ctrl.GetType();
-                PropertyInfo pIs = t.GetProperty("IsValid");
-                if (pIs != null)
+                if (!ctrl.IsValidDate())
                 {
-                    object v = pIs.GetValue(ctrl, null);
-                    if (v is bool && !(bool)v)
-                        return true;
+                    return true;
                 }
-                PropertyInfo pDate = t.GetProperty("DateValue");
-                if (pDate == null)
-                    pDate = t.GetProperty("Value");
-                if (pDate != null)
+                var date = ctrl.DateValue;
+
+                if (date != null)
                 {
-                    object o = pDate.GetValue(ctrl, null);
-                    if (o is DateTime)
-                    {
-                        DateTime d = (DateTime)o;
-                        if (d.Year == 2222 && d.Month == 1 && d.Day == 1)
-                            return true;
-                        return false;
-                    }
+                    if (date.Year == 2222 && date.Month == 1 && date.Day == 1)
+                        return true;
+
+                    return false;
                 }
                 return true;
             }
