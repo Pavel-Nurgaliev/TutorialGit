@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using UbsService;
@@ -32,8 +32,13 @@ namespace UbsBusiness
 
         private bool m_suppressCompositEvent;
         private bool m_needSendOblig;
+        private int m_maxNumPart1;
         private int m_maxNumPart2;
         private readonly Dictionary<string, object> m_paramOblig = new Dictionary<string, object>();
+
+        private string m_ourBIK = string.Empty;
+        private int m_idBaseCurrency;
+        private bool m_wasOperation;
 
         private const string PrefixObligObject = "Object";
 
@@ -322,14 +327,23 @@ namespace UbsBusiness
             try
             {
                 base.IUbsChannel.Run("InitForm");
-
                 base.UbsInit();
 
+                m_blnAddOblig = false;
+                m_blnEditOblig = false;
                 m_checkCommissionRestoreType2 = false;
+
+                chkCash0.Visible = false;
+                //возможность расчета через кассу только для наличных сделок с клиентом (брокерский договор с клиентом)
+                chkCash1.Visible = false;
+                //возможность расчета через кассу только для наличных сделок с клиентом (брокерский договор с клиентом)
+
                 FillCombos();
                 FillOurBIK();
 
                 bool isEdit = string.Equals(m_command, CmdEdit, StringComparison.Ordinal);
+                int isNDS = 0;
+                int isExport = 0;
 
                 if (isEdit)
                 {
@@ -338,39 +352,229 @@ namespace UbsBusiness
 
                     base.IUbsChannel.ParamIn("ID_TRADE", m_idTrade);
                     base.IUbsChannel.Run("GetOneTrade");
+                    var tradeOut = new UbsParam(base.IUbsChannel.ParamsOut);
+
+                    if (tradeOut.Contains("IsNDS"))
+                        isNDS = Math.Abs(Convert.ToInt32(tradeOut.Value("IsNDS")));
+                    if (tradeOut.Contains("IsExport"))
+                        isExport = Math.Abs(Convert.ToInt32(tradeOut.Value("IsExport")));
+                    if (tradeOut.Contains("IsExternalStorage"))
+                        chkExternalStorage.Checked = Math.Abs(Convert.ToInt32(tradeOut.Value("IsExternalStorage"))) != 0;
+
+                    if (tradeOut.Contains("DATE_TRADE"))
+                        dateTrade.DateValue = Convert.ToDateTime(tradeOut.Value("DATE_TRADE"));
+                    if (tradeOut.Contains("NUM_TRADE"))
+                        txtTradeNum.Text = Convert.ToString(tradeOut.Value("NUM_TRADE"));
+
+                    m_suppressCompositEvent = true;
+                    try
+                    {
+                        if (tradeOut.Contains("IS_COMPOSIT"))
+                        {
+                            object cv = tradeOut.Value("IS_COMPOSIT");
+                            chkComposit.Checked = cv != null && cv != DBNull.Value && Convert.ToInt32(cv) != 0;
+                        }
+                    }
+                    finally { m_suppressCompositEvent = false; }
+
+                    if (tradeOut.Contains("Вид сделки"))
+                        m_kindTrade = Convert.ToInt32(tradeOut.Value("Вид сделки"));
+
+                    object varOplBuyer = null;
+                    object varOplSeller = null;
+                    if (tradeOut.Contains("Инструкция по оплате для покупателя"))
+                        varOplBuyer = tradeOut.Value("Инструкция по оплате для покупателя");
+                    if (tradeOut.Contains("Инструкция по оплате для продавца"))
+                        varOplSeller = tradeOut.Value("Инструкция по оплате для продавца");
+
+                    int storageId = 0;
+                    if (tradeOut.Contains("Инструкция по поставке"))
+                    {
+                        object sv = tradeOut.Value("Инструкция по поставке");
+                        if (sv != null && sv != DBNull.Value)
+                            storageId = Convert.ToInt32(sv);
+                    }
+                    FillControlStorage(storageId, chkExternalStorage.Checked);
+
+                    if (tradeOut.Contains("TYPE_TRADE"))
+                        UbsPmTradeComboUtil.SetComboByKey(cmbTradeType, Convert.ToInt32(tradeOut.Value("TYPE_TRADE")));
+                    if (tradeOut.Contains("Вид поставки по сделке"))
+                        UbsPmTradeComboUtil.SetComboByKey(cmbKindSupplyTrade, Convert.ToInt32(tradeOut.Value("Вид поставки по сделке")));
+                    if (tradeOut.Contains("Идентификатор валюты оплаты"))
+                        UbsPmTradeComboUtil.SetComboByKey(cmbCurrencyPayment, Convert.ToInt32(tradeOut.Value("Идентификатор валюты оплаты")));
+                    if (tradeOut.Contains("Идентификатор драг.металла"))
+                        UbsPmTradeComboUtil.SetComboByKey(cmbCurrencyPost, Convert.ToInt32(tradeOut.Value("Идентификатор драг.металла")));
+                    if (tradeOut.Contains("Идентификатор комиссии"))
+                        TrySelectComissionById(Convert.ToInt32(tradeOut.Value("Идентификатор комиссии")));
+
+                    base.IUbsChannel.Run("FillBaseCurrency");
+                    var baseCurOut = new UbsParam(base.IUbsChannel.ParamsOut);
+                    if (baseCurOut.Contains("Идентификатор базовой валюты"))
+                    {
+                        m_idBaseCurrency = Convert.ToInt32(baseCurOut.Value("Идентификатор базовой валюты"));
+                        UbsPmTradeComboUtil.SetComboByKey(cmbObligationCurrency, m_idBaseCurrency);
+                    }
+
+                    int contractType1 = 0;
+                    int contractType2 = 0;
+                    if (tradeOut.Contains("Продавец"))
+                    {
+                        int sellerId = Convert.ToInt32(tradeOut.Value("Продавец"));
+                        m_idClient1 = FillContractRowFromPm(sellerId, txtContractCode1, txtClientName1);
+                        var sellerOut = new UbsParam(base.IUbsChannel.ParamsOut);
+                        if (sellerOut.Contains("TYPE_CONTRACT"))
+                            contractType1 = Convert.ToInt32(sellerOut.Value("TYPE_CONTRACT"));
+                    }
+                    if (tradeOut.Contains("Покупатель"))
+                    {
+                        int buyerId = Convert.ToInt32(tradeOut.Value("Покупатель"));
+                        m_idClient2 = FillContractRowFromPm(buyerId, txtContractCode2, txtClientName2);
+                        var buyerOut = new UbsParam(base.IUbsChannel.ParamsOut);
+                        if (buyerOut.Contains("TYPE_CONTRACT"))
+                            contractType2 = Convert.ToInt32(buyerOut.Value("TYPE_CONTRACT"));
+                    }
+
+                    m_suppressContractTypeEvent = true;
+                    try
+                    {
+                        UbsPmTradeComboUtil.SetComboByKey(cmbContractType1, contractType1);
+                        UbsPmTradeComboUtil.SetComboByKey(cmbContractType2, contractType2);
+                    }
+                    finally { m_suppressContractTypeEvent = false; }
+
+                    base.IUbsChannel.ParamIn("ID_TRADE", m_idTrade);
+                    base.IUbsChannel.Run("FillObligPM");
+                    var obligOut = new UbsParam(base.IUbsChannel.ParamsOut);
+                    if (obligOut.Contains("Обязательства сделки"))
+                        FillListOblig(obligOut.Value("Обязательства сделки"));
+
+                    if (varOplBuyer != null)
+                        FillControlInstrPayment(0, varOplBuyer);
+                    if (varOplSeller != null)
+                        FillControlInstrPayment(1, varOplSeller);
 
                     base.IUbsChannel.ParamIn("ID_TRADE", m_idTrade);
                     base.IUbsChannel.Run("PMCheckOperationByTrade");
-
                     var opOut = new UbsParam(base.IUbsChannel.ParamsOut);
-                    bool wasOper = opOut.Contains("Was_Operation") && Convert.ToBoolean(opOut.Value("Was_Operation"));
-
-                    if (wasOper)
-                        LockUiOnWasOperation();
+                    m_wasOperation = opOut.Contains("Was_Operation")
+                        && Convert.ToBoolean(opOut.Value("Was_Operation"));
                 }
                 else
                 {
                     m_armedClearContract1FieldsOnTypeChange = false;
                     m_armedClearContract2FieldsOnTypeChange = false;
 
-                    chkComposit.Visible = m_kindTrade != 0;
+                    dateTrade.DateValue = DateTime.Today;
 
-                    UbsPmTradeComboUtil.SetComboByKey(cmbTradeDirection, 1);
-                    cmbTradeDirection.Enabled = false;
+                    UbsPmTradeComboUtil.SetComboByKey(cmbCurrencyPost, 1001);
 
                     base.IUbsChannel.Run("FillBaseCurrency");
                     var baseCurOut = new UbsParam(base.IUbsChannel.ParamsOut);
                     if (baseCurOut.Contains("Идентификатор базовой валюты"))
                     {
-                        int idBase = Convert.ToInt32(baseCurOut.Value("Идентификатор базовой валюты"));
-                        UbsPmTradeComboUtil.SetComboByKey(cmbCurrencyPayment, idBase);
-                        UbsPmTradeComboUtil.SetComboByKey(cmbObligationCurrency, idBase);
+                        m_idBaseCurrency = Convert.ToInt32(baseCurOut.Value("Идентификатор базовой валюты"));
+                        UbsPmTradeComboUtil.SetComboByKey(cmbCurrencyPayment, m_idBaseCurrency);
+                        UbsPmTradeComboUtil.SetComboByKey(cmbObligationCurrency, m_idBaseCurrency);
                     }
+
+                    m_suppressContractTypeEvent = true;
+                    try
+                    {
+                        if (cmbContractType1.Items.Count > 0)
+                            cmbContractType1.SelectedIndex = 0;
+                        if (cmbContractType2.Items.Count > 0)
+                            cmbContractType2.SelectedIndex = 0;
+                    }
+                    finally { m_suppressContractTypeEvent = false; }
+
+                    m_maxNumPart1 = 0;
+                    m_maxNumPart2 = 0;
+                }
+
+                txtContractCode1.Enabled = false;
+                txtClientName1.Enabled = false;
+                txtContractCode2.Enabled = false;
+                txtClientName2.Enabled = false;
+                ucdSumPayment.Enabled = false;
+                ucaKS0.Enabled = false;
+                txtName0.Enabled = false;
+                ucaKS1.Enabled = false;
+                txtName1.Enabled = false;
+                txtStorageCode.Enabled = false;
+                txtStorageName.Enabled = false;
+
+                chkComposit.Visible = (m_kindTrade != 0);
+
+                ucdMass.Enabled = false;
+                ucaRS0.Enabled = false;
+                ucaRS1.Enabled = false;
+
+                if (chkComposit.Checked)
+                {
+                    cmbTradeDirection.Enabled = true;
+                    cmbTradeDirection.SelectedIndex = -1;
+                }
+                else
+                {
+                    UbsPmTradeComboUtil.SetComboByKey(cmbTradeDirection, 1);
+                    cmbTradeDirection.Enabled = false;
                 }
 
                 ApplyContractType1Change(false);
                 ApplyContractType2Change(false);
                 m_checkCommissionRestoreType2 = true;
+
+                if (isEdit)
+                {
+                    if (isNDS == 1)
+                    {
+                        chkNDS.Visible = true;
+                        chkNDS.Checked = true;
+                    }
+
+                    if (isExport == 1)
+                    {
+                        chkExport.Visible = true;
+                        chkExport.Checked = true;
+                    }
+
+                    int ct1;
+                    int ct2;
+                    UbsPmTradeComboUtil.TryGetSelectedKey(cmbContractType1, out ct1);
+                    UbsPmTradeComboUtil.TryGetSelectedKey(cmbContractType2, out ct2);
+
+                    if (m_kindTrade == 0)
+                    {
+                        if (ct1 == 1
+                            && string.Equals(txtBIK1.Text, m_ourBIK, StringComparison.Ordinal)
+                            && ucaRS1.Text.Length >= 5
+                            && ucaRS1.Text.Substring(0, 5) == "20202")
+                        {
+                            chkCash1.Visible = true;
+                            chkCash1.Checked = true;
+                            GetInstrLink(1).Visible = false;
+                            GetInstrAccountLink(1).Visible = false;
+                        }
+                        if (ct2 == 1
+                            && string.Equals(txtBIK0.Text, m_ourBIK, StringComparison.Ordinal)
+                            && ucaRS0.Text.Length >= 5
+                            && ucaRS0.Text.Substring(0, 5) == "20202")
+                        {
+                            chkCash0.Visible = true;
+                            chkCash0.Checked = true;
+                            GetInstrLink(0).Visible = false;
+                            GetInstrAccountLink(0).Visible = false;
+                        }
+                    }
+                }
+
+                tabPage3.Enabled = (lvwObligation.Items.Count > 0);
+
+                GetRate_CB();
+                GetRateForPM();
+
+                if (isEdit && m_wasOperation)
+                    LockUiOnWasOperation();
             }
             catch (Exception ex) { this.Ubs_ShowError(ex); }
         }
@@ -401,9 +605,6 @@ namespace UbsBusiness
                 cmbObligationCurrency.Items.Clear();
                 cmbKindSupplyTrade.Items.Clear();
                 cmbComission.Items.Clear();
-
-                chkCash0.Visible = false;
-                chkCash1.Visible = false;
 
                 cmbTradeType.DataSource = new List<KeyValuePair<int, string>> { new KeyValuePair<int, string>(1, "тип1") };
                 cmbTradeType.ValueMember = "Key";
@@ -809,21 +1010,175 @@ namespace UbsBusiness
         {
             base.IUbsChannel.Run("FillOurBIK");
             var paramOut = new UbsParam(base.IUbsChannel.ParamsOut);
+            if (paramOut.Contains("Наш БИК"))
+                m_ourBIK = Convert.ToString(paramOut.Value("Наш БИК"));
+        }
 
-            if (!paramOut.Contains("Наш БИК"))
+        private void FillControlStorage(int storageId, bool isExternalStorage)
+        {
+            base.IUbsChannel.ParamIn("IsExternalStorage", isExternalStorage ? 1 : 0);
+            base.IUbsChannel.ParamIn("Id", storageId);
+            base.IUbsChannel.Run("GetStorage");
+            var po = new UbsParam(base.IUbsChannel.ParamsOut);
+            if (po.Contains("Code"))
+                txtStorageCode.Text = Convert.ToString(po.Value("Code"));
+            if (po.Contains("Name"))
+                txtStorageName.Text = Convert.ToString(po.Value("Name"));
+        }
+
+        private void FillListOblig(object arrObligData)
+        {
+            Array arr = arrObligData as Array;
+            if (arr == null || arr.Rank != 2)
                 return;
 
-            string ourBik = Convert.ToString(paramOut.Value("Наш БИК"));
+            int rowCount = arr.GetLength(0);
+            int colCount = arr.GetLength(1);
+            if (colCount < 10)
+                return;
 
-            if (txtBIK0 != null) txtBIK0.Text = ourBik;
-            if (txtBIK1 != null) txtBIK1.Text = ourBik;
+            lvwObligation.Items.Clear();
+
+            for (int n = 0; n < rowCount; n++)
+            {
+                string direction = Convert.ToString(arr.GetValue(n, 0));
+                ListViewItem item = new ListViewItem(direction);
+                item.SubItems.Add(Convert.ToString(arr.GetValue(n, 1)));
+                item.SubItems.Add(Convert.ToString(arr.GetValue(n, 2)));
+                item.SubItems.Add(Convert.ToString(arr.GetValue(n, 3)));
+                item.SubItems.Add(Convert.ToString(arr.GetValue(n, 4)));
+                item.SubItems.Add(Convert.ToString(arr.GetValue(n, 5)));
+                item.SubItems.Add(Convert.ToString(arr.GetValue(n, 6)));
+
+                int curId = 0;
+                object curIdObj = arr.GetValue(n, 7);
+                if (curIdObj != null && curIdObj != DBNull.Value)
+                    curId = Convert.ToInt32(curIdObj);
+                item.SubItems.Add(Convert.ToString(curId));
+
+                double rateFromServer = 0;
+                object rateObj = arr.GetValue(n, 8);
+                if (rateObj != null && rateObj != DBNull.Value)
+                    rateFromServer = Convert.ToDouble(rateObj);
+
+                if (rateFromServer != 0)
+                {
+                    item.SubItems.Add(Convert.ToString(rateFromServer));
+                }
+                else
+                {
+                    string computedRate = "0";
+                    int paymentCurKey;
+                    if (UbsPmTradeComboUtil.TryGetSelectedKey(cmbCurrencyPayment, out paymentCurKey)
+                        && !IsTradeDateMissingOrInvalid())
+                    {
+                        base.IUbsChannel.ParamIn("Id_Currency_Opl", paymentCurKey);
+                        base.IUbsChannel.ParamIn("Id_Currency_Oblig", curId);
+                        base.IUbsChannel.ParamIn("Date", dateTrade.DateValue);
+                        base.IUbsChannel.Run("GetRate_CB");
+                        var rateOut = new UbsParam(base.IUbsChannel.ParamsOut);
+                        if (rateOut.Contains("Rate"))
+                        {
+                            decimal rate = Convert.ToDecimal(rateOut.Value("Rate"));
+                            computedRate = Math.Round(rate, 10).ToString();
+                        }
+                    }
+                    item.SubItems.Add(computedRate);
+                }
+
+                item.SubItems.Add(Convert.ToString(arr.GetValue(n, 9)));
+                item.SubItems.Add(rateFromServer != 0 ? "1" : "0");
+
+                if (colCount > 11)
+                    item.Tag = arr.GetValue(n, 11);
+
+                lvwObligation.Items.Add(item);
+            }
+        }
+
+        private void GetRate_CB()
+        {
+            try
+            {
+                int paymentCurKey;
+                int obligCurKey;
+                if (!UbsPmTradeComboUtil.TryGetSelectedKey(cmbCurrencyPayment, out paymentCurKey))
+                    return;
+                if (!UbsPmTradeComboUtil.TryGetSelectedKey(cmbObligationCurrency, out obligCurKey))
+                    return;
+                if (IsTradeDateMissingOrInvalid())
+                    return;
+
+                base.IUbsChannel.ParamIn("Id_Currency_Opl", paymentCurKey);
+                base.IUbsChannel.ParamIn("Id_Currency_Oblig", obligCurKey);
+                base.IUbsChannel.ParamIn("Date", dateTrade.DateValue);
+                base.IUbsChannel.Run("GetRate_CB");
+
+                var rateOut = new UbsParam(base.IUbsChannel.ParamsOut);
+                if (!rateOut.Contains("Rate"))
+                    return;
+
+                decimal rate = Convert.ToDecimal(rateOut.Value("Rate"));
+                ucdRateCurOblig.Text = Math.Round(rate, 10).ToString();
+
+                decimal costUnit;
+                if (decimal.TryParse(ucdCostUnit.Text, out costUnit) && costUnit != 0 && rate != 0)
+                    ucdCostCurOpl.Text = Math.Round(costUnit * rate, 4).ToString();
+            }
+            catch (Exception ex) { this.Ubs_ShowError(ex); }
+        }
+
+        private void GetRateForPM()
+        {
+            try
+            {
+                int pmKey;
+                int obligCurKey;
+                if (!UbsPmTradeComboUtil.TryGetSelectedKey(cmbCurrencyPost, out pmKey))
+                    return;
+                if (!UbsPmTradeComboUtil.TryGetSelectedKey(cmbObligationCurrency, out obligCurKey))
+                    return;
+                if (IsTradeDateMissingOrInvalid())
+                    return;
+
+                base.IUbsChannel.ParamIn("Id_Pm", pmKey);
+                base.IUbsChannel.ParamIn("Id_Currency_Oblig", obligCurKey);
+                base.IUbsChannel.ParamIn("Date", dateTrade.DateValue);
+                base.IUbsChannel.Run("GetRateForPM");
+
+                var rateOut = new UbsParam(base.IUbsChannel.ParamsOut);
+                if (!rateOut.Contains("Rate_PM"))
+                    return;
+
+                decimal ratePm = Convert.ToDecimal(rateOut.Value("Rate_PM"));
+
+                int unitKey;
+                bool isOunce = UbsPmTradeComboUtil.TryGetSelectedKey(cmbUnit, out unitKey) && unitKey == 2;
+                decimal costUnit = isOunce
+                    ? Math.Round(ratePm * 31.1035m, 4)
+                    : Math.Round(ratePm, 4);
+
+                ucdCostUnit.Text = costUnit.ToString();
+
+                decimal rateCurOblig;
+                if (decimal.TryParse(ucdRateCurOblig.Text, out rateCurOblig) && rateCurOblig != 0 && costUnit != 0)
+                    ucdCostCurOpl.Text = Math.Round(costUnit * rateCurOblig, 4).ToString();
+            }
+            catch (Exception ex) { this.Ubs_ShowError(ex); }
         }
 
         private void LockUiOnWasOperation()
         {
+            tabPage4.Enabled = false;
+            tabPage5.Enabled = false;
+            tabPage6.Enabled = false;
+            tabPageOblig1.Enabled = false;
+            cmdAddObligation.Enabled = false;
+            cmdEditObligation.Enabled = false;
+            cmdDelObligation.Enabled = false;
+            tabPageOblig2.Enabled = false;
+            tabPage1.Enabled = false;
             btnSave.Enabled = false;
-            tabControl.Enabled = false;
-            btnExit.Enabled = true;
         }
 
         private void tabControl_Selecting(object sender, TabControlCancelEventArgs e)
@@ -1081,7 +1436,6 @@ namespace UbsBusiness
         {
             Array arr = varOplata as Array;
             if (arr == null || arr.Rank != 2) return;
-            if (arr.GetLength(0) < 1 || arr.GetLength(1) < 8) return;
 
             const int instrRow = 0;
 
