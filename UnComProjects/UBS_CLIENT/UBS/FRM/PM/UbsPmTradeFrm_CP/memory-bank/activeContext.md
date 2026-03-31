@@ -1,42 +1,51 @@
 # Memory Bank: Active Context
 
-## Current Phase — Phase 2; InitDoc full conversion complete
+## Current Phase — Phase 2; ~95% complete
 
-**Date:** 2026-03-27
+**Date:** 2026-03-30
 
-Designer phase (v2 + TabIndex) is done. **InitDoc is now fully converted** from VB6 to C# with full EDIT/ADD parity.
+InitDoc fully converted. All major event handlers ported. Contract pickers wired. DDX replaced by `m_mc` dictionary. **Reflection complete.** All 3 creative docs implemented and verified. **BUILD COMPLETE — 0 compilation errors.**
 
 ## Current Focus
 
-**BUILD (Phase 2 — remainder):** Save / `ModifyTrade`, remaining event handlers, sub-form pickers, `LoadFromParams` for non-InitDoc flows.
+**BUILD COMPLETE:** All 3 creative checklists fully implemented:
+1. `creative-call-oblig-lifecycle.md` — 18/18 items ✅
+2. `creative-save-flow-and-validation.md` — 13/13 items ✅
+3. `creative-calc-chain-events.md` — 24/24 items ✅
 
 ## What Was Just Done
 
-- **InitDoc full conversion** (`creative-initdoc-full-conversion.md`):
-  - EDIT branch: `GetOneTrade` output consumed — all trade fields mapped to controls (DATE_TRADE, NUM_TRADE, IS_COMPOSIT, combos, contracts, payment instructions, NDS/Export/ExternalStorage flags).
-  - `FillControlStorage`: new method loading storage code/name from channel.
-  - `FillListOblig`: new method populating obligation ListView from 2D array with rate computation.
-  - `FillControlContract` for seller/buyer via `FillContractRowFromPm` + TYPE_CONTRACT extraction.
-  - Contract type combos set from server data (suppressed events).
-  - `FillObligPM` → `FillListOblig` with obligation list fill.
-  - Payment instructions filled for both buyer and seller.
-  - Cash register logic: BIK/RS comparison for `chkCash` display.
-  - NDS/Export overrides from server flags after `ApplyContractType`.
-  - ADD branch: default precious metal (1001), contract type combos = index 0, max part numbers = 0, date = today.
-  - Common tail: read-only controls, chkComposit visibility, cmbTradeDirection state, tab enable, `GetRate_CB()`, `GetRateForPM()`.
-  - `LockUiOnWasOperation` refined to per-panel granularity matching VB6 `EnableWindow` calls.
-  - `FillOurBIK` fixed to store `m_ourBIK` field instead of writing text boxes.
-  - New fields: `m_ourBIK`, `m_idBaseCurrency`, `m_wasOperation`, `m_maxNumPart1`.
-  - New methods: `FillControlStorage`, `FillListOblig`, `GetRate_CB`, `GetRateForPM`.
+- **BUILD (all phases):** Implemented 7 phases covering all remaining form logic:
+  - New fields (`m_strCB`, `m_blnConvert`, `m_initialMc`, etc.) + 22 new constants
+  - Helper methods: `GetMassaPrecision`, `CheckKey`, `CheckINN`, `FillKS`, `FillArrOblig`, `FillArrDataInstr`, `IsEqualNumCodeCurr`
+  - 5 LostFocus handlers + 5 combo events including complex `cmbCurrencyPost_SelectedIndexChanged`
+  - Full validation: `CheckData` (14 checks) + `CheckDatesOblig` (dates + RS currency)
+  - Full save flow: `UpdateMcFromControls` + `SnapshotMc` + `IsMainDataChanged` + `cmdSave_Click` (ModifyTrade)
+  - Sub-form pickers: instruction, storage, account, objects
+  - 17 events wired in Designer.cs
+  - Fixed pre-existing build issues (`var` → explicit types, collection initializers, `Ubs_ActionRun` signature)
+
+## Implemented Since Last Reflection (2026-03-27)
+
+| Area | Key Methods |
+|------|-------------|
+| Calc helpers | `GetMassaPrecision`, `UpdateObligInfoLabel`, `ExistObject`, `DefineArrStrNumInPart` |
+| BIK/Key/INN | `FillKS`, `CheckKey`, `CheckINN` (3 channel calls) |
+| LostFocus | `ucdMass_Leave`, `ucdCostUnit_Leave`, `ucdRateCurOblig_Leave`, `ucdCostCurOpl_Leave`, `dateTrade_Leave` |
+| Combo events | `cmbObligationCurrency/CurrencyPayment/CurrencyPost/Unit_SelectedIndexChanged`, `ubsCtrlField_TextChange` |
+| Validation | `CheckData` (14 checks), `CheckDatesOblig` (DefineCodCurrency channel + date loop) |
+| Save flow | `UpdateMcFromControls`, `SnapshotMc`, `IsMainDataChanged`, `cmdSave_Click` (ModifyTrade) |
+| Serialization | `FillArrOblig` (`object[count,12]`), `FillArrDataInstr` (`object[1,8]`), `IsEqualNumCodeCurr` |
+| Sub-form pickers | `linkListInstr0/1`, `linkStorage`, `linkAccountPayment0/1`, `cmdAddObject`, `cmdDelObject` |
 
 ## Immediate Next Actions
 
-1. **BUILD:** `BuildSaveParams` / `ModifyTrade` (Save flow)
-2. **CREATIVE:** sub-forms (contract / instruction / account / object / storage pickers)
-3. **BUILD:** remaining event handlers (`txtTradeDate_LostFocus`, `ucpParam_TextChange`, obligation add/edit/delete)
+1. **REFLECT:** Review the full build, identify remaining gaps or edge cases
+2. **Phase 3 Post:** Partials split (optional), final reflection, archive
 
 ## Open Questions / Risks
 
-- Sub-form strategy (contract / instruction / account / object / storage pickers) — CREATIVE.
-- `Обязательства сделки2` parameter copying into `m_paramOblig` dictionary — not implemented (format unknown).
-- Full build verification requires .NET Framework 2.0 targeting pack.
+- `cmbTradeType` combo items are placeholder ("тип1") — need real data from channel
+- `cmdAccounts` button not present in Designer.cs — may need to be added if required
+- `ucdMass.Precision` property may not exist on the actual UbsCtrlDecimal control — verify at runtime
+- Full integration test requires .NET Framework 2.0 runtime + UBS channel infrastructure

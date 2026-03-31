@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using UbsService;
@@ -13,7 +13,9 @@ namespace UbsBusiness
 
             if (!paramOut.Contains(keyParam))
             {
-                cmb.DataSource = new List<KeyValuePair<int, string>> { new KeyValuePair<int, string>(0, "") };
+                List<KeyValuePair<int, string>> empty = new List<KeyValuePair<int, string>>();
+                empty.Add(new KeyValuePair<int, string>(0, ""));
+                cmb.DataSource = empty;
                 cmb.ValueMember = "Key";
                 cmb.DisplayMember = "Value";
                 return;
@@ -76,5 +78,6 @@ namespace UbsBusiness
             }
             return false;
         }
+
     }
 }

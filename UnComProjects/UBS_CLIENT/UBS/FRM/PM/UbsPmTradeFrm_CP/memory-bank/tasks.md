@@ -87,25 +87,25 @@
 - [ ] Implement lblAccounts, cmdAccounts (visible only for intVidTrade ≠ 0)
 
 ### 2.9 Core Logic
-- [ ] Implement `ListKey`: extract `ID_TRADE`, `strRunParam` (CmdEdit/CmdAdd), `intVidTrade` from params; call `InitDoc`
-- [ ] Implement `InitDoc`: FillCombos, FillOurBIK, GetOneTrade (CmdEdit) / default init (CmdAdd), apply states
-- [ ] Implement `FillCombos`: call `TradeCombo_FillPM`; populate cmbTradeType, cmbNaprTrade, cmbUnit, cmbContractType1/2, cmbCurrencyPost, cmbCurrencyOpl/cmbCurOblig (shared list), cmbKindSupplyTrade, cmbComission
-- [ ] Implement `LoadFromParams`: map paramOut fields to form controls and DDX-equivalent fields
+- [x] Implement `ListKey`: extract `ID_TRADE`, `strRunParam` (CmdEdit/CmdAdd), `intVidTrade` from params; call `InitDoc`
+- [x] Implement `InitDoc`: FillCombos, FillOurBIK, GetOneTrade (CmdEdit) / default init (CmdAdd), apply states
+- [x] Implement `FillCombos`: call `TradeCombo_FillPM`; populate cmbTradeType, cmbNaprTrade, cmbUnit, cmbContractType1/2, cmbCurrencyPost, cmbCurrencyOpl/cmbCurOblig (shared list), cmbKindSupplyTrade, cmbComission
+- [x] Implement `LoadFromParams`: field mapping integrated directly into `InitDoc` EDIT branch (no separate method; all `tradeOut.Contains/Value` calls map to controls)
 - [ ] Implement `BuildSaveParams`: assemble all params for `ModifyTrade`
-- [ ] Implement `PMCheckOperationByTrade` + lock logic (disable all when Was_Operation=true)
+- [x] Implement `PMCheckOperationByTrade` + lock logic (disable all when Was_Operation=true)
 
 ### 2.10 Event Handlers
-- [ ] `cmbContractType1/2_SelectedIndexChanged`: show/hide commission, update buyer/seller tab, handle ClearContr logic
-- [ ] `chkCash_Click` / `CheckedChanged`: toggle cash vs manual instruction; `GetInstructionOplataCash` → fill from out param `Инструкции по оплате для расчета через кассу` as **`object[row, col]`** (row `0`, cols `0..7` = BIK…безакцепт; legacy VB was `(fieldIdx, 0)`)
-- [ ] `chkIsComposit_CheckedChanged`: enable/disable cmbNaprTrade; handle obligation direction clearing
-- [ ] `chkRate_CheckedChanged`: toggle txtRateCurOblig enable; clear chkSumInCurValue
-- [ ] `chkSumInCurValue_CheckedChanged`: toggle txtCostCurOpl enable; clear chkRate
+- [x] `cmbContractType1/2_SelectedIndexChanged`: show/hide commission, update buyer/seller tab, handle ClearContr logic
+- [x] `chkCash_Click` / `CheckedChanged`: toggle cash vs manual instruction; `GetInstructionOplataCash`
+- [x] `chkIsComposit_CheckedChanged`: enable/disable cmbTradeDirection; handle obligation direction clearing
+- [x] `chkRate_CheckedChanged`: toggle ucdRateCurOblig enable; clear chkSumInCurValue
+- [x] `chkSumInCurValue_CheckedChanged`: toggle ucdCostCurOpl enable; clear chkRate
 - [ ] `txtMassa_LostFocus`: GetMassaGramm, GetSumOblig, GetSumOpl
 - [ ] `txtCostUnit_LostFocus`: GetSumOblig, GetRateCurOblig (if chkSumInCurValue), GetSumOpl
-- [ ] `txtRateCurOblig_LostFocus`: recalc txtCostCurOpl, GetSumOpl
+- [ ] `txtRateCurOblig_LostFocus`: recalc ucdCostCurOpl, GetSumOpl
 - [ ] `txtCostCurOpl_LostFocus`: GetRateCurOblig, GetSumOpl; set chkRate=1, chkSumInCurValue=0
 - [ ] `txtTradeDate_LostFocus`: CheckDatesOblig, GetRate_CB, GetRateForPM
-- [ ] `SSTabs_SelectedIndexChanged` (tab change guard): validate required fields before tab 2→tab 3 switch; handle obligation viewing on tab 3
+- [x] `tabControl_Selecting` (tab change guard): validate required fields before tab 2→tab 3 switch; handle obligation viewing on tab 3
 - [ ] `ucpParam_TextChange`: set blnAddFlChanged = true
 
 ### 2.11 Save Logic
@@ -138,15 +138,18 @@
 
 ## Status
 
-- **VAN initialization complete** — memory bank created.
-- **PLAN (designer v1) complete** — `plan-trade-designer-conversion.md` created. Full 6-tab control inventory, 14-step build plan.
-- **BUILD (Phase 1 Prep + Designer v1) complete** — `UbsPmTradeFrm.Designer.cs` built: 0 errors, DLL 34 KB. *(File lost after session; needs rebuild)*
-- **PLAN (designer revision) complete** — `plan-trade-designer-revision.md` created from 7 legacy screens. All layout/name/order corrections documented with pixel coordinates.
-- **BUILD (designer v2) complete** — `UbsPmTradeFrm.Designer.cs` built: 0 errors, DLL produced at `bin\Release\UbsPmTradeFrm.dll`.
-- **REFLECT (designer phase) complete** — `memory-bank/reflection/reflection-trade-designer.md` created.
-- **BUILD (TabIndex correction) complete** — all 50+ TabIndex values corrected per-container; 10 display-only controls given `TabStop=false`; `plan-tabindex-order.md` created; 0 errors.
-- **REFLECT (TabIndex correction) complete** — Addendum section appended to `reflection-trade-designer.md`.
-- **BUILD (Phase 2 bootstrap — partial) complete** — `ListKey`/`CommandLine`, constants `CmdAdd`/`CmdEdit`, ctor `UbsCtrlFieldsSupportCollection`, `InitDoc` + `FillCombos`/`FillOurBIK` + coarse `Was_Operation` lock, `chkCash_Click` + Designer `CheckedChanged` wiring, `object[row,column]` instruction mapping; `.csproj` includes `Constants.cs` where applicable.
-- **REFLECT (Phase 2 bootstrap) complete** — `memory-bank/reflection/reflection-phase2-logic-bootstrap.md` (incremental milestone; **full Phase 2 still open** — see checklists above).
-- **BUILD (form refactor — regions + util extraction) complete** — `creative-form-refactor-regions-and-support.md`: IUbs region before WinForms handlers; `#region Обработчики событий — кнопки/чекбоксы`; support regions for init / obligations / payment; `UbsPmTradeComboUtil`, `UbsPmTradeMatrixUtil`, `UbsPmTradeObligParamUtil` added; **Release build OK** (`MSBuild` → `bin\Release\UbsPmTradeFrm.dll`). No test project; verification = compile. Pre-existing warnings: CS0414 `m_needSendOblig`, CS1591 Designer `Dispose`.
-- **NEXT: PLAN** — create `plan-trade-conversion-goals.md` to continue Phase 2 (business logic); then CREATIVE + remaining BUILD items.
+- [x] **VAN initialization** — memory bank created.
+- [x] **PLAN (designer v1)** — `plan-trade-designer-conversion.md` created.
+- [x] **BUILD (Phase 1 Prep + Designer v1)** — Designer.cs v1 built. *(Lost; rebuilt in v2)*
+- [x] **PLAN (designer revision)** — `plan-trade-designer-revision.md` from 7 screenshots.
+- [x] **BUILD (designer v2)** — Designer.cs v2: 0 errors, DLL at `bin\Release\`.
+- [x] **REFLECT (designer phase)** — `reflection-trade-designer.md`.
+- [x] **BUILD (TabIndex correction)** — 50+ TabIndex fixes, 10 `TabStop=false`.
+- [x] **REFLECT (TabIndex correction)** — Addendum to `reflection-trade-designer.md`.
+- [x] **BUILD (Phase 2 bootstrap)** — `ListKey`/`CommandLine`, `InitDoc` skeleton, `chkCash`, `FillCombos`.
+- [x] **REFLECT (Phase 2 bootstrap)** — `reflection-phase2-logic-bootstrap.md`.
+- [x] **BUILD (form refactor)** — regions + `UbsPmTradeComboUtil` / `UbsPmTradeMatrixUtil` / `UbsPmTradeObligParamUtil`.
+- [x] **CREATIVE (8 handler docs)** — `creative-initdoc-full-conversion.md`, `creative-cmb-contract-type-click.md`, `creative-cmb-kind-supply-trade-click.md`, `creative-sstabs-before-tab-click.md`, `creative-chk-is-composit-click.md`, `creative-chk-nds-rate-sum-in-cur.md`, `creative-form-refactor-regions-and-support.md`, `creative-trade-account-control-and-indexes.md`.
+- [x] **BUILD (InitDoc full + event handlers)** — InitDoc EDIT/ADD full parity, all major handlers ported (`ApplyContractType1/2Change`, `ApplyKindSupplyUiState`, `chkComposit_CheckedChanged`, `chkRate/SumInCurValue_CheckedChanged`, `chkNDS/UpdateDisplayExport/UpdateDisplayNDS`, `tabControl_Selecting` guard, `ApplyDataTabUiOnSelecting`), contract pickers wired, DDX replaced by `m_mc`, payment tab management. **~1780 lines, build OK.**
+- [x] **REFLECT (Phase 2 event handlers)** — `reflection-phase2-event-handlers.md` (2026-03-27). Phase 2 ~70% complete.
+- **NEXT:** BUILD — obligation lifecycle (`CallOblig`, add/edit/view) + save flow (`BuildSaveParams`, `ModifyTrade`).

@@ -17,6 +17,9 @@
 | BUILD (Phase 2 logic — partial bootstrap) | ✅ In progress / milestone | 2026-03-25 |
 | REFLECT (Phase 2 bootstrap) | ✅ Complete | 2026-03-25 |
 | BUILD (form refactor — regions + utils) | ✅ Complete | 2026-03-26 |
+| CREATIVE (8 handler docs) | ✅ Complete | 2026-03-26–27 |
+| BUILD (InitDoc full + event handlers) | ✅ Complete | 2026-03-27 |
+| REFLECT (Phase 2 event handlers) | ✅ Complete | 2026-03-27 |
 
 ## Detailed Log
 
@@ -90,9 +93,38 @@
 - New internal static helpers: `UbsPmTradeComboUtil` (combo fill / `SetComboByKey`), `UbsPmTradeMatrixUtil` (2D cell readers), `UbsPmTradeObligParamUtil` (`IsObjectParamPart2Key` with prefix parameter).
 - **Verification:** `MSBuild` Release, `UbsPmTradeFrm.dll` produced; no new errors (existing CS0414, CS1591).
 
+### 2026-03-27 — CREATIVE (8 handler docs) + BUILD (InitDoc full + event handlers) + REFLECT
+
+- **8 creative documents** produced: `creative-initdoc-full-conversion.md`, `creative-cmb-contract-type-click.md`, `creative-cmb-kind-supply-trade-click.md`, `creative-sstabs-before-tab-click.md`, `creative-chk-is-composit-click.md`, `creative-chk-nds-rate-sum-in-cur.md`, `creative-form-refactor-regions-and-support.md`, `creative-trade-account-control-and-indexes.md`.
+- **InitDoc fully converted:** EDIT branch with all 10 channel commands, ADD branch with defaults, common tail (read-only controls, composite visibility, rate fetches, `LockUiOnWasOperation`).
+- **All major handlers ported:** `ApplyContractType1/2Change` (commission, kind-of-supply, payment tabs, contract fields, bank-type fill), `ApplyKindSupplyUiState` (tab page visibility, obligation clearing), `chkComposit_CheckedChanged` (direction combo, reverse obligation deletion), `chkRate/SumInCurValue_CheckedChanged` (mutual exclusion), `chkNDS_CheckedChanged` → `UpdateDisplayExport`/`UpdateDisplayNDS`, `tabControl_Selecting` (full guard with `ApplyDataTabUiOnSelecting`, `SyncPaymentInstrTabsFromContractTypes`).
+- **Contract pickers wired:** `linkLabel1/2_LinkClicked` with `Ubs_ActionRun`, `FillControlContract` with `out` param.
+- **DDX replaced:** `m_mc` dictionary with `FulFillMainCollection` baseline.
+- **Reflection:** `memory-bank/reflection/reflection-phase2-event-handlers.md`. Phase 2 estimated ~70% complete.
+
+### 2026-03-30 — CREATIVE (save flow + calc chain)
+
+- **2 creative documents** produced: `creative-save-flow-and-validation.md`, `creative-calc-chain-events.md`.
+- **Save flow creative:** `CheckData` (14 validation checks with navigation helpers), `CheckDatesOblig` (date loop + RS currency code via DefineCodCurrency channel + IsEqualNumCodeCurr), `FillArrOblig` (serialize to `object[count, 12]` per array rule), `FillArrDataInstr` (serialize to `object[1, 8]`), DDX change detection via `m_mc` snapshot, `cmdSave_Click` full orchestration with ModifyTrade channel, `cmdExit_Click`, form cleanup. 13-item checklist.
+- **Calc chain creative:** 5 LostFocus handlers with full dependency graph, 5 combo events (including complex `cmbCurrencyPost_SelectedIndexChanged` with DefineCodCurrency/PMConvert/object clearing), sub-form pickers (instruction/storage/account/objects), `FillDataObject` with dual duplicate checks and mass accumulation, `cmdDelObject_Click`, 6 helper methods. 7 new channel calls. 24-item checklist.
+
+### 2026-03-30 — BUILD (all 3 creative checklists implemented)
+
+- **Phase 1 (fields + constants):** Added `m_strCB`, `m_blnConvert`, `m_intSaveCurrencyPost`, `m_blnCurrencyPostClick`, `m_blnSetFocus`, `m_blnAddFlChanged`, `m_initialMc`. 22 new string constants in Constants.cs.
+- **Phase 2 (helpers):** `GetMassaPrecision`, `UpdateObligInfoLabel`, `ExistObject`, `DefineArrStrNumInPart`, `CheckKey` (TradeCheckKey channel), `CheckINN` (TradeCheckINN channel), `FillKS` (FillRekv channel + BIK validation), `FillArrOblig` (→`object[count,12]`), `FillArrDataInstr` (→`object[1,8]`), `IsEqualNumCodeCurr`.
+- **Phase 3 (events):** 5 LostFocus handlers (`ucdMass_Leave`, `ucdCostUnit_Leave`, `ucdRateCurOblig_Leave`, `ucdCostCurOpl_Leave`, `dateTrade_Leave`), 5 combo events (`cmbObligationCurrency`, `cmbCurrencyPayment`, `cmbCurrencyPost` with DefineCodCurrency/PMConvert/object clearing, `cmbUnit`, `ubsCtrlField_TextChange`).
+- **Phase 4 (validation):** `CheckData` (14 trade-level checks with tab navigation), `CheckDatesOblig` (date loop + RS currency code matching via DefineCodCurrency channel).
+- **Phase 5 (save flow):** `UpdateMcFromControls`, `SnapshotMc`, `IsMainDataChanged`, full `cmdSave_Click` (change detection, ParamIn assembly, ModifyTrade channel, error handling).
+- **Phase 6 (sub-forms):** `linkListInstr0/1_LinkClicked` (TradeFillInstr channel), `linkStorage_LinkClicked`, `linkAccountPayment0/1_LinkClicked`, `cmdAddObject_Click` (filter picker + FillDataObject), `cmdDelObject_Click` (mass subtraction + conversion), `cmdAccounts_Click`.
+- **Phase 7 (wiring):** 17 events wired in Designer.cs (5 Leave, 4 SelectedIndexChanged, 6 LinkClicked, 2 Click). Fixed pre-existing `var` → explicit types, collection initializer → Add() calls, `Ubs_ActionRun` signature.
+- **Build verification:** 0 compilation errors. DLL produced: `UbsPmTradeFrm.dll` (100 KB).
+
 ## What Remains
 
-- [ ] PLAN (full): `plan-trade-conversion-goals.md` + `plan-trade-legacy-source-conversion.md`
-- [ ] CREATIVE: Architecture decisions (sub-forms, obligations model, tab-disable)
-- [ ] Phase 2 Conversion: InitDoc, ListKey, FillCombos, all event handlers, Save logic
-- [ ] Phase 3 Post: Partials, reflection, archive
+- [x] CREATIVE: Obligation add/edit/view lifecycle — `creative-call-oblig-lifecycle.md`
+- [x] CREATIVE: Save flow + validation — `creative-save-flow-and-validation.md`
+- [x] CREATIVE: Calc chain + events + pickers — `creative-calc-chain-events.md`
+- [x] BUILD: Obligation lifecycle (18 items)
+- [x] BUILD: Calculation chain + LostFocus handlers (24 items)
+- [x] BUILD: Save flow + validation (13 items)
+- [ ] Phase 3 Post: Partials split, final reflection, archive

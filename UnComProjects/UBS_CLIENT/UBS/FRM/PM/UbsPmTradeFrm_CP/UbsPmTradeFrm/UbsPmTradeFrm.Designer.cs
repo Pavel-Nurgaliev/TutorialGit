@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Windows.Forms;
 
 namespace UbsBusiness
@@ -39,10 +39,10 @@ namespace UbsBusiness
             this.lblCurrencyOpl = new System.Windows.Forms.Label();
             this.cmbCurrencyPayment = new System.Windows.Forms.ComboBox();
             this.grpContracts = new System.Windows.Forms.GroupBox();
+            this.linkContract2 = new System.Windows.Forms.LinkLabel();
+            this.linkContract1 = new System.Windows.Forms.LinkLabel();
             this.lblBuyer = new System.Windows.Forms.Label();
             this.lblSeller = new System.Windows.Forms.Label();
-            this.btnContract2 = new System.Windows.Forms.Button();
-            this.btnContract1 = new System.Windows.Forms.Button();
             this.cmbContractType1 = new System.Windows.Forms.ComboBox();
             this.txtContractCode1 = new System.Windows.Forms.TextBox();
             this.txtClientName1 = new System.Windows.Forms.TextBox();
@@ -78,7 +78,7 @@ namespace UbsBusiness
             this.lblTradeDirection = new System.Windows.Forms.Label();
             this.cmbTradeDirection = new System.Windows.Forms.ComboBox();
             this.lblObligationCurrency = new System.Windows.Forms.Label();
-            this.cmbObligationCurrency = new System.Windows.Forms.ComboBox();
+            this.cmbCurrencyObligation = new System.Windows.Forms.ComboBox();
             this.lblUnit = new System.Windows.Forms.Label();
             this.cmbUnit = new System.Windows.Forms.ComboBox();
             this.lblCostUnit = new System.Windows.Forms.Label();
@@ -86,7 +86,7 @@ namespace UbsBusiness
             this.chkRate = new System.Windows.Forms.CheckBox();
             this.ucdRateCurOblig = new UbsControl.UbsCtrlDecimal();
             this.chkSumInCurValue = new System.Windows.Forms.CheckBox();
-            this.ucdCostCurOpl = new UbsControl.UbsCtrlDecimal();
+            this.ucdCostCurPayment = new UbsControl.UbsCtrlDecimal();
             this.grpMetalChar = new System.Windows.Forms.GroupBox();
             this.lblDatePost = new System.Windows.Forms.Label();
             this.datePost = new UbsControl.UbsCtrlDate();
@@ -203,25 +203,26 @@ namespace UbsBusiness
             // 
             this.panelMain.Controls.Add(this.tabControl);
             this.panelMain.Controls.Add(this.tableLayoutPanel);
-            this.panelMain.Margin = new System.Windows.Forms.Padding(4);
-            this.panelMain.Size = new System.Drawing.Size(685, 623);
+            this.panelMain.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.panelMain.Size = new System.Drawing.Size(913, 767);
             // 
             // tableLayoutPanel
             // 
             this.tableLayoutPanel.CausesValidation = false;
             this.tableLayoutPanel.ColumnCount = 3;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 88F));
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 88F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 117F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 117F));
             this.tableLayoutPanel.Controls.Add(this.ubsCtrlInfo, 0, 0);
             this.tableLayoutPanel.Controls.Add(this.btnSave, 1, 0);
             this.tableLayoutPanel.Controls.Add(this.btnExit, 2, 0);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel.Location = new System.Drawing.Point(0, 591);
+            this.tableLayoutPanel.Location = new System.Drawing.Point(0, 728);
+            this.tableLayoutPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
             this.tableLayoutPanel.RowCount = 1;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel.Size = new System.Drawing.Size(685, 32);
+            this.tableLayoutPanel.Size = new System.Drawing.Size(913, 39);
             this.tableLayoutPanel.TabIndex = 100;
             // 
             // ubsCtrlInfo
@@ -231,9 +232,10 @@ namespace UbsBusiness
             this.ubsCtrlInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.ubsCtrlInfo.ForeColor = System.Drawing.SystemColors.Highlight;
             this.ubsCtrlInfo.Interval = 25000;
-            this.ubsCtrlInfo.Location = new System.Drawing.Point(3, 19);
+            this.ubsCtrlInfo.Location = new System.Drawing.Point(4, 22);
+            this.ubsCtrlInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ubsCtrlInfo.Name = "ubsCtrlInfo";
-            this.ubsCtrlInfo.Size = new System.Drawing.Size(503, 13);
+            this.ubsCtrlInfo.Size = new System.Drawing.Size(671, 17);
             this.ubsCtrlInfo.TabIndex = 1;
             this.ubsCtrlInfo.Text = "ubsCtrlInfo";
             this.ubsCtrlInfo.Visible = false;
@@ -241,9 +243,10 @@ namespace UbsBusiness
             // btnSave
             // 
             this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSave.Location = new System.Drawing.Point(512, 3);
+            this.btnSave.Location = new System.Drawing.Point(683, 4);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(82, 26);
+            this.btnSave.Size = new System.Drawing.Size(109, 31);
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Сохранить";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -253,9 +256,10 @@ namespace UbsBusiness
             // 
             this.btnExit.CausesValidation = false;
             this.btnExit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnExit.Location = new System.Drawing.Point(600, 3);
+            this.btnExit.Location = new System.Drawing.Point(800, 4);
+            this.btnExit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(82, 26);
+            this.btnExit.Size = new System.Drawing.Size(109, 31);
             this.btnExit.TabIndex = 1;
             this.btnExit.Text = "Выход";
             this.btnExit.UseVisualStyleBackColor = true;
@@ -271,9 +275,10 @@ namespace UbsBusiness
             this.tabControl.Controls.Add(this.tabPage6);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 0);
+            this.tabControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(685, 591);
+            this.tabControl.Size = new System.Drawing.Size(913, 728);
             this.tabControl.TabIndex = 0;
             this.tabControl.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl_Selecting);
             // 
@@ -287,10 +292,11 @@ namespace UbsBusiness
             this.tabPage1.Controls.Add(this.grpContracts);
             this.tabPage1.Controls.Add(this.lblCommission);
             this.tabPage1.Controls.Add(this.cmbComission);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(677, 565);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Size = new System.Drawing.Size(905, 699);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Основные";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -308,9 +314,11 @@ namespace UbsBusiness
             this.grpTrade.Controls.Add(this.cmbKindSupplyTrade);
             this.grpTrade.Controls.Add(this.lblTradeType);
             this.grpTrade.Controls.Add(this.cmbTradeType);
-            this.grpTrade.Location = new System.Drawing.Point(6, 6);
+            this.grpTrade.Location = new System.Drawing.Point(8, 7);
+            this.grpTrade.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grpTrade.Name = "grpTrade";
-            this.grpTrade.Size = new System.Drawing.Size(665, 76);
+            this.grpTrade.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpTrade.Size = new System.Drawing.Size(887, 94);
             this.grpTrade.TabIndex = 0;
             this.grpTrade.TabStop = false;
             this.grpTrade.Text = "Сделка";
@@ -318,45 +326,51 @@ namespace UbsBusiness
             // lblDate
             // 
             this.lblDate.AutoSize = true;
-            this.lblDate.Location = new System.Drawing.Point(8, 24);
+            this.lblDate.Location = new System.Drawing.Point(11, 30);
+            this.lblDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(33, 13);
+            this.lblDate.Size = new System.Drawing.Size(39, 16);
             this.lblDate.TabIndex = 0;
             this.lblDate.Text = "Дата";
             // 
             // dateTrade
             // 
-            this.dateTrade.Location = new System.Drawing.Point(70, 20);
+            this.dateTrade.Location = new System.Drawing.Point(93, 25);
+            this.dateTrade.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dateTrade.MaxLength = 10;
             this.dateTrade.Name = "dateTrade";
-            this.dateTrade.Size = new System.Drawing.Size(120, 20);
+            this.dateTrade.Size = new System.Drawing.Size(159, 22);
             this.dateTrade.TabIndex = 1;
             this.dateTrade.Text = "  .  .    ";
             this.dateTrade.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.dateTrade.Leave += new System.EventHandler(this.dateTrade_Leave);
             // 
             // lblNum
             // 
             this.lblNum.AutoSize = true;
-            this.lblNum.Location = new System.Drawing.Point(202, 24);
+            this.lblNum.Location = new System.Drawing.Point(269, 30);
+            this.lblNum.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNum.Name = "lblNum";
-            this.lblNum.Size = new System.Drawing.Size(41, 13);
+            this.lblNum.Size = new System.Drawing.Size(50, 16);
             this.lblNum.TabIndex = 0;
             this.lblNum.Text = "Номер";
             // 
             // txtTradeNum
             // 
-            this.txtTradeNum.Location = new System.Drawing.Point(249, 20);
+            this.txtTradeNum.Location = new System.Drawing.Point(332, 25);
+            this.txtTradeNum.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtTradeNum.MaxLength = 20;
             this.txtTradeNum.Name = "txtTradeNum";
-            this.txtTradeNum.Size = new System.Drawing.Size(134, 20);
+            this.txtTradeNum.Size = new System.Drawing.Size(177, 22);
             this.txtTradeNum.TabIndex = 2;
             // 
             // chkComposit
             // 
             this.chkComposit.AutoSize = true;
-            this.chkComposit.Location = new System.Drawing.Point(389, 22);
+            this.chkComposit.Location = new System.Drawing.Point(519, 27);
+            this.chkComposit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkComposit.Name = "chkComposit";
-            this.chkComposit.Size = new System.Drawing.Size(86, 17);
+            this.chkComposit.Size = new System.Drawing.Size(106, 20);
             this.chkComposit.TabIndex = 3;
             this.chkComposit.Text = "Составная?";
             this.chkComposit.UseVisualStyleBackColor = true;
@@ -365,26 +379,30 @@ namespace UbsBusiness
             // lblDelivery
             // 
             this.lblDelivery.AutoSize = true;
-            this.lblDelivery.Location = new System.Drawing.Point(8, 50);
+            this.lblDelivery.Location = new System.Drawing.Point(11, 62);
+            this.lblDelivery.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDelivery.Name = "lblDelivery";
-            this.lblDelivery.Size = new System.Drawing.Size(56, 13);
+            this.lblDelivery.Size = new System.Drawing.Size(70, 16);
             this.lblDelivery.TabIndex = 0;
             this.lblDelivery.Text = "Поставка";
             // 
             // cmbKindSupplyTrade
             // 
             this.cmbKindSupplyTrade.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbKindSupplyTrade.Location = new System.Drawing.Point(70, 46);
+            this.cmbKindSupplyTrade.Location = new System.Drawing.Point(93, 57);
+            this.cmbKindSupplyTrade.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmbKindSupplyTrade.Name = "cmbKindSupplyTrade";
-            this.cmbKindSupplyTrade.Size = new System.Drawing.Size(173, 21);
+            this.cmbKindSupplyTrade.Size = new System.Drawing.Size(229, 24);
             this.cmbKindSupplyTrade.TabIndex = 4;
+            this.cmbKindSupplyTrade.SelectedIndexChanged += new System.EventHandler(this.cmbKindSupplyTrade_SelectedIndexChanged);
             // 
             // lblTradeType
             // 
             this.lblTradeType.AutoSize = true;
-            this.lblTradeType.Location = new System.Drawing.Point(249, 50);
+            this.lblTradeType.Location = new System.Drawing.Point(332, 62);
+            this.lblTradeType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTradeType.Name = "lblTradeType";
-            this.lblTradeType.Size = new System.Drawing.Size(26, 13);
+            this.lblTradeType.Size = new System.Drawing.Size(32, 16);
             this.lblTradeType.TabIndex = 0;
             this.lblTradeType.Text = "Тип";
             this.lblTradeType.Visible = false;
@@ -392,54 +410,61 @@ namespace UbsBusiness
             // cmbTradeType
             // 
             this.cmbTradeType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbTradeType.Location = new System.Drawing.Point(281, 46);
+            this.cmbTradeType.Location = new System.Drawing.Point(375, 57);
+            this.cmbTradeType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmbTradeType.Name = "cmbTradeType";
-            this.cmbTradeType.Size = new System.Drawing.Size(176, 21);
+            this.cmbTradeType.Size = new System.Drawing.Size(233, 24);
             this.cmbTradeType.TabIndex = 5;
             this.cmbTradeType.Visible = false;
             // 
             // lblCurrencyPost
             // 
             this.lblCurrencyPost.AutoSize = true;
-            this.lblCurrencyPost.Location = new System.Drawing.Point(6, 93);
+            this.lblCurrencyPost.Location = new System.Drawing.Point(8, 114);
+            this.lblCurrencyPost.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCurrencyPost.Name = "lblCurrencyPost";
-            this.lblCurrencyPost.Size = new System.Drawing.Size(73, 13);
+            this.lblCurrencyPost.Size = new System.Drawing.Size(89, 16);
             this.lblCurrencyPost.TabIndex = 0;
             this.lblCurrencyPost.Text = "Драг.металл";
             // 
             // cmbCurrencyPost
             // 
             this.cmbCurrencyPost.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCurrencyPost.Location = new System.Drawing.Point(112, 89);
+            this.cmbCurrencyPost.Location = new System.Drawing.Point(149, 110);
+            this.cmbCurrencyPost.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmbCurrencyPost.Name = "cmbCurrencyPost";
-            this.cmbCurrencyPost.Size = new System.Drawing.Size(173, 21);
+            this.cmbCurrencyPost.Size = new System.Drawing.Size(229, 24);
             this.cmbCurrencyPost.TabIndex = 1;
+            this.cmbCurrencyPost.SelectedIndexChanged += new System.EventHandler(this.cmbCurrencyPost_SelectedIndexChanged);
             // 
             // lblCurrencyOpl
             // 
             this.lblCurrencyOpl.AutoSize = true;
-            this.lblCurrencyOpl.Location = new System.Drawing.Point(6, 119);
+            this.lblCurrencyOpl.Location = new System.Drawing.Point(8, 146);
+            this.lblCurrencyOpl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCurrencyOpl.Name = "lblCurrencyOpl";
-            this.lblCurrencyOpl.Size = new System.Drawing.Size(85, 13);
+            this.lblCurrencyOpl.Size = new System.Drawing.Size(108, 16);
             this.lblCurrencyOpl.TabIndex = 0;
             this.lblCurrencyOpl.Text = "Валюта оплаты";
             // 
             // cmbCurrencyPayment
             // 
             this.cmbCurrencyPayment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCurrencyPayment.Location = new System.Drawing.Point(112, 115);
+            this.cmbCurrencyPayment.Location = new System.Drawing.Point(149, 142);
+            this.cmbCurrencyPayment.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmbCurrencyPayment.Name = "cmbCurrencyPayment";
-            this.cmbCurrencyPayment.Size = new System.Drawing.Size(173, 21);
+            this.cmbCurrencyPayment.Size = new System.Drawing.Size(229, 24);
             this.cmbCurrencyPayment.TabIndex = 2;
+            this.cmbCurrencyPayment.SelectedIndexChanged += new System.EventHandler(this.cmbCurrencyPayment_SelectedIndexChanged);
             // 
             // grpContracts
             // 
             this.grpContracts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpContracts.Controls.Add(this.linkContract2);
+            this.grpContracts.Controls.Add(this.linkContract1);
             this.grpContracts.Controls.Add(this.lblBuyer);
             this.grpContracts.Controls.Add(this.lblSeller);
-            this.grpContracts.Controls.Add(this.btnContract2);
-            this.grpContracts.Controls.Add(this.btnContract1);
             this.grpContracts.Controls.Add(this.cmbContractType1);
             this.grpContracts.Controls.Add(this.txtContractCode1);
             this.grpContracts.Controls.Add(this.txtClientName1);
@@ -448,65 +473,77 @@ namespace UbsBusiness
             this.grpContracts.Controls.Add(this.txtClientName2);
             this.grpContracts.Controls.Add(this.chkNDS);
             this.grpContracts.Controls.Add(this.chkExport);
-            this.grpContracts.Location = new System.Drawing.Point(6, 143);
+            this.grpContracts.Location = new System.Drawing.Point(8, 176);
+            this.grpContracts.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grpContracts.Name = "grpContracts";
-            this.grpContracts.Size = new System.Drawing.Size(665, 148);
+            this.grpContracts.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpContracts.Size = new System.Drawing.Size(887, 182);
             this.grpContracts.TabIndex = 3;
             this.grpContracts.TabStop = false;
             this.grpContracts.Text = "Стороны сделки";
             // 
+            // linkContract2
+            // 
+            this.linkContract2.AutoSize = true;
+            this.linkContract2.Location = new System.Drawing.Point(404, 90);
+            this.linkContract2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.linkContract2.Name = "linkContract2";
+            this.linkContract2.Size = new System.Drawing.Size(62, 16);
+            this.linkContract2.TabIndex = 8;
+            this.linkContract2.TabStop = true;
+            this.linkContract2.Text = "Договор";
+            this.linkContract2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
+            // 
+            // linkContract1
+            // 
+            this.linkContract1.AutoSize = true;
+            this.linkContract1.Location = new System.Drawing.Point(404, 27);
+            this.linkContract1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.linkContract1.Name = "linkContract1";
+            this.linkContract1.Size = new System.Drawing.Size(62, 16);
+            this.linkContract1.TabIndex = 3;
+            this.linkContract1.TabStop = true;
+            this.linkContract1.Text = "Договор";
+            this.linkContract1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
             // lblBuyer
             // 
             this.lblBuyer.AutoSize = true;
-            this.lblBuyer.Location = new System.Drawing.Point(8, 73);
+            this.lblBuyer.Location = new System.Drawing.Point(11, 90);
+            this.lblBuyer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblBuyer.Name = "lblBuyer";
-            this.lblBuyer.Size = new System.Drawing.Size(67, 13);
+            this.lblBuyer.Size = new System.Drawing.Size(86, 16);
             this.lblBuyer.TabIndex = 6;
             this.lblBuyer.Text = "Покупатель";
             // 
             // lblSeller
             // 
             this.lblSeller.AutoSize = true;
-            this.lblSeller.Location = new System.Drawing.Point(8, 22);
+            this.lblSeller.Location = new System.Drawing.Point(11, 27);
+            this.lblSeller.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSeller.Name = "lblSeller";
-            this.lblSeller.Size = new System.Drawing.Size(57, 13);
+            this.lblSeller.Size = new System.Drawing.Size(73, 16);
             this.lblSeller.TabIndex = 1;
             this.lblSeller.Text = "Продавец";
-            // 
-            // btnContract2
-            // 
-            this.btnContract2.Location = new System.Drawing.Point(311, 71);
-            this.btnContract2.Name = "btnContract2";
-            this.btnContract2.Size = new System.Drawing.Size(26, 21);
-            this.btnContract2.TabIndex = 8;
-            this.btnContract2.Text = "...";
-            this.btnContract2.UseVisualStyleBackColor = true;
-            // 
-            // btnContract1
-            // 
-            this.btnContract1.Location = new System.Drawing.Point(311, 19);
-            this.btnContract1.Name = "btnContract1";
-            this.btnContract1.Size = new System.Drawing.Size(26, 21);
-            this.btnContract1.TabIndex = 3;
-            this.btnContract1.Text = "...";
-            this.btnContract1.UseVisualStyleBackColor = true;
             // 
             // cmbContractType1
             // 
             this.cmbContractType1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbContractType1.Location = new System.Drawing.Point(88, 19);
+            this.cmbContractType1.Location = new System.Drawing.Point(117, 23);
+            this.cmbContractType1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmbContractType1.Name = "cmbContractType1";
-            this.cmbContractType1.Size = new System.Drawing.Size(209, 21);
+            this.cmbContractType1.Size = new System.Drawing.Size(277, 24);
             this.cmbContractType1.TabIndex = 2;
             this.cmbContractType1.SelectedIndexChanged += new System.EventHandler(this.cmbContractType1_SelectedIndexChanged);
             // 
             // txtContractCode1
             // 
-            this.txtContractCode1.Location = new System.Drawing.Point(8, 45);
+            this.txtContractCode1.Location = new System.Drawing.Point(11, 55);
+            this.txtContractCode1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtContractCode1.MaxLength = 20;
             this.txtContractCode1.Name = "txtContractCode1";
             this.txtContractCode1.ReadOnly = true;
-            this.txtContractCode1.Size = new System.Drawing.Size(75, 20);
+            this.txtContractCode1.Size = new System.Drawing.Size(99, 22);
             this.txtContractCode1.TabIndex = 4;
             this.txtContractCode1.TabStop = false;
             // 
@@ -514,30 +551,33 @@ namespace UbsBusiness
             // 
             this.txtClientName1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtClientName1.Location = new System.Drawing.Point(88, 45);
+            this.txtClientName1.Location = new System.Drawing.Point(117, 55);
+            this.txtClientName1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtClientName1.MaxLength = 50;
             this.txtClientName1.Name = "txtClientName1";
             this.txtClientName1.ReadOnly = true;
-            this.txtClientName1.Size = new System.Drawing.Size(567, 20);
+            this.txtClientName1.Size = new System.Drawing.Size(755, 22);
             this.txtClientName1.TabIndex = 5;
             this.txtClientName1.TabStop = false;
             // 
             // cmbContractType2
             // 
             this.cmbContractType2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbContractType2.Location = new System.Drawing.Point(88, 70);
+            this.cmbContractType2.Location = new System.Drawing.Point(117, 86);
+            this.cmbContractType2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmbContractType2.Name = "cmbContractType2";
-            this.cmbContractType2.Size = new System.Drawing.Size(209, 21);
+            this.cmbContractType2.Size = new System.Drawing.Size(277, 24);
             this.cmbContractType2.TabIndex = 7;
             this.cmbContractType2.SelectedIndexChanged += new System.EventHandler(this.cmbContractType2_SelectedIndexChanged);
             // 
             // txtContractCode2
             // 
-            this.txtContractCode2.Location = new System.Drawing.Point(8, 97);
+            this.txtContractCode2.Location = new System.Drawing.Point(11, 119);
+            this.txtContractCode2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtContractCode2.MaxLength = 20;
             this.txtContractCode2.Name = "txtContractCode2";
             this.txtContractCode2.ReadOnly = true;
-            this.txtContractCode2.Size = new System.Drawing.Size(75, 20);
+            this.txtContractCode2.Size = new System.Drawing.Size(99, 22);
             this.txtContractCode2.TabIndex = 9;
             this.txtContractCode2.TabStop = false;
             // 
@@ -545,20 +585,22 @@ namespace UbsBusiness
             // 
             this.txtClientName2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtClientName2.Location = new System.Drawing.Point(88, 97);
+            this.txtClientName2.Location = new System.Drawing.Point(117, 119);
+            this.txtClientName2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtClientName2.MaxLength = 50;
             this.txtClientName2.Name = "txtClientName2";
             this.txtClientName2.ReadOnly = true;
-            this.txtClientName2.Size = new System.Drawing.Size(567, 20);
+            this.txtClientName2.Size = new System.Drawing.Size(755, 22);
             this.txtClientName2.TabIndex = 10;
             this.txtClientName2.TabStop = false;
             // 
             // chkNDS
             // 
             this.chkNDS.AutoSize = true;
-            this.chkNDS.Location = new System.Drawing.Point(8, 123);
+            this.chkNDS.Location = new System.Drawing.Point(11, 151);
+            this.chkNDS.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkNDS.Name = "chkNDS";
-            this.chkNDS.Size = new System.Drawing.Size(50, 17);
+            this.chkNDS.Size = new System.Drawing.Size(57, 20);
             this.chkNDS.TabIndex = 11;
             this.chkNDS.Text = "НДС";
             this.chkNDS.UseVisualStyleBackColor = true;
@@ -568,9 +610,10 @@ namespace UbsBusiness
             // chkExport
             // 
             this.chkExport.AutoSize = true;
-            this.chkExport.Location = new System.Drawing.Point(60, 123);
+            this.chkExport.Location = new System.Drawing.Point(80, 151);
+            this.chkExport.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkExport.Name = "chkExport";
-            this.chkExport.Size = new System.Drawing.Size(86, 17);
+            this.chkExport.Size = new System.Drawing.Size(107, 20);
             this.chkExport.TabIndex = 12;
             this.chkExport.Text = "Экспортная";
             this.chkExport.UseVisualStyleBackColor = true;
@@ -579,27 +622,30 @@ namespace UbsBusiness
             // lblCommission
             // 
             this.lblCommission.AutoSize = true;
-            this.lblCommission.Location = new System.Drawing.Point(11, 300);
+            this.lblCommission.Location = new System.Drawing.Point(15, 369);
+            this.lblCommission.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCommission.Name = "lblCommission";
-            this.lblCommission.Size = new System.Drawing.Size(58, 13);
+            this.lblCommission.Size = new System.Drawing.Size(69, 16);
             this.lblCommission.TabIndex = 0;
             this.lblCommission.Text = "Комиссия";
             // 
             // cmbComission
             // 
             this.cmbComission.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbComission.Location = new System.Drawing.Point(95, 297);
+            this.cmbComission.Location = new System.Drawing.Point(127, 366);
+            this.cmbComission.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmbComission.Name = "cmbComission";
-            this.cmbComission.Size = new System.Drawing.Size(208, 21);
+            this.cmbComission.Size = new System.Drawing.Size(276, 24);
             this.cmbComission.TabIndex = 4;
             // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.tableLayoutPanel1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(677, 565);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Size = new System.Drawing.Size(905, 699);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Обязательства";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -612,11 +658,12 @@ namespace UbsBusiness
             this.tableLayoutPanel1.Controls.Add(this.lvwObligation, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(4, 4);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(671, 559);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(897, 691);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // lvwObligation
@@ -637,10 +684,11 @@ namespace UbsBusiness
             this.lvwObligation.FullRowSelect = true;
             this.lvwObligation.GridLines = true;
             this.lvwObligation.HideSelection = false;
-            this.lvwObligation.Location = new System.Drawing.Point(3, 3);
+            this.lvwObligation.Location = new System.Drawing.Point(4, 4);
+            this.lvwObligation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lvwObligation.MultiSelect = false;
             this.lvwObligation.Name = "lvwObligation";
-            this.lvwObligation.Size = new System.Drawing.Size(581, 553);
+            this.lvwObligation.Size = new System.Drawing.Size(776, 683);
             this.lvwObligation.TabIndex = 0;
             this.lvwObligation.UseCompatibleStateImageBehavior = false;
             this.lvwObligation.View = System.Windows.Forms.View.Details;
@@ -708,53 +756,61 @@ namespace UbsBusiness
             this.tableLayoutPanel2.Controls.Add(this.cmdDelObligation, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.cmdEditObligation, 0, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(590, 3);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(788, 4);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(78, 553);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(105, 683);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // cmdAddObligation
             // 
             this.cmdAddObligation.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdAddObligation.Location = new System.Drawing.Point(3, 3);
+            this.cmdAddObligation.Location = new System.Drawing.Point(4, 4);
+            this.cmdAddObligation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdAddObligation.Name = "cmdAddObligation";
-            this.cmdAddObligation.Size = new System.Drawing.Size(72, 26);
+            this.cmdAddObligation.Size = new System.Drawing.Size(97, 31);
             this.cmdAddObligation.TabIndex = 1;
             this.cmdAddObligation.Text = "Добавить";
             this.cmdAddObligation.UseVisualStyleBackColor = true;
+            this.cmdAddObligation.Click += new System.EventHandler(this.cmdAddObligation_Click);
             // 
             // cmdDelObligation
             // 
             this.cmdDelObligation.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdDelObligation.Location = new System.Drawing.Point(3, 67);
+            this.cmdDelObligation.Location = new System.Drawing.Point(4, 82);
+            this.cmdDelObligation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdDelObligation.Name = "cmdDelObligation";
-            this.cmdDelObligation.Size = new System.Drawing.Size(72, 26);
+            this.cmdDelObligation.Size = new System.Drawing.Size(97, 31);
             this.cmdDelObligation.TabIndex = 3;
             this.cmdDelObligation.Text = "Удалить";
             this.cmdDelObligation.UseVisualStyleBackColor = true;
+            this.cmdDelObligation.Click += new System.EventHandler(this.cmdDelObligation_Click);
             // 
             // cmdEditObligation
             // 
             this.cmdEditObligation.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdEditObligation.Location = new System.Drawing.Point(3, 35);
+            this.cmdEditObligation.Location = new System.Drawing.Point(4, 43);
+            this.cmdEditObligation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdEditObligation.Name = "cmdEditObligation";
-            this.cmdEditObligation.Size = new System.Drawing.Size(72, 26);
+            this.cmdEditObligation.Size = new System.Drawing.Size(97, 31);
             this.cmdEditObligation.TabIndex = 2;
             this.cmdEditObligation.Text = "Изменить";
             this.cmdEditObligation.UseVisualStyleBackColor = true;
+            this.cmdEditObligation.Click += new System.EventHandler(this.cmdEditObligation_Click);
             // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.tableLayoutPanel6);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(677, 565);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage3.Size = new System.Drawing.Size(905, 699);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Данные";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -766,12 +822,13 @@ namespace UbsBusiness
             this.tableLayoutPanel6.Controls.Add(this.tabControlOblig, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel7, 0, 1);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(4, 4);
+            this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 2;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(671, 559);
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(897, 691);
             this.tableLayoutPanel6.TabIndex = 4;
             // 
             // tabControlOblig
@@ -779,18 +836,20 @@ namespace UbsBusiness
             this.tabControlOblig.Controls.Add(this.tabPageOblig1);
             this.tabControlOblig.Controls.Add(this.tabPageOblig2);
             this.tabControlOblig.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControlOblig.Location = new System.Drawing.Point(3, 3);
+            this.tabControlOblig.Location = new System.Drawing.Point(4, 4);
+            this.tabControlOblig.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabControlOblig.Name = "tabControlOblig";
             this.tabControlOblig.SelectedIndex = 0;
-            this.tabControlOblig.Size = new System.Drawing.Size(665, 521);
+            this.tabControlOblig.Size = new System.Drawing.Size(889, 644);
             this.tabControlOblig.TabIndex = 0;
+            this.tabControlOblig.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControlOblig_Selecting);
             // 
             // tabPageOblig1
             // 
             this.tabPageOblig1.Controls.Add(this.lblTradeDirection);
             this.tabPageOblig1.Controls.Add(this.cmbTradeDirection);
             this.tabPageOblig1.Controls.Add(this.lblObligationCurrency);
-            this.tabPageOblig1.Controls.Add(this.cmbObligationCurrency);
+            this.tabPageOblig1.Controls.Add(this.cmbCurrencyObligation);
             this.tabPageOblig1.Controls.Add(this.lblUnit);
             this.tabPageOblig1.Controls.Add(this.cmbUnit);
             this.tabPageOblig1.Controls.Add(this.lblCostUnit);
@@ -798,13 +857,14 @@ namespace UbsBusiness
             this.tabPageOblig1.Controls.Add(this.chkRate);
             this.tabPageOblig1.Controls.Add(this.ucdRateCurOblig);
             this.tabPageOblig1.Controls.Add(this.chkSumInCurValue);
-            this.tabPageOblig1.Controls.Add(this.ucdCostCurOpl);
+            this.tabPageOblig1.Controls.Add(this.ucdCostCurPayment);
             this.tabPageOblig1.Controls.Add(this.grpMetalChar);
             this.tabPageOblig1.Controls.Add(this.grpMetalCharPost);
-            this.tabPageOblig1.Location = new System.Drawing.Point(4, 22);
+            this.tabPageOblig1.Location = new System.Drawing.Point(4, 25);
+            this.tabPageOblig1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPageOblig1.Name = "tabPageOblig1";
-            this.tabPageOblig1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOblig1.Size = new System.Drawing.Size(657, 495);
+            this.tabPageOblig1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageOblig1.Size = new System.Drawing.Size(881, 615);
             this.tabPageOblig1.TabIndex = 0;
             this.tabPageOblig1.Text = "Обязательство";
             this.tabPageOblig1.UseVisualStyleBackColor = true;
@@ -812,9 +872,10 @@ namespace UbsBusiness
             // lblTradeDirection
             // 
             this.lblTradeDirection.AutoSize = true;
-            this.lblTradeDirection.Location = new System.Drawing.Point(6, 10);
+            this.lblTradeDirection.Location = new System.Drawing.Point(8, 12);
+            this.lblTradeDirection.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTradeDirection.Name = "lblTradeDirection";
-            this.lblTradeDirection.Size = new System.Drawing.Size(114, 13);
+            this.lblTradeDirection.Size = new System.Drawing.Size(146, 16);
             this.lblTradeDirection.TabIndex = 0;
             this.lblTradeDirection.Text = "Направление сделки";
             // 
@@ -823,36 +884,41 @@ namespace UbsBusiness
             this.cmbTradeDirection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbTradeDirection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbTradeDirection.Location = new System.Drawing.Point(168, 6);
+            this.cmbTradeDirection.Location = new System.Drawing.Point(224, 7);
+            this.cmbTradeDirection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmbTradeDirection.Name = "cmbTradeDirection";
-            this.cmbTradeDirection.Size = new System.Drawing.Size(481, 21);
+            this.cmbTradeDirection.Size = new System.Drawing.Size(426, 24);
             this.cmbTradeDirection.TabIndex = 1;
             // 
             // lblObligationCurrency
             // 
             this.lblObligationCurrency.AutoSize = true;
-            this.lblObligationCurrency.Location = new System.Drawing.Point(6, 35);
+            this.lblObligationCurrency.Location = new System.Drawing.Point(8, 43);
+            this.lblObligationCurrency.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblObligationCurrency.Name = "lblObligationCurrency";
-            this.lblObligationCurrency.Size = new System.Drawing.Size(124, 13);
+            this.lblObligationCurrency.Size = new System.Drawing.Size(159, 16);
             this.lblObligationCurrency.TabIndex = 0;
             this.lblObligationCurrency.Text = "Валюта обязательства";
             // 
-            // cmbObligationCurrency
+            // cmbCurrencyObligation
             // 
-            this.cmbObligationCurrency.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cmbCurrencyObligation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbObligationCurrency.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbObligationCurrency.Location = new System.Drawing.Point(168, 31);
-            this.cmbObligationCurrency.Name = "cmbObligationCurrency";
-            this.cmbObligationCurrency.Size = new System.Drawing.Size(481, 21);
-            this.cmbObligationCurrency.TabIndex = 2;
+            this.cmbCurrencyObligation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCurrencyObligation.Location = new System.Drawing.Point(224, 38);
+            this.cmbCurrencyObligation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbCurrencyObligation.Name = "cmbCurrencyObligation";
+            this.cmbCurrencyObligation.Size = new System.Drawing.Size(426, 24);
+            this.cmbCurrencyObligation.TabIndex = 2;
+            this.cmbCurrencyObligation.SelectedIndexChanged += new System.EventHandler(this.cmbObligationCurrency_SelectedIndexChanged);
             // 
             // lblUnit
             // 
             this.lblUnit.AutoSize = true;
-            this.lblUnit.Location = new System.Drawing.Point(6, 60);
+            this.lblUnit.Location = new System.Drawing.Point(8, 74);
+            this.lblUnit.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUnit.Name = "lblUnit";
-            this.lblUnit.Size = new System.Drawing.Size(136, 13);
+            this.lblUnit.Size = new System.Drawing.Size(175, 16);
             this.lblUnit.TabIndex = 0;
             this.lblUnit.Text = "Единица измерения веса";
             // 
@@ -861,35 +927,41 @@ namespace UbsBusiness
             this.cmbUnit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbUnit.Location = new System.Drawing.Point(168, 56);
+            this.cmbUnit.Location = new System.Drawing.Point(224, 69);
+            this.cmbUnit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmbUnit.Name = "cmbUnit";
-            this.cmbUnit.Size = new System.Drawing.Size(481, 21);
+            this.cmbUnit.Size = new System.Drawing.Size(426, 24);
             this.cmbUnit.TabIndex = 3;
+            this.cmbUnit.SelectedIndexChanged += new System.EventHandler(this.cmbUnit_SelectedIndexChanged);
             // 
             // lblCostUnit
             // 
             this.lblCostUnit.AutoSize = true;
-            this.lblCostUnit.Location = new System.Drawing.Point(6, 85);
+            this.lblCostUnit.Location = new System.Drawing.Point(8, 105);
+            this.lblCostUnit.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCostUnit.Name = "lblCostUnit";
-            this.lblCostUnit.Size = new System.Drawing.Size(157, 13);
+            this.lblCostUnit.Size = new System.Drawing.Size(198, 16);
             this.lblCostUnit.TabIndex = 0;
             this.lblCostUnit.Text = "Цена за ед. в валюте обяз-ва";
             // 
             // ucdCostUnit
             // 
             this.ucdCostUnit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ucdCostUnit.Location = new System.Drawing.Point(443, 82);
+            this.ucdCostUnit.Location = new System.Drawing.Point(377, 101);
+            this.ucdCostUnit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ucdCostUnit.Name = "ucdCostUnit";
-            this.ucdCostUnit.Size = new System.Drawing.Size(207, 20);
+            this.ucdCostUnit.Size = new System.Drawing.Size(275, 22);
             this.ucdCostUnit.TabIndex = 4;
             this.ucdCostUnit.Text = "0";
+            this.ucdCostUnit.Leave += new System.EventHandler(this.ucdCostUnit_Leave);
             // 
             // chkRate
             // 
             this.chkRate.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkRate.Location = new System.Drawing.Point(6, 107);
+            this.chkRate.Location = new System.Drawing.Point(8, 132);
+            this.chkRate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkRate.Name = "chkRate";
-            this.chkRate.Size = new System.Drawing.Size(225, 17);
+            this.chkRate.Size = new System.Drawing.Size(300, 21);
             this.chkRate.TabIndex = 5;
             this.chkRate.Text = "Коэф. пересчета валюты обяз-ва";
             this.chkRate.UseVisualStyleBackColor = true;
@@ -899,32 +971,37 @@ namespace UbsBusiness
             // 
             this.ucdRateCurOblig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ucdRateCurOblig.Enabled = false;
-            this.ucdRateCurOblig.Location = new System.Drawing.Point(443, 107);
+            this.ucdRateCurOblig.Location = new System.Drawing.Point(377, 132);
+            this.ucdRateCurOblig.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ucdRateCurOblig.Name = "ucdRateCurOblig";
-            this.ucdRateCurOblig.Size = new System.Drawing.Size(207, 20);
+            this.ucdRateCurOblig.Size = new System.Drawing.Size(275, 22);
             this.ucdRateCurOblig.TabIndex = 6;
             this.ucdRateCurOblig.Text = "0";
+            this.ucdRateCurOblig.Leave += new System.EventHandler(this.ucdRateCurOblig_Leave);
             // 
             // chkSumInCurValue
             // 
             this.chkSumInCurValue.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkSumInCurValue.Location = new System.Drawing.Point(6, 131);
+            this.chkSumInCurValue.Location = new System.Drawing.Point(8, 161);
+            this.chkSumInCurValue.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkSumInCurValue.Name = "chkSumInCurValue";
-            this.chkSumInCurValue.Size = new System.Drawing.Size(225, 17);
+            this.chkSumInCurValue.Size = new System.Drawing.Size(300, 21);
             this.chkSumInCurValue.TabIndex = 7;
             this.chkSumInCurValue.Text = "Цена за ед. в валюте оплаты";
             this.chkSumInCurValue.UseVisualStyleBackColor = true;
             this.chkSumInCurValue.CheckedChanged += new System.EventHandler(this.chkSumInCurValue_CheckedChanged);
             // 
-            // ucdCostCurOpl
+            // ucdCostCurPayment
             // 
-            this.ucdCostCurOpl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ucdCostCurOpl.Enabled = false;
-            this.ucdCostCurOpl.Location = new System.Drawing.Point(443, 131);
-            this.ucdCostCurOpl.Name = "ucdCostCurOpl";
-            this.ucdCostCurOpl.Size = new System.Drawing.Size(207, 20);
-            this.ucdCostCurOpl.TabIndex = 8;
-            this.ucdCostCurOpl.Text = "0";
+            this.ucdCostCurPayment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ucdCostCurPayment.Enabled = false;
+            this.ucdCostCurPayment.Location = new System.Drawing.Point(377, 161);
+            this.ucdCostCurPayment.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ucdCostCurPayment.Name = "ucdCostCurPayment";
+            this.ucdCostCurPayment.Size = new System.Drawing.Size(275, 22);
+            this.ucdCostCurPayment.TabIndex = 8;
+            this.ucdCostCurPayment.Text = "0";
+            this.ucdCostCurPayment.Leave += new System.EventHandler(this.ucdCostCurOpl_Leave);
             // 
             // grpMetalChar
             // 
@@ -936,9 +1013,11 @@ namespace UbsBusiness
             this.grpMetalChar.Controls.Add(this.ucdMass);
             this.grpMetalChar.Controls.Add(this.lblMassGramm);
             this.grpMetalChar.Controls.Add(this.ucdMassGramm);
-            this.grpMetalChar.Location = new System.Drawing.Point(6, 158);
+            this.grpMetalChar.Location = new System.Drawing.Point(8, 194);
+            this.grpMetalChar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grpMetalChar.Name = "grpMetalChar";
-            this.grpMetalChar.Size = new System.Drawing.Size(644, 77);
+            this.grpMetalChar.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpMetalChar.Size = new System.Drawing.Size(645, 95);
             this.grpMetalChar.TabIndex = 9;
             this.grpMetalChar.TabStop = false;
             this.grpMetalChar.Text = "Обязательство поставки";
@@ -946,18 +1025,20 @@ namespace UbsBusiness
             // lblDatePost
             // 
             this.lblDatePost.AutoSize = true;
-            this.lblDatePost.Location = new System.Drawing.Point(8, 23);
+            this.lblDatePost.Location = new System.Drawing.Point(11, 28);
+            this.lblDatePost.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDatePost.Name = "lblDatePost";
-            this.lblDatePost.Size = new System.Drawing.Size(83, 13);
+            this.lblDatePost.Size = new System.Drawing.Size(103, 16);
             this.lblDatePost.TabIndex = 0;
             this.lblDatePost.Text = "Дата поставки";
             // 
             // datePost
             // 
-            this.datePost.Location = new System.Drawing.Point(110, 19);
+            this.datePost.Location = new System.Drawing.Point(147, 23);
+            this.datePost.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.datePost.MaxLength = 10;
             this.datePost.Name = "datePost";
-            this.datePost.Size = new System.Drawing.Size(100, 20);
+            this.datePost.Size = new System.Drawing.Size(132, 22);
             this.datePost.TabIndex = 1;
             this.datePost.Text = "  .  .    ";
             this.datePost.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -965,35 +1046,40 @@ namespace UbsBusiness
             // lblMass
             // 
             this.lblMass.AutoSize = true;
-            this.lblMass.Location = new System.Drawing.Point(8, 52);
+            this.lblMass.Location = new System.Drawing.Point(11, 64);
+            this.lblMass.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMass.Name = "lblMass";
-            this.lblMass.Size = new System.Drawing.Size(93, 13);
+            this.lblMass.Size = new System.Drawing.Size(112, 16);
             this.lblMass.TabIndex = 0;
             this.lblMass.Text = "Масса в ед. изм.";
             // 
             // ucdMass
             // 
-            this.ucdMass.Location = new System.Drawing.Point(110, 49);
+            this.ucdMass.Location = new System.Drawing.Point(147, 60);
+            this.ucdMass.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ucdMass.Name = "ucdMass";
-            this.ucdMass.Size = new System.Drawing.Size(120, 20);
+            this.ucdMass.Size = new System.Drawing.Size(159, 22);
             this.ucdMass.TabIndex = 2;
             this.ucdMass.Text = "0";
+            this.ucdMass.Leave += new System.EventHandler(this.ucdMass_Leave);
             // 
             // lblMassGramm
             // 
             this.lblMassGramm.AutoSize = true;
-            this.lblMassGramm.Location = new System.Drawing.Point(281, 52);
+            this.lblMassGramm.Location = new System.Drawing.Point(375, 64);
+            this.lblMassGramm.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMassGramm.Name = "lblMassGramm";
-            this.lblMassGramm.Size = new System.Drawing.Size(142, 13);
+            this.lblMassGramm.Size = new System.Drawing.Size(175, 16);
             this.lblMassGramm.TabIndex = 0;
             this.lblMassGramm.Text = "Масса металла в граммах";
             // 
             // ucdMassGramm
             // 
             this.ucdMassGramm.Enabled = false;
-            this.ucdMassGramm.Location = new System.Drawing.Point(429, 49);
+            this.ucdMassGramm.Location = new System.Drawing.Point(572, 60);
+            this.ucdMassGramm.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ucdMassGramm.Name = "ucdMassGramm";
-            this.ucdMassGramm.Size = new System.Drawing.Size(112, 20);
+            this.ucdMassGramm.Size = new System.Drawing.Size(148, 22);
             this.ucdMassGramm.TabIndex = 3;
             this.ucdMassGramm.Text = "0";
             // 
@@ -1007,9 +1093,11 @@ namespace UbsBusiness
             this.grpMetalCharPost.Controls.Add(this.ucdSumObligation);
             this.grpMetalCharPost.Controls.Add(this.lblSumPayment);
             this.grpMetalCharPost.Controls.Add(this.ucdSumPayment);
-            this.grpMetalCharPost.Location = new System.Drawing.Point(6, 241);
+            this.grpMetalCharPost.Location = new System.Drawing.Point(8, 297);
+            this.grpMetalCharPost.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grpMetalCharPost.Name = "grpMetalCharPost";
-            this.grpMetalCharPost.Size = new System.Drawing.Size(644, 100);
+            this.grpMetalCharPost.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpMetalCharPost.Size = new System.Drawing.Size(645, 123);
             this.grpMetalCharPost.TabIndex = 10;
             this.grpMetalCharPost.TabStop = false;
             this.grpMetalCharPost.Text = "Обязательство оплаты";
@@ -1017,18 +1105,20 @@ namespace UbsBusiness
             // lblDatePayment
             // 
             this.lblDatePayment.AutoSize = true;
-            this.lblDatePayment.Location = new System.Drawing.Point(8, 23);
+            this.lblDatePayment.Location = new System.Drawing.Point(11, 28);
+            this.lblDatePayment.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDatePayment.Name = "lblDatePayment";
-            this.lblDatePayment.Size = new System.Drawing.Size(73, 13);
+            this.lblDatePayment.Size = new System.Drawing.Size(90, 16);
             this.lblDatePayment.TabIndex = 0;
             this.lblDatePayment.Text = "Дата оплаты";
             // 
             // datePayment
             // 
-            this.datePayment.Location = new System.Drawing.Point(175, 19);
+            this.datePayment.Location = new System.Drawing.Point(233, 23);
+            this.datePayment.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.datePayment.MaxLength = 10;
             this.datePayment.Name = "datePayment";
-            this.datePayment.Size = new System.Drawing.Size(100, 20);
+            this.datePayment.Size = new System.Drawing.Size(132, 22);
             this.datePayment.TabIndex = 1;
             this.datePayment.Text = "  .  .    ";
             this.datePayment.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -1036,46 +1126,51 @@ namespace UbsBusiness
             // lblSumObligation
             // 
             this.lblSumObligation.AutoSize = true;
-            this.lblSumObligation.Location = new System.Drawing.Point(8, 50);
+            this.lblSumObligation.Location = new System.Drawing.Point(11, 62);
+            this.lblSumObligation.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSumObligation.Name = "lblSumObligation";
-            this.lblSumObligation.Size = new System.Drawing.Size(132, 13);
+            this.lblSumObligation.Size = new System.Drawing.Size(167, 16);
             this.lblSumObligation.TabIndex = 0;
             this.lblSumObligation.Text = "Сумма в валюте обяз-ва";
             // 
             // ucdSumObligation
             // 
             this.ucdSumObligation.Enabled = false;
-            this.ucdSumObligation.Location = new System.Drawing.Point(175, 47);
+            this.ucdSumObligation.Location = new System.Drawing.Point(233, 58);
+            this.ucdSumObligation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ucdSumObligation.Name = "ucdSumObligation";
-            this.ucdSumObligation.Size = new System.Drawing.Size(120, 20);
+            this.ucdSumObligation.Size = new System.Drawing.Size(159, 22);
             this.ucdSumObligation.TabIndex = 2;
             this.ucdSumObligation.Text = "0";
             // 
             // lblSumPayment
             // 
             this.lblSumPayment.AutoSize = true;
-            this.lblSumPayment.Location = new System.Drawing.Point(8, 76);
+            this.lblSumPayment.Location = new System.Drawing.Point(11, 94);
+            this.lblSumPayment.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSumPayment.Name = "lblSumPayment";
-            this.lblSumPayment.Size = new System.Drawing.Size(130, 13);
+            this.lblSumPayment.Size = new System.Drawing.Size(164, 16);
             this.lblSumPayment.TabIndex = 0;
             this.lblSumPayment.Text = "Сумма в валюте оплаты";
             // 
             // ucdSumPayment
             // 
             this.ucdSumPayment.Enabled = false;
-            this.ucdSumPayment.Location = new System.Drawing.Point(175, 73);
+            this.ucdSumPayment.Location = new System.Drawing.Point(233, 90);
+            this.ucdSumPayment.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ucdSumPayment.Name = "ucdSumPayment";
-            this.ucdSumPayment.Size = new System.Drawing.Size(120, 20);
+            this.ucdSumPayment.Size = new System.Drawing.Size(159, 22);
             this.ucdSumPayment.TabIndex = 3;
             this.ucdSumPayment.Text = "0";
             // 
             // tabPageOblig2
             // 
             this.tabPageOblig2.Controls.Add(this.tableLayoutPanel5);
-            this.tabPageOblig2.Location = new System.Drawing.Point(4, 22);
+            this.tabPageOblig2.Location = new System.Drawing.Point(4, 25);
+            this.tabPageOblig2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPageOblig2.Name = "tabPageOblig2";
-            this.tabPageOblig2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOblig2.Size = new System.Drawing.Size(657, 495);
+            this.tabPageOblig2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageOblig2.Size = new System.Drawing.Size(881, 615);
             this.tabPageOblig2.TabIndex = 1;
             this.tabPageOblig2.Text = "Объекты";
             this.tabPageOblig2.UseVisualStyleBackColor = true;
@@ -1088,22 +1183,24 @@ namespace UbsBusiness
             this.tableLayoutPanel5.Controls.Add(this.tableLayoutPanel3, 0, 2);
             this.tableLayoutPanel5.Controls.Add(this.lblObligationInfo2, 0, 1);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(4, 4);
+            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 3;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(651, 489);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(873, 607);
             this.tableLayoutPanel5.TabIndex = 5;
             // 
             // lblObligationInfo1
             // 
             this.lblObligationInfo1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblObligationInfo1.Location = new System.Drawing.Point(3, 0);
+            this.lblObligationInfo1.Location = new System.Drawing.Point(4, 0);
+            this.lblObligationInfo1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblObligationInfo1.Name = "lblObligationInfo1";
-            this.lblObligationInfo1.Size = new System.Drawing.Size(645, 15);
+            this.lblObligationInfo1.Size = new System.Drawing.Size(865, 18);
             this.lblObligationInfo1.TabIndex = 0;
             this.lblObligationInfo1.Text = "Дата оплаты, Дата поставки";
             this.lblObligationInfo1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1116,11 +1213,12 @@ namespace UbsBusiness
             this.tableLayoutPanel3.Controls.Add(this.lvwObject, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 1, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 43);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(4, 54);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(645, 443);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(865, 549);
             this.tableLayoutPanel3.TabIndex = 4;
             // 
             // lvwObject
@@ -1137,10 +1235,11 @@ namespace UbsBusiness
             this.lvwObject.FullRowSelect = true;
             this.lvwObject.GridLines = true;
             this.lvwObject.HideSelection = false;
-            this.lvwObject.Location = new System.Drawing.Point(3, 3);
+            this.lvwObject.Location = new System.Drawing.Point(4, 4);
+            this.lvwObject.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lvwObject.MultiSelect = false;
             this.lvwObject.Name = "lvwObject";
-            this.lvwObject.Size = new System.Drawing.Size(559, 437);
+            this.lvwObject.Size = new System.Drawing.Size(749, 541);
             this.lvwObject.TabIndex = 1;
             this.lvwObject.UseCompatibleStateImageBehavior = false;
             this.lvwObject.View = System.Windows.Forms.View.Details;
@@ -1186,42 +1285,48 @@ namespace UbsBusiness
             this.tableLayoutPanel4.Controls.Add(this.cmdAddObject, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.cmdDelObject, 0, 1);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(568, 3);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(761, 4);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 3;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(74, 437);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(100, 541);
             this.tableLayoutPanel4.TabIndex = 2;
             // 
             // cmdAddObject
             // 
             this.cmdAddObject.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdAddObject.Location = new System.Drawing.Point(3, 3);
+            this.cmdAddObject.Location = new System.Drawing.Point(4, 4);
+            this.cmdAddObject.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdAddObject.Name = "cmdAddObject";
-            this.cmdAddObject.Size = new System.Drawing.Size(68, 26);
+            this.cmdAddObject.Size = new System.Drawing.Size(92, 31);
             this.cmdAddObject.TabIndex = 2;
             this.cmdAddObject.Text = "Добавить";
             this.cmdAddObject.UseVisualStyleBackColor = true;
+            this.cmdAddObject.Click += new System.EventHandler(this.cmdAddObject_Click);
             // 
             // cmdDelObject
             // 
             this.cmdDelObject.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdDelObject.Location = new System.Drawing.Point(3, 35);
+            this.cmdDelObject.Location = new System.Drawing.Point(4, 43);
+            this.cmdDelObject.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdDelObject.Name = "cmdDelObject";
-            this.cmdDelObject.Size = new System.Drawing.Size(68, 26);
+            this.cmdDelObject.Size = new System.Drawing.Size(92, 31);
             this.cmdDelObject.TabIndex = 3;
             this.cmdDelObject.Text = "Удалить";
             this.cmdDelObject.UseVisualStyleBackColor = true;
+            this.cmdDelObject.Click += new System.EventHandler(this.cmdDelObject_Click);
             // 
             // lblObligationInfo2
             // 
             this.lblObligationInfo2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblObligationInfo2.Location = new System.Drawing.Point(3, 20);
+            this.lblObligationInfo2.Location = new System.Drawing.Point(4, 25);
+            this.lblObligationInfo2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblObligationInfo2.Name = "lblObligationInfo2";
-            this.lblObligationInfo2.Size = new System.Drawing.Size(645, 15);
+            this.lblObligationInfo2.Size = new System.Drawing.Size(865, 18);
             this.lblObligationInfo2.TabIndex = 0;
             this.lblObligationInfo2.Text = "Цена, Масса, Сумма";
             this.lblObligationInfo2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1230,26 +1335,28 @@ namespace UbsBusiness
             // 
             this.tableLayoutPanel7.ColumnCount = 3;
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 88F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 88F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 117F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 117F));
             this.tableLayoutPanel7.Controls.Add(this.linkAccountsObligation, 0, 0);
             this.tableLayoutPanel7.Controls.Add(this.cmdExitObligation, 2, 0);
             this.tableLayoutPanel7.Controls.Add(this.cmdApplayObligation, 1, 0);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 530);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(4, 656);
+            this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 1;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(665, 26);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(889, 31);
             this.tableLayoutPanel7.TabIndex = 1;
             // 
             // linkAccountsObligation
             // 
             this.linkAccountsObligation.AutoSize = true;
             this.linkAccountsObligation.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.linkAccountsObligation.Location = new System.Drawing.Point(3, 13);
+            this.linkAccountsObligation.Location = new System.Drawing.Point(4, 15);
+            this.linkAccountsObligation.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linkAccountsObligation.Name = "linkAccountsObligation";
-            this.linkAccountsObligation.Size = new System.Drawing.Size(483, 13);
+            this.linkAccountsObligation.Size = new System.Drawing.Size(647, 16);
             this.linkAccountsObligation.TabIndex = 1;
             this.linkAccountsObligation.TabStop = true;
             this.linkAccountsObligation.Text = "Счета по обязательству";
@@ -1257,24 +1364,28 @@ namespace UbsBusiness
             // cmdExitObligation
             // 
             this.cmdExitObligation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdExitObligation.Location = new System.Drawing.Point(580, 4);
+            this.cmdExitObligation.Location = new System.Drawing.Point(776, 4);
+            this.cmdExitObligation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdExitObligation.Name = "cmdExitObligation";
-            this.cmdExitObligation.Size = new System.Drawing.Size(82, 19);
+            this.cmdExitObligation.Size = new System.Drawing.Size(109, 23);
             this.cmdExitObligation.TabIndex = 3;
             this.cmdExitObligation.Text = "Отмена";
             this.cmdExitObligation.UseVisualStyleBackColor = true;
             this.cmdExitObligation.Visible = false;
+            this.cmdExitObligation.Click += new System.EventHandler(this.cmdExitObligation_Click);
             // 
             // cmdApplayObligation
             // 
             this.cmdApplayObligation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdApplayObligation.Location = new System.Drawing.Point(492, 4);
+            this.cmdApplayObligation.Location = new System.Drawing.Point(659, 4);
+            this.cmdApplayObligation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdApplayObligation.Name = "cmdApplayObligation";
-            this.cmdApplayObligation.Size = new System.Drawing.Size(82, 19);
+            this.cmdApplayObligation.Size = new System.Drawing.Size(109, 23);
             this.cmdApplayObligation.TabIndex = 2;
             this.cmdApplayObligation.Text = "Применить";
             this.cmdApplayObligation.UseVisualStyleBackColor = true;
             this.cmdApplayObligation.Visible = false;
+            this.cmdApplayObligation.Click += new System.EventHandler(this.cmdApplayObligation_Click);
             // 
             // tabPage4
             // 
@@ -1285,10 +1396,11 @@ namespace UbsBusiness
             this.tabPage4.Controls.Add(this.txtStorageCode);
             this.tabPage4.Controls.Add(this.lblStorageName);
             this.tabPage4.Controls.Add(this.txtStorageName);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(677, 565);
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage4.Size = new System.Drawing.Size(905, 699);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Поставка";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -1296,21 +1408,24 @@ namespace UbsBusiness
             // linkStorage
             // 
             this.linkStorage.AutoSize = true;
-            this.linkStorage.Location = new System.Drawing.Point(273, 75);
+            this.linkStorage.Location = new System.Drawing.Point(364, 92);
+            this.linkStorage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linkStorage.Name = "linkStorage";
-            this.linkStorage.Size = new System.Drawing.Size(98, 13);
+            this.linkStorage.Size = new System.Drawing.Size(122, 16);
             this.linkStorage.TabIndex = 2;
             this.linkStorage.TabStop = true;
             this.linkStorage.Text = "выбор хранилища";
+            this.linkStorage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkStorage_LinkClicked);
             // 
             // lblDeliveryInstructionTitle
             // 
             this.lblDeliveryInstructionTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblDeliveryInstructionTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.lblDeliveryInstructionTitle.Location = new System.Drawing.Point(6, 16);
+            this.lblDeliveryInstructionTitle.Location = new System.Drawing.Point(8, 20);
+            this.lblDeliveryInstructionTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDeliveryInstructionTitle.Name = "lblDeliveryInstructionTitle";
-            this.lblDeliveryInstructionTitle.Size = new System.Drawing.Size(663, 20);
+            this.lblDeliveryInstructionTitle.Size = new System.Drawing.Size(884, 25);
             this.lblDeliveryInstructionTitle.TabIndex = 0;
             this.lblDeliveryInstructionTitle.Text = "Инструкция по поставке";
             this.lblDeliveryInstructionTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1318,9 +1433,10 @@ namespace UbsBusiness
             // chkExternalStorage
             // 
             this.chkExternalStorage.AutoSize = true;
-            this.chkExternalStorage.Location = new System.Drawing.Point(96, 46);
+            this.chkExternalStorage.Location = new System.Drawing.Point(128, 57);
+            this.chkExternalStorage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkExternalStorage.Name = "chkExternalStorage";
-            this.chkExternalStorage.Size = new System.Drawing.Size(130, 17);
+            this.chkExternalStorage.Size = new System.Drawing.Size(161, 20);
             this.chkExternalStorage.TabIndex = 1;
             this.chkExternalStorage.Text = "Внешнее хранилище";
             this.chkExternalStorage.UseVisualStyleBackColor = true;
@@ -1328,29 +1444,32 @@ namespace UbsBusiness
             // lblStorageNum
             // 
             this.lblStorageNum.AutoSize = true;
-            this.lblStorageNum.Location = new System.Drawing.Point(6, 76);
+            this.lblStorageNum.Location = new System.Drawing.Point(8, 94);
+            this.lblStorageNum.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblStorageNum.Name = "lblStorageNum";
-            this.lblStorageNum.Size = new System.Drawing.Size(41, 13);
+            this.lblStorageNum.Size = new System.Drawing.Size(50, 16);
             this.lblStorageNum.TabIndex = 0;
             this.lblStorageNum.Text = "Номер";
             // 
             // txtStorageCode
             // 
             this.txtStorageCode.Enabled = false;
-            this.txtStorageCode.Location = new System.Drawing.Point(96, 72);
+            this.txtStorageCode.Location = new System.Drawing.Point(128, 89);
+            this.txtStorageCode.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtStorageCode.MaxLength = 20;
             this.txtStorageCode.Name = "txtStorageCode";
             this.txtStorageCode.ReadOnly = true;
-            this.txtStorageCode.Size = new System.Drawing.Size(171, 20);
+            this.txtStorageCode.Size = new System.Drawing.Size(227, 22);
             this.txtStorageCode.TabIndex = 3;
             this.txtStorageCode.TabStop = false;
             // 
             // lblStorageName
             // 
             this.lblStorageName.AutoSize = true;
-            this.lblStorageName.Location = new System.Drawing.Point(6, 104);
+            this.lblStorageName.Location = new System.Drawing.Point(8, 128);
+            this.lblStorageName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblStorageName.Name = "lblStorageName";
-            this.lblStorageName.Size = new System.Drawing.Size(83, 13);
+            this.lblStorageName.Size = new System.Drawing.Size(106, 16);
             this.lblStorageName.TabIndex = 0;
             this.lblStorageName.Text = "Наименование";
             // 
@@ -1359,21 +1478,23 @@ namespace UbsBusiness
             this.txtStorageName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtStorageName.Enabled = false;
-            this.txtStorageName.Location = new System.Drawing.Point(96, 100);
+            this.txtStorageName.Location = new System.Drawing.Point(128, 123);
+            this.txtStorageName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtStorageName.MaxLength = 50;
             this.txtStorageName.Name = "txtStorageName";
             this.txtStorageName.ReadOnly = true;
-            this.txtStorageName.Size = new System.Drawing.Size(575, 20);
+            this.txtStorageName.Size = new System.Drawing.Size(765, 22);
             this.txtStorageName.TabIndex = 4;
             this.txtStorageName.TabStop = false;
             // 
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.tabControlInstr);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Location = new System.Drawing.Point(4, 25);
+            this.tabPage5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(384, 215);
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage5.Size = new System.Drawing.Size(905, 699);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Оплата";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -1383,10 +1504,11 @@ namespace UbsBusiness
             this.tabControlInstr.Controls.Add(this.tabPageInstr1);
             this.tabControlInstr.Controls.Add(this.tabPageInstr2);
             this.tabControlInstr.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControlInstr.Location = new System.Drawing.Point(3, 3);
+            this.tabControlInstr.Location = new System.Drawing.Point(4, 4);
+            this.tabControlInstr.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabControlInstr.Name = "tabControlInstr";
             this.tabControlInstr.SelectedIndex = 0;
-            this.tabControlInstr.Size = new System.Drawing.Size(378, 209);
+            this.tabControlInstr.Size = new System.Drawing.Size(897, 691);
             this.tabControlInstr.TabIndex = 0;
             // 
             // tabPageInstr1
@@ -1409,10 +1531,11 @@ namespace UbsBusiness
             this.tabPageInstr1.Controls.Add(this.lblINN0);
             this.tabPageInstr1.Controls.Add(this.txtINN0);
             this.tabPageInstr1.Controls.Add(this.chkNotAkcept0);
-            this.tabPageInstr1.Location = new System.Drawing.Point(4, 22);
+            this.tabPageInstr1.Location = new System.Drawing.Point(4, 25);
+            this.tabPageInstr1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPageInstr1.Name = "tabPageInstr1";
-            this.tabPageInstr1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageInstr1.Size = new System.Drawing.Size(370, 183);
+            this.tabPageInstr1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageInstr1.Size = new System.Drawing.Size(889, 662);
             this.tabPageInstr1.TabIndex = 0;
             this.tabPageInstr1.Text = "Покупатель";
             this.tabPageInstr1.UseVisualStyleBackColor = true;
@@ -1420,31 +1543,36 @@ namespace UbsBusiness
             // linkAccountPayment0
             // 
             this.linkAccountPayment0.AutoSize = true;
-            this.linkAccountPayment0.Location = new System.Drawing.Point(6, 139);
+            this.linkAccountPayment0.Location = new System.Drawing.Point(8, 171);
+            this.linkAccountPayment0.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linkAccountPayment0.Name = "linkAccountPayment0";
-            this.linkAccountPayment0.Size = new System.Drawing.Size(59, 13);
-            this.linkAccountPayment0.TabIndex = 7;
+            this.linkAccountPayment0.Size = new System.Drawing.Size(75, 16);
+            this.linkAccountPayment0.TabIndex = 6;
             this.linkAccountPayment0.TabStop = true;
             this.linkAccountPayment0.Text = "Расч. счет";
+            this.linkAccountPayment0.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkAccountPayment0_LinkClicked);
             // 
             // linkListInstr0
             // 
             this.linkListInstr0.AutoSize = true;
-            this.linkListInstr0.Location = new System.Drawing.Point(6, 72);
+            this.linkListInstr0.Location = new System.Drawing.Point(8, 74);
+            this.linkListInstr0.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linkListInstr0.Name = "linkListInstr0";
-            this.linkListInstr0.Size = new System.Drawing.Size(237, 13);
+            this.linkListInstr0.Size = new System.Drawing.Size(306, 16);
             this.linkListInstr0.TabIndex = 2;
             this.linkListInstr0.TabStop = true;
             this.linkListInstr0.Text = "Выбор платежной инструкции по покупателю";
+            this.linkListInstr0.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkListInstr0_LinkClicked);
             // 
             // lblInstrTitlePayment0
             // 
             this.lblInstrTitlePayment0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblInstrTitlePayment0.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.lblInstrTitlePayment0.Location = new System.Drawing.Point(6, 12);
+            this.lblInstrTitlePayment0.Location = new System.Drawing.Point(8, 15);
+            this.lblInstrTitlePayment0.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblInstrTitlePayment0.Name = "lblInstrTitlePayment0";
-            this.lblInstrTitlePayment0.Size = new System.Drawing.Size(357, 20);
+            this.lblInstrTitlePayment0.Size = new System.Drawing.Size(654, 25);
             this.lblInstrTitlePayment0.TabIndex = 0;
             this.lblInstrTitlePayment0.Text = "Инструкция по оплате";
             this.lblInstrTitlePayment0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1452,9 +1580,10 @@ namespace UbsBusiness
             // chkCash0
             // 
             this.chkCash0.AutoSize = true;
-            this.chkCash0.Location = new System.Drawing.Point(9, 40);
+            this.chkCash0.Location = new System.Drawing.Point(12, 49);
+            this.chkCash0.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkCash0.Name = "chkCash0";
-            this.chkCash0.Size = new System.Drawing.Size(125, 17);
+            this.chkCash0.Size = new System.Drawing.Size(159, 20);
             this.chkCash0.TabIndex = 1;
             this.chkCash0.Text = "Расчет через кассу";
             this.chkCash0.UseVisualStyleBackColor = true;
@@ -1463,26 +1592,29 @@ namespace UbsBusiness
             // lblBIK0
             // 
             this.lblBIK0.AutoSize = true;
-            this.lblBIK0.Location = new System.Drawing.Point(6, 92);
+            this.lblBIK0.Location = new System.Drawing.Point(8, 113);
+            this.lblBIK0.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblBIK0.Name = "lblBIK0";
-            this.lblBIK0.Size = new System.Drawing.Size(29, 13);
+            this.lblBIK0.Size = new System.Drawing.Size(34, 16);
             this.lblBIK0.TabIndex = 0;
             this.lblBIK0.Text = "БИК";
             // 
             // txtBIK0
             // 
-            this.txtBIK0.Location = new System.Drawing.Point(90, 88);
+            this.txtBIK0.Location = new System.Drawing.Point(120, 108);
+            this.txtBIK0.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtBIK0.MaxLength = 9;
             this.txtBIK0.Name = "txtBIK0";
-            this.txtBIK0.Size = new System.Drawing.Size(80, 20);
+            this.txtBIK0.Size = new System.Drawing.Size(105, 22);
             this.txtBIK0.TabIndex = 3;
             // 
             // lblKS0
             // 
             this.lblKS0.AutoSize = true;
-            this.lblKS0.Location = new System.Drawing.Point(176, 92);
+            this.lblKS0.Location = new System.Drawing.Point(235, 113);
+            this.lblKS0.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblKS0.Name = "lblKS0";
-            this.lblKS0.Size = new System.Drawing.Size(60, 13);
+            this.lblKS0.Size = new System.Drawing.Size(75, 16);
             this.lblKS0.TabIndex = 0;
             this.lblKS0.Text = "Корр. счет";
             // 
@@ -1491,20 +1623,22 @@ namespace UbsBusiness
             this.ucaKS0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ucaKS0.Enabled = false;
-            this.ucaKS0.Location = new System.Drawing.Point(242, 88);
+            this.ucaKS0.Location = new System.Drawing.Point(323, 108);
+            this.ucaKS0.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ucaKS0.MaxLength = 24;
             this.ucaKS0.Name = "ucaKS0";
             this.ucaKS0.ReadOnly = true;
-            this.ucaKS0.Size = new System.Drawing.Size(121, 20);
+            this.ucaKS0.Size = new System.Drawing.Size(338, 22);
             this.ucaKS0.TabIndex = 4;
             this.ucaKS0.TabStop = false;
             // 
             // lblNameBank0
             // 
             this.lblNameBank0.AutoSize = true;
-            this.lblNameBank0.Location = new System.Drawing.Point(6, 116);
+            this.lblNameBank0.Location = new System.Drawing.Point(8, 143);
+            this.lblNameBank0.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNameBank0.Name = "lblNameBank0";
-            this.lblNameBank0.Size = new System.Drawing.Size(71, 13);
+            this.lblNameBank0.Size = new System.Drawing.Size(87, 16);
             this.lblNameBank0.TabIndex = 0;
             this.lblNameBank0.Text = "Наим. банка";
             // 
@@ -1512,10 +1646,11 @@ namespace UbsBusiness
             // 
             this.txtName0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtName0.Location = new System.Drawing.Point(90, 112);
+            this.txtName0.Location = new System.Drawing.Point(120, 138);
+            this.txtName0.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtName0.Name = "txtName0";
             this.txtName0.ReadOnly = true;
-            this.txtName0.Size = new System.Drawing.Size(274, 20);
+            this.txtName0.Size = new System.Drawing.Size(541, 22);
             this.txtName0.TabIndex = 5;
             this.txtName0.TabStop = false;
             // 
@@ -1524,19 +1659,22 @@ namespace UbsBusiness
             this.ucaRS0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ucaRS0.Enabled = false;
-            this.ucaRS0.Location = new System.Drawing.Point(90, 136);
+            this.ucaRS0.Location = new System.Drawing.Point(120, 167);
+            this.ucaRS0.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ucaRS0.MaxLength = 24;
             this.ucaRS0.Name = "ucaRS0";
-            this.ucaRS0.Size = new System.Drawing.Size(274, 20);
-            this.ucaRS0.TabIndex = 6;
+            this.ucaRS0.ReadOnly = true;
+            this.ucaRS0.Size = new System.Drawing.Size(541, 22);
+            this.ucaRS0.TabIndex = 7;
             this.ucaRS0.TabStop = false;
             // 
             // lblClient0
             // 
             this.lblClient0.AutoSize = true;
-            this.lblClient0.Location = new System.Drawing.Point(6, 164);
+            this.lblClient0.Location = new System.Drawing.Point(8, 202);
+            this.lblClient0.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblClient0.Name = "lblClient0";
-            this.lblClient0.Size = new System.Drawing.Size(43, 13);
+            this.lblClient0.Size = new System.Drawing.Size(54, 16);
             this.lblClient0.TabIndex = 0;
             this.lblClient0.Text = "Клиент";
             // 
@@ -1544,17 +1682,19 @@ namespace UbsBusiness
             // 
             this.txtClient0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtClient0.Location = new System.Drawing.Point(90, 160);
+            this.txtClient0.Location = new System.Drawing.Point(120, 197);
+            this.txtClient0.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtClient0.Name = "txtClient0";
-            this.txtClient0.Size = new System.Drawing.Size(274, 20);
+            this.txtClient0.Size = new System.Drawing.Size(541, 22);
             this.txtClient0.TabIndex = 8;
             // 
             // lblNote0
             // 
             this.lblNote0.AutoSize = true;
-            this.lblNote0.Location = new System.Drawing.Point(6, 188);
+            this.lblNote0.Location = new System.Drawing.Point(8, 231);
+            this.lblNote0.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNote0.Name = "lblNote0";
-            this.lblNote0.Size = new System.Drawing.Size(70, 13);
+            this.lblNote0.Size = new System.Drawing.Size(90, 16);
             this.lblNote0.TabIndex = 0;
             this.lblNote0.Text = "Примечание";
             // 
@@ -1562,34 +1702,38 @@ namespace UbsBusiness
             // 
             this.txtNote0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNote0.Location = new System.Drawing.Point(90, 184);
+            this.txtNote0.Location = new System.Drawing.Point(120, 226);
+            this.txtNote0.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtNote0.Multiline = true;
             this.txtNote0.Name = "txtNote0";
-            this.txtNote0.Size = new System.Drawing.Size(274, 65);
+            this.txtNote0.Size = new System.Drawing.Size(541, 79);
             this.txtNote0.TabIndex = 9;
             // 
             // lblINN0
             // 
             this.lblINN0.AutoSize = true;
-            this.lblINN0.Location = new System.Drawing.Point(6, 257);
+            this.lblINN0.Location = new System.Drawing.Point(8, 316);
+            this.lblINN0.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblINN0.Name = "lblINN0";
-            this.lblINN0.Size = new System.Drawing.Size(31, 13);
+            this.lblINN0.Size = new System.Drawing.Size(37, 16);
             this.lblINN0.TabIndex = 0;
             this.lblINN0.Text = "ИНН";
             // 
             // txtINN0
             // 
-            this.txtINN0.Location = new System.Drawing.Point(90, 253);
+            this.txtINN0.Location = new System.Drawing.Point(120, 311);
+            this.txtINN0.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtINN0.Name = "txtINN0";
-            this.txtINN0.Size = new System.Drawing.Size(150, 20);
+            this.txtINN0.Size = new System.Drawing.Size(199, 22);
             this.txtINN0.TabIndex = 10;
             // 
             // chkNotAkcept0
             // 
             this.chkNotAkcept0.AutoSize = true;
-            this.chkNotAkcept0.Location = new System.Drawing.Point(90, 281);
+            this.chkNotAkcept0.Location = new System.Drawing.Point(120, 346);
+            this.chkNotAkcept0.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkNotAkcept0.Name = "chkNotAkcept0";
-            this.chkNotAkcept0.Size = new System.Drawing.Size(149, 17);
+            this.chkNotAkcept0.Size = new System.Drawing.Size(189, 20);
             this.chkNotAkcept0.TabIndex = 11;
             this.chkNotAkcept0.Text = "Безакцептное списание";
             this.chkNotAkcept0.UseVisualStyleBackColor = true;
@@ -1614,10 +1758,11 @@ namespace UbsBusiness
             this.tabPageInstr2.Controls.Add(this.lblINN1);
             this.tabPageInstr2.Controls.Add(this.txtINN1);
             this.tabPageInstr2.Controls.Add(this.chkNotAkcept1);
-            this.tabPageInstr2.Location = new System.Drawing.Point(4, 22);
+            this.tabPageInstr2.Location = new System.Drawing.Point(4, 25);
+            this.tabPageInstr2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPageInstr2.Name = "tabPageInstr2";
-            this.tabPageInstr2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageInstr2.Size = new System.Drawing.Size(663, 533);
+            this.tabPageInstr2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageInstr2.Size = new System.Drawing.Size(889, 662);
             this.tabPageInstr2.TabIndex = 1;
             this.tabPageInstr2.Text = "Продавец";
             this.tabPageInstr2.UseVisualStyleBackColor = true;
@@ -1625,31 +1770,36 @@ namespace UbsBusiness
             // linkAccountPayment1
             // 
             this.linkAccountPayment1.AutoSize = true;
-            this.linkAccountPayment1.Location = new System.Drawing.Point(6, 139);
+            this.linkAccountPayment1.Location = new System.Drawing.Point(8, 171);
+            this.linkAccountPayment1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linkAccountPayment1.Name = "linkAccountPayment1";
-            this.linkAccountPayment1.Size = new System.Drawing.Size(59, 13);
-            this.linkAccountPayment1.TabIndex = 7;
+            this.linkAccountPayment1.Size = new System.Drawing.Size(75, 16);
+            this.linkAccountPayment1.TabIndex = 6;
             this.linkAccountPayment1.TabStop = true;
             this.linkAccountPayment1.Text = "Расч. счет";
+            this.linkAccountPayment1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkAccountPayment1_LinkClicked);
             // 
             // linkListInstr1
             // 
             this.linkListInstr1.AutoSize = true;
-            this.linkListInstr1.Location = new System.Drawing.Point(6, 72);
+            this.linkListInstr1.Location = new System.Drawing.Point(8, 74);
+            this.linkListInstr1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linkListInstr1.Name = "linkListInstr1";
-            this.linkListInstr1.Size = new System.Drawing.Size(224, 13);
+            this.linkListInstr1.Size = new System.Drawing.Size(290, 16);
             this.linkListInstr1.TabIndex = 2;
             this.linkListInstr1.TabStop = true;
             this.linkListInstr1.Text = "Выбор платежной инструкции по продавцу";
+            this.linkListInstr1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkListInstr1_LinkClicked);
             // 
             // lblInstrTitlePayment1
             // 
             this.lblInstrTitlePayment1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblInstrTitlePayment1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.lblInstrTitlePayment1.Location = new System.Drawing.Point(6, 12);
+            this.lblInstrTitlePayment1.Location = new System.Drawing.Point(8, 15);
+            this.lblInstrTitlePayment1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblInstrTitlePayment1.Name = "lblInstrTitlePayment1";
-            this.lblInstrTitlePayment1.Size = new System.Drawing.Size(650, 20);
+            this.lblInstrTitlePayment1.Size = new System.Drawing.Size(870, 25);
             this.lblInstrTitlePayment1.TabIndex = 0;
             this.lblInstrTitlePayment1.Text = "Инструкция по оплате";
             this.lblInstrTitlePayment1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1657,9 +1807,10 @@ namespace UbsBusiness
             // chkCash1
             // 
             this.chkCash1.AutoSize = true;
-            this.chkCash1.Location = new System.Drawing.Point(9, 40);
+            this.chkCash1.Location = new System.Drawing.Point(12, 49);
+            this.chkCash1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkCash1.Name = "chkCash1";
-            this.chkCash1.Size = new System.Drawing.Size(125, 17);
+            this.chkCash1.Size = new System.Drawing.Size(159, 20);
             this.chkCash1.TabIndex = 1;
             this.chkCash1.Text = "Расчет через кассу";
             this.chkCash1.UseVisualStyleBackColor = true;
@@ -1668,26 +1819,29 @@ namespace UbsBusiness
             // lblBIK1
             // 
             this.lblBIK1.AutoSize = true;
-            this.lblBIK1.Location = new System.Drawing.Point(6, 92);
+            this.lblBIK1.Location = new System.Drawing.Point(8, 113);
+            this.lblBIK1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblBIK1.Name = "lblBIK1";
-            this.lblBIK1.Size = new System.Drawing.Size(29, 13);
+            this.lblBIK1.Size = new System.Drawing.Size(34, 16);
             this.lblBIK1.TabIndex = 0;
             this.lblBIK1.Text = "БИК";
             // 
             // txtBIK1
             // 
-            this.txtBIK1.Location = new System.Drawing.Point(90, 88);
+            this.txtBIK1.Location = new System.Drawing.Point(120, 108);
+            this.txtBIK1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtBIK1.MaxLength = 9;
             this.txtBIK1.Name = "txtBIK1";
-            this.txtBIK1.Size = new System.Drawing.Size(80, 20);
+            this.txtBIK1.Size = new System.Drawing.Size(105, 22);
             this.txtBIK1.TabIndex = 3;
             // 
             // lblKS1
             // 
             this.lblKS1.AutoSize = true;
-            this.lblKS1.Location = new System.Drawing.Point(176, 92);
+            this.lblKS1.Location = new System.Drawing.Point(235, 113);
+            this.lblKS1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblKS1.Name = "lblKS1";
-            this.lblKS1.Size = new System.Drawing.Size(60, 13);
+            this.lblKS1.Size = new System.Drawing.Size(75, 16);
             this.lblKS1.TabIndex = 0;
             this.lblKS1.Text = "Корр. счет";
             // 
@@ -1696,20 +1850,22 @@ namespace UbsBusiness
             this.ucaKS1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ucaKS1.Enabled = false;
-            this.ucaKS1.Location = new System.Drawing.Point(242, 88);
+            this.ucaKS1.Location = new System.Drawing.Point(323, 108);
+            this.ucaKS1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ucaKS1.MaxLength = 24;
             this.ucaKS1.Name = "ucaKS1";
             this.ucaKS1.ReadOnly = true;
-            this.ucaKS1.Size = new System.Drawing.Size(414, 20);
+            this.ucaKS1.Size = new System.Drawing.Size(554, 22);
             this.ucaKS1.TabIndex = 4;
             this.ucaKS1.TabStop = false;
             // 
             // lblNameBank1
             // 
             this.lblNameBank1.AutoSize = true;
-            this.lblNameBank1.Location = new System.Drawing.Point(6, 116);
+            this.lblNameBank1.Location = new System.Drawing.Point(8, 143);
+            this.lblNameBank1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNameBank1.Name = "lblNameBank1";
-            this.lblNameBank1.Size = new System.Drawing.Size(71, 13);
+            this.lblNameBank1.Size = new System.Drawing.Size(87, 16);
             this.lblNameBank1.TabIndex = 0;
             this.lblNameBank1.Text = "Наим. банка";
             // 
@@ -1717,10 +1873,11 @@ namespace UbsBusiness
             // 
             this.txtName1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtName1.Location = new System.Drawing.Point(90, 112);
+            this.txtName1.Location = new System.Drawing.Point(120, 138);
+            this.txtName1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtName1.Name = "txtName1";
             this.txtName1.ReadOnly = true;
-            this.txtName1.Size = new System.Drawing.Size(567, 20);
+            this.txtName1.Size = new System.Drawing.Size(757, 22);
             this.txtName1.TabIndex = 5;
             this.txtName1.TabStop = false;
             // 
@@ -1729,19 +1886,22 @@ namespace UbsBusiness
             this.ucaRS1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ucaRS1.Enabled = false;
-            this.ucaRS1.Location = new System.Drawing.Point(90, 136);
+            this.ucaRS1.Location = new System.Drawing.Point(120, 167);
+            this.ucaRS1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ucaRS1.MaxLength = 24;
             this.ucaRS1.Name = "ucaRS1";
-            this.ucaRS1.Size = new System.Drawing.Size(567, 20);
-            this.ucaRS1.TabIndex = 6;
+            this.ucaRS1.ReadOnly = true;
+            this.ucaRS1.Size = new System.Drawing.Size(757, 22);
+            this.ucaRS1.TabIndex = 7;
             this.ucaRS1.TabStop = false;
             // 
             // lblClient1
             // 
             this.lblClient1.AutoSize = true;
-            this.lblClient1.Location = new System.Drawing.Point(6, 164);
+            this.lblClient1.Location = new System.Drawing.Point(8, 202);
+            this.lblClient1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblClient1.Name = "lblClient1";
-            this.lblClient1.Size = new System.Drawing.Size(43, 13);
+            this.lblClient1.Size = new System.Drawing.Size(54, 16);
             this.lblClient1.TabIndex = 0;
             this.lblClient1.Text = "Клиент";
             // 
@@ -1749,17 +1909,19 @@ namespace UbsBusiness
             // 
             this.txtClient1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtClient1.Location = new System.Drawing.Point(90, 160);
+            this.txtClient1.Location = new System.Drawing.Point(120, 197);
+            this.txtClient1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtClient1.Name = "txtClient1";
-            this.txtClient1.Size = new System.Drawing.Size(567, 20);
+            this.txtClient1.Size = new System.Drawing.Size(757, 22);
             this.txtClient1.TabIndex = 8;
             // 
             // lblNote1
             // 
             this.lblNote1.AutoSize = true;
-            this.lblNote1.Location = new System.Drawing.Point(6, 188);
+            this.lblNote1.Location = new System.Drawing.Point(8, 231);
+            this.lblNote1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNote1.Name = "lblNote1";
-            this.lblNote1.Size = new System.Drawing.Size(70, 13);
+            this.lblNote1.Size = new System.Drawing.Size(90, 16);
             this.lblNote1.TabIndex = 0;
             this.lblNote1.Text = "Примечание";
             // 
@@ -1767,34 +1929,38 @@ namespace UbsBusiness
             // 
             this.txtNote1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNote1.Location = new System.Drawing.Point(90, 184);
+            this.txtNote1.Location = new System.Drawing.Point(120, 226);
+            this.txtNote1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtNote1.Multiline = true;
             this.txtNote1.Name = "txtNote1";
-            this.txtNote1.Size = new System.Drawing.Size(567, 65);
+            this.txtNote1.Size = new System.Drawing.Size(757, 79);
             this.txtNote1.TabIndex = 9;
             // 
             // lblINN1
             // 
             this.lblINN1.AutoSize = true;
-            this.lblINN1.Location = new System.Drawing.Point(6, 257);
+            this.lblINN1.Location = new System.Drawing.Point(8, 316);
+            this.lblINN1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblINN1.Name = "lblINN1";
-            this.lblINN1.Size = new System.Drawing.Size(31, 13);
+            this.lblINN1.Size = new System.Drawing.Size(37, 16);
             this.lblINN1.TabIndex = 0;
             this.lblINN1.Text = "ИНН";
             // 
             // txtINN1
             // 
-            this.txtINN1.Location = new System.Drawing.Point(90, 253);
+            this.txtINN1.Location = new System.Drawing.Point(120, 311);
+            this.txtINN1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtINN1.Name = "txtINN1";
-            this.txtINN1.Size = new System.Drawing.Size(150, 20);
+            this.txtINN1.Size = new System.Drawing.Size(199, 22);
             this.txtINN1.TabIndex = 10;
             // 
             // chkNotAkcept1
             // 
             this.chkNotAkcept1.AutoSize = true;
-            this.chkNotAkcept1.Location = new System.Drawing.Point(90, 281);
+            this.chkNotAkcept1.Location = new System.Drawing.Point(120, 346);
+            this.chkNotAkcept1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkNotAkcept1.Name = "chkNotAkcept1";
-            this.chkNotAkcept1.Size = new System.Drawing.Size(149, 17);
+            this.chkNotAkcept1.Size = new System.Drawing.Size(189, 20);
             this.chkNotAkcept1.TabIndex = 11;
             this.chkNotAkcept1.Text = "Безакцептное списание";
             this.chkNotAkcept1.UseVisualStyleBackColor = true;
@@ -1802,10 +1968,11 @@ namespace UbsBusiness
             // tabPage6
             // 
             this.tabPage6.Controls.Add(this.ubsCtrlField);
-            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Location = new System.Drawing.Point(4, 25);
+            this.tabPage6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(384, 215);
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage6.Size = new System.Drawing.Size(905, 699);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Дополнительные";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -1813,19 +1980,19 @@ namespace UbsBusiness
             // ubsCtrlField
             // 
             this.ubsCtrlField.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ubsCtrlField.Location = new System.Drawing.Point(3, 3);
-            this.ubsCtrlField.Margin = new System.Windows.Forms.Padding(4);
+            this.ubsCtrlField.Location = new System.Drawing.Point(4, 4);
+            this.ubsCtrlField.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.ubsCtrlField.Name = "ubsCtrlField";
             this.ubsCtrlField.ReadOnly = false;
-            this.ubsCtrlField.Size = new System.Drawing.Size(378, 209);
+            this.ubsCtrlField.Size = new System.Drawing.Size(897, 691);
             this.ubsCtrlField.TabIndex = 0;
             // 
             // UbsPmTradeFrm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(685, 623);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.ClientSize = new System.Drawing.Size(913, 767);
+            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.Name = "UbsPmTradeFrm";
             this.Text = "Сделка";
             this.panelMain.ResumeLayout(false);
@@ -1995,8 +2162,6 @@ namespace UbsBusiness
 
         // ── Tab 6 (Дополнительные) ────────────────────────────────────────────────
         private UbsControl.UbsCtrlFields ubsCtrlField;
-        private Button btnContract1;
-        private Button btnContract2;
         private LinkLabel linkStorage;
         private LinkLabel linkListInstr0;
         private LinkLabel linkAccountPayment0;
@@ -2016,7 +2181,7 @@ namespace UbsBusiness
         private Label lblTradeDirection;
         private ComboBox cmbTradeDirection;
         private Label lblObligationCurrency;
-        private ComboBox cmbObligationCurrency;
+        private ComboBox cmbCurrencyObligation;
         private Label lblUnit;
         private ComboBox cmbUnit;
         private Label lblCostUnit;
@@ -2024,7 +2189,7 @@ namespace UbsBusiness
         private CheckBox chkRate;
         private UbsControl.UbsCtrlDecimal ucdRateCurOblig;
         private CheckBox chkSumInCurValue;
-        private UbsControl.UbsCtrlDecimal ucdCostCurOpl;
+        private UbsControl.UbsCtrlDecimal ucdCostCurPayment;
         private GroupBox grpMetalChar;
         private Label lblDatePost;
         private UbsControl.UbsCtrlDate datePost;
@@ -2041,5 +2206,7 @@ namespace UbsBusiness
         private UbsControl.UbsCtrlDecimal ucdSumPayment;
         private TableLayoutPanel tableLayoutPanel6;
         private TableLayoutPanel tableLayoutPanel7;
+        private LinkLabel linkContract2;
+        private LinkLabel linkContract1;
     }
 }
