@@ -20,6 +20,9 @@
 | CREATIVE (8 handler docs) | ✅ Complete | 2026-03-26–27 |
 | BUILD (InitDoc full + event handlers) | ✅ Complete | 2026-03-27 |
 | REFLECT (Phase 2 event handlers) | ✅ Complete | 2026-03-27 |
+| CREATIVE (3 docs: save + calc + oblig) | ✅ Complete | 2026-03-30 |
+| BUILD (all 3 creative checklists) | ✅ Complete | 2026-03-30 |
+| REFLECT (comprehensive final) | ✅ Complete | 2026-04-01 |
 
 ## Detailed Log
 
@@ -119,6 +122,15 @@
 - **Phase 7 (wiring):** 17 events wired in Designer.cs (5 Leave, 4 SelectedIndexChanged, 6 LinkClicked, 2 Click). Fixed pre-existing `var` → explicit types, collection initializer → Add() calls, `Ubs_ActionRun` signature.
 - **Build verification:** 0 compilation errors. DLL produced: `UbsPmTradeFrm.dll` (100 KB).
 
+### 2026-04-01 — REFLECT (comprehensive final)
+
+- Produced comprehensive Level 4 reflection: `memory-bank/reflection/reflection-trade-conversion.md`.
+- Reviewed full project lifecycle: 7 calendar days, ~8 sessions, 9 C# files, ~5670 total lines.
+- Documented 7 key achievements (creative-first discipline, two-phase designer planning, incremental reflections, static utility extraction, suppress-flag discipline, full InitDoc parity, save flow with change detection).
+- Documented 6 challenges with resolutions (file loss, 2D transposition, contract cascade, tab visibility, .NET 2.0 restrictions, CallOblig stub).
+- Catalogued 11 creative documents, 4 plan documents, 4 reflection documents as knowledge transfer artifacts.
+- Updated tasks.md with reflection status and highlights.
+
 ## What Remains
 
 - [x] CREATIVE: Obligation add/edit/view lifecycle — `creative-call-oblig-lifecycle.md`
@@ -127,4 +139,5 @@
 - [x] BUILD: Obligation lifecycle (18 items)
 - [x] BUILD: Calculation chain + LostFocus handlers (24 items)
 - [x] BUILD: Save flow + validation (13 items)
-- [ ] Phase 3 Post: Partials split, final reflection, archive
+- [x] REFLECT: Comprehensive final reflection — `reflection-trade-conversion.md`
+- [ ] Phase 3 Post: Partials split (optional), archive

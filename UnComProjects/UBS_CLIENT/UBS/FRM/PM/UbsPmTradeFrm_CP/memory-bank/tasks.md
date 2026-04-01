@@ -152,4 +152,14 @@
 - [x] **CREATIVE (8 handler docs)** — `creative-initdoc-full-conversion.md`, `creative-cmb-contract-type-click.md`, `creative-cmb-kind-supply-trade-click.md`, `creative-sstabs-before-tab-click.md`, `creative-chk-is-composit-click.md`, `creative-chk-nds-rate-sum-in-cur.md`, `creative-form-refactor-regions-and-support.md`, `creative-trade-account-control-and-indexes.md`.
 - [x] **BUILD (InitDoc full + event handlers)** — InitDoc EDIT/ADD full parity, all major handlers ported (`ApplyContractType1/2Change`, `ApplyKindSupplyUiState`, `chkComposit_CheckedChanged`, `chkRate/SumInCurValue_CheckedChanged`, `chkNDS/UpdateDisplayExport/UpdateDisplayNDS`, `tabControl_Selecting` guard, `ApplyDataTabUiOnSelecting`), contract pickers wired, DDX replaced by `m_mc`, payment tab management. **~1780 lines, build OK.**
 - [x] **REFLECT (Phase 2 event handlers)** — `reflection-phase2-event-handlers.md` (2026-03-27). Phase 2 ~70% complete.
-- **NEXT:** BUILD — obligation lifecycle (`CallOblig`, add/edit/view) + save flow (`BuildSaveParams`, `ModifyTrade`).
+- [x] **CREATIVE (3 docs: save flow, calc chain, oblig lifecycle)** — `creative-save-flow-and-validation.md`, `creative-calc-chain-events.md`, `creative-call-oblig-lifecycle.md`.
+- [x] **BUILD (all 3 creative checklists)** — Fields + constants, helpers, 5 LostFocus + 5 combo events, validation (CheckData 14 checks + CheckDatesOblig), save flow (UpdateMcFromControls + cmdSave_Click + ModifyTrade), sub-form pickers, 17 events wired. **3126 lines, 0 errors, DLL 100 KB.**
+- [x] **REFLECT (comprehensive final)** — `reflection-trade-conversion.md` (2026-04-01). Phase 2 ~95% complete.
+- [ ] **ARCHIVE** — `archive-trade-conversion.md`
+
+## Reflection Highlights
+
+- **What Went Well**: Creative-first discipline (11 docs, zero rework); two-phase designer planning; incremental reflections; static utility extraction
+- **Challenges**: Designer file loss (mitigated by plan docs); 2D array transposition (documented convention); contract-type cascade (split into Apply* methods); .NET 2.0 restrictions
+- **Lessons Learned**: Screenshot review mandatory; document array shapes before coding; use TabPage object refs not indices; suppress flags with try/finally
+- **Next Steps**: Integration testing with real channel data; partial class split when needed; archive

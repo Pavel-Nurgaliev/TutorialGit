@@ -1,47 +1,45 @@
 # Memory Bank: Active Context
 
-## Current Phase — Phase 2; ~95% complete
+## Current Phase — REFLECT complete; ready for ARCHIVE
 
-**Date:** 2026-03-30
+**Date:** 2026-04-01
 
-InitDoc fully converted. All major event handlers ported. Contract pickers wired. DDX replaced by `m_mc` dictionary. **Reflection complete.** All 3 creative docs implemented and verified. **BUILD COMPLETE — 0 compilation errors.**
-
-## Current Focus
-
-**BUILD COMPLETE:** All 3 creative checklists fully implemented:
-1. `creative-call-oblig-lifecycle.md` — 18/18 items ✅
-2. `creative-save-flow-and-validation.md` — 13/13 items ✅
-3. `creative-calc-chain-events.md` — 24/24 items ✅
+Phase 2 conversion ~95% complete. All creative checklists implemented. Comprehensive Level 4 reflection produced. **0 compilation errors. DLL: UbsPmTradeFrm.dll (100 KB).**
 
 ## What Was Just Done
 
-- **BUILD (all phases):** Implemented 7 phases covering all remaining form logic:
-  - New fields (`m_strCB`, `m_blnConvert`, `m_initialMc`, etc.) + 22 new constants
-  - Helper methods: `GetMassaPrecision`, `CheckKey`, `CheckINN`, `FillKS`, `FillArrOblig`, `FillArrDataInstr`, `IsEqualNumCodeCurr`
-  - 5 LostFocus handlers + 5 combo events including complex `cmbCurrencyPost_SelectedIndexChanged`
-  - Full validation: `CheckData` (14 checks) + `CheckDatesOblig` (dates + RS currency)
-  - Full save flow: `UpdateMcFromControls` + `SnapshotMc` + `IsMainDataChanged` + `cmdSave_Click` (ModifyTrade)
-  - Sub-form pickers: instruction, storage, account, objects
-  - 17 events wired in Designer.cs
-  - Fixed pre-existing build issues (`var` → explicit types, collection initializers, `Ubs_ActionRun` signature)
+- **REFLECT (comprehensive final):** Produced `memory-bank/reflection/reflection-trade-conversion.md` — full Level 4 reflection covering:
+  - System overview (9 files, ~5670 lines)
+  - Project performance (7 days, ~8 sessions)
+  - 7 key achievements with evidence
+  - 6 challenges with resolutions
+  - 5 technical insights
+  - 5 process insights
+  - 3 business insights
+  - Strategic actions (immediate + short/medium-term)
+  - Knowledge transfer catalogue (11 creative docs, 4 plans, 4 reflections)
+- Updated `tasks.md` with reflection status and highlights
+- Updated `progress.md` with reflection entry
 
-## Implemented Since Last Reflection (2026-03-27)
+## Project Summary (for ARCHIVE)
 
-| Area | Key Methods |
-|------|-------------|
-| Calc helpers | `GetMassaPrecision`, `UpdateObligInfoLabel`, `ExistObject`, `DefineArrStrNumInPart` |
-| BIK/Key/INN | `FillKS`, `CheckKey`, `CheckINN` (3 channel calls) |
-| LostFocus | `ucdMass_Leave`, `ucdCostUnit_Leave`, `ucdRateCurOblig_Leave`, `ucdCostCurOpl_Leave`, `dateTrade_Leave` |
-| Combo events | `cmbObligationCurrency/CurrencyPayment/CurrencyPost/Unit_SelectedIndexChanged`, `ubsCtrlField_TextChange` |
-| Validation | `CheckData` (14 checks), `CheckDatesOblig` (DefineCodCurrency channel + date loop) |
-| Save flow | `UpdateMcFromControls`, `SnapshotMc`, `IsMainDataChanged`, `cmdSave_Click` (ModifyTrade) |
-| Serialization | `FillArrOblig` (`object[count,12]`), `FillArrDataInstr` (`object[1,8]`), `IsEqualNumCodeCurr` |
-| Sub-form pickers | `linkListInstr0/1`, `linkStorage`, `linkAccountPayment0/1`, `cmdAddObject`, `cmdDelObject` |
+| Metric | Value |
+|--------|-------|
+| Source (VB6) | `Pm_Trade_ud.dob` — 5365 lines |
+| Target (.NET) | 9 C# files — ~5670 lines total |
+| Main code-behind | `UbsPmTradeFrm.cs` — 3126 lines |
+| Designer | `UbsPmTradeFrm.Designer.cs` — 2072 lines |
+| Channel commands | 14+ distinct commands |
+| Creative documents | 11 |
+| Reflection documents | 4 (designer, bootstrap, handlers, final) |
+| Plan documents | 4 |
+| Compilation errors | 0 |
+| Build warnings | 2 pre-existing (CS0414, CS1591) |
 
 ## Immediate Next Actions
 
-1. **REFLECT:** Review the full build, identify remaining gaps or edge cases
-2. **Phase 3 Post:** Partials split (optional), final reflection, archive
+1. **ARCHIVE:** Produce `memory-bank/archive/archive-trade-conversion.md` — merge tasks.md checklists + reflection highlights
+2. Clear `tasks.md` for next task
 
 ## Open Questions / Risks
 
