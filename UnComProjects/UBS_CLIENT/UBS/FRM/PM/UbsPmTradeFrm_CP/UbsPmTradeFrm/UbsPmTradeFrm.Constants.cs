@@ -2,18 +2,24 @@
 
 namespace UbsBusiness
 {
-    public partial class UbsPmTradeFrm : UbsFormBase
+    public partial class UbsPmTradeFrm
     {
         private const string LoadResource = @"VBS:UBS_VBD\PM\Pm_Trade.vbs";
+        private const string DelLoadResource = @"VBS:UBS_VBS\PM\DelTradeSrv.vbs";
 
-        private const string PM_ACCOUNTS_BY_OBLIGATION = @"UBS_FLT\PM\PM_ACCOUNTS_BY_OBLIGATION.flt";
-        private const string PM_FOR_OPERATION_SALE = @"UBS_FLT\PM\PM_FOR_OPERATION_SALE.flt";
-        private const string PM_FOR_OPERATION = @"UBS_FLT\PM\PM_FOR_OPERATION.flt";
-        private const string ACCOUNT0_FLT = @"UBS_FLT\OD\account0.flt";
+        private const string UBS_PM_BROKER_LIST = @"UBS_PM_BROKER_LIST";
+        private const string UBS_PM_CONTRACT_LIST = @"UBS_PM_CONTRACT_LIST";
 
-        // Run-mode commands passed through ListKey/CommandLine.
+        private const string PM_ACCOUNTS_BY_OBLIGATION = @"UBS_PM_ACCOUNTS_BY_OBLIGATION";
+        private const string PM_FOR_OPERATION_SALE = @"UBS_PM_FOR_OPERATION_SALE";
+        private const string PM_FOR_OPERATION = @"UBS_PM_PM_FOR_OPERATION";
+        private const string ACCOUNT0_FLT = @"UBS_OD_LIST_ACCOUNT0";
+        private const string UBS_PM_EXTERNAL_STORAGES_LIST = @"UBS_PM_EXTERNAL_STORAGES_LIST";
+        private const string UBS_PM_STORAGE_LIST = @"UBS_PM_STORAGE_LIST";
+
         private const string CmdAdd = "ADD";
         private const string CmdEdit = "EDIT";
+        private const string CmdDel = "DEL";
 
         private const string MsgListEmpty = "Не выбрана запись для редактирования";
 

@@ -140,7 +140,7 @@ Width = 6555
 _ExtentX = 11562
 _ExtentY = 12039
 _Version = 131083
-TabGuid = "Pm_Trade_ud.dox" :       01D1
+TabGuid = "Pm_Trade_ud.dox" :         01D1
          Begin ActiveTabs.SSActiveTabs SSTabs1 
             Height = 6255
 Left = 240
@@ -153,7 +153,7 @@ _Version = 131083
 TabCount = 2
 ControlCount = 1
 TagVariant = ""
-Tabs = "Pm_Trade_ud.dox" :       01F9
+Tabs = "Pm_Trade_ud.dox" :         01F9
             Begin VB.CommandButton cmdAccounts 
                Caption = "..."
 Height = 315
@@ -188,7 +188,7 @@ Width = 5955
 _ExtentX = 10504
 _ExtentY = 10345
 _Version = 131083
-TabGuid = "Pm_Trade_ud.dox" :       027B
+TabGuid = "Pm_Trade_ud.dox" :         027B
                Begin VB.CommandButton cmdAddObject 
                   Caption = "Добавить"
 Height = 375
@@ -289,7 +289,7 @@ Width = 5955
 _ExtentX = 10504
 _ExtentY = 10345
 _Version = 131083
-TabGuid = "Pm_Trade_ud.dox" :       02A3
+TabGuid = "Pm_Trade_ud.dox" :         02A3
                Begin VB.CheckBox chkSumInCurValue 
                   Alignment = 1  'Right Justify
 Caption = "Цена за ед. в валюте оплаты"
@@ -614,7 +614,7 @@ Width = 6555
 _ExtentX = 11562
 _ExtentY = 12039
 _Version = 131083
-TabGuid = "Pm_Trade_ud.dox" :       02CB
+TabGuid = "Pm_Trade_ud.dox" :         02CB
          Begin VB.CommandButton cmdAddOblig 
             Caption = "Добавить"
 Height = 375
@@ -724,7 +724,7 @@ Width = 6555
 _ExtentX = 11562
 _ExtentY = 12039
 _Version = 131083
-TabGuid = "Pm_Trade_ud.dox" :       02F3
+TabGuid = "Pm_Trade_ud.dox" :         02F3
          Begin VB.ComboBox cmbComission 
             Height = 315
 Left = 1440
@@ -849,9 +849,9 @@ Top = 2160
 Width = 6300
             Begin VB.ComboBox cmbContractType1 
                Height = 315
-ItemData = "Pm_Trade_ud.dox" :       031B
+ItemData = "Pm_Trade_ud.dox" :         031B
                Left = 1080
-List = "Pm_Trade_ud.dox" :       031D
+List = "Pm_Trade_ud.dox" :         031D
                Style = 2  'Dropdown List
 TabIndex = 8
 Top = 240
@@ -859,9 +859,9 @@ Width = 2955
 End
             Begin VB.ComboBox cmbContractType2 
                Height = 315
-ItemData = "Pm_Trade_ud.dox" :       031F
+ItemData = "Pm_Trade_ud.dox" :         031F
                Left = 1080
-List = "Pm_Trade_ud.dox" :       0321
+List = "Pm_Trade_ud.dox" :         0321
                Style = 2  'Dropdown List
 TabIndex = 10
 Top = 1080
@@ -1001,7 +1001,7 @@ Width = 6555
 _ExtentX = 11562
 _ExtentY = 12039
 _Version = 131083
-TabGuid = "Pm_Trade_ud.dox" :       0323
+TabGuid = "Pm_Trade_ud.dox" :         0323
          Begin ActiveTabs.SSActiveTabs SSActiveTabs1 
             Height = 6135
 Left = 120
@@ -1013,7 +1013,7 @@ _ExtentY = 10821
 _Version = 131083
 TabCount = 2
 TagVariant = ""
-Tabs = "Pm_Trade_ud.dox" :       034B
+Tabs = "Pm_Trade_ud.dox" :         034B
             Begin ActiveTabs.SSActiveTabPanel SSActiveTabPanel4 
                Height = 5745
 Left = -99969
@@ -1023,7 +1023,7 @@ Width = 6195
 _ExtentX = 10927
 _ExtentY = 10134
 _Version = 131083
-TabGuid = "Pm_Trade_ud.dox" :       03CB
+TabGuid = "Pm_Trade_ud.dox" :         03CB
                Begin VB.CheckBox chkNotAkcept 
                   Caption = "Безакцептное списание"
 Height = 375
@@ -1240,7 +1240,7 @@ Width = 6195
 _ExtentX = 10927
 _ExtentY = 10134
 _Version = 131083
-TabGuid = "Pm_Trade_ud.dox" :       03F3
+TabGuid = "Pm_Trade_ud.dox" :         03F3
                Begin VB.CheckBox chkNotAkcept 
                   Caption = "Безакцептное списание"
 Height = 375
