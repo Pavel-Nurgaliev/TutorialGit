@@ -1,0 +1,117 @@
+[Root]
+Most Recent Package=Internet Package 1
+
+
+[Package|Internet Package 1|Root]
+SubWizProgID=PDWizard.InetCABPkgSubWiz
+BuildFolder=D:\TEMP\vbp\OP_RET_OPER\Package
+
+[Package|Internet Package 1|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Internet Package 1|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Internet Package 1|Files Found]
+
+[Package|Internet Package 1|Files Released]
+
+[Package|Internet Package 1|Missing Dependency Information]
+D:\WINNT\system32\UbsChlCtrl.ocx=
+D:\WINNT\system32\UbsInfo.ocx=
+D:\WINNT\system32\UbsDDXCtrl.ocx=
+D:\WINNT\system32\UBSParrents.dll=
+D:\WINNT\system32\UBSChilds.dll=
+D:\WINNT\system32\UbsCtrl.dll=
+D:\Program Files\UniSAB\ActiveX\Ubs\UbsChlCtrl.ocx=
+D:\Program Files\UniSAB\ActiveX\Ubs\UbsInfo.ocx=
+D:\Program Files\UniSAB\ActiveX\Ubs\UbsDDXCtrl.ocx=
+D:\Program Files\UniSAB\ActiveX\Ubs\UbsCtrl.dll=
+C:\Program Files\UniSAB\UBS\VBD\OC\sstabs2.ocx=
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsChlCtrl.ocx=
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsInfo.ocx=
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsDDXCtrl.ocx=
+C:\Program Files\UniSAB\ActiveX\Ubs\UBSParrents.dll=
+C:\Program Files\UniSAB\ActiveX\Ubs\UBSChilds.dll=
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsCtrl.dll=
+
+[Package|Internet Package 1|Out-of-Date Dependency Information]
+
+[Package|Internet Package 1|Files Added]
+
+[Package|Internet Package 1|Files Removed]
+d:\winnt\system32\msvcrt.dll=
+d:\program files\sheridan\activetoolbarsplus\sstabs2.ocx=
+d:\winnt\system32\ubschilds.dll=
+d:\winnt\system32\ubschlctrl.ocx=
+d:\winnt\system32\ubsctrl.dll=
+d:\winnt\system32\ubsddxctrl.ocx=
+d:\winnt\system32\ubsinfo.ocx=
+d:\winnt\system32\ubsparrents.dll=
+d:\winnt\system32\msvbvm60.dll=
+d:\microsoft visual studio\vb98\wizards\pdwizard\redist\oleaut32.dll=
+d:\microsoft visual studio\vb98\wizards\pdwizard\redist\olepro32.dll=
+d:\microsoft visual studio\vb98\wizards\pdwizard\redist\asycfilt.dll=
+d:\microsoft visual studio\vb98\wizards\pdwizard\redist\stdole2.tlb=
+d:\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
+d:\program files\unisab\activex\ubs\ubschlctrl.ocx=
+d:\program files\unisab\activex\ubs\ubsctrl.dll=
+d:\program files\unisab\activex\ubs\ubsddxctrl.ocx=
+d:\program files\unisab\activex\ubs\ubsinfo.ocx=
+c:\program files\unisab\ubs\vbd\oc\sstabs2.ocx=
+c:\program files\unisab\activex\ubs\ubschilds.dll=
+c:\program files\unisab\activex\ubs\ubschlctrl.ocx=
+c:\program files\unisab\activex\ubs\ubsctrl.dll=
+c:\program files\unisab\activex\ubs\ubsddxctrl.ocx=
+c:\program files\unisab\activex\ubs\ubsinfo.ocx=
+c:\program files\unisab\activex\ubs\ubsparrents.dll=
+c:\windows\system32\msvbvm60.dll=
+c:\windows\system32\oleaut32.dll=
+c:\windows\system32\olepro32.dll=
+c:\windows\system32\asycfilt.dll=
+c:\windows\system32\stdole2.tlb=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
+
+[Package|Internet Package 1|Files In Project]
+D:\TEMP\vbp\OP_RET_OPER\op_ret_oper.dll=Yes
+C:\WINDOWS\system32\msvbvm60.dll=No
+C:\WINDOWS\system32\oleaut32.dll=No
+C:\WINDOWS\system32\olepro32.dll=No
+C:\WINDOWS\system32\asycfilt.dll=No
+C:\WINDOWS\system32\stdole2.tlb=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=No
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsCtrl.dll=No
+C:\Program Files\UniSAB\ActiveX\Ubs\UBSChilds.dll=No
+C:\Program Files\UniSAB\ActiveX\Ubs\UBSParrents.dll=No
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsDDXCtrl.ocx=No
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsInfo.ocx=No
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsChlCtrl.ocx=No
+C:\Program Files\UniSAB\UBS\VBD\OC\sstabs2.ocx=No
+
+[Package|Internet Package 1|Configure Registry Files]
+Applicable=No
+
+[Package|Internet Package 1|Configure Remote Servers]
+Applicable=No
+
+[Package|Internet Package 1|Install Locations]
+
+[Package|Internet Package 1|Configure Shared Files]
+Applicable=
+
+[Package|Internet Package 1|ComponentInfo]
+op_ret_oper.dll=thiscab
+
+[Package|Internet Package 1|ObjectInfo]
+OP_ret_oper_ud=true;true
+
+[Package|Internet Package 1|Package]
+PackageFolder=D:\TEMP\vbp\OP_RET_OPER\Package
+ProjectFolder=D:\TEMP\vbp\OP_RET_OPER
+ServerSideCab=D:\TEMP\vbp\OP_RET_OPER\Package\op_ret_oper.CAB
+File1=D:\TEMP\vbp\OP_RET_OPER\Package\op_ret_oper.CAB
+File2=D:\TEMP\vbp\OP_RET_OPER\Package\OP_ret_oper_ud.VBD
+File3=D:\TEMP\vbp\OP_RET_OPER\Package\op_ret_oper.HTM
+Handler1=PDWizard.WebPostDplySubWiz
+Handler2=PDWizard.FolderDplySubWiz

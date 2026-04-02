@@ -90,7 +90,7 @@ namespace UbsBusiness
                     {
                         base.IUbsChannel.LoadResource = DelSimpleObjectLoadResource;
                         base.IUbsChannel.ParamIn("KeyArray", param_in);
-                        base.IUbsChannel.ParamIn("ProgId", "UbsGuarantyModel");
+                        base.IUbsChannel.ParamIn("ProgId", "UbsOpCommission");
                         base.IUbsChannel.Run("DeleteInstances");
 
                         IUbs iubs = Control.FromHandle((IntPtr)base.IUbs.Run("ParentHandle", null)) as IUbs;
