@@ -1,0 +1,20 @@
+---
+description: 
+alwaysApply: true
+---
+
+//form convertation should not intend to change the template structure
+
+panelMain should exists;
+tableLayoutPanel height should be the same as it UbsFormTemplate; (D:\Repositories\TutorialGit\UnComProjects\UBS_CLIENT\UBS\FRM\TMP_CP\UbsFormProject1\)
+
+//VB6 OCX → .NET controls
+
+| VB6 | .NET |
+|-----|------|
+| SSActiveTabs | `TabControl` |
+| UbsControlMoney | `UbsCtrlDecimal` |
+| UbsControlDate | `UbsCtrlDate` (or `DateTimePicker`) |
+| UbsControlProperty / ucpParam | `UbsCtrlFields` / AddFields support |
+| UbsInfo | `UbsCtrlInfo` |
+| MSCOMCTL ListView | `System.Windows.Forms.ListView` |
