@@ -7,8 +7,8 @@
     <ProjectGuid>{8CFD5570-CF86-4055-B7A5-69BADC1BF64C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UbsFormTemplate</RootNamespace>
-    <AssemblyName>UbsFormTemplate</AssemblyName>
+    <RootNamespace>UbsPmTradeFrm</RootNamespace>
+    <AssemblyName>UbsPmTradeFrm</AssemblyName>
     <StartupObject>
     </StartupObject>
     <FileUpgradeFlags>
@@ -80,21 +80,57 @@
       <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsInterface.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UbsCtrlDecimal">
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsCtrlDecimal.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UbsCtrlDate">
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsCtrlDate.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UbsCtrlFields">
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsCtrlFields.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UbsCtrlAccount">
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsCtrlAccount.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UbsForm1.cs">
+    <Compile Include="FrmInstr.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UbsForm1.Designer.cs">
-      <DependentUpon>UbsForm1.cs</DependentUpon>
+    <Compile Include="FrmInstr.Designer.cs">
+      <DependentUpon>FrmInstr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UbsPmTradeFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UbsPmTradeComboUtil.cs" />
+    <Compile Include="UbsPmTradeMatrixUtil.cs" />
+    <Compile Include="UbsPmTradeObligParamUtil.cs" />
+    <Compile Include="UbsPmTradeFrm.Constants.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UbsPmTradeFrm.Designer.cs">
+      <DependentUpon>UbsPmTradeFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="UbsForm1.resx">
+    <EmbeddedResource Include="FrmInstr.resx">
+      <DependentUpon>FrmInstr.cs</DependentUpon>
       <SubType>Designer</SubType>
-      <DependentUpon>UbsForm1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UbsPmTradeFrm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>UbsPmTradeFrm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)$(ProjectName)*" "\\Develop\ubs_nt\UBS_CLIENT\UBS\FRM\PM"
+copy "$(TargetDir)$(ProjectName)*" "C:\ProgramData\UniSAB\UBS\FRM\PM\"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
