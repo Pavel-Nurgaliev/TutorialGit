@@ -44,6 +44,13 @@ Follow **`plan-phase-b-main-tab.md`** (B.1 Designer → B.7 helpers).
 
 - [ ] Phases D–E per `plan-ubspcontractfrm-conversion.md` (add-fields depth, save/validation).
 
+### Recipient helpers (2026-04-03)
+
+- [x] **CREATIVE** — `memory-bank/creative/creative-enablefieldscl-recipient.md` — `EnableFieldsCl`: INN + address enabled iff `m_idClient <= 0` (VB6 parity); no `m_blnArbitrary` branch.
+- [x] **BUILD** — `EnableFieldsCl` in `UbsPsContractFrm.InitDoc.cs` (replaces stub).
+- [x] **CREATIVE** — `memory-bank/creative/creative-getbanknameacc-bik-lookup.md` — `GetBankNameAcc` + `SetSignOurBik`: `ReadBankBIK`, matrix/flat `ParamOut`, `m_blnIsOurBik`, link enable rules.
+- [x] **BUILD** — `GetBankNameAcc` / `SetSignOurBik` in `InitDoc.cs` + `m_blnIsOurBik` in `UbsPsContractFrm.cs`; channel §4.10 updated.
+
 ## Design decisions (2026-04-02)
 
 | Topic | Decision | Doc |
@@ -51,6 +58,8 @@ Follow **`plan-phase-b-main-tab.md`** (B.1 Designer → B.7 helpers).
 | IUbs init | **CommandLine** = ADD/EDIT; **ListKey** = id / composite array; extend if host sends full `InitParamForm` blob | `creative-ubspcontractfrm-conversion-architecture.md` |
 | DDX | **D2** — explicit change/build of param list; v1 can send full field set like post–`MembersValue` | same |
 | Channel reference | Single inventory for all `Run` + `STRCOMMAND` variants | `creative-ubspcontractfrm-channel-contract.md` |
+| `EnableFieldsCl` | **Option A** — `udcRecipientInn` / `txtRecipientAddress` enabled only when `m_idClient <= 0`; no arbitrary override | `creative-enablefieldscl-recipient.md` |
+| `GetBankNameACC` | **Option A** — `ReadBankBIK` + `NUM` gate; `Parameters` matrix then flat `BANKNAME`/`CORRACC`; `SetSignOurBik` in `finally`; respect `m_blnArbitrary` for link | `creative-getbanknameacc-bik-lookup.md` |
 
 ## Reference
 

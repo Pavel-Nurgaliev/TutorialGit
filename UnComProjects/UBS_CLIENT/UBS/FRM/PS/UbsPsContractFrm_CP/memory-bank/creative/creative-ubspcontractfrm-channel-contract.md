@@ -97,7 +97,16 @@ These are **not** `UbsChannel.Run` — they are **shell → form** entry points.
 
 | ParamIn | ParamOut |
 |---------|----------|
-| `BIC` | `NUM`, bank info fields as used in `GetBankNameACC` |
+| `BIC` | `NUM` (int; **> 0** means success like VB6) |
+
+**Client fill rules (legacy `GetBankNameACC`):**
+
+- **`BANKNAME`** → `txtBankName` (overwrite).
+- **`CORRACC`** → `ucaCorrespondentAccount` only if current value is empty or **`00000000000000000000`**.
+
+**Payload shape:** VB6 reads `objParamOut.Parameters` as a 2D matrix: keys in one dimension, values in the other (`BANKNAME`, `CORRACC` rows). The .NET client tries, in order: matrix under out-key **`Parameters`** (rank 2, either **`[n, 2]`** or **`[2, n]`**), then scalar out-keys **`BANKNAME`** / **`CORRACC`** if the marshaller flattens them.
+
+**Post-step:** `setSignOurBIK` — compare BIC to `BIKBANK` from `InitFormContract`; enable account browse (`linkRecipientClient`) only when equal and not arbitrary-contract mode.
 
 #### 4.11 `SearchAccClient`
 

@@ -1,4 +1,4 @@
-namespace UbsBusiness
+﻿namespace UbsBusiness
 {
     public partial class UbsPsContractFrm
     {
@@ -33,6 +33,12 @@ namespace UbsBusiness
         #region UbsCtrlFields support key
 
         private const string AddFieldsSupportKey = "Доп. поля";
+
+        #endregion
+
+        #region ReadBankBIK (legacy GetBankNameACC)
+
+        private const string CorrespondentAccountPlaceholder = "00000000000000000000";
 
         #endregion
 

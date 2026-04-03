@@ -71,7 +71,7 @@ _ExtentY = 10398
 _Version = 131082
 TabCount = 3
 TagVariant = ""
-Tabs = "Contract.dox" : 0000
+Tabs = "Contract.dox" :  0000
       Begin UbsInfo32.Info Info 
          Height = 255
 Left = 240
@@ -98,11 +98,11 @@ Width = 7995
 _ExtentX = 14102
 _ExtentY = 9710
 _Version = 131082
-TabGuid = "Contract.dox" : 00C0
+TabGuid = "Contract.dox" :  00C0
          Begin UBSPROPLibCtl.UbsControlProperty AddProperties 
             Height = 4515
 Left = 0
-OleObjectBlob = "Contract.dox" : 00E8
+OleObjectBlob = "Contract.dox" :  00E8
             TabIndex = 27
 Top = 120
 Width = 7815
@@ -117,7 +117,7 @@ Width = 7995
 _ExtentX = 14102
 _ExtentY = 9710
 _Version = 131082
-TabGuid = "Contract.dox" : 0118
+TabGuid = "Contract.dox" :  0118
          Begin VB.Frame frmCommis 
             Caption = "Комиссия с плательщика "
 Height = 1515
@@ -238,7 +238,7 @@ Width = 7995
 _ExtentX = 14102
 _ExtentY = 9710
 _Version = 131082
-TabGuid = "Contract.dox" : 0140
+TabGuid = "Contract.dox" :  0140
          Begin UBSCTRLLibCtl.UbsControlDate txtDateClose 
             Height = 315
 Left = 5160

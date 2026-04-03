@@ -17,9 +17,10 @@ namespace UbsBusiness
         private int m_idClient = 0;
         private string m_idKind = string.Empty;
         private string m_strOurBik = string.Empty;
-        private int m_nIdOiDefault = 0;
+        private int m_idOiDefault = 0;
         private bool m_blnArbitrary = false;
         private bool m_blnMayBeArbitrary = false;
+        private bool m_blnIsOurBik = false;
         private bool m_blnIsPublicPayments = true;
 
         #endregion

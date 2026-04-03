@@ -29,7 +29,7 @@ namespace UbsBusiness
             if (idx == CommissionComboIndexDisablePercentFirst || idx == CommissionComboIndexDisablePercentSecond)
             {
                 udcPayerCommissionPercent.Enabled = false;
-                udcPayerCommissionPercent.Text = "0";
+                udcPayerCommissionPercent.DecimalValue = 0m;
             }
             else
             {
@@ -48,7 +48,7 @@ namespace UbsBusiness
             if (idx == CommissionComboIndexDisablePercentFirst || idx == CommissionComboIndexDisablePercentSecond)
             {
                 udcRecipientCommissionPercent.Enabled = false;
-                udcRecipientCommissionPercent.Text = "0";
+                udcRecipientCommissionPercent.DecimalValue = 0m;
             }
             else
             {

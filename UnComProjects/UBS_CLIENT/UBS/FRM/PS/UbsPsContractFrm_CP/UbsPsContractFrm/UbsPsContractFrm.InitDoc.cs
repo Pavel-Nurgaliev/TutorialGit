@@ -36,13 +36,13 @@ namespace UbsBusiness
                 var initOut = base.IUbsChannel.ParamsOutParam;
 
                 m_strOurBik = initOut.Contains("BIKBANK") ? Convert.ToString(initOut.Value("BIKBANK")) : string.Empty;
-                m_nIdOiDefault = initOut.Contains("nIdOI") ? Convert.ToInt32(initOut.Value("nIdOI")) : 0;
+                m_idOiDefault = initOut.Contains("nIdOI") ? Convert.ToInt32(initOut.Value("nIdOI")) : 0;
                 object arrExecutors = initOut.Contains("varExecutors") ? initOut.Value("varExecutors") : null;
-                object varState = initOut.Contains("VARSTATE") ? initOut.Value("VARSTATE") : null;
+                object arrState = initOut.Contains("VARSTATE") ? initOut.Value("VARSTATE") : null;
 
                 base.UbsInit();
 
-                FillCommissionTypeCombos(varState);
+                FillCommissionTypeCombos(arrState);
 
                 SetupContractStatusComboVisibility();
 
@@ -154,15 +154,15 @@ namespace UbsBusiness
                 else
                 {
                     ClearCommissionFieldsForAdd();
-                    ucdContract.DateValue = DateTime.Now;
-                    FillExecutors(arrExecutors, m_nIdOiDefault);
+                    ucdContract.DateValue = GetCurrentDate();
+                    FillExecutors(arrExecutors, m_idOiDefault);
                 }
 
                 EnableSumCommissionControls();
 
                 ucfAdditionalFields.Refresh();
-                GetBankNameAccStub();
-                EnableFieldsClStub();
+                GetBankNameAcc();
+                EnableFieldsCl();
 
                 if (string.Equals(m_command, CmdAdd, StringComparison.Ordinal))
                 {
@@ -176,6 +176,15 @@ namespace UbsBusiness
             {
                 this.Ubs_ShowError(ex);
             }
+        }
+
+        private DateTime GetCurrentDate()
+        {
+            base.IUbsChannel.ParamIn("NameSetting", "Server");
+
+            base.IUbsChannel.Run("GetCommonDate");
+
+            return Convert.ToDateTime(base.IUbsChannel.ParamOut("DataSetting"));
         }
 
         private void SetupContractStatusComboVisibility()
@@ -210,11 +219,11 @@ namespace UbsBusiness
             {
                 return;
             }
-            int n = arr.GetLength(1);
-            for (int i = 0; i < n; i++)
+            int n = arr.GetLength(0);
+            for (int rowIndex = 0; rowIndex < n; rowIndex++)
             {
-                int id = Convert.ToInt32(arr[0, i]);
-                string cap = Convert.ToString(arr[1, i]);
+                int id = Convert.ToInt32(arr[rowIndex, 0]);
+                string cap = Convert.ToString(arr[rowIndex, 1]);
                 cmbPayerCommissionType.Items.Add(new ContractComboItem(id, cap));
                 cmbRecipientCommissionType.Items.Add(new ContractComboItem(id, cap));
             }
@@ -309,16 +318,16 @@ namespace UbsBusiness
             {
                 return;
             }
-            int n = arr.GetLength(1);
+            int n = arr.GetLength(0);
             int selectIndex = 0;
-            for (int i = 0; i < n; i++)
+            for (int rowIndex = 0; rowIndex < n; rowIndex++)
             {
-                int id = Convert.ToInt32(arr[0, i]);
-                string name = Convert.ToString(arr[1, i]);
+                int id = Convert.ToInt32(arr[rowIndex, 0]);
+                string name = Convert.ToString(arr[rowIndex, 1]);
                 cmbExecutor.Items.Add(new ContractComboItem(id, name));
                 if (id == idExecutor)
                 {
-                    selectIndex = i;
+                    selectIndex = rowIndex;
                 }
             }
             if (cmbExecutor.Items.Count > 0)
@@ -331,9 +340,9 @@ namespace UbsBusiness
         {
             txtRecipientClient.Text = string.Empty;
             udcRecipientBik.Text = string.Empty;
-            ucaCorrespondentAccount.Text = "00000000000000000000";
+            ucaCorrespondentAccount.Text = CorrespondentAccountPlaceholder;
             txtBankName.Text = string.Empty;
-            ucaRecipientAccount.Text = "00000000000000000000";
+            ucaRecipientAccount.Text = CorrespondentAccountPlaceholder;
             udcRecipientInn.Text = string.Empty;
             txtRecipientAddress.Text = string.Empty;
         }
@@ -353,18 +362,94 @@ namespace UbsBusiness
             chkRecipientCommissionReverse.Checked = false;
         }
 
-        private void GetBankNameAccStub()
+        private bool GetBankNameAcc()
         {
-            if (m_blnMayBeArbitrary)
+            bool ok = false;
+            try
             {
+                string bic = udcRecipientBik.Text != null ? udcRecipientBik.Text.Trim() : string.Empty;
+                if (bic.Length > 0)
+                {
+                    base.IUbsChannel.ParamIn("BIC", bic);
+                    base.IUbsChannel.Run("ReadBankBIK");
+
+                    var bankOut = base.IUbsChannel.ParamsOutParam;
+
+                    if (bankOut.Contains("NUM") && Convert.ToInt32(bankOut.Value("NUM")) > 0)
+                    {
+                        ApplyReadBankBikFields(bankOut);
+                        ok = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this.Ubs_ShowError(ex);
+            }
+            finally
+            {
+                SetSignOurBik();
+            }
+            return ok;
+        }
+
+        private void SetSignOurBik()
+        {
+            string cur = udcRecipientBik.Text != null ? udcRecipientBik.Text.Trim() : string.Empty;
+            string ours = m_strOurBik != null ? m_strOurBik.Trim() : string.Empty;
+            m_blnIsOurBik = cur.Length > 0 && ours.Length > 0
+                && string.Equals(cur, ours, StringComparison.Ordinal);
+            if (!m_blnArbitrary)
+            {
+                linkRecipientClient.Enabled = m_blnIsOurBik;
             }
         }
 
-        private void EnableFieldsClStub()
+        private void ApplyReadBankBikFields(UbsParam bankOut)
         {
-            if (m_blnArbitrary)
+            if (bankOut.Contains("BANKNAME"))
             {
+                txtBankName.Text = Convert.ToString(bankOut.Value("BANKNAME"));
             }
+            if (bankOut.Contains("CORRACC"))
+            {
+                ApplyCorrAccountIfPlaceholder(Convert.ToString(bankOut.Value("CORRACC")));
+            }
+        }
+
+        private void ApplyCorrAccountIfPlaceholder(string corr)
+        {
+            if (corr == null)
+            {
+                return;
+            }
+            string t = ucaCorrespondentAccount.Text != null ? ucaCorrespondentAccount.Text.Trim() : string.Empty;
+            if (t.Length == 0 || t == CorrespondentAccountPlaceholder)
+            {
+                ucaCorrespondentAccount.Text = corr;
+            }
+        }
+
+        private bool ApplyBankBikPair(string key, string val)
+        {
+            if (string.Equals(key, "BANKNAME", StringComparison.Ordinal))
+            {
+                txtBankName.Text = val;
+                return true;
+            }
+            if (string.Equals(key, "CORRACC", StringComparison.Ordinal))
+            {
+                ApplyCorrAccountIfPlaceholder(val);
+                return true;
+            }
+            return false;
+        }
+
+        private void EnableFieldsCl()
+        {
+            bool allowManualRecipientDetails = m_idClient <= 0;
+            udcRecipientInn.Enabled = allowManualRecipientDetails;
+            txtRecipientAddress.Enabled = allowManualRecipientDetails;
         }
     }
 }
