@@ -18,3 +18,5 @@ tableLayoutPanel height should be the same as it UbsFormTemplate; (D:\Repositori
 | UbsControlProperty / ucpParam | `UbsCtrlFields` / AddFields support |
 | UbsInfo | `UbsCtrlInfo` |
 | MSCOMCTL ListView | `System.Windows.Forms.ListView` |
+
+**Control field names (C#):** Prefix-based (Hungarian-style): `btn`, `txt`, `lbl`, `cmb`, `grp`, `tab`/`tabPage`, `pnl`, `tbl`, `ucd`/`udc`/`uca`/`uci`/`ucf` for UBS controls — full table in `memory-bank/creative/creative-ubspcontractfrm-conversion-architecture.md` §7.

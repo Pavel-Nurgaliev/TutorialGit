@@ -6,6 +6,8 @@
 
 **Conversion:** Legacy source = `legacy-form/Contract/Contract.dob` (VB6 UserDocument). Target = `UbsPsContractFrm` (.NET WinForm) under `UbsPsContractFrm/`. Visual reference (when present): `legacy-form/screens/`.
 
+**Roadmap:** `memory-bank/plan-ubspcontractfrm-conversion.md` (phased A–F; Level 4). **Phase B:** `memory-bank/plan-phase-b-main-tab.md`. Summary: `plan-conversion-goals-revised.md`.
+
 **Reference conversions (patterns and memory-bank usage):**
 
 - `D:/Repositories/TutorialGit/UnComProjects/UBS_CLIENT/UBS/FRM/OP/UbsOpCommissionFrm_CP`
@@ -21,7 +23,7 @@
 
 ## Scope
 
-- **Current state:** Skeleton `UbsPsContractFrm` (template stubs: `CommandLine`, `ListKey`, `btnSave`/`btnExit`, `m_addFields` example).
+- **Current state:** `UbsPsContractFrm` with `CommandLine`, `ListKey`, `InitDoc`, prefix-named controls (`btnSave`/`btnExit`, …). **Control naming rules:** `memory-bank/creative/creative-ubspcontractfrm-conversion-architecture.md` §7.
 - **Legacy:** `Contract.dob` — large form; `LoadResource = "VBS:UBS_VBD\PS\Contract.vbs"`; initialization via `InitFormContract`; multiple channel calls (e.g. `Contract`, `ReadClient`, `ReadAcc`, `CheckKey`, …) to be inventoried during conversion.
 - **Target components:** `UbsPsContractFrm.cs`, `UbsPsContractFrm.Designer.cs`, `UbsPsContractFrm.Constants.cs` (when started), optional partials as the form grows.
 

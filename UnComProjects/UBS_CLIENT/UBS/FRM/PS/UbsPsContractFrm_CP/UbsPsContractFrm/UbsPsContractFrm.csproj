@@ -78,13 +78,40 @@
       <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsInterface.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UbsCtrlDecimal">
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsCtrlDecimal.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UbsCtrlDate">
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsCtrlDate.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UbsCtrlFields">
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsCtrlFields.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UbsCtrlAccount">
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsCtrlAccount.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UbsPsContractFrm.Constants.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UbsPsContractFrm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UbsPsContractFrm.Designer.cs">
       <DependentUpon>UbsPsContractFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UbsPsContractFrm.Commission.cs">
+      <DependentUpon>UbsPsContractFrm.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UbsPsContractFrm.InitDoc.cs">
+      <DependentUpon>UbsPsContractFrm.cs</DependentUpon>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="UbsPsContractFrm.resx">

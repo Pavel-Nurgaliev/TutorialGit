@@ -7,6 +7,7 @@ Project-specific conventions are defined in:
 - `.cursor/rules/style-rule.mdc` — explicit constants for commands/params, `Ubs_ShowError`, XML doc for channel, `TargetFramework` / references.
 - `.cursor/rules/designer-rules.mdc` — `panelMain`, `UbsFormTemplate` height, VB6 OCX → .NET control mapping.
 - `.cursor/rules/array-rule.mdc` — `object[row, column]` for 2D arrays.
+- **`memory-bank/creative/creative-ubspcontractfrm-conversion-architecture.md` §7** — WinForms control field names: **prefix-based** (`btn`, `txt`, `lbl`, `cmb`, `ucd`/`udc`/…); full **VB6 → .NET** mapping tables.
 
 ## Code style
 

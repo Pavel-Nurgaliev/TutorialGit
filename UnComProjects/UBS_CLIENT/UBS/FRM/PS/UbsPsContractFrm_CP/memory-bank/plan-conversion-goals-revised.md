@@ -1,62 +1,50 @@
-# PLAN: Conversion Goals — UbsPsContractFrm
+# PLAN: Conversion Goals — UbsPsContractFrm (summary)
 
-**Date:** 2026-04-02
+**Date:** 2026-04-02  
+**Detailed roadmap:** **`plan-ubspcontractfrm-conversion.md`** — phased conversion (tabs, DDX, channel, IUbs, risks).  
+**Phase B (main tab):** **`plan-phase-b-main-tab.md`**.
 
 ---
 
 ## 1. Main goal
 
-**Convert the VB6 Contract UserDocument to a .NET Framework 2.0 Windows Form** in this project.
-
 | Role | Source | Target |
 |------|--------|--------|
-| **Legacy source** | `legacy-form/Contract/Contract.dob` (VB6) | — |
-| **Conversion target** | — | `UbsPsContractFrm` (.NET WinForm) in `UbsPsContractFrm/` |
+| **Legacy** | `legacy-form/Contract/Contract.dob` | — |
+| **Target** | — | `UbsPsContractFrm` (.NET 2.0 WinForm) |
 
-**Current state:** `UbsPsContractFrm` is a **renamed template** (stubs only). It does **not** yet implement Contract UI, channel behavior, or `InitDoc` logic from `Contract.dob`.
-
----
-
-## 2. Legacy signals (initial grep — expand during inventory)
-
-From `Contract.dob`:
-
-- `UbsChannel.LoadResource = "VBS:UBS_VBD\PS\Contract.vbs"`
-- `UbsChannel.Run "InitFormContract", ...` during initialization
-- Additional calls include (non-exhaustive): `"Contract"`, `"ReadClient"`, `"ReadAcc"`, `"ReadKind"`, `"CheckKey"`, `"CheckClientAcc"`, `"PSCheckAccounts"`, `"ReadBankBIK"`, `"SearchAccClient"`, `"CheckExistAddFieldContract"`, `"GetNameFilterKindPaym"`, …
-
-**Task:** Produce a full ordered inventory (UI section + `InitDoc` + save/validate paths) before coding.
+**Current state:** Renamed template only; **no** Contract logic yet.
 
 ---
 
-## 3. Phased roadmap
+## 2. Legacy at a glance
 
-### Phase 1 — Prep
-
-- [ ] Full legacy inventory (`Contract.dob` + `Contract.vbs` if available in repo elsewhere).
-- [ ] CREATIVE: channel contract doc + constants design.
-- [ ] `UbsPsContractFrm.Constants.cs` with `LoadResource` and all command/param/message keys.
-
-### Phase 2 — Main conversion
-
-- [ ] Designer: tabs/controls mapped per VB6 and `legacy-form/screens/`.
-- [ ] `InitDoc` / load path equivalent to legacy (including `InitFormContract` behavior).
-- [ ] ListKey / CommandLine / ADD-EDIT modes per legacy.
-- [ ] Save and validation; all `Run` calls wired and tested.
-
-### Phase 3 — Post-conversion
-
-- [ ] Split partial class files if the form exceeds manageable size.
-- [ ] Appearance pass vs screenshots; tabindex and keyboard behavior.
+- **3 tabs:** Main (contract + recipient), Commission (payer/receiver commission), Additional fields (`UbsControlProperty` / add-fields).
+- **UbsDDX** binds 15 logical members to accounts, combos, money, dates, text.
+- **Init:** `LoadResource` → `InitFormContract`; **EDIT:** `Contract` READ + `ReadKind` + `ReadClient` + add-fields.
+- **Save:** `Contract` with `STRCOMMAND` = `READF` (uniqueness) then `ADD`/`EDIT`; many params including commission method, `STATE`, `DATECLOSE`, `nIdOI`.
+- **Shell:** `UBSChild_ParamInfo("InitParamForm")` and `RetFromGrid` for client/account/kind pickers.
 
 ---
 
-## 4. Related documents
+## 3. Success criteria (short)
 
-| Document | Role |
-|----------|------|
-| `plan-legacy-source-conversion.md` | Paths and roles |
-| `plan-form-appearance-legacy-screens.md` | UI match to screenshots |
-| `projectbrief.md` | Stakeholders and success criteria |
+- Parity with `Contract.dob` for Init, save, validation, and child returns.
+- `memory-bank/creative/creative-ubspcontractfrm-channel-contract.md` complete.
+- `UbsPsContractFrm.Constants.cs` — commands, param keys, messages.
+- Designer matches `legacy-form/screens/` when present; `panelMain` preserved.
 
-**Main deliverable:** Behavioral and UI parity of **Contract.dob** in **UbsPsContractFrm**, with documented channel usage.
+---
+
+## 4. Phases (see detailed plan)
+
+| Phase | Focus |
+|-------|--------|
+| **A** | Channel creative doc, constants, IUbs mapping, designer shell |
+| **B** | Main tab + InitDoc + child pickers |
+| **C** | Commission tab |
+| **D** | Add-fields tab |
+| **E** | Save + validation |
+| **F** | Screenshots, partials, reflect |
+
+**Complexity:** Level 4.
