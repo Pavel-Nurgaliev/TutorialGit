@@ -156,4 +156,5 @@ Build verification:
 - [x] **Phases A/B** — **`memory-bank/reflection/reflection-phase-a-b-ubspcontractfrm.md`** (foundation, main tab, naming, build).
 - [x] **Phase C** — **`memory-bank/reflection/reflection-phase-c-ubspcontractfrm.md`** (commission `EnableSum`, channel §7, `Load`/`m_addFields` regression).
 - [x] **Phase F** — **`memory-bank/reflection/reflection-phase-f-ubspcontractfrm.md`** (tab order, Esc between tabs, footer focus).
+- [x] **Phases D-E** — **`memory-bank/reflection/reflection-phase-d-e-ubspcontractfrm.md`** (full save path parity, add-fields Enter/Esc keyboard flow, post-save state normalization).
 - **Next:** `/archive` when ready to fold milestones into `memory-bank/archive/` and trim ephemeral checklist above.
