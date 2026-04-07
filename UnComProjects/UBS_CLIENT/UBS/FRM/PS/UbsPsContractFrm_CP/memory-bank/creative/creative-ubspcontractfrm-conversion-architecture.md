@@ -30,7 +30,7 @@ Legacy **Contract** is a `UserDocument` with `UBSChild_ParamInfo`, `UbsChannel.R
 ### 4. Partial classes
 
 - `UbsPsContractFrm.Constants.cs` — commands, param keys, messages.
-- `UbsPsContractFrm.InitDoc.cs` — initialization channel flow.
+- `UbsPsContractFrm.Initialization.cs` — initialization channel flow.
 - `UbsPsContractFrm.cs` — ctor, IUbs handlers, button handlers, `m_addFields`.
 
 ### 5. Namespace / assembly
@@ -150,7 +150,7 @@ Legacy order in source: `TabAdd`, `TabCom`, `TabMain`. **Runtime** tab indices i
 ### 10. Implementation guidelines
 
 1. Add **Constants** partial before large logic: commands, `STRCOMMAND` values, param keys, messages.
-2. Implement **InitDoc** in a **partial class** file when line count grows (`UbsPsContractFrm.InitDoc.cs`).
+2. Implement **InitDoc** in a **partial class** file when line count grows (`UbsPsContractFrm.Initialization.cs`).
 3. **Add-fields:** Wire `UbsCtrlFieldsSupportCollection` with key **`"Доп. поля"`** (constant `AddFieldsSupportKey`) — tab caption may differ.
 4. **Keyboard:** Port `UserDocument_KeyPress` tab order **after** main save path works; event handlers **`btnSave_Click`**, **`btnExit_Click`**, etc.
 

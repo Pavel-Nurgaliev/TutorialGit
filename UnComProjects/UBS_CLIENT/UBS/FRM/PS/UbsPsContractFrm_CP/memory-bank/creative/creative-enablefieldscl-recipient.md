@@ -2,7 +2,7 @@
 
 **Type:** UI / form state (parity with VB6)  
 **Legacy:** `Contract.dob` — `Sub EnableFieldsCl()` (~2000–2006)  
-**Target:** `UbsPsContractFrm.InitDoc.cs` (replaces `EnableFieldsClStub`)
+**Target:** `UbsPsContractFrm.Initialization.cs` (replaces `EnableFieldsClStub`)
 
 ---
 
@@ -80,4 +80,4 @@ When a contract is tied to a **known client** (`idClient > 0`), INN and address 
 ## Status
 
 - **CREATIVE:** Complete (this document).  
-- **BUILD:** Implement in `UbsPsContractFrm.InitDoc.cs`.
+- **BUILD:** Implement in `UbsPsContractFrm.Initialization.cs`.

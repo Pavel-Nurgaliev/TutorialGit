@@ -8,14 +8,14 @@
 
 ## Summary
 
-The project moved from a template `UbsPsContractFrm` to a **working Phase B slice**: three-tab UI (`tabPageMain` / commission / add-fields), **prefix-based** control names per creative §7, **`UbsPsContractFrm.InitDoc.cs`** calling `InitFormContract`, `Contract` READ, `ReadKind`, `ReadClient`, commission/status/executor filling, **`ucfAdditionalFields`**, and IUbs **`CommandLine` / `ListKey`** plus **`Load`** fallback. Browse/save remain stubs; **`RetFromGrid`** awaits host contract. **MSBuild** succeeds for **Debug** and **Release** (Release required minimal XML on public ctor and `Dispose` to satisfy CS1591 with `DocumentationFile`).
+The project moved from a template `UbsPsContractFrm` to a **working Phase B slice**: three-tab UI (`tabPageMain` / commission / add-fields), **prefix-based** control names per creative §7, **`UbsPsContractFrm.Initialization.cs`** calling `InitFormContract`, `Contract` READ, `ReadKind`, `ReadClient`, commission/status/executor filling, **`ucfAdditionalFields`**, and IUbs **`CommandLine` / `ListKey`** plus **`Load`** fallback. Browse/save remain stubs; **`RetFromGrid`** awaits host contract. **MSBuild** succeeds for **Debug** and **Release** (Release required minimal XML on public ctor and `Dispose` to satisfy CS1591 with `DocumentationFile`).
 
 ---
 
 ## What Went Well
 
 - **Creative-first workflow:** Channel inventory (`creative-ubspcontractfrm-channel-contract.md`) and architecture (`creative-ubspcontractfrm-conversion-architecture.md`, Phase B creative) gave a single place for param keys, IUbs entry, and control mapping before coding.
-- **Partial classes:** `Constants.cs` + `InitDoc.cs` kept the main form readable and matched the planned split.
+- **Partial classes:** `Constants.cs` + `Initialization.cs` kept the main form readable and matched the planned split.
 - **Reference projects:** `UbsPmTradeFrm` csproj patterns (UBS DLL `HintPath`, `Private`) accelerated references for `UbsCtrlDate` / `Decimal` / `Account` / `Fields`.
 - **Screens vs designer:** Comparing `legacy-form/screens/` caught layout mistakes (e.g. ОИ on same row as code, «Наименование» below recipient, single «Вид платежа» row).
 - **Explicit constants:** Command names and `ParamIn` keys in `UbsPsContractFrm.Constants.cs` align with workspace style rules and reduce magic strings.

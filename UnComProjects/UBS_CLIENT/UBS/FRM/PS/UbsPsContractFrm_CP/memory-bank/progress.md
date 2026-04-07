@@ -2,9 +2,15 @@
 
 ## Summary
 
+**2026-04-03:** **Waves D–E:** **`UbsPsContractFrm.Save.cs`** — full save path aligned with `btnSave_Click` in `Contract.dob` (arbitrary contract flags, BIK gate, close date, `CheckArbitraryAddFl` / `FillDependFields`, legacy **`Check`** as `TryValidateContractBusinessRules` including `CheckKey`, `CheckClientAcc`, `PSCheckAccounts`, add-field matrix checks), **`Contract`** `READF` uniqueness then `ADD`/`EDIT`, `strError`/`StrError`, success info, `ApplyContractKindAndCodeEditability` (also from **`InitDoc`**). **`UbsPsContractFrm.Keys.cs`** — Esc tab navigation; **`ucfAdditionalFields.KeyPress`** (Designer) — Enter → `btnSave`, Esc → same tab chain. Exit remains **`Close()`** (BG/PM parity). **`m_isInitialized`:** `#pragma warning disable 0414` (hybrid `Load` не добавлялся — риск двойного `InitDoc`). MSBuild Debug + Release OK.
+
+**2026-04-03:** **Wave B:** BIK **Enter** on `udcRecipientBik` (`KeyDown` + `ContainsFocus`): legacy strict gate and nested message guards, `GetBankNameAcc`, post-success focus INN/account, `ApplyRecipientAccountAfterOurBikRule` + **`SearchAccClient`** (`CmdSearchAccClient`, `ACCCLIENT`). **`TryValidateBikForSave`** reused from **Сохранить** before stub. Constants: `CmdReadBankBik`, `ParamBic`, search params, `MsgBikNotFound` / title. MSBuild Debug + Release OK.
+
+**2026-04-03:** **Event handlers Wave A:** `LinkClicked` on `linkPaymentKind`, `linkLabel1` (клиент банка), `linkRecipientClient` (Р/с) → existing browse stubs; `cmbContractStatus.SelectedIndexChanged` → `ApplyContractCloseVisibilityFromStatus` (legacy `cmbStatus_Click`); `btnRecipientClientClear` matches `btnDelClient` (only when `m_idClient > 0`, then `EnableFieldsCl` + `SetSignOurBik`). EDIT load calls `ApplyContractCloseVisibilityFromStatus` after setting state so unchanged `SelectedIndex` still gets correct close-date panel. `MSBuild` Debug + Release OK.
+
 **2026-04-02:** Phase A BUILD started. Added `UbsPsContractFrm.Constants.cs`, template controls with **prefix-based** names (`btnSave`, `btnExit`, `uciContract`, `tabContract`, … per creative §7), and a 3-tab designer shell. IUbs bootstrap (`CommandLine`, `ListKey`) updated with basic EDIT selection validation.
 
-**2026-04-02:** Phase B BUILD: main tab + recipient block + commission tab controls in designer; `UbsPsContractFrm.InitDoc.cs` with `InitFormContract`, `Contract` READ, `ReadKind`/`ReadClient`, executors/commission combos, `UbsCtrlFields` registration; `ListKey`/`Load` hybrid + browse/save stubs; project references `UbsCtrlDecimal`/`UbsCtrlDate`/`UbsCtrlAccount`/`UbsCtrlFields`. `MSBuild` Debug succeeds.
+**2026-04-02:** Phase B BUILD: main tab + recipient block + commission tab controls in designer; `UbsPsContractFrm.Initialization.cs` with `InitFormContract`, `Contract` READ, `ReadKind`/`ReadClient`, executors/commission combos, `UbsCtrlFields` registration; `ListKey`/`Load` hybrid + browse/save stubs; project references `UbsCtrlDecimal`/`UbsCtrlDate`/`UbsCtrlAccount`/`UbsCtrlFields`. `MSBuild` Debug succeeds.
 
 **2026-04-02:** `/build` sweep: **Debug + Release** `MSBuild` OK; **Release** had CS1591 until XML comments on `UbsPsContractFrm()` and `Dispose(bool)` (documentation output enabled in csproj).
 
@@ -25,14 +31,13 @@
 
 ## Not Started
 
-- [ ] Phase A BUILD: host-specific `RetFromGrid` mapping and integration command names confirmation.
-- [ ] Phases D–E: add-fields depth, save/validation, `GetBankNameACC` / `EnableFieldsCl` full port.
+- [ ] Phase A BUILD: host-specific `RetFromGrid` mapping and integration command names confirmation (modal browse supersedes для списков).
 
 ## Milestones
 
 - [ ] Phase A complete (host integration pending)
 - [x] Phase B (main tab + InitDoc shell)
 - [x] Phase C (commission `EnableSum` + load of recipient commission method)
-- [ ] Phases D–E (add-fields + save)
+- [x] Phases D–E (save + add-fields keyboard; validation/`Check` port)
 - [ ] Phase E (save)
 - [x] Phase F (tab order, Esc between tabs, partial `Keys`, reflect)

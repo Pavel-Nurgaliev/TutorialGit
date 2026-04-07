@@ -12,7 +12,7 @@ Phase F aligned **main-tab** **`TabIndex`** with a top-to-bottom flow: contract 
 
 **Keyboard:** **`UbsPsContractFrm_KeyDown`** (partial **`Keys.cs`**) maps **Esc** from **Дополнительные свойства** → **Комиссия** → **Основные**, approximating legacy tab keyboard routing without full **`UserDocument_KeyPress`** parity. **`SuppressKeyPress`** is used after handling Esc (available on **`KeyEventArgs`** in .NET Framework 2.0).
 
-**Partials:** **`InitDoc.cs`** remains a single large partial; only **`Keys.cs`** was added as a small split. Further splits (**`.Save.cs`**, etc.) remain appropriate when Phase E save work lands.
+**Partials:** **`Initialization.cs`** remains a single large partial; only **`Keys.cs`** was added as a small split. Further splits (**`.Save.cs`**, etc.) remain appropriate when Phase E save work lands.
 
 **Verification:** **MSBuild** Debug and Release succeed (VS 2022 **MSBuild**).
 

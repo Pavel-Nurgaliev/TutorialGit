@@ -2,7 +2,7 @@
 
 **Type:** Algorithm + channel parity (VB6 `Contract.dob`)  
 **Legacy:** `Function GetBankNameACC()` (~2010–2045), `Sub setSignOurBIK()` (~2138–2147)  
-**Target:** `UbsPsContractFrm.InitDoc.cs` (replaces `GetBankNameAccStub`); `UbsPsContractFrm.cs` (`m_blnIsOurBik`, `SetSignOurBik`)
+**Target:** `UbsPsContractFrm.Initialization.cs` (replaces `GetBankNameAccStub`); `UbsPsContractFrm.cs` (`m_blnIsOurBik`, `SetSignOurBik`)
 
 ---
 

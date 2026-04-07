@@ -139,7 +139,7 @@ Legacy has **3 tabs** (`subContract`, `TabCount = 3`):
 ### Phase F — Polish
 
 - [x] **`legacy-form/screens/`** alignment; tabindex and focus (main/commission/footer; labels **`TabStop = false`**; **`UbsPsContractFrm.Keys.cs`** Esc between tabs).
-- [x] Split partials where warranted: **`Keys.cs`** added; **`InitDoc.cs`** split deferred until save/validation partial exists.
+- [x] Split partials where warranted: **`Keys.cs`** added; **`Initialization.cs`** split deferred until save/validation partial exists.
 - [x] **REFLECT** — `memory-bank/reflection/reflection-phase-f-ubspcontractfrm.md`; **`progress.md`** updated.
 
 ---

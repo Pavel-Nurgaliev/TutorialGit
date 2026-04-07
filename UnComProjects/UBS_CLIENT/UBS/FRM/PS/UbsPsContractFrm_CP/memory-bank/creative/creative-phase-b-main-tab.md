@@ -108,7 +108,7 @@ Phase B requires **`tabPageMain`** controls, **`InitDoc`** parity with VB (multi
 ### 9. Implementation guidelines
 
 1. Add **`m_isInitialized`** boolean; set **`true`** after first successful `InitDoc` from `ListKey` or `Load`.
-2. Split **`InitDoc`** into **`UbsPsContractFrm.InitDoc.cs`** partial when file exceeds ~200 lines in this region.
+2. Split **`InitDoc`** into **`UbsPsContractFrm.Initialization.cs`** partial when file exceeds ~200 lines in this region.
 3. **Constants:** every new `Run` argument key in **`UbsPsContractFrm.Constants.cs`** (no inline literals for keys/commands).
 4. **Errors:** `catch (Exception ex) { this.Ubs_ShowError(ex); }` around `InitDoc` and browse handlers.
 5. **EDIT without id:** already handled in `ListKey`; keep **close** behavior aligned with Commission (optional `Close()` vs error only) — **document** chosen behavior in `progress.md`.

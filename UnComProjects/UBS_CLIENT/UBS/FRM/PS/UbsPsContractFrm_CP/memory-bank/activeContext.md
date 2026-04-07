@@ -10,9 +10,11 @@
 
 - **CREATIVE (Phase A):** Complete — channel + architecture (`prefix` control naming in architecture §7).
 - **BUILD (Phase A–C, F):** `InitDoc`, main/add-fields UI, commission tab **`EnableSum`** parity (`UbsPsContractFrm.Commission.cs`), `CommandLine`/`ListKey`/`Load` + **`m_addFields`**; channel doc **§7**; **Phase F** — designer tab order, `UbsPsContractFrm.Keys.cs` (Esc between tabs), `KeyPreview` / `AcceptButton`.
-- **Next:** **Phase D** (add-fields rules), **Phase E** (save incl. `Метод расчета комиссии с получателя`); host **`RetFromGrid`** when known.
+- **Next:** **Phase D** (add-fields rules), **Phase E** (save); implement **event-handler plan** waves A–E; host child grids per **`creative-ubspcontractfrm-child-host-and-bik-validation.md`** after API spike.
 
 ## Latest Changes
+
+- **2026-04-03:** **CREATIVE** — `creative-ubspcontractfrm-child-host-and-bik-validation.md` (host child contract + shared BIK validation helper).
 
 - **2026-04-02:** `/build` **Phase F** — tabindex/label `TabStop`, `Keys.cs`, reflection `reflection-phase-f-ubspcontractfrm.md`.
 - **2026-04-02:** `/build` **Phase C** — `EnableSumCommissionControls`, combo events, `InitDoc` hook; restored `Load`/`m_addFields`.

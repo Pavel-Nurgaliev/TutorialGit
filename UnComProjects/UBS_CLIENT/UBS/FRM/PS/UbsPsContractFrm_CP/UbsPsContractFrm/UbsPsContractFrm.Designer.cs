@@ -47,35 +47,36 @@ namespace UbsBusiness
             this.lblCloseDate = new System.Windows.Forms.Label();
             this.ucdContractClose = new UbsControl.UbsCtrlDate();
             this.grpRecipient = new System.Windows.Forms.GroupBox();
+            this.txtRecipientInn = new System.Windows.Forms.TextBox();
+            this.txtRecipientBik = new System.Windows.Forms.TextBox();
             this.linkRecipientClient = new System.Windows.Forms.LinkLabel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.txtRecipientAddress = new System.Windows.Forms.TextBox();
             this.lblRecipientAddress = new System.Windows.Forms.Label();
-            this.udcRecipientInn = new UbsControl.UbsCtrlDecimal();
             this.lblRecipientInn = new System.Windows.Forms.Label();
             this.ucaRecipientAccount = new UbsControl.UbsCtrlAccount();
             this.txtBankName = new System.Windows.Forms.TextBox();
             this.lblBankName = new System.Windows.Forms.Label();
             this.ucaCorrespondentAccount = new UbsControl.UbsCtrlAccount();
             this.lblCorrespondentAccount = new System.Windows.Forms.Label();
-            this.udcRecipientBik = new UbsControl.UbsCtrlDecimal();
             this.lblRecipientBik = new System.Windows.Forms.Label();
             this.btnRecipientClientClear = new System.Windows.Forms.Button();
             this.txtRecipientClient = new System.Windows.Forms.TextBox();
             this.lblComment = new System.Windows.Forms.Label();
             this.txtComment = new System.Windows.Forms.TextBox();
             this.tabPageCommission = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.grpPayerCommission = new System.Windows.Forms.GroupBox();
+            this.udcPayerCommissionPercent = new UbsControl.UbsCtrlDecimal();
+            this.lblPayerCommissionPercent = new System.Windows.Forms.Label();
+            this.cmbPayerCommissionType = new System.Windows.Forms.ComboBox();
+            this.lblPayerCommissionType = new System.Windows.Forms.Label();
             this.grpRecipientCommission = new System.Windows.Forms.GroupBox();
             this.chkRecipientCommissionReverse = new System.Windows.Forms.CheckBox();
             this.udcRecipientCommissionPercent = new UbsControl.UbsCtrlDecimal();
             this.lblRecipientCommissionPercent = new System.Windows.Forms.Label();
             this.cmbRecipientCommissionType = new System.Windows.Forms.ComboBox();
             this.lblRecipientCommissionType = new System.Windows.Forms.Label();
-            this.grpPayerCommission = new System.Windows.Forms.GroupBox();
-            this.udcPayerCommissionPercent = new UbsControl.UbsCtrlDecimal();
-            this.lblPayerCommissionPercent = new System.Windows.Forms.Label();
-            this.cmbPayerCommissionType = new System.Windows.Forms.ComboBox();
-            this.lblPayerCommissionType = new System.Windows.Forms.Label();
             this.tabPageAddFields = new System.Windows.Forms.TabPage();
             this.ucfAdditionalFields = new UbsControl.UbsCtrlFields();
             this.panelMain.SuspendLayout();
@@ -85,8 +86,9 @@ namespace UbsBusiness
             this.pnlMainScroll.SuspendLayout();
             this.grpRecipient.SuspendLayout();
             this.tabPageCommission.SuspendLayout();
-            this.grpRecipientCommission.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.grpPayerCommission.SuspendLayout();
+            this.grpRecipientCommission.SuspendLayout();
             this.tabPageAddFields.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -94,35 +96,33 @@ namespace UbsBusiness
             // 
             this.panelMain.Controls.Add(this.tabContract);
             this.panelMain.Controls.Add(this.tblActions);
-            this.panelMain.Margin = new System.Windows.Forms.Padding(5);
-            this.panelMain.Size = new System.Drawing.Size(980, 738);
+            this.panelMain.Margin = new System.Windows.Forms.Padding(4);
+            this.panelMain.Size = new System.Drawing.Size(735, 600);
             // 
             // tblActions
             // 
             this.tblActions.CausesValidation = false;
             this.tblActions.ColumnCount = 3;
             this.tblActions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblActions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 117F));
-            this.tblActions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 117F));
+            this.tblActions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 88F));
+            this.tblActions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 88F));
             this.tblActions.Controls.Add(this.btnSave, 1, 0);
             this.tblActions.Controls.Add(this.btnExit, 2, 0);
             this.tblActions.Controls.Add(this.uciContract, 0, 0);
             this.tblActions.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tblActions.Location = new System.Drawing.Point(0, 699);
-            this.tblActions.Margin = new System.Windows.Forms.Padding(4);
+            this.tblActions.Location = new System.Drawing.Point(0, 568);
             this.tblActions.Name = "tblActions";
             this.tblActions.RowCount = 1;
             this.tblActions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblActions.Size = new System.Drawing.Size(980, 39);
+            this.tblActions.Size = new System.Drawing.Size(735, 32);
             this.tblActions.TabIndex = 1;
             // 
             // btnSave
             // 
             this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSave.Location = new System.Drawing.Point(750, 4);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSave.Location = new System.Drawing.Point(562, 3);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(109, 31);
+            this.btnSave.Size = new System.Drawing.Size(82, 26);
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Сохранить";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -132,10 +132,9 @@ namespace UbsBusiness
             // 
             this.btnExit.CausesValidation = false;
             this.btnExit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnExit.Location = new System.Drawing.Point(867, 4);
-            this.btnExit.Margin = new System.Windows.Forms.Padding(4);
+            this.btnExit.Location = new System.Drawing.Point(650, 3);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(109, 31);
+            this.btnExit.Size = new System.Drawing.Size(82, 26);
             this.btnExit.TabIndex = 2;
             this.btnExit.Text = "Выход";
             this.btnExit.UseVisualStyleBackColor = true;
@@ -147,11 +146,10 @@ namespace UbsBusiness
             this.uciContract.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.uciContract.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.uciContract.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.uciContract.Interval = 25000;
-            this.uciContract.Location = new System.Drawing.Point(4, 22);
-            this.uciContract.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.uciContract.Interval = 500;
+            this.uciContract.Location = new System.Drawing.Point(3, 19);
             this.uciContract.Name = "uciContract";
-            this.uciContract.Size = new System.Drawing.Size(738, 17);
+            this.uciContract.Size = new System.Drawing.Size(553, 13);
             this.uciContract.TabIndex = 0;
             this.uciContract.Text = "uciContract";
             this.uciContract.Visible = false;
@@ -163,20 +161,18 @@ namespace UbsBusiness
             this.tabContract.Controls.Add(this.tabPageAddFields);
             this.tabContract.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabContract.Location = new System.Drawing.Point(0, 0);
-            this.tabContract.Margin = new System.Windows.Forms.Padding(4);
             this.tabContract.Name = "tabContract";
             this.tabContract.SelectedIndex = 0;
-            this.tabContract.Size = new System.Drawing.Size(980, 699);
+            this.tabContract.Size = new System.Drawing.Size(735, 568);
             this.tabContract.TabIndex = 0;
             // 
             // tabPageMain
             // 
             this.tabPageMain.Controls.Add(this.pnlMainScroll);
-            this.tabPageMain.Location = new System.Drawing.Point(4, 25);
-            this.tabPageMain.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPageMain.Location = new System.Drawing.Point(4, 22);
             this.tabPageMain.Name = "tabPageMain";
-            this.tabPageMain.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPageMain.Size = new System.Drawing.Size(972, 670);
+            this.tabPageMain.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageMain.Size = new System.Drawing.Size(727, 542);
             this.tabPageMain.TabIndex = 0;
             this.tabPageMain.Text = "Основные";
             this.tabPageMain.UseVisualStyleBackColor = true;
@@ -204,30 +200,28 @@ namespace UbsBusiness
             this.pnlMainScroll.Controls.Add(this.lblComment);
             this.pnlMainScroll.Controls.Add(this.txtComment);
             this.pnlMainScroll.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMainScroll.Location = new System.Drawing.Point(4, 4);
-            this.pnlMainScroll.Margin = new System.Windows.Forms.Padding(4);
+            this.pnlMainScroll.Location = new System.Drawing.Point(3, 3);
             this.pnlMainScroll.Name = "pnlMainScroll";
-            this.pnlMainScroll.Size = new System.Drawing.Size(964, 662);
+            this.pnlMainScroll.Size = new System.Drawing.Size(721, 536);
             this.pnlMainScroll.TabIndex = 0;
             // 
             // linkPaymentKind
             // 
             this.linkPaymentKind.AutoSize = true;
-            this.linkPaymentKind.Location = new System.Drawing.Point(16, 119);
-            this.linkPaymentKind.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.linkPaymentKind.Location = new System.Drawing.Point(12, 97);
             this.linkPaymentKind.Name = "linkPaymentKind";
-            this.linkPaymentKind.Size = new System.Drawing.Size(91, 16);
+            this.linkPaymentKind.Size = new System.Drawing.Size(72, 13);
             this.linkPaymentKind.TabIndex = 5;
             this.linkPaymentKind.TabStop = true;
             this.linkPaymentKind.Text = "Вид платежа";
+            this.linkPaymentKind.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkPaymentKind_LinkClicked);
             // 
             // lblArbitraryContract
             // 
             this.lblArbitraryContract.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.lblArbitraryContract.Location = new System.Drawing.Point(15, 10);
-            this.lblArbitraryContract.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblArbitraryContract.Location = new System.Drawing.Point(11, 8);
             this.lblArbitraryContract.Name = "lblArbitraryContract";
-            this.lblArbitraryContract.Size = new System.Drawing.Size(932, 22);
+            this.lblArbitraryContract.Size = new System.Drawing.Size(699, 18);
             this.lblArbitraryContract.TabIndex = 0;
             this.lblArbitraryContract.Text = "Произвольный договор";
             this.lblArbitraryContract.Visible = false;
@@ -235,28 +229,25 @@ namespace UbsBusiness
             // lblContractCode
             // 
             this.lblContractCode.AutoSize = true;
-            this.lblContractCode.Location = new System.Drawing.Point(16, 43);
-            this.lblContractCode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblContractCode.Location = new System.Drawing.Point(12, 35);
             this.lblContractCode.Name = "lblContractCode";
-            this.lblContractCode.Size = new System.Drawing.Size(96, 16);
+            this.lblContractCode.Size = new System.Drawing.Size(76, 13);
             this.lblContractCode.TabIndex = 50;
             this.lblContractCode.Text = "Код договора";
             // 
             // txtContractCode
             // 
-            this.txtContractCode.Location = new System.Drawing.Point(125, 39);
-            this.txtContractCode.Margin = new System.Windows.Forms.Padding(4);
+            this.txtContractCode.Location = new System.Drawing.Point(94, 32);
             this.txtContractCode.Name = "txtContractCode";
-            this.txtContractCode.Size = new System.Drawing.Size(319, 22);
+            this.txtContractCode.Size = new System.Drawing.Size(240, 20);
             this.txtContractCode.TabIndex = 1;
             // 
             // lblExecutor
             // 
             this.lblExecutor.AutoSize = true;
-            this.lblExecutor.Location = new System.Drawing.Point(473, 43);
-            this.lblExecutor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblExecutor.Location = new System.Drawing.Point(355, 35);
             this.lblExecutor.Name = "lblExecutor";
-            this.lblExecutor.Size = new System.Drawing.Size(27, 16);
+            this.lblExecutor.Size = new System.Drawing.Size(23, 13);
             this.lblExecutor.TabIndex = 51;
             this.lblExecutor.Text = "ОИ";
             // 
@@ -266,47 +257,42 @@ namespace UbsBusiness
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbExecutor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbExecutor.FormattingEnabled = true;
-            this.cmbExecutor.Location = new System.Drawing.Point(535, 39);
-            this.cmbExecutor.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbExecutor.Location = new System.Drawing.Point(401, 32);
             this.cmbExecutor.Name = "cmbExecutor";
-            this.cmbExecutor.Size = new System.Drawing.Size(605, 24);
+            this.cmbExecutor.Size = new System.Drawing.Size(216, 21);
             this.cmbExecutor.TabIndex = 2;
             // 
             // lblContractNumber
             // 
             this.lblContractNumber.AutoSize = true;
-            this.lblContractNumber.Location = new System.Drawing.Point(16, 82);
-            this.lblContractNumber.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblContractNumber.Location = new System.Drawing.Point(12, 67);
             this.lblContractNumber.Name = "lblContractNumber";
-            this.lblContractNumber.Size = new System.Drawing.Size(50, 16);
+            this.lblContractNumber.Size = new System.Drawing.Size(41, 13);
             this.lblContractNumber.TabIndex = 52;
             this.lblContractNumber.Text = "Номер";
             // 
             // txtContractNumber
             // 
-            this.txtContractNumber.Location = new System.Drawing.Point(125, 79);
-            this.txtContractNumber.Margin = new System.Windows.Forms.Padding(4);
+            this.txtContractNumber.Location = new System.Drawing.Point(94, 64);
             this.txtContractNumber.Name = "txtContractNumber";
-            this.txtContractNumber.Size = new System.Drawing.Size(319, 22);
+            this.txtContractNumber.Size = new System.Drawing.Size(240, 20);
             this.txtContractNumber.TabIndex = 3;
             // 
             // lblContractDate
             // 
             this.lblContractDate.AutoSize = true;
-            this.lblContractDate.Location = new System.Drawing.Point(473, 82);
-            this.lblContractDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblContractDate.Location = new System.Drawing.Point(355, 67);
             this.lblContractDate.Name = "lblContractDate";
-            this.lblContractDate.Size = new System.Drawing.Size(39, 16);
+            this.lblContractDate.Size = new System.Drawing.Size(33, 13);
             this.lblContractDate.TabIndex = 53;
             this.lblContractDate.Text = "Дата";
             // 
             // ucdContract
             // 
-            this.ucdContract.Location = new System.Drawing.Point(535, 79);
-            this.ucdContract.Margin = new System.Windows.Forms.Padding(4);
+            this.ucdContract.Location = new System.Drawing.Point(401, 64);
             this.ucdContract.MaxLength = 10;
             this.ucdContract.Name = "ucdContract";
-            this.ucdContract.Size = new System.Drawing.Size(159, 22);
+            this.ucdContract.Size = new System.Drawing.Size(120, 20);
             this.ucdContract.TabIndex = 4;
             this.ucdContract.Text = "  .  .    ";
             this.ucdContract.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -314,10 +300,9 @@ namespace UbsBusiness
             // txtPaymentKindCode
             // 
             this.txtPaymentKindCode.Enabled = false;
-            this.txtPaymentKindCode.Location = new System.Drawing.Point(125, 116);
-            this.txtPaymentKindCode.Margin = new System.Windows.Forms.Padding(4);
+            this.txtPaymentKindCode.Location = new System.Drawing.Point(94, 94);
             this.txtPaymentKindCode.Name = "txtPaymentKindCode";
-            this.txtPaymentKindCode.Size = new System.Drawing.Size(105, 22);
+            this.txtPaymentKindCode.Size = new System.Drawing.Size(80, 20);
             this.txtPaymentKindCode.TabIndex = 6;
             // 
             // txtPaymentKindComment
@@ -325,19 +310,17 @@ namespace UbsBusiness
             this.txtPaymentKindComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPaymentKindComment.Enabled = false;
-            this.txtPaymentKindComment.Location = new System.Drawing.Point(247, 116);
-            this.txtPaymentKindComment.Margin = new System.Windows.Forms.Padding(4);
+            this.txtPaymentKindComment.Location = new System.Drawing.Point(185, 94);
             this.txtPaymentKindComment.Name = "txtPaymentKindComment";
-            this.txtPaymentKindComment.Size = new System.Drawing.Size(893, 22);
+            this.txtPaymentKindComment.Size = new System.Drawing.Size(432, 20);
             this.txtPaymentKindComment.TabIndex = 7;
             // 
             // lblContractStatus
             // 
             this.lblContractStatus.AutoSize = true;
-            this.lblContractStatus.Location = new System.Drawing.Point(16, 156);
-            this.lblContractStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblContractStatus.Location = new System.Drawing.Point(12, 127);
             this.lblContractStatus.Name = "lblContractStatus";
-            this.lblContractStatus.Size = new System.Drawing.Size(53, 16);
+            this.lblContractStatus.Size = new System.Drawing.Size(41, 13);
             this.lblContractStatus.TabIndex = 54;
             this.lblContractStatus.Text = "Статус";
             // 
@@ -345,30 +328,28 @@ namespace UbsBusiness
             // 
             this.cmbContractStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbContractStatus.FormattingEnabled = true;
-            this.cmbContractStatus.Location = new System.Drawing.Point(125, 153);
-            this.cmbContractStatus.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbContractStatus.Location = new System.Drawing.Point(94, 124);
             this.cmbContractStatus.Name = "cmbContractStatus";
-            this.cmbContractStatus.Size = new System.Drawing.Size(259, 24);
+            this.cmbContractStatus.Size = new System.Drawing.Size(195, 21);
             this.cmbContractStatus.TabIndex = 8;
+            this.cmbContractStatus.SelectedIndexChanged += new System.EventHandler(this.cmbContractStatus_SelectedIndexChanged);
             // 
             // lblCloseDate
             // 
             this.lblCloseDate.AutoSize = true;
-            this.lblCloseDate.Location = new System.Drawing.Point(400, 156);
-            this.lblCloseDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCloseDate.Location = new System.Drawing.Point(300, 127);
             this.lblCloseDate.Name = "lblCloseDate";
-            this.lblCloseDate.Size = new System.Drawing.Size(107, 16);
+            this.lblCloseDate.Size = new System.Drawing.Size(88, 13);
             this.lblCloseDate.TabIndex = 55;
             this.lblCloseDate.Text = "Дата закрытия:";
             this.lblCloseDate.Visible = false;
             // 
             // ucdContractClose
             // 
-            this.ucdContractClose.Location = new System.Drawing.Point(535, 153);
-            this.ucdContractClose.Margin = new System.Windows.Forms.Padding(4);
+            this.ucdContractClose.Location = new System.Drawing.Point(401, 124);
             this.ucdContractClose.MaxLength = 10;
             this.ucdContractClose.Name = "ucdContractClose";
-            this.ucdContractClose.Size = new System.Drawing.Size(159, 22);
+            this.ucdContractClose.Size = new System.Drawing.Size(120, 20);
             this.ucdContractClose.TabIndex = 9;
             this.ucdContractClose.Text = "  .  .    ";
             this.ucdContractClose.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -378,87 +359,89 @@ namespace UbsBusiness
             // 
             this.grpRecipient.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpRecipient.Controls.Add(this.txtRecipientInn);
+            this.grpRecipient.Controls.Add(this.txtRecipientBik);
             this.grpRecipient.Controls.Add(this.linkRecipientClient);
             this.grpRecipient.Controls.Add(this.linkLabel1);
             this.grpRecipient.Controls.Add(this.txtRecipientAddress);
             this.grpRecipient.Controls.Add(this.lblRecipientAddress);
-            this.grpRecipient.Controls.Add(this.udcRecipientInn);
             this.grpRecipient.Controls.Add(this.lblRecipientInn);
             this.grpRecipient.Controls.Add(this.ucaRecipientAccount);
             this.grpRecipient.Controls.Add(this.txtBankName);
             this.grpRecipient.Controls.Add(this.lblBankName);
             this.grpRecipient.Controls.Add(this.ucaCorrespondentAccount);
             this.grpRecipient.Controls.Add(this.lblCorrespondentAccount);
-            this.grpRecipient.Controls.Add(this.udcRecipientBik);
             this.grpRecipient.Controls.Add(this.lblRecipientBik);
             this.grpRecipient.Controls.Add(this.btnRecipientClientClear);
             this.grpRecipient.Controls.Add(this.txtRecipientClient);
-            this.grpRecipient.Location = new System.Drawing.Point(11, 186);
-            this.grpRecipient.Margin = new System.Windows.Forms.Padding(4);
+            this.grpRecipient.Location = new System.Drawing.Point(8, 151);
             this.grpRecipient.Name = "grpRecipient";
-            this.grpRecipient.Padding = new System.Windows.Forms.Padding(4);
-            this.grpRecipient.Size = new System.Drawing.Size(1183, 192);
+            this.grpRecipient.Size = new System.Drawing.Size(702, 156);
             this.grpRecipient.TabIndex = 10;
             this.grpRecipient.TabStop = false;
             this.grpRecipient.Text = "Получатель";
             // 
+            // txtRecipientInn
+            // 
+            this.txtRecipientInn.Location = new System.Drawing.Point(126, 96);
+            this.txtRecipientInn.Name = "txtRecipientInn";
+            this.txtRecipientInn.Size = new System.Drawing.Size(190, 20);
+            this.txtRecipientInn.TabIndex = 6;
+            this.txtRecipientInn.Validating += new System.ComponentModel.CancelEventHandler(this.txtRecipientInn_Validating);
+            // 
+            // txtRecipientBik
+            // 
+            this.txtRecipientBik.Location = new System.Drawing.Point(126, 41);
+            this.txtRecipientBik.Name = "txtRecipientBik";
+            this.txtRecipientBik.Size = new System.Drawing.Size(190, 20);
+            this.txtRecipientBik.TabIndex = 3;
+            this.txtRecipientBik.Validating += new System.ComponentModel.CancelEventHandler(this.txtRecipientBik_Validating);
+            // 
             // linkRecipientClient
             // 
             this.linkRecipientClient.AutoSize = true;
-            this.linkRecipientClient.Location = new System.Drawing.Point(477, 122);
-            this.linkRecipientClient.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.linkRecipientClient.Location = new System.Drawing.Point(358, 99);
             this.linkRecipientClient.Name = "linkRecipientClient";
-            this.linkRecipientClient.Size = new System.Drawing.Size(27, 16);
+            this.linkRecipientClient.Size = new System.Drawing.Size(25, 13);
             this.linkRecipientClient.TabIndex = 7;
             this.linkRecipientClient.TabStop = true;
             this.linkRecipientClient.Text = "Р/с";
+            this.linkRecipientClient.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkRecipientClient_LinkClicked);
             // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(5, 22);
-            this.linkLabel1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.linkLabel1.Location = new System.Drawing.Point(4, 18);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(96, 16);
+            this.linkLabel1.Size = new System.Drawing.Size(76, 13);
             this.linkLabel1.TabIndex = 0;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Клиент банка";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkRecipientBankClient_LinkClicked);
             // 
             // txtRecipientAddress
             // 
             this.txtRecipientAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRecipientAddress.Location = new System.Drawing.Point(168, 156);
-            this.txtRecipientAddress.Margin = new System.Windows.Forms.Padding(4);
+            this.txtRecipientAddress.Location = new System.Drawing.Point(126, 127);
             this.txtRecipientAddress.Name = "txtRecipientAddress";
-            this.txtRecipientAddress.Size = new System.Drawing.Size(961, 22);
+            this.txtRecipientAddress.Size = new System.Drawing.Size(537, 20);
             this.txtRecipientAddress.TabIndex = 9;
             // 
             // lblRecipientAddress
             // 
-            this.lblRecipientAddress.Location = new System.Drawing.Point(5, 160);
-            this.lblRecipientAddress.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblRecipientAddress.Location = new System.Drawing.Point(4, 130);
             this.lblRecipientAddress.Name = "lblRecipientAddress";
-            this.lblRecipientAddress.Size = new System.Drawing.Size(103, 22);
+            this.lblRecipientAddress.Size = new System.Drawing.Size(77, 18);
             this.lblRecipientAddress.TabIndex = 60;
             this.lblRecipientAddress.Text = "Адрес";
-            // 
-            // udcRecipientInn
-            // 
-            this.udcRecipientInn.Location = new System.Drawing.Point(168, 118);
-            this.udcRecipientInn.Margin = new System.Windows.Forms.Padding(4);
-            this.udcRecipientInn.Name = "udcRecipientInn";
-            this.udcRecipientInn.Size = new System.Drawing.Size(252, 22);
-            this.udcRecipientInn.TabIndex = 6;
-            this.udcRecipientInn.Text = "0";
             // 
             // lblRecipientInn
             // 
             this.lblRecipientInn.AutoSize = true;
-            this.lblRecipientInn.Location = new System.Drawing.Point(5, 122);
-            this.lblRecipientInn.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblRecipientInn.Location = new System.Drawing.Point(4, 99);
             this.lblRecipientInn.Name = "lblRecipientInn";
-            this.lblRecipientInn.Size = new System.Drawing.Size(37, 16);
+            this.lblRecipientInn.Size = new System.Drawing.Size(31, 13);
             this.lblRecipientInn.TabIndex = 61;
             this.lblRecipientInn.Text = "ИНН";
             // 
@@ -466,11 +449,10 @@ namespace UbsBusiness
             // 
             this.ucaRecipientAccount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ucaRecipientAccount.Location = new System.Drawing.Point(524, 118);
-            this.ucaRecipientAccount.Margin = new System.Windows.Forms.Padding(4);
+            this.ucaRecipientAccount.Location = new System.Drawing.Point(393, 96);
             this.ucaRecipientAccount.MaxLength = 24;
             this.ucaRecipientAccount.Name = "ucaRecipientAccount";
-            this.ucaRecipientAccount.Size = new System.Drawing.Size(605, 22);
+            this.ucaRecipientAccount.Size = new System.Drawing.Size(270, 20);
             this.ucaRecipientAccount.TabIndex = 8;
             // 
             // txtBankName
@@ -478,19 +460,17 @@ namespace UbsBusiness
             this.txtBankName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBankName.Enabled = false;
-            this.txtBankName.Location = new System.Drawing.Point(168, 84);
-            this.txtBankName.Margin = new System.Windows.Forms.Padding(4);
+            this.txtBankName.Location = new System.Drawing.Point(126, 68);
             this.txtBankName.Name = "txtBankName";
-            this.txtBankName.Size = new System.Drawing.Size(961, 22);
+            this.txtBankName.Size = new System.Drawing.Size(537, 20);
             this.txtBankName.TabIndex = 5;
             // 
             // lblBankName
             // 
             this.lblBankName.AutoSize = true;
-            this.lblBankName.Location = new System.Drawing.Point(5, 87);
-            this.lblBankName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblBankName.Location = new System.Drawing.Point(4, 71);
             this.lblBankName.Name = "lblBankName";
-            this.lblBankName.Size = new System.Drawing.Size(148, 16);
+            this.lblBankName.Size = new System.Drawing.Size(116, 13);
             this.lblBankName.TabIndex = 62;
             this.lblBankName.Text = "Наименование банка";
             // 
@@ -498,48 +478,36 @@ namespace UbsBusiness
             // 
             this.ucaCorrespondentAccount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ucaCorrespondentAccount.Location = new System.Drawing.Point(524, 50);
-            this.ucaCorrespondentAccount.Margin = new System.Windows.Forms.Padding(4);
+            this.ucaCorrespondentAccount.Location = new System.Drawing.Point(393, 41);
             this.ucaCorrespondentAccount.MaxLength = 24;
             this.ucaCorrespondentAccount.Name = "ucaCorrespondentAccount";
-            this.ucaCorrespondentAccount.Size = new System.Drawing.Size(605, 22);
+            this.ucaCorrespondentAccount.Size = new System.Drawing.Size(270, 20);
             this.ucaCorrespondentAccount.TabIndex = 4;
             // 
             // lblCorrespondentAccount
             // 
             this.lblCorrespondentAccount.AutoSize = true;
-            this.lblCorrespondentAccount.Location = new System.Drawing.Point(436, 54);
-            this.lblCorrespondentAccount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCorrespondentAccount.Location = new System.Drawing.Point(327, 44);
             this.lblCorrespondentAccount.Name = "lblCorrespondentAccount";
-            this.lblCorrespondentAccount.Size = new System.Drawing.Size(75, 16);
+            this.lblCorrespondentAccount.Size = new System.Drawing.Size(60, 13);
             this.lblCorrespondentAccount.TabIndex = 63;
             this.lblCorrespondentAccount.Text = "Корр. счет";
-            // 
-            // udcRecipientBik
-            // 
-            this.udcRecipientBik.Location = new System.Drawing.Point(168, 50);
-            this.udcRecipientBik.Margin = new System.Windows.Forms.Padding(4);
-            this.udcRecipientBik.Name = "udcRecipientBik";
-            this.udcRecipientBik.Size = new System.Drawing.Size(252, 22);
-            this.udcRecipientBik.TabIndex = 3;
-            this.udcRecipientBik.Text = "0";
             // 
             // lblRecipientBik
             // 
             this.lblRecipientBik.AutoSize = true;
-            this.lblRecipientBik.Location = new System.Drawing.Point(5, 54);
-            this.lblRecipientBik.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblRecipientBik.Location = new System.Drawing.Point(4, 44);
             this.lblRecipientBik.Name = "lblRecipientBik";
-            this.lblRecipientBik.Size = new System.Drawing.Size(34, 16);
+            this.lblRecipientBik.Size = new System.Drawing.Size(29, 13);
             this.lblRecipientBik.TabIndex = 64;
             this.lblRecipientBik.Text = "БИК";
             // 
             // btnRecipientClientClear
             // 
-            this.btnRecipientClientClear.Location = new System.Drawing.Point(899, 16);
-            this.btnRecipientClientClear.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRecipientClientClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRecipientClientClear.Location = new System.Drawing.Point(668, 13);
             this.btnRecipientClientClear.Name = "btnRecipientClientClear";
-            this.btnRecipientClientClear.Size = new System.Drawing.Size(37, 27);
+            this.btnRecipientClientClear.Size = new System.Drawing.Size(28, 22);
             this.btnRecipientClientClear.TabIndex = 2;
             this.btnRecipientClientClear.Text = "X";
             this.btnRecipientClientClear.UseVisualStyleBackColor = true;
@@ -550,18 +518,16 @@ namespace UbsBusiness
             this.txtRecipientClient.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRecipientClient.Enabled = false;
-            this.txtRecipientClient.Location = new System.Drawing.Point(168, 18);
-            this.txtRecipientClient.Margin = new System.Windows.Forms.Padding(4);
+            this.txtRecipientClient.Location = new System.Drawing.Point(126, 15);
             this.txtRecipientClient.Name = "txtRecipientClient";
-            this.txtRecipientClient.Size = new System.Drawing.Size(961, 22);
+            this.txtRecipientClient.Size = new System.Drawing.Size(537, 20);
             this.txtRecipientClient.TabIndex = 1;
             // 
             // lblComment
             // 
-            this.lblComment.Location = new System.Drawing.Point(16, 395);
-            this.lblComment.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblComment.Location = new System.Drawing.Point(12, 321);
             this.lblComment.Name = "lblComment";
-            this.lblComment.Size = new System.Drawing.Size(111, 22);
+            this.lblComment.Size = new System.Drawing.Size(83, 18);
             this.lblComment.TabIndex = 56;
             this.lblComment.Text = "Наименование";
             // 
@@ -569,24 +535,89 @@ namespace UbsBusiness
             // 
             this.txtComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtComment.Location = new System.Drawing.Point(179, 391);
-            this.txtComment.Margin = new System.Windows.Forms.Padding(4);
+            this.txtComment.Location = new System.Drawing.Point(134, 318);
             this.txtComment.Name = "txtComment";
-            this.txtComment.Size = new System.Drawing.Size(961, 22);
+            this.txtComment.Size = new System.Drawing.Size(537, 20);
             this.txtComment.TabIndex = 11;
             // 
             // tabPageCommission
             // 
-            this.tabPageCommission.Controls.Add(this.grpRecipientCommission);
-            this.tabPageCommission.Controls.Add(this.grpPayerCommission);
-            this.tabPageCommission.Location = new System.Drawing.Point(4, 25);
-            this.tabPageCommission.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPageCommission.Controls.Add(this.tableLayoutPanel1);
+            this.tabPageCommission.Location = new System.Drawing.Point(4, 22);
             this.tabPageCommission.Name = "tabPageCommission";
-            this.tabPageCommission.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPageCommission.Size = new System.Drawing.Size(972, 670);
+            this.tabPageCommission.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageCommission.Size = new System.Drawing.Size(384, 215);
             this.tabPageCommission.TabIndex = 1;
             this.tabPageCommission.Text = "Комиссия";
             this.tabPageCommission.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.grpPayerCommission, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.grpRecipientCommission, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 74F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 102F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(378, 209);
+            this.tableLayoutPanel1.TabIndex = 1;
+            // 
+            // grpPayerCommission
+            // 
+            this.grpPayerCommission.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpPayerCommission.Controls.Add(this.udcPayerCommissionPercent);
+            this.grpPayerCommission.Controls.Add(this.lblPayerCommissionPercent);
+            this.grpPayerCommission.Controls.Add(this.cmbPayerCommissionType);
+            this.grpPayerCommission.Controls.Add(this.lblPayerCommissionType);
+            this.grpPayerCommission.Location = new System.Drawing.Point(3, 3);
+            this.grpPayerCommission.Name = "grpPayerCommission";
+            this.grpPayerCommission.Size = new System.Drawing.Size(372, 68);
+            this.grpPayerCommission.TabIndex = 0;
+            this.grpPayerCommission.TabStop = false;
+            this.grpPayerCommission.Text = "Комиссия с плательщика";
+            // 
+            // udcPayerCommissionPercent
+            // 
+            this.udcPayerCommissionPercent.Location = new System.Drawing.Point(110, 41);
+            this.udcPayerCommissionPercent.Name = "udcPayerCommissionPercent";
+            this.udcPayerCommissionPercent.Size = new System.Drawing.Size(165, 20);
+            this.udcPayerCommissionPercent.TabIndex = 3;
+            this.udcPayerCommissionPercent.Text = "0";
+            // 
+            // lblPayerCommissionPercent
+            // 
+            this.lblPayerCommissionPercent.AutoSize = true;
+            this.lblPayerCommissionPercent.Location = new System.Drawing.Point(6, 44);
+            this.lblPayerCommissionPercent.Name = "lblPayerCommissionPercent";
+            this.lblPayerCommissionPercent.Size = new System.Drawing.Size(98, 13);
+            this.lblPayerCommissionPercent.TabIndex = 2;
+            this.lblPayerCommissionPercent.Text = "размер комиссии";
+            // 
+            // cmbPayerCommissionType
+            // 
+            this.cmbPayerCommissionType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbPayerCommissionType.FormattingEnabled = true;
+            this.cmbPayerCommissionType.Location = new System.Drawing.Point(110, 17);
+            this.cmbPayerCommissionType.Name = "cmbPayerCommissionType";
+            this.cmbPayerCommissionType.Size = new System.Drawing.Size(483, 21);
+            this.cmbPayerCommissionType.TabIndex = 1;
+            this.cmbPayerCommissionType.SelectedIndexChanged += new System.EventHandler(this.cmbPayerCommissionType_SelectedIndexChanged);
+            // 
+            // lblPayerCommissionType
+            // 
+            this.lblPayerCommissionType.AutoSize = true;
+            this.lblPayerCommissionType.Location = new System.Drawing.Point(6, 20);
+            this.lblPayerCommissionType.Name = "lblPayerCommissionType";
+            this.lblPayerCommissionType.Size = new System.Drawing.Size(77, 13);
+            this.lblPayerCommissionType.TabIndex = 0;
+            this.lblPayerCommissionType.Text = "тип комиссии";
             // 
             // grpRecipientCommission
             // 
@@ -598,11 +629,9 @@ namespace UbsBusiness
             this.grpRecipientCommission.Controls.Add(this.lblRecipientCommissionPercent);
             this.grpRecipientCommission.Controls.Add(this.cmbRecipientCommissionType);
             this.grpRecipientCommission.Controls.Add(this.lblRecipientCommissionType);
-            this.grpRecipientCommission.Location = new System.Drawing.Point(11, 98);
-            this.grpRecipientCommission.Margin = new System.Windows.Forms.Padding(4);
+            this.grpRecipientCommission.Location = new System.Drawing.Point(3, 77);
             this.grpRecipientCommission.Name = "grpRecipientCommission";
-            this.grpRecipientCommission.Padding = new System.Windows.Forms.Padding(4);
-            this.grpRecipientCommission.Size = new System.Drawing.Size(2145, 1238);
+            this.grpRecipientCommission.Size = new System.Drawing.Size(372, 96);
             this.grpRecipientCommission.TabIndex = 1;
             this.grpRecipientCommission.TabStop = false;
             this.grpRecipientCommission.Text = "Комиссия с получателя";
@@ -610,30 +639,27 @@ namespace UbsBusiness
             // chkRecipientCommissionReverse
             // 
             this.chkRecipientCommissionReverse.AutoSize = true;
-            this.chkRecipientCommissionReverse.Location = new System.Drawing.Point(12, 85);
-            this.chkRecipientCommissionReverse.Margin = new System.Windows.Forms.Padding(4);
+            this.chkRecipientCommissionReverse.Location = new System.Drawing.Point(9, 69);
             this.chkRecipientCommissionReverse.Name = "chkRecipientCommissionReverse";
-            this.chkRecipientCommissionReverse.Size = new System.Drawing.Size(195, 20);
+            this.chkRecipientCommissionReverse.Size = new System.Drawing.Size(154, 17);
             this.chkRecipientCommissionReverse.TabIndex = 4;
             this.chkRecipientCommissionReverse.Text = "Обратный метод расчета";
             this.chkRecipientCommissionReverse.UseVisualStyleBackColor = true;
             // 
             // udcRecipientCommissionPercent
             // 
-            this.udcRecipientCommissionPercent.Location = new System.Drawing.Point(147, 53);
-            this.udcRecipientCommissionPercent.Margin = new System.Windows.Forms.Padding(4);
+            this.udcRecipientCommissionPercent.Location = new System.Drawing.Point(110, 43);
             this.udcRecipientCommissionPercent.Name = "udcRecipientCommissionPercent";
-            this.udcRecipientCommissionPercent.Size = new System.Drawing.Size(219, 22);
+            this.udcRecipientCommissionPercent.Size = new System.Drawing.Size(165, 20);
             this.udcRecipientCommissionPercent.TabIndex = 3;
             this.udcRecipientCommissionPercent.Text = "0";
             // 
             // lblRecipientCommissionPercent
             // 
             this.lblRecipientCommissionPercent.AutoSize = true;
-            this.lblRecipientCommissionPercent.Location = new System.Drawing.Point(8, 57);
-            this.lblRecipientCommissionPercent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblRecipientCommissionPercent.Location = new System.Drawing.Point(6, 46);
             this.lblRecipientCommissionPercent.Name = "lblRecipientCommissionPercent";
-            this.lblRecipientCommissionPercent.Size = new System.Drawing.Size(121, 16);
+            this.lblRecipientCommissionPercent.Size = new System.Drawing.Size(98, 13);
             this.lblRecipientCommissionPercent.TabIndex = 2;
             this.lblRecipientCommissionPercent.Text = "размер комиссии";
             // 
@@ -641,89 +667,28 @@ namespace UbsBusiness
             // 
             this.cmbRecipientCommissionType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbRecipientCommissionType.FormattingEnabled = true;
-            this.cmbRecipientCommissionType.Location = new System.Drawing.Point(147, 20);
-            this.cmbRecipientCommissionType.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbRecipientCommissionType.Location = new System.Drawing.Point(110, 16);
             this.cmbRecipientCommissionType.Name = "cmbRecipientCommissionType";
-            this.cmbRecipientCommissionType.Size = new System.Drawing.Size(643, 24);
+            this.cmbRecipientCommissionType.Size = new System.Drawing.Size(483, 21);
             this.cmbRecipientCommissionType.TabIndex = 1;
             this.cmbRecipientCommissionType.SelectedIndexChanged += new System.EventHandler(this.cmbRecipientCommissionType_SelectedIndexChanged);
             // 
             // lblRecipientCommissionType
             // 
             this.lblRecipientCommissionType.AutoSize = true;
-            this.lblRecipientCommissionType.Location = new System.Drawing.Point(8, 23);
-            this.lblRecipientCommissionType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblRecipientCommissionType.Location = new System.Drawing.Point(6, 19);
             this.lblRecipientCommissionType.Name = "lblRecipientCommissionType";
-            this.lblRecipientCommissionType.Size = new System.Drawing.Size(95, 16);
+            this.lblRecipientCommissionType.Size = new System.Drawing.Size(77, 13);
             this.lblRecipientCommissionType.TabIndex = 0;
             this.lblRecipientCommissionType.Text = "тип комиссии";
-            // 
-            // grpPayerCommission
-            // 
-            this.grpPayerCommission.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpPayerCommission.Controls.Add(this.udcPayerCommissionPercent);
-            this.grpPayerCommission.Controls.Add(this.lblPayerCommissionPercent);
-            this.grpPayerCommission.Controls.Add(this.cmbPayerCommissionType);
-            this.grpPayerCommission.Controls.Add(this.lblPayerCommissionType);
-            this.grpPayerCommission.Location = new System.Drawing.Point(11, 10);
-            this.grpPayerCommission.Margin = new System.Windows.Forms.Padding(4);
-            this.grpPayerCommission.Name = "grpPayerCommission";
-            this.grpPayerCommission.Padding = new System.Windows.Forms.Padding(4);
-            this.grpPayerCommission.Size = new System.Drawing.Size(2145, 1207);
-            this.grpPayerCommission.TabIndex = 0;
-            this.grpPayerCommission.TabStop = false;
-            this.grpPayerCommission.Text = "Комиссия с плательщика";
-            // 
-            // udcPayerCommissionPercent
-            // 
-            this.udcPayerCommissionPercent.Location = new System.Drawing.Point(147, 50);
-            this.udcPayerCommissionPercent.Margin = new System.Windows.Forms.Padding(4);
-            this.udcPayerCommissionPercent.Name = "udcPayerCommissionPercent";
-            this.udcPayerCommissionPercent.Size = new System.Drawing.Size(219, 22);
-            this.udcPayerCommissionPercent.TabIndex = 3;
-            this.udcPayerCommissionPercent.Text = "0";
-            // 
-            // lblPayerCommissionPercent
-            // 
-            this.lblPayerCommissionPercent.AutoSize = true;
-            this.lblPayerCommissionPercent.Location = new System.Drawing.Point(8, 54);
-            this.lblPayerCommissionPercent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblPayerCommissionPercent.Name = "lblPayerCommissionPercent";
-            this.lblPayerCommissionPercent.Size = new System.Drawing.Size(121, 16);
-            this.lblPayerCommissionPercent.TabIndex = 2;
-            this.lblPayerCommissionPercent.Text = "размер комиссии";
-            // 
-            // cmbPayerCommissionType
-            // 
-            this.cmbPayerCommissionType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbPayerCommissionType.FormattingEnabled = true;
-            this.cmbPayerCommissionType.Location = new System.Drawing.Point(147, 21);
-            this.cmbPayerCommissionType.Margin = new System.Windows.Forms.Padding(4);
-            this.cmbPayerCommissionType.Name = "cmbPayerCommissionType";
-            this.cmbPayerCommissionType.Size = new System.Drawing.Size(643, 24);
-            this.cmbPayerCommissionType.TabIndex = 1;
-            this.cmbPayerCommissionType.SelectedIndexChanged += new System.EventHandler(this.cmbPayerCommissionType_SelectedIndexChanged);
-            // 
-            // lblPayerCommissionType
-            // 
-            this.lblPayerCommissionType.AutoSize = true;
-            this.lblPayerCommissionType.Location = new System.Drawing.Point(8, 25);
-            this.lblPayerCommissionType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblPayerCommissionType.Name = "lblPayerCommissionType";
-            this.lblPayerCommissionType.Size = new System.Drawing.Size(95, 16);
-            this.lblPayerCommissionType.TabIndex = 0;
-            this.lblPayerCommissionType.Text = "тип комиссии";
             // 
             // tabPageAddFields
             // 
             this.tabPageAddFields.Controls.Add(this.ucfAdditionalFields);
-            this.tabPageAddFields.Location = new System.Drawing.Point(4, 25);
-            this.tabPageAddFields.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPageAddFields.Location = new System.Drawing.Point(4, 22);
             this.tabPageAddFields.Name = "tabPageAddFields";
-            this.tabPageAddFields.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPageAddFields.Size = new System.Drawing.Size(515, 268);
+            this.tabPageAddFields.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAddFields.Size = new System.Drawing.Size(384, 215);
             this.tabPageAddFields.TabIndex = 2;
             this.tabPageAddFields.Text = "Дополнительные свойства";
             this.tabPageAddFields.UseVisualStyleBackColor = true;
@@ -731,19 +696,20 @@ namespace UbsBusiness
             // ucfAdditionalFields
             // 
             this.ucfAdditionalFields.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucfAdditionalFields.Location = new System.Drawing.Point(4, 4);
-            this.ucfAdditionalFields.Margin = new System.Windows.Forms.Padding(5);
+            this.ucfAdditionalFields.Location = new System.Drawing.Point(3, 3);
+            this.ucfAdditionalFields.Margin = new System.Windows.Forms.Padding(4);
             this.ucfAdditionalFields.Name = "ucfAdditionalFields";
             this.ucfAdditionalFields.ReadOnly = false;
-            this.ucfAdditionalFields.Size = new System.Drawing.Size(507, 260);
+            this.ucfAdditionalFields.Size = new System.Drawing.Size(378, 209);
             this.ucfAdditionalFields.TabIndex = 0;
+            this.ucfAdditionalFields.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ucfAdditionalFields_KeyPress);
             // 
             // UbsPsContractFrm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(980, 738);
-            this.Margin = new System.Windows.Forms.Padding(5);
+            this.ClientSize = new System.Drawing.Size(735, 600);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "UbsPsContractFrm";
             this.Text = "Карточка договора";
             this.panelMain.ResumeLayout(false);
@@ -756,10 +722,11 @@ namespace UbsBusiness
             this.grpRecipient.ResumeLayout(false);
             this.grpRecipient.PerformLayout();
             this.tabPageCommission.ResumeLayout(false);
-            this.grpRecipientCommission.ResumeLayout(false);
-            this.grpRecipientCommission.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.grpPayerCommission.ResumeLayout(false);
             this.grpPayerCommission.PerformLayout();
+            this.grpRecipientCommission.ResumeLayout(false);
+            this.grpRecipientCommission.PerformLayout();
             this.tabPageAddFields.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -797,14 +764,12 @@ namespace UbsBusiness
         private System.Windows.Forms.TextBox txtRecipientClient;
         private System.Windows.Forms.Button btnRecipientClientClear;
         private System.Windows.Forms.Label lblRecipientBik;
-        private UbsControl.UbsCtrlDecimal udcRecipientBik;
         private System.Windows.Forms.Label lblCorrespondentAccount;
         private UbsControl.UbsCtrlAccount ucaCorrespondentAccount;
         private System.Windows.Forms.Label lblBankName;
         private System.Windows.Forms.TextBox txtBankName;
         private UbsControl.UbsCtrlAccount ucaRecipientAccount;
         private System.Windows.Forms.Label lblRecipientInn;
-        private UbsControl.UbsCtrlDecimal udcRecipientInn;
         private System.Windows.Forms.Label lblRecipientAddress;
         private System.Windows.Forms.TextBox txtRecipientAddress;
         private System.Windows.Forms.GroupBox grpPayerCommission;
@@ -822,5 +787,8 @@ namespace UbsBusiness
         private LinkLabel linkPaymentKind;
         private LinkLabel linkLabel1;
         private LinkLabel linkRecipientClient;
+        private TableLayoutPanel tableLayoutPanel1;
+        private TextBox txtRecipientInn;
+        private TextBox txtRecipientBik;
     }
 }

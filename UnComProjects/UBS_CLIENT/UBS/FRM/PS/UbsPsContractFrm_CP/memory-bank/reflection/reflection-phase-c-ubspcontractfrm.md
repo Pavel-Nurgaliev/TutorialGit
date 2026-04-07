@@ -19,7 +19,7 @@ During Phase C build, **`UbsPsContractFrm.cs`** was found **without** **`UbsPsCo
 ## What Went Well
 
 - **Direct legacy trace:** Grep on **`Contract.dob`** for **`EnableSum`** and **`cboType*_Click`** gave an unambiguous port (indices **0** and **3**, not `ItemData`).
-- **Small partial:** **`Commission.cs`** isolates commission UI logic without bloating **`InitDoc.cs`**.
+- **Small partial:** **`Commission.cs`** isolates commission UI logic without bloating **`Initialization.cs`**.
 - **Doc co-location:** Extending the **channel** creative (§7) keeps “what the server expects” and “what the UI does” in one inventory.
 - **Constants for indices:** Matches **`style-rule.mdc`** (explicit literals for behavioral thresholds).
 - **Single post-load hook:** One **`EnableSumCommissionControls`** call at the end of **`InitDoc`** covers EDIT and ADD after all combo/percent assignments.
