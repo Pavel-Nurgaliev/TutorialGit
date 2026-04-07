@@ -4,8 +4,8 @@
 | Phase | Status | Notes |
 |-------|--------|-------|
 | VAN | COMPLETE | Memory Bank deployed, complexity = Level 4 |
-| PLAN | NOT STARTED | Next phase |
-| CREATIVE | NOT STARTED | |
+| PLAN | COMPLETE | Includes `plan-group-payment-cycle.md` (save → MsgBox → IUbsRunScript → GROUP_EDIT) |
+| CREATIVE | IN PROGRESS | Layout + constants inventory documented; combo/script interop open |
 | BUILD | NOT STARTED | |
 | REFLECT | NOT STARTED | |
 | ARCHIVE | NOT STARTED | |

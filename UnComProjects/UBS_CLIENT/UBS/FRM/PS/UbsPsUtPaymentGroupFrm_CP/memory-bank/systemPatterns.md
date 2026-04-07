@@ -100,7 +100,12 @@ catch (Exception ex) { this.Ubs_ShowError(ex); }
 | udc | UbsCtrlDecimal |
 | ucf | UbsCtrlFields |
 
-## Channel Commands Catalog (UtPaymentGroup_F)
+## Channel contract (authoritative)
+
+Full per-command `ParamIn` / `ParamOut` tables, matrix notes, and non-channel COM (`UbsComCheck`, `IUbsRunScript`):  
+**`memory-bank/creative/creative-ubspsutpaymentgroupfrm-channel-contract.md`**
+
+The short catalog below is retained for quick scanning only.
 
 ### Init/Read Commands
 | Command | Purpose | Key Params In | Key Params Out |

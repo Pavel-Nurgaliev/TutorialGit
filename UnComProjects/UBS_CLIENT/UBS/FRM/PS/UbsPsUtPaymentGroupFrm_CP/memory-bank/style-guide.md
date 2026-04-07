@@ -20,7 +20,7 @@
 | tabPage | TabPage | tabPageMain, tabPageAddProperties |
 | pnl | Panel | — |
 | tbl | TableLayoutPanel | tblActions |
-| uci | UbsCtrlInfo | uciInfo |
+| uci | UbsCtrlInfo | `uciInfo` (use this name in Designer; legacy template sometimes used `ubsCtrlInfo`) |
 | ucd | UbsCtrlDate | — |
 | uca | UbsCtrlAccount | ucaAccKorr, ucaAccClient |
 | udc | UbsCtrlDecimal | udcSumma, udcPeny, udcSummaRateSend, udcSummaTotal |
