@@ -1,0 +1,116 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="2.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8CFD5570-CF86-4055-B7A5-69BADC1BF64C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UbsPsUtPaymentGroupFrm</RootNamespace>
+    <AssemblyName>UbsPsUtPaymentGroupFrm</AssemblyName>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\UbsPsUtPaymentGroupFrm.XML</DocumentationFile>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UbsBase, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsBase.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UbsChannel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsChannel.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UbsCollections, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\Lib\UbsCollections.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UbsCtrlInfo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsCtrlInfo.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UbsCtrlDecimal, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsCtrlDecimal.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UbsCtrlFields, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsCtrlFields.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UbsCtrlAccount, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsCtrlAccount.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UbsForm, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsForm.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UbsFormBase, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsFormBase.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UbsInterface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsInterface.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="UbsPsUtPaymentGroupFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UbsPsUtPaymentGroupFrm.Constants.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UbsPsUtPaymentGroupFrm.Designer.cs">
+      <DependentUpon>UbsPsUtPaymentGroupFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="UbsPsUtPaymentGroupFrm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>UbsPsUtPaymentGroupFrm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
