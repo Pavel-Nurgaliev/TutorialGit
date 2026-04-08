@@ -71,11 +71,11 @@ Full tree, `.csproj` compile order, and responsibility map: **`memory-bank/plan-
 ## Phase 3: BUILD — Implementation
 - [x] Create .sln and .csproj (baseline exists; extend per plan)
 - [x] Create AssemblyInfo.cs
-- [ ] Create Designer.cs (all controls) — expand from template
-- [x] Create Constants.cs (expand)
-- [ ] Create main form file (constructor, IUbs delegates) — expand
-- [ ] Create Initialization.cs (InitDoc, channel reads)
-- [ ] Create Save.cs (save pipeline, all validations)
+- [x] Create Designer.cs (all controls) — 46 controls matching plan-vb6-controls-map.md; pattern per creative-ubspsutpaymentgroupfrm-designer-layout.md
+- [x] Create Constants.cs (expand) — full constants from inventory: Resource, StrCommand, Run names, Captions, Messages, Script/COM, BankBIK tags, AccountPlaceholder, AddFieldsSupportKey
+- [x] Create main form file (constructor, IUbs delegates) — fields, ListKey with InitDoc call, UbsCtrlFieldsSupportCollection setup
+- [x] Create Initialization.cs (InitDoc, channel reads) — 11 methods: InitDoc, ReadContract, FindContractbyId, FillPurpose, GetBankNameACC, ReadBankBikResult, DisableAllFields, EnableAllFields, ClearRecFields, ClearRecFieldsSend + GroupContractItem helper class
+- [x] Create Save.cs (save pipeline, all validations) — BtnSave_ClickImpl, CheckPayment, CheckTerror, UtCheckUserBeforeSave, CheckLockPassport, CheckIPDL, RunGroupContinuationScript (IUbsRunScript late-bind), BtnSaveAttribute_ClickImpl; `linkFIO` used where VB6 had `btnClient`
 - [ ] Create Keys.cs (keyboard handling)
 - [ ] Create Commission.cs
 - [ ] Create BrowseShell.cs

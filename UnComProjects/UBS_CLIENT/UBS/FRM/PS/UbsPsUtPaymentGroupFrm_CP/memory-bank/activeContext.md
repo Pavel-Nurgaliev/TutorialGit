@@ -1,10 +1,10 @@
 # Active Context: UbsPsUtPaymentGroupFrm
 
 ## Current Phase
-**CREATIVE** — All Level 4 PLAN deliverables complete (including `plan-group-payment-cycle.md`).
+**BUILD** — Save.cs complete (Payment_Save pipeline, CheckPayment chain, COM checks, group continuation script). Next: Keys.cs, Commission.cs, BrowseShell.cs.
 
 ## Current Focus
-Planning + creative archive includes `creative/creative-ubspsutpaymentgroupfrm-constants.md`. Remaining CREATIVE: `UbsComboEditControl` → `cmbPurpose` behavior, `Parent`/IUbsRunScript interop. Then BUILD: paste constants into `UbsPsUtPaymentGroupFrm.Constants.cs`, expand Designer, partials.
+Save.cs implements the full save pipeline per `plan-validation-chain.md`: payer clear-id rule, CheckPayment (passport COM, contract state/id, CheckTerror, FIO, GetBankNameACC, UtCheckAccFromBic, amounts, CheckAddFields), IPDL COM, UtCheckUserBeforeSave (UTListAddRead + AddFields merge + Ut_CheckBeforeSave), Payment_Save, uciInfo feedback, group continuation MsgBox and late-bound `IUbsRunScript`, `StrCommand` → GROUP_EDIT. Payer “client” control is `linkFIO` + `OpenClientPicker()` (BrowseShell later). Next: Keys.cs (`CheckRS`), Commission.cs, BrowseShell.cs.
 
 ## Key Decisions Made
 1. **Complexity Level 4** — Large form with 20+ channel commands, complex validation, commission calculations, group payment workflow
@@ -42,8 +42,7 @@ Key changes inside files:
 - Template project structure (TMP_CP\UbsFormProject1 — fully read and renamed)
 
 ## Next Steps
-- **CREATIVE**: `cmbPurpose` drop-down style + group script `Parent`/IUbsRunScript
-- **BUILD**: implement `Constants.cs` from `creative-ubspsutpaymentgroupfrm-constants.md`, Designer, partials, PostBuildEvent
+- **BUILD**: `Save.cs`, `Keys.cs`, `Commission.cs`, `BrowseShell.cs`, PostBuildEvent
 
 ## Status
 ```
@@ -59,5 +58,10 @@ Key changes inside files:
 ✓ PLAN: Group payment cycle → plan-group-payment-cycle.md
 ✓ CREATIVE: Designer layout → creative/creative-ubspsutpaymentgroupfrm-designer-layout.md
 ✓ CREATIVE: Constants inventory → creative/creative-ubspsutpaymentgroupfrm-constants.md
-→ NEXT: CREATIVE combo + script interop; /build
+✓ BUILD: Designer.cs — 46 controls, panelMain→tabPayment(Fill)+tblActions(Bottom,32px), pnlMainScroll(AutoScroll), grpPayer, grpRecipient, amounts, ucfAddProperties
+✓ BUILD: Constants.cs — full inventory (28 Run names, 6 captions, 13 messages, 3 COM/script, AccountPlaceholder, AddFieldsSupportKey)
+✓ BUILD: Main .cs — 18 fields, ListKey→InitDoc, UbsCtrlFieldsSupportCollection
+✓ BUILD: Initialization.cs — InitDoc, ReadContract, FindContractbyId, FillPurpose, GetBankNameACC, ReadBankBikResult, DisableAllFields, EnableAllFields, ClearRecFields, ClearRecFieldsSend, GroupContractItem
+✓ BUILD: Save.cs — btn save, CheckPayment, CheckTerror, UtCheckUserBeforeSave, passport/IPDL COM, Payment_Save, uciInfo, group MsgBox + IUbsRunScript; SaveAttributeRecip; terror path uses `OpenClientPicker` / `linkFIO` (Designer has LinkLabel instead of `btnClient`)
+→ NEXT: BUILD Keys.cs, Commission.cs, BrowseShell.cs, PostBuildEvent
 ```
