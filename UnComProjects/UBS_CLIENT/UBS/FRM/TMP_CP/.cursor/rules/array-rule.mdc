@@ -1,0 +1,20 @@
+---
+alwaysApply: true
+---
+
+While converting a VB6 form to .NET, treat channel / variant matrices as **`object[row, column]`** in C#.
+
+Legacy VB uses **`variant(fieldIndex, recordIndex)`** (e.g. `Contract.dob`: `varExecutors(0, i)` = id / `ItemData`, `varExecutors(1, i)` = caption; loop `For i = 0 To UBound(variant, 2)`).
+
+Map to C# by swapping subscripts: **`fieldIndex` → column, `recordIndex` → row.**
+
+```csharp
+int n = arr.GetLength(0);
+for (int rowIndex = 0; rowIndex < n; rowIndex++)
+{
+    int id = Convert.ToInt32(arr[rowIndex, 0]);
+    string name = Convert.ToString(arr[rowIndex, 1]);
+}
+```
+
+So **`arr[rowIndex, 0]`** corresponds to **`variant(0, i)`** and **`arr[rowIndex, 1]`** to **`variant(1, i)`** when `rowIndex == i`.
