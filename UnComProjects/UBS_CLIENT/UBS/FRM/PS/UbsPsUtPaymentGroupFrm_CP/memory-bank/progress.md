@@ -5,10 +5,16 @@
 |-------|--------|-------|
 | VAN | COMPLETE | Memory Bank deployed, complexity = Level 4 |
 | PLAN | COMPLETE | Includes `plan-group-payment-cycle.md` (save → MsgBox → IUbsRunScript → GROUP_EDIT) |
-| CREATIVE | IN PROGRESS | Layout + constants inventory documented; combo/script interop open |
-| BUILD | IN PROGRESS | + Save.cs (save + validations + attribute save + group script); MSBuild Debug OK (warnings: unused fields) |
-| REFLECT | NOT STARTED | |
-| ARCHIVE | NOT STARTED | |
+| CREATIVE | COMPLETE | Layout, constants, channel contract, designer creative docs |
+| BUILD | COMPLETE | Partials, Designer, PostBuildEvent; MSBuild Debug OK |
+| REFLECT | COMPLETE | `reflection/reflection-ubspsutpaymentgroupfrm-conversion.md`; channel/UI/error checklist recorded |
+| ARCHIVE | COMPLETE | `archive/archive-ubspsutpaymentgroupfrm-conversion.md` (2026-04-10); deviations vs VB6 documented |
+
+## Archived task summary
+
+**Task ID:** `ubspsutpaymentgroupfrm-conversion`  
+**Archive:** [`memory-bank/archive/archive-ubspsutpaymentgroupfrm-conversion.md`](archive/archive-ubspsutpaymentgroupfrm-conversion.md)  
+**Outcome:** BUILD baseline delivered; documented gaps — stubbed `RunGroupContinuationScript`, missing `UtGetAccINNFromLastPayment` in `FindContractbyId`, UI parity not verified.
 
 ## VAN Phase Results
 - [x] Platform detection: Windows 10, PowerShell

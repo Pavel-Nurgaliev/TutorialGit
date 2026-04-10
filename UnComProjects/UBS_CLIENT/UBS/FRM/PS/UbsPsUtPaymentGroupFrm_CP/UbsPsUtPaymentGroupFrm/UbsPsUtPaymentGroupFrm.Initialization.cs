@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace UbsBusiness
 {
@@ -45,7 +44,8 @@ namespace UbsBusiness
                 this.UbsChannel_ParamIn("IdPayment", m_idPayment);
                 this.UbsChannel_Run("InitFormGroup");
 
-                string strError = Convert.ToString(this.UbsChannel_ParamOut("strError"));
+                string strError = this.UbsChannel_ExistParamOut("strError") ? Convert.ToString(this.UbsChannel_ParamOut("strError")) : string.Empty;
+
                 if (!string.IsNullOrEmpty(strError))
                 {
                     MessageBox.Show(strError, CaptionInitCheck,
@@ -135,6 +135,8 @@ namespace UbsBusiness
                 }
 
                 txtRecip.Text = strNameRecip;
+
+                RefreshCommissionRatesAfterPaymentRead();
             }
             catch (Exception ex) { this.Ubs_ShowError(ex); }
         }
@@ -195,13 +197,7 @@ namespace UbsBusiness
                         MessageBox.Show(MsgContractClosedWarning, CaptionForm, MessageBoxButtons.OK);
                     }
 
-                    m_arrRateSend = new object[6];
-                    m_arrRateSend[0] = contractOut.Value("RateTypeSend");
-                    m_arrRateSend[1] = contractOut.Value("RatePercentSend");
-                    m_arrRateSend[2] = contractOut.Value("MinSumSend");
-                    m_arrRateSend[3] = contractOut.Value("MaxSumSend");
-                    m_arrRateSend[4] = contractOut.Value("Комиссии с плательщика-признак ставки");
-                    m_arrRateSend[5] = contractOut.Value("Комиссии с плательщика-тарифная сетка");
+                    CopyCommissionRateSendFromContract(contractOut);
 
                     m_intState = Convert.ToInt32(contractOut.Value("State"));
 
@@ -275,6 +271,7 @@ namespace UbsBusiness
                 }
                 else
                 {
+                    m_arrRateSend = null;
                     btnListAttributeRecip.Visible = false;
                     btnSaveAttribute.Visible = false;
                 }
@@ -296,6 +293,11 @@ namespace UbsBusiness
                         ucfAddProperties.Refresh();
                     }
                 }
+
+                if (m_idContract > 0)
+                {
+                    CalcSumCommiss();
+                }
             }
             catch (Exception ex) { this.Ubs_ShowError(ex); }
         }
@@ -312,7 +314,7 @@ namespace UbsBusiness
                     int rowCount = arr.GetLength(0);
                     for (int i = 0; i < rowCount; i++)
                     {
-                        cmbPurpose.Items.Add(new GroupContractItem(i,Convert.ToString(arr[i, 0])));
+                        cmbPurpose.Items.Add(Convert.ToString(arr[i, 0]));
                     }
 
                     if (cmbPurpose.Items.Count > 0)
@@ -349,6 +351,7 @@ namespace UbsBusiness
                 {
                     string errMsg = Convert.ToString(this.IUbsChannel.ParamOut("strError"))
                         + "\n" + MsgBikLimitContinueQuestionSuffix;
+
                     DialogResult dr = MessageBox.Show(errMsg, CaptionValidation,
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (dr != DialogResult.Yes)

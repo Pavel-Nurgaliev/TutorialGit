@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Windows.Forms;
 using UbsService;
 
@@ -44,6 +44,10 @@ namespace UbsBusiness
             base.UbsCtrlFieldsSupportCollection.Add(AddFieldsSupportKey, ucfAddProperties);
 
             base.Ubs_CommandLock = true;
+
+            WireCommissionHandlers();
+
+            this.Ubs_ActionRunBegin += new UbsActionRunBeginEventHandler(UbsPsUtPaymentGroupFrm_Ubs_ActionRunBegin);
         }
 
         #region Button Handlers
@@ -68,14 +72,11 @@ namespace UbsBusiness
             catch (Exception ex) { this.Ubs_ShowError(ex); }
         }
 
-        private void OpenClientPicker()
-        {
-        }
-
         private void btnListAttributeRecip_Click(object sender, EventArgs e)
         {
             try
             {
+                BtnListAttributeRecip_ClickImpl();
             }
             catch (Exception ex) { this.Ubs_ShowError(ex); }
         }
@@ -97,6 +98,8 @@ namespace UbsBusiness
         {
             try
             {
+                m_idContract = ((GroupContractItem)cmbCode.SelectedItem).Id;
+                FindContractbyId();
             }
             catch (Exception ex) { this.Ubs_ShowError(ex); }
         }

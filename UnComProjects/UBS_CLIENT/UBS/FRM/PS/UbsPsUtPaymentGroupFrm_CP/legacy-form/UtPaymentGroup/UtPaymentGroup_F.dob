@@ -48,7 +48,7 @@ _ExtentY = 10398
 _Version = 131082
 TabCount = 2
 TagVariant = ""
-Tabs = "UtPaymentGroup_F.dox" :   0000
+Tabs = "UtPaymentGroup_F.dox" :    0000
       Begin ActiveTabs.SSActiveTabPanel SSActiveTabPanel2 
          Height = 5505
 Left = 30
@@ -58,11 +58,11 @@ Width = 8415
 _ExtentX = 14843
 _ExtentY = 9710
 _Version = 131082
-TabGuid = "UtPaymentGroup_F.dox" :   008D
+TabGuid = "UtPaymentGroup_F.dox" :    008D
          Begin UBSPROPLibCtl.UbsControlProperty AddProperties 
             Height = 4575
 Left = 180
-OleObjectBlob = "UtPaymentGroup_F.dox" :   00B5
+OleObjectBlob = "UtPaymentGroup_F.dox" :    00B5
             TabIndex = 26
 Top = 300
 Width = 7995
@@ -77,7 +77,7 @@ Width = 8415
 _ExtentX = 14843
 _ExtentY = 9710
 _Version = 131082
-TabGuid = "UtPaymentGroup_F.dox" :   00E5
+TabGuid = "UtPaymentGroup_F.dox" :    00E5
          Begin VB.Frame frmSend 
             Caption = "Плательщик"
 Height = 1765
@@ -2012,7 +2012,7 @@ Private Sub AccClient_LostFocus()
          recCount = objParamOut.Parameter("RecCount")
         idArr = objParamOut.Parameter("IdArray")
 
-        If recCount = 1 Then
+        If recCount FV= 1 Then
             m_IdContract = idArr(0, 0)
             FindContractbyId()
 

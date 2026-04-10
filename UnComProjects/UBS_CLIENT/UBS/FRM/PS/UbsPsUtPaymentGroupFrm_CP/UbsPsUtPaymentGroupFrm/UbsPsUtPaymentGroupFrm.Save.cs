@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Windows.Forms;
+using UbsService;
 
 namespace UbsBusiness
 {
@@ -95,7 +96,7 @@ namespace UbsBusiness
 
                 this.IUbsChannel.Run("Payment_Save");
 
-                string strErrOut = Convert.ToString(this.IUbsChannel.ParamOut("StrError"));
+                string strErrOut = this.IUbsChannel.ExistParamOut("StrError") ? Convert.ToString(this.IUbsChannel.ParamOut("StrError")) : string.Empty;
                 if (string.IsNullOrEmpty(strErrOut))
                 {
                     m_blnNeedRefreshGrid = true;
@@ -450,7 +451,6 @@ namespace UbsBusiness
             }
         }
 
-        //todo: CheckLibrary
         private bool CheckLockPassport()
         {
             if (string.IsNullOrEmpty(m_strDocNumber.Trim())
@@ -461,21 +461,8 @@ namespace UbsBusiness
 
             try
             {
-                Type t = Type.GetTypeFromProgID("ProgIdUbsComCheck");
-                if (t == null)
-                {
-                    return true;
-                }
-
-                object com = Activator.CreateInstance(t);
-                object ret = t.InvokeMember(
-                    "CommonCheckPassport4GISMU",
-                    BindingFlags.InvokeMethod,
-                    null,
-                    com,
-                    new object[] { this.IUbsChannel, (long)m_idClient, Missing.Value });
-
-                return Convert.ToBoolean(ret);
+                return UbsComValidateLibrary.ValidateDocumentGISMU4Vb(this,
+                base.IUbsChannel, m_idClient);
             }
             catch (Exception ex)
             {
@@ -484,26 +471,11 @@ namespace UbsBusiness
             }
         }
 
-        //todo: CheckLibrary
         private bool CheckIPDL()
         {
             try
             {
-                Type t = Type.GetTypeFromProgID("ProgIdUbsComCheck");
-                if (t == null)
-                {
-                    m_blnIPDL = false;
-                    return true;
-                }
-
-                object com = Activator.CreateInstance(t);
-                object retObj = t.InvokeMember(
-                    "CommonCheckIPDL",
-                    BindingFlags.InvokeMethod,
-                    null,
-                    com,
-                    new object[] { this.IUbsChannel });
-                int ret = Convert.ToInt32(retObj);
+                var ret = UbsComValidateLibrary.ValidateIDPLVb(this, base.IUbsChannel);
 
                 if (ret == 0)
                 {
@@ -530,73 +502,45 @@ namespace UbsBusiness
             }
         }
 
-        //todo:scripter
         private void RunGroupContinuationScript(int idPaym, object paymentGroupId)
         {
-            Type scriptType = Type.GetTypeFromProgID(ProgIdUbsRunScript);
-            if (scriptType == null)
-            {
-                btnSave.Enabled = true;
+            //var scripter = base.Ubs_VBScriptRunner();
 
-                return;
-            }
+            //try
+            //{
+            //    object[] keyArr = new object[] { idPaym };
 
-            object script = null;
-            try
-            {
-                script = Activator.CreateInstance(scriptType);
-                scriptType.InvokeMember(
-                    "UbsChannel",
-                    BindingFlags.SetProperty,
-                    null,
-                    script,
-                    new object[] { this.IUbsChannel });
+            //    var paramIn = new UbsParam();
 
-                object parentObj = base.IUbs;
-                InvokeScriptParameterSet(scriptType, script, ParamKeyParent, parentObj);
+            //    paramIn.Value("Parent", base.IUbs);
+            //    paramIn.Value("Key", keyArr);
+            //    paramIn.Value("Идентификатор группового платежа", paymentGroupId);
+            //    paramIn.Value("Идентификатор основного платежа", idPaym);
 
-                object[] keyArr = new object[] { idPaym };
-                InvokeScriptParameterSet(scriptType, script, ParamKeyScriptKey, keyArr);
+            //    scripter.LoadFiles(ScriptGroupContinuation);
 
-                InvokeScriptParameterSet(scriptType, script, ParamKeyPaymentGroupId, paymentGroupId);
-                InvokeScriptParameterSet(scriptType, script, ParamKeyMainPaymentId, idPaym);
+            //    scripter.UbsScriptParam = paramIn;
 
-                scriptType.InvokeMember(
-                    "LoadFiles",
-                    BindingFlags.InvokeMethod,
-                    null,
-                    script,
-                    new object[] { ScriptGroupContinuation });
+            //    scripter.ExecuteScript();
 
-                scriptType.InvokeMember(
-                    "ExecuteScript",
-                    BindingFlags.InvokeMethod,
-                    null,
-                    script,
-                    null);
+            //    var paramOut = scripter.UbsScriptParam;
 
-                scriptType.InvokeMember(
-                    "ReleaseUbsChannel",
-                    BindingFlags.InvokeMethod,
-                    null,
-                    script,
-                    null);
+            //    bool endGroup = Convert.ToBoolean(paramOut.Value("EndGroup"));
 
-                object endGroup = InvokeScriptParameterGet(scriptType, script, ParamKeyEndGroup);
-                if (endGroup != null && Convert.ToBoolean(endGroup))
-                {
-                    btnSave.Enabled = false;
-                }
-                else
-                {
-                    btnSave.Enabled = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                this.Ubs_ShowError(ex);
-                btnSave.Enabled = true;
-            }
+            //    if (endGroup)
+            //    {
+            //        btnSave.Enabled = false;
+            //    }
+            //    else
+            //    {
+            //        btnSave.Enabled = true;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    this.Ubs_ShowError(ex);
+            //    btnSave.Enabled = true;
+            //}
         }
 
         private static void InvokeScriptParameterSet(Type scriptType, object script, string name, object value)

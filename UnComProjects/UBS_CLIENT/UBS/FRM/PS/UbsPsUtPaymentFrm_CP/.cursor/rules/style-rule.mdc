@@ -1,0 +1,42 @@
+---
+description: 
+alwaysApply: true
+---
+
+// Always use explicit string literals for command names and param keys
+
+this.IUbsChannel.ParamIn["ID_TRADE"] = m_idTrade;
+this.IUbsChannel.Run("GetOneTrade");
+
+```csharp
+// Form.Constants.cs
+public partial class Form: UbsFormBase
+{
+    private const string LoadResource = VBS:SOURCE;
+    private const string MsgSaved = "Данные сохранены";
+    private const string MsgNoTradeDate = "Не задана дата сделки";
+    // ... other user-facing messages
+}
+```
+
+### Error Handling
+
+```csharp
+try
+{
+    // channel call or business logic
+}
+catch (Exception ex) { this.Ubs_ShowError(ex); }
+```
+
+## Documentation
+
+- Channel contract: document all `.Run` calls, `ParamIn` keys, `ParamOut` keys in creative doc.
+- No inline comments that merely restate the code (e.g. no `// increment counter`).
+- Complex business rules (rate calculations, tab guard logic) may have explanatory comments.
+
+## Project File Conventions
+
+- `TargetFrameworkVersion`: `v2.0` (do not upgrade) (don't use linq and other libraries)
+- References: `<Private>False</Private>` for all UBS assemblies
+- `HintPath`: `C:\ProgramData\UniSAB\Assembly\Ubs\...`

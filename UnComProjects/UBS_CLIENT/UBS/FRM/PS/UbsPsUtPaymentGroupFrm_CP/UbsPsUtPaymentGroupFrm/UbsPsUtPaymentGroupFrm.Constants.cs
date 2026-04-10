@@ -62,11 +62,6 @@
         #region Ut_CheckBeforeSave / script parameter keys
 
         private const string ParamKeyIdPayment = "IDPAYMENT";
-        private const string ParamKeyPaymentGroupId = "Идентификатор группового платежа";
-        private const string ParamKeyMainPaymentId = "Идентификатор основного платежа";
-        private const string ParamKeyParent = "Parent";
-        private const string ParamKeyScriptKey = "Key";
-        private const string ParamKeyEndGroup = "EndGroup";
 
         #endregion
 
@@ -86,6 +81,21 @@
         #region UbsCtrlFields support key
 
         private const string AddFieldsSupportKey = "Доп. поля";
+
+        #endregion
+
+        #region Commission tariff labels (UtReadContract / CalcSumCommiss)
+
+        private const string TarifLabelPercent = "ставка, %";
+        private const string TarifLabelFixed = "фиксированная сумма";
+
+        #endregion
+
+        #region Shell list actions (Ubs_ActionRun — legacy GetWindow / filter paths)
+
+        private const string ActionListCommonClient = "UBS_COMMON_LIST_CLIENT";
+        private const string ActionListOcClients = "UBS_OC_CLIENTS";
+        private const string ActionListReceiver = @"UBS_PS_LIST_RECEIVER";
 
         #endregion
     }

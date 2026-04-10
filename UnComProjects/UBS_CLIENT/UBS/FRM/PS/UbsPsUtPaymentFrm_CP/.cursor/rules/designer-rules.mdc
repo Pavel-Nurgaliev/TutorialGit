@@ -1,0 +1,22 @@
+---
+description: 
+alwaysApply: true
+---
+
+//form convertation should not intend to change the template structure
+
+panelMain should exists;
+tableLayoutPanel height should be the same as it UbsFormTemplate; (D:\Repositories\TutorialGit\UnComProjects\UBS_CLIENT\UBS\FRM\TMP_CP\UbsFormProject1\)
+
+//VB6 OCX → .NET controls
+
+| VB6 | .NET |
+|-----|------|
+| SSActiveTabs | `TabControl` |
+| UbsControlMoney | `UbsCtrlDecimal` |
+| UbsControlDate | `UbsCtrlDate` (or `DateTimePicker`) |
+| UbsControlProperty / ucpParam | `UbsCtrlFields` / AddFields support |
+| UbsInfo | `UbsCtrlInfo` |
+| MSCOMCTL ListView | `System.Windows.Forms.ListView` |
+
+**Control field names (C#):** Prefix-based (Hungarian-style): `btn`, `txt`, `lbl`, `cmb`, `grp`, `tab`/`tabPage`, `pnl`, `tbl`, `ucd`/`udc`/`uca`/`uci`/`ucf` for UBS controls — full table in `memory-bank/creative/creative-ubspcontractfrm-conversion-architecture.md` §7.

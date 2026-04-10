@@ -29,6 +29,7 @@ namespace UbsBusiness
             this.tabPageMain = new System.Windows.Forms.TabPage();
             this.pnlMainScroll = new System.Windows.Forms.Panel();
             this.grpPayer = new System.Windows.Forms.GroupBox();
+            this.linkFIO = new System.Windows.Forms.LinkLabel();
             this.txtFIOPay = new System.Windows.Forms.TextBox();
             this.lblINNPayer = new System.Windows.Forms.Label();
             this.txtINNPay = new System.Windows.Forms.TextBox();
@@ -68,7 +69,6 @@ namespace UbsBusiness
             this.udcSummaTotal = new UbsControl.UbsCtrlDecimal();
             this.tabPageAddProperties = new System.Windows.Forms.TabPage();
             this.ucfAddProperties = new UbsControl.UbsCtrlFields();
-            this.linkFIO = new System.Windows.Forms.LinkLabel();
             this.panelMain.SuspendLayout();
             this.tblActions.SuspendLayout();
             this.tabPayment.SuspendLayout();
@@ -133,7 +133,7 @@ namespace UbsBusiness
             this.uciInfo.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.uciInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.uciInfo.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.uciInfo.Interval = 25000;
+            this.uciInfo.Interval = 500;
             this.uciInfo.Location = new System.Drawing.Point(3, 19);
             this.uciInfo.Name = "uciInfo";
             this.uciInfo.Size = new System.Drawing.Size(553, 13);
@@ -198,10 +198,21 @@ namespace UbsBusiness
             this.grpPayer.Controls.Add(this.txtNomerCardPay);
             this.grpPayer.Location = new System.Drawing.Point(8, 3);
             this.grpPayer.Name = "grpPayer";
-            this.grpPayer.Size = new System.Drawing.Size(702, 130);
+            this.grpPayer.Size = new System.Drawing.Size(708, 130);
             this.grpPayer.TabIndex = 0;
             this.grpPayer.TabStop = false;
             this.grpPayer.Text = "Плательщик";
+            // 
+            // linkFIO
+            // 
+            this.linkFIO.AutoSize = true;
+            this.linkFIO.Location = new System.Drawing.Point(6, 18);
+            this.linkFIO.Name = "linkFIO";
+            this.linkFIO.Size = new System.Drawing.Size(34, 13);
+            this.linkFIO.TabIndex = 50;
+            this.linkFIO.TabStop = true;
+            this.linkFIO.Text = "ФИО";
+            this.linkFIO.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkFIO_LinkClicked);
             // 
             // txtFIOPay
             // 
@@ -227,6 +238,7 @@ namespace UbsBusiness
             this.txtINNPay.Name = "txtINNPay";
             this.txtINNPay.Size = new System.Drawing.Size(120, 20);
             this.txtINNPay.TabIndex = 3;
+            this.txtINNPay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtINNPay_KeyDown);
             // 
             // lblAddressPay
             // 
@@ -244,7 +256,7 @@ namespace UbsBusiness
             this.txtAdressPay.Location = new System.Drawing.Point(88, 41);
             this.txtAdressPay.MaxLength = 255;
             this.txtAdressPay.Name = "txtAdressPay";
-            this.txtAdressPay.Size = new System.Drawing.Size(608, 20);
+            this.txtAdressPay.Size = new System.Drawing.Size(576, 20);
             this.txtAdressPay.TabIndex = 4;
             // 
             // lblRequisites
@@ -263,7 +275,7 @@ namespace UbsBusiness
             this.txtInfoClient.Enabled = false;
             this.txtInfoClient.Location = new System.Drawing.Point(88, 67);
             this.txtInfoClient.Name = "txtInfoClient";
-            this.txtInfoClient.Size = new System.Drawing.Size(608, 20);
+            this.txtInfoClient.Size = new System.Drawing.Size(576, 20);
             this.txtInfoClient.TabIndex = 5;
             // 
             // lblNomerCardPay
@@ -281,6 +293,7 @@ namespace UbsBusiness
             this.txtNomerCardPay.Name = "txtNomerCardPay";
             this.txtNomerCardPay.Size = new System.Drawing.Size(253, 20);
             this.txtNomerCardPay.TabIndex = 6;
+            this.txtNomerCardPay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNomerCardPay_KeyDown);
             // 
             // grpRecipient
             // 
@@ -307,7 +320,7 @@ namespace UbsBusiness
             this.grpRecipient.Controls.Add(this.txtRecip);
             this.grpRecipient.Location = new System.Drawing.Point(8, 139);
             this.grpRecipient.Name = "grpRecipient";
-            this.grpRecipient.Size = new System.Drawing.Size(702, 230);
+            this.grpRecipient.Size = new System.Drawing.Size(708, 230);
             this.grpRecipient.TabIndex = 1;
             this.grpRecipient.TabStop = false;
             this.grpRecipient.Text = "Получатель";
@@ -325,7 +338,7 @@ namespace UbsBusiness
             // 
             this.cmbCode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCode.FormattingEnabled = true;
-            this.cmbCode.Location = new System.Drawing.Point(98, 15);
+            this.cmbCode.Location = new System.Drawing.Point(102, 15);
             this.cmbCode.Name = "cmbCode";
             this.cmbCode.Size = new System.Drawing.Size(140, 21);
             this.cmbCode.TabIndex = 7;
@@ -338,13 +351,13 @@ namespace UbsBusiness
             this.txtComment.Enabled = false;
             this.txtComment.Location = new System.Drawing.Point(263, 15);
             this.txtComment.Name = "txtComment";
-            this.txtComment.Size = new System.Drawing.Size(395, 20);
+            this.txtComment.Size = new System.Drawing.Size(401, 20);
             this.txtComment.TabIndex = 8;
             // 
             // btnListAttributeRecip
             // 
             this.btnListAttributeRecip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnListAttributeRecip.Location = new System.Drawing.Point(668, 39);
+            this.btnListAttributeRecip.Location = new System.Drawing.Point(674, 39);
             this.btnListAttributeRecip.Name = "btnListAttributeRecip";
             this.btnListAttributeRecip.Size = new System.Drawing.Size(28, 23);
             this.btnListAttributeRecip.TabIndex = 9;
@@ -355,7 +368,7 @@ namespace UbsBusiness
             // btnSaveAttribute
             // 
             this.btnSaveAttribute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveAttribute.Location = new System.Drawing.Point(668, 65);
+            this.btnSaveAttribute.Location = new System.Drawing.Point(674, 65);
             this.btnSaveAttribute.Name = "btnSaveAttribute";
             this.btnSaveAttribute.Size = new System.Drawing.Size(28, 23);
             this.btnSaveAttribute.TabIndex = 10;
@@ -374,7 +387,7 @@ namespace UbsBusiness
             // 
             // txtBic
             // 
-            this.txtBic.Location = new System.Drawing.Point(98, 41);
+            this.txtBic.Location = new System.Drawing.Point(102, 41);
             this.txtBic.Name = "txtBic";
             this.txtBic.Size = new System.Drawing.Size(140, 20);
             this.txtBic.TabIndex = 11;
@@ -396,7 +409,7 @@ namespace UbsBusiness
             this.ucaAccKorr.Location = new System.Drawing.Point(358, 41);
             this.ucaAccKorr.MaxLength = 24;
             this.ucaAccKorr.Name = "ucaAccKorr";
-            this.ucaAccKorr.Size = new System.Drawing.Size(300, 20);
+            this.ucaAccKorr.Size = new System.Drawing.Size(306, 20);
             this.ucaAccKorr.TabIndex = 12;
             // 
             // lblBankName
@@ -412,9 +425,9 @@ namespace UbsBusiness
             this.txtNameBank.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNameBank.Enabled = false;
-            this.txtNameBank.Location = new System.Drawing.Point(98, 67);
+            this.txtNameBank.Location = new System.Drawing.Point(102, 67);
             this.txtNameBank.Name = "txtNameBank";
-            this.txtNameBank.Size = new System.Drawing.Size(560, 20);
+            this.txtNameBank.Size = new System.Drawing.Size(562, 20);
             this.txtNameBank.TabIndex = 13;
             // 
             // lblSettleAccount
@@ -428,16 +441,17 @@ namespace UbsBusiness
             // 
             // ucaAccClient
             // 
-            this.ucaAccClient.Location = new System.Drawing.Point(98, 93);
+            this.ucaAccClient.Location = new System.Drawing.Point(102, 93);
             this.ucaAccClient.MaxLength = 24;
             this.ucaAccClient.Name = "ucaAccClient";
-            this.ucaAccClient.Size = new System.Drawing.Size(200, 20);
+            this.ucaAccClient.Size = new System.Drawing.Size(243, 20);
             this.ucaAccClient.TabIndex = 14;
+            this.ucaAccClient.Leave += new System.EventHandler(this.ucaAccClient_Leave);
             // 
             // lblINNRecipient
             // 
             this.lblINNRecipient.AutoSize = true;
-            this.lblINNRecipient.Location = new System.Drawing.Point(340, 96);
+            this.lblINNRecipient.Location = new System.Drawing.Point(384, 96);
             this.lblINNRecipient.Name = "lblINNRecipient";
             this.lblINNRecipient.Size = new System.Drawing.Size(31, 13);
             this.lblINNRecipient.TabIndex = 55;
@@ -445,11 +459,12 @@ namespace UbsBusiness
             // 
             // txtINN
             // 
-            this.txtINN.Location = new System.Drawing.Point(377, 93);
+            this.txtINN.Location = new System.Drawing.Point(421, 93);
             this.txtINN.MaxLength = 12;
             this.txtINN.Name = "txtINN";
             this.txtINN.Size = new System.Drawing.Size(140, 20);
             this.txtINN.TabIndex = 15;
+            this.txtINN.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtINN_KeyDown);
             // 
             // lblPurpose
             // 
@@ -465,9 +480,9 @@ namespace UbsBusiness
             this.cmbPurpose.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbPurpose.FormattingEnabled = true;
-            this.cmbPurpose.Location = new System.Drawing.Point(98, 119);
+            this.cmbPurpose.Location = new System.Drawing.Point(102, 119);
             this.cmbPurpose.Name = "cmbPurpose";
-            this.cmbPurpose.Size = new System.Drawing.Size(560, 21);
+            this.cmbPurpose.Size = new System.Drawing.Size(562, 21);
             this.cmbPurpose.TabIndex = 16;
             // 
             // lblRecip
@@ -482,10 +497,10 @@ namespace UbsBusiness
             // 
             this.txtRecip.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRecip.Location = new System.Drawing.Point(98, 148);
+            this.txtRecip.Location = new System.Drawing.Point(102, 148);
             this.txtRecip.MaxLength = 160;
             this.txtRecip.Name = "txtRecip";
-            this.txtRecip.Size = new System.Drawing.Size(570, 20);
+            this.txtRecip.Size = new System.Drawing.Size(562, 20);
             this.txtRecip.TabIndex = 17;
             // 
             // lblSumma
@@ -563,7 +578,7 @@ namespace UbsBusiness
             this.tabPageAddProperties.Location = new System.Drawing.Point(4, 22);
             this.tabPageAddProperties.Name = "tabPageAddProperties";
             this.tabPageAddProperties.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAddProperties.Size = new System.Drawing.Size(727, 542);
+            this.tabPageAddProperties.Size = new System.Drawing.Size(384, 215);
             this.tabPageAddProperties.TabIndex = 1;
             this.tabPageAddProperties.Text = "Дополнительные свойства";
             this.tabPageAddProperties.UseVisualStyleBackColor = true;
@@ -575,19 +590,8 @@ namespace UbsBusiness
             this.ucfAddProperties.Margin = new System.Windows.Forms.Padding(4);
             this.ucfAddProperties.Name = "ucfAddProperties";
             this.ucfAddProperties.ReadOnly = false;
-            this.ucfAddProperties.Size = new System.Drawing.Size(721, 536);
+            this.ucfAddProperties.Size = new System.Drawing.Size(378, 209);
             this.ucfAddProperties.TabIndex = 0;
-            // 
-            // linkFIO
-            // 
-            this.linkFIO.AutoSize = true;
-            this.linkFIO.Location = new System.Drawing.Point(6, 18);
-            this.linkFIO.Name = "linkFIO";
-            this.linkFIO.Size = new System.Drawing.Size(34, 13);
-            this.linkFIO.TabIndex = 50;
-            this.linkFIO.TabStop = true;
-            this.linkFIO.Text = "ФИО";
-            this.linkFIO.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkFIO_LinkClicked);
             // 
             // UbsPsUtPaymentGroupFrm
             // 
