@@ -1,4 +1,4 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="2.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -7,8 +7,8 @@
     <ProjectGuid>{8CFD5570-CF86-4055-B7A5-69BADC1BF64C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UbsFormTemplate</RootNamespace>
-    <AssemblyName>UbsFormTemplate</AssemblyName>
+    <RootNamespace>UbsPsUtPaymentFrm</RootNamespace>
+    <AssemblyName>UbsPsUtPaymentFrm</AssemblyName>
     <StartupObject>
     </StartupObject>
     <FileUpgradeFlags>
@@ -16,7 +16,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>2.0</OldToolsVersion>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -28,6 +28,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -36,8 +37,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\UbsFormTemplate.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\UbsPsUtPaymentFrm.XML</DocumentationFile>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -65,6 +67,21 @@
       <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsCtrlInfo.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UbsCtrlDecimal, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsCtrlDecimal.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UbsCtrlFields, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsCtrlFields.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UbsCtrlAccount, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsCtrlAccount.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UbsForm, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\ProgramData\UniSAB\Assembly\Ubs\UbsForm.dll</HintPath>
@@ -82,20 +99,62 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UbsForm1.cs">
+    <Compile Include="FrmCalc.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UbsForm1.Designer.cs">
-      <DependentUpon>UbsForm1.cs</DependentUpon>
+    <Compile Include="FrmCalc.Designer.cs">
+      <DependentUpon>FrmCalc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCashOrd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCashOrd.Designer.cs">
+      <DependentUpon>FrmCashOrd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCashSymb.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCashSymb.Designer.cs">
+      <DependentUpon>FrmCashSymb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UbsPsUtPaymentFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UbsPsUtPaymentFrm.Constants.cs">
+      <DependentUpon>UbsPsUtPaymentFrm.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UbsPsUtPaymentFrm.Initialization.cs">
+      <DependentUpon>UbsPsUtPaymentFrm.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UbsPsUtPaymentFrm.Save.cs">
+      <DependentUpon>UbsPsUtPaymentFrm.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UbsPsUtPaymentFrm.Designer.cs">
+      <DependentUpon>UbsPsUtPaymentFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="UbsForm1.resx">
+    <EmbeddedResource Include="FrmCalc.resx">
+      <DependentUpon>FrmCalc.cs</DependentUpon>
       <SubType>Designer</SubType>
-      <DependentUpon>UbsForm1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCashOrd.resx">
+      <DependentUpon>FrmCashOrd.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCashSymb.resx">
+      <DependentUpon>FrmCashSymb.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UbsPsUtPaymentFrm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>UbsPsUtPaymentFrm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
