@@ -14,7 +14,7 @@ namespace UbsBusiness
                     return;
                 }
 
-                m_blnSave = true;
+                m_isSave = true;
                 btnExit.Enabled = false;
                 btnSave.Enabled = false;
 
@@ -86,8 +86,8 @@ namespace UbsBusiness
                 this.IUbsChannel.ParamIn("StrCommand", string.IsNullOrEmpty(m_command) ? StrCommandAdd : m_command);
                 this.IUbsChannel.ParamIn("IdContract", m_idContract);
                 this.IUbsChannel.ParamIn("ID_CLIENT", m_idClient);
-                this.IUbsChannel.ParamIn("blnIPDL", m_blnIPDL);
-                this.IUbsChannel.ParamIn("blnTerror", m_blnTerror);
+                this.IUbsChannel.ParamIn("blnIPDL", m_isIPDL);
+                this.IUbsChannel.ParamIn("blnTerror", m_isTerror);
                 this.IUbsChannel.Run("Payment_Save");
 
                 string strError = GetParamOutString("StrError");
@@ -221,14 +221,14 @@ namespace UbsBusiness
 
                 if (!this.IUbsChannel.ExistParamOut("RETVAL"))
                 {
-                    m_blnTerror = false;
+                    m_isTerror = false;
                     return true;
                 }
 
                 bool bRet = Convert.ToBoolean(this.IUbsChannel.ParamOut("RETVAL"));
                 if (bRet)
                 {
-                    m_blnTerror = false;
+                    m_isTerror = false;
                     return true;
                 }
 
@@ -238,13 +238,13 @@ namespace UbsBusiness
                     return false;
                 }
 
-                m_blnTerror = MessageBox.Show(
+                m_isTerror = MessageBox.Show(
                     strError,
                     CaptionValidation,
                     MessageBoxButtons.OKCancel,
                     MessageBoxIcon.Question) == DialogResult.OK;
 
-                return m_blnTerror;
+                return m_isTerror;
             }
             catch (Exception ex)
             {
@@ -260,18 +260,18 @@ namespace UbsBusiness
 
         private bool CheckIPDL()
         {
-            m_blnIPDL = false;
+            m_isIPDL = false;
             return true;
         }
 
         private bool CanCloseForm()
         {
-            return !m_blnSave;
+            return !m_isSave;
         }
 
         private void RestoreSaveUiState()
         {
-            m_blnSave = false;
+            m_isSave = false;
             btnExit.Enabled = true;
             btnSave.Enabled = true;
         }

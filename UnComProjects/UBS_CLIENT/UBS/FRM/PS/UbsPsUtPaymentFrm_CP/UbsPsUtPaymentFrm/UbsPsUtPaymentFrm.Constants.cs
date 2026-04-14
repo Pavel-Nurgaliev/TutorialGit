@@ -24,6 +24,7 @@
         private const string StrCommandGroupChange = "GROUP_CHANGE";
         private const string StrCommandChangePart = "CHANGE_PART";
         private const string StrCommandChangePartIncoming = "CHANGE_PART_INCOMING";
+        private const string StrCommandAddIncoming = "ADD_INCOMING";
         private const string StrCommandChangeContract = "CHANGECONTRACT";
 
         #endregion
@@ -37,6 +38,9 @@
         private const string CaptionCashSymbolControl = "Контроль кассовых символов";
         private const string CaptionClientCheck = "Проверка клиента";
         private const string CaptionGroupInputPrefix = "Ввод группы платежей ID = ";
+        private const string CaptionPaymentAccept = "Приём платежа";
+        private const string CaptionInitForm = "Инициализация формы";
+        private const string CaptionBlockCheck = "Проверка блокировки";
 
         #endregion
 
@@ -52,6 +56,14 @@
         private const string MsgGroupContinue = "Вы хотите продолжить ввод платежей в группу?";
         private const string MsgContractClosedWarning = "Внимание!!! Договор закрыт.";
         private const string MsgIpdlSaveForbidden = "Проверка ИПДЛ, сохранение запрещено!";
+        private const string MsgPaymentListEmpty = "Список платежей пуст.";
+        private const string MsgNotBankClient = "Не Клиент банка";
+        private const string MsgPaymentNotSelected = "Не выбран платеж для просмотра";
+        private const string MsgPaymentNotSelectedForAdd = "Не выбран платеж для добавления";
+        private const string MsgPaymentCancelled = "Данный платеж анулирован";
+        private const string MsgNotCashier = "Текущий пользователь не является кассиром !!!";
+        private const string MsgPaymentBlocked = "Платеж заблокирован, редактирование запрещено";
+        private const string MsgDocumentsExistViewOnly = "По платежу сформированы документы. Форма открыта в режиме просмотра";
 
         #endregion
 
@@ -65,6 +77,15 @@
         private const string TabTextAddFields = "Дополнительные поля";
         private const string GroupTextPayer = "Плательщик";
         private const string GroupTextRecipient = "Получатель";
+
+        #endregion
+
+        #region Pattern IDs
+
+        private const string PatternEnergy = "UBS_UT_ENERGY";
+        private const string PatternPhone = "UBS_UT_PHONE";
+        private const string PatternNalog = "UBS_UT_NALOG";
+        private const string PatternPhoneAcc = "UBS_UT_PHONE_ACC";
 
         #endregion
 

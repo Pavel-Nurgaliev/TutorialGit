@@ -70,7 +70,90 @@
 - The save partial currently avoids `UbsComValidateLibrary` references because the project does not yet include that assembly.
 - The designer now reflects the planned screenshot-aware tab structure, but event wiring and field names in the logic partials still need to be reconciled with the newly expanded control set.
 
+## BUILD Wave Plan (2026-04-10)
+
+Full next-phase plan captured in `memory-bank/tasks.md` §Phase 3 (Waves 2–9).
+
+| Wave | Scope | Key files | Depends on |
+|------|-------|-----------|------------|
+| **2** | Core infrastructure, ListKey, generic name fix, missing state, NativeMethods | `.cs`, `.Designer.cs`, `NativeMethods.cs` | — |
+| **3** | Initialization — full `InitDoc`, data fillers, tab visibility | `.Initialization.cs` | Wave 2 |
+| **4** | Save pipeline — full field collection, `CheckIPDL`, `NewRecord`, group save | `.Save.cs` | Wave 3 |
+| **5** | Keys.cs — keyboard navigation, Enter/Escape, F7 shortcut | `.Keys.cs` (new) | Wave 2 |
+| **6** | Commission.cs — amount/commission/NDS/penalty, timer recalc | `.Commission.cs` (new) | Wave 3 |
+| **7** | BrowseShell.cs — client/contract/dictionary/pattern browse + return | `.BrowseShell.cs` (new) | Wave 3 |
+| **8** | Cash.cs — FrmCalc/FrmCashSymb/FrmCashOrd orchestration | `.Cash.cs` (new) | Wave 6 + Wave 7 |
+| **9** | Designer event wiring polish and final lint | `.Designer.cs` | All waves |
+
+### Wave 2 Progress
+- [x] **B2.1 complete**: renamed generic controls in `UbsPsUtPaymentFrm.Designer.cs` (`btnCalc`, `btnPattern`, `btnCashSymb`, `lblCharCount210`, `lblCharCount160`, `lblBatchNumber`, `lblCityCode`, `txtBatchNumber`, `txtCheckSum`, `chkThirdPerson`)
+- [x] Verified no legacy generic identifiers (`button1..3`, `label1..4`, `textBox1..2`, `checkBox1`) remain in `UbsPsUtPaymentFrm/`
+- [x] IDE lint check on `UbsPsUtPaymentFrm.Designer.cs`: no errors
+- [x] **B2.2 complete**: added planned shared-state fields to `UbsPsUtPaymentFrm.cs` (`m_blnChangeContract`, group/add-param flags, browse/filter state, document/FR state, and related ids/strings)
+- [x] IDE lint check on `UbsPsUtPaymentFrm.cs`: no errors
+- [x] **B2.3 complete — ListKey fully rewritten** from VB6 `UBSChild_ParamInfo("InitParamForm")`:
+  - Main `ListKey` resets state (`m_commandSource`, contract/group/addclient/addparam/FO flags`) then dispatches to branch methods
+  - `ListKey_Add` — ADD / GROUP_ADD / GROUP_PROCEED / ADD_FROM_CLIENT with per-command sub-routing
+  - `ListKey_AddIncoming` — ADD_INCOMING (extracts group/main IDs from itemArray)
+  - `ListKey_AddParam` — ADD_PARAM (delegates to `ProcessAddParam` for parameter-tuple filling)
+  - `ListKey_View` — VIEW / GROUP_VIEW
+  - `ListKey_Copy` — COPY (AddProcInit → extract ID → InitDoc with COPY → revert to ADD)
+  - `ListKey_ChangePart` — CHANGE_PART / GROUP_CHANGE / CHANGE_PART_INCOMING
+  - Post-routing: `lblCommonAmount`/`udcCommonAmount`/`udcTotalAmount` visibility + `txtPayerFullName.Focus()`
+- [x] Added `m_commandSource`, `fromFoAsClient`, `blnCheckIncoming`, `IdPaymentCopy` fields
+- [x] Added message constants: `MsgNotBankClient`, `MsgPaymentNotSelected`, `MsgPaymentNotSelectedForAdd`, `MsgPaymentCancelled`, `MsgNotCashier`
+- [x] Added `StrCommandAddIncoming` constant
+- [x] Added stubs in `Initialization.cs`: `AddProcInit`, `IsAutoPeriod`, `GetGroupIDByPaymentID`, `UpdateGroupInfo`, `ProcessAddParam`, `CheckPayer`, `GetBankNameACC`, `CalcSumCommiss_2`, `FillNalog`
+- [x] `ProcessAddParam` fully converted: iterates parameter tuples and fills 16 named control/state slots matching VB6
+- [x] `CommandLine` uses safe `Convert.ToString(param_in)` with null guard
+- [x] All three edited files lint-clean
+- [x] **InitDoc fully rewritten** from VB6 (lines 5793–6162):
+  - Pre-InitForm resets (control visibility, save flags, tab hide)
+  - Cashier check for ADD commands (`PS_UserIsCashier` → `NotCashier` / `bRet`)
+  - `InitForm` channel call with `StrCommand`, `IdPayment`, `IdMainIncoming`
+  - Post-InitForm: `ChangeCommand`→VIEW, `CloseForm`→close, `CHANGE_PART_INCOMING`→EndGroup
+  - XOR check (`bRetVal`/`bMsgBoxYesNo`), `FillCityCode`, dates, error key
+  - Benefits client, benefit reason, AddProperties refresh, print form checkbox
+  - `DocumentsExists`→force VIEW with info bar
+  - Settings runs: `UtReadSettingEnterCashSymbol`, `UtReadSettingChoiceClient`, `UtReadSettingSourceMeans`
+  - Command branches: `InitDoc_View`, `InitDoc_Copy`, `InitDoc_ChangePart`, `InitDoc_Add`
+  - Post-branch: incoming group disable, period dates, `CheckPeni`, `CheckPayer`, `DefineRunUserForm`
+- [x] **ReadContract fully rewritten** from VB6 (lines 6166–6362):
+  - Group/Copy param handling, cash symbols, penalty info
+  - Full payer/recipient data fill from channel output
+  - Third person handling, ADD_PARAM conditional fill
+  - Code payment visibility, account code/city code
+  - Amounts, dates, contract/tariff/phone/pattern IDs
+  - `FindContractbyId`, pattern-based tab visibility (Energy/Phone/Nalog/PhoneAcc)
+- [x] Added 15 state fields: `m_idTariff`, `m_idPhone`, `m_isEndGroup`, `m_isErrorKey`, `m_isSourceMeansVisible`, `m_isSourceMeans`, `m_isAlready`, `m_isPenyPresent`, `m_isComissPeniPayer`, `m_isRegimCashSymb`, `m_curSumRec`, `m_curSumRateRec`, `m_numTabAddFl`
+- [x] Added constants: `CaptionPaymentAccept`, `CaptionInitForm`, `CaptionBlockCheck`, `MsgPaymentBlocked`, `MsgDocumentsExistViewOnly`, `PatternEnergy`, `PatternPhone`, `PatternNalog`, `PatternPhoneAcc`
+- [x] Added stubs: `DisableAllFields`, `EnableAllFields`, `SetAllFieldsEnabled`, `FillCityCode`, `CheckPeni` (2 overloads), `DefineRunUserForm`, `GetIdClientFromGroupPayment`
+- [x] Added `GetParamOutBool` helper
+- [x] All files lint-clean
+
+### Wave 2 continued + Wave 3 partial (2026-04-14)
+- [x] **B2.4 complete — Wire Form_Load**: connected `Load` event to `m_isInitialized = true` and `FormClosing` to `CanCloseForm` guard
+- [x] Added missing shared state fields: `m_idClientOld`, `m_strFIOOld`, `m_strAddressOld`, `m_strINNOld`, `m_arrRateSend`, `m_isAutoPeriodFlag`, `m_forbidTaxStatusChanges`, `m_savedTaxStatusValue`, `m_bicOld`, `m_isNoMessage`, `m_blnSecondPayment`, `m_isPeriodEnable`, `m_codeEnergy`, `m_varTariff`, `m_isForward`
+- [x] **CheckPeni** (both overloads) — shows/hides penalty label+control, optional sets amount
+- [x] **CheckPayer** — caches FIO/address/INN for change detection, returns unchanged flag
+- [x] **FillPayer** — calls `ReadClientFromIdOC`, fills payer fields + benefits checkbox
+- [x] **FillNalog** — calls `ReadNalog`, fills all 11 tax tab controls with VB6→.NET mapping, handles tax status lock and type field disable
+- [x] **FillPurpose** — clears+populates `cmbPurpose` from variant array
+- [x] **FillTariff** — calls `ReadTariff`, fills `cmbTariff` with name+rate display, selects by ID
+- [x] **FillPhone** — calls `ReadPhone`, fills `cmbPhone` with code+name display, selects by ID
+- [x] **CalcSumCommiss_2** — full commission calculation: rate type routing (%, fixed, scale), min/max bounds, penalty inclusion, add-param override, updates `udcPayerRateAmount` and `udcAmountWithRate`
+- [x] **GetBankNameACC** — validates BIC via `UtCheckBIKBank` and `UtCheckBIKLimitSharing`, reads bank name + corr. account via `ReadBankBIK`
+- [x] **IsAutoPeriod** — calls `UtGetAutoFillPeriod`, clears period fields when auto
+- [x] **GetDayEnd** — returns last day of month for given month/year strings
+- [x] **DefineRunUserForm** — calls user-form pattern script, sets `btnPattern` caption/visibility
+- [x] **GetIdClientFromGroupPayment** — resolves client ID from incoming group via channel
+- [x] **AddProcInit** (full) — print-form check, clear state, InitForm call with yes/no fallback, calls InitDoc, device init flag
+- [x] **FindContract** (full rewrite) — searches by code via `ReadContractbyCode`, calls `FindContractbyId`
+- [x] **FindContractbyId** (full rewrite) — reads `UtReadTypePayment` + `UtReadContract`, populates recipient fields (ADD_PARAM-aware), rate array, code payment visibility, penalties, purpose, bank name, commission calc, pattern-based tab visibility (Energy→FillTariff, Phone→FillPhone, Nalog→FillNalog)
+- [x] All files lint-clean
+
 ## Next Step
-- Continue BUILD by reconciling `Initialization.cs` and `Save.cs` with the expanded designer control names and by fleshing out the remaining main-form behavior partials
-- Add remaining project references such as `UbsComValidateLibrary` and any additional UBS control assemblies only when their code paths are introduced
-- Re-run compile verification after installing the .NET Framework 2.0 targeting pack or using a machine that already has it
+- Complete **B2.5** (Wire `Form_Closing`), **B2.6–B2.7** (`NativeMethods.cs`)
+- Proceed to Wave 3 remaining items: B3.2 (AddProcInit — device init), B3.3 (FillDataPayment full), B3.10 (ApplyInitialFormState), B3.11 (Third-person)
+- Wave 4 (Save pipeline) and Wave 5 (Keys) can proceed in parallel after Wave 3
+- Re-run compile verification after installing the .NET Framework 2.0 targeting pack

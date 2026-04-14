@@ -4,15 +4,15 @@
 
 **Main goal:** VB6 `UtPayment.dob` -> .NET `UbsPsUtPaymentFrm`.
 
-The local .NET starter project has been renamed to `UbsPsUtPaymentFrm`. The current focus remains BUILD completion: the form-designer milestone has now been reflected, while the next work is footer/template cleanup, control/event reconciliation, and final verification once a machine with .NET Framework 2.0 targeting assemblies is available.
+Wave 2 is nearly complete (B2.1–B2.4 done; B2.5–B2.7 remain). Wave 3 (Initialization) has substantial progress: the core initialization functions (`FillNalog`, `FillPayer`, `FillPurpose`, `FillTariff`, `FillPhone`, `CalcSumCommiss_2`, `GetBankNameACC`, `IsAutoPeriod`, `DefineRunUserForm`, `CheckPeni`, `CheckPayer`, `FindContract`, `FindContractbyId`, `AddProcInit`) are all fully implemented. The next focus is completing Wave 2 (NativeMethods) and then the remaining Wave 3 items (FillDataPayment full, ApplyInitialFormState, third-person fill).
 
 ## Status
 
 - **VAN:** Complete
 - **PLAN:** Complete and captured in `memory-bank/tasks.md`
 - **CREATIVE:** Complete for current build inputs
-- **BUILD:** In progress; rename scaffold completed
-- **REFLECT:** In progress for the designer milestone; full project reflection still pending
+- **BUILD:** Wave 1 complete; Wave 2 nearly complete (B2.1–B2.4 done); Wave 3 substantially progressed (15+ functions implemented)
+- **REFLECT:** Designer milestone reflected; full project reflection pending on Wave 9
 - **ARCHIVE:** Not started
 
 ## Current References
@@ -23,11 +23,10 @@ The local .NET starter project has been renamed to `UbsPsUtPaymentFrm`. The curr
 
 ## Latest Changes
 
-- Reinitialized the Memory Bank for this workspace.
-- Created phased conversion task structure modeled after the branch reference commit.
-- Renamed the active project scaffold from `UbsFormProject1` to `UbsPsUtPaymentFrm`.
-- Created final-name solution, project, form, resource, and assembly-info files.
-- Verified that no template identifiers remain under `UbsPsUtPaymentFrm/`.
-- Compile verification is currently blocked by missing `.NET Framework 2.0` reference assemblies on this machine.
-- Created `memory-bank/reflection/reflection-ubspsutpaymentfrm-designer.md` for the form-designer milestone.
-- Recorded the intentional designer choice to use `LinkLabel` controls instead of only small `...` browse buttons for several lookup-oriented fields.
+- **B2.4 complete**: Wired `Form_Load` (sets `m_isInitialized`) and `FormClosing` (guards with `CanCloseForm`).
+- **15+ initialization functions fully implemented** in `UbsPsUtPaymentFrm.Initialization.cs`:
+  - `CheckPeni`, `CheckPayer`, `FillPayer`, `FillNalog`, `FillPurpose`, `FillTariff`, `FillPhone`
+  - `CalcSumCommiss_2`, `GetBankNameACC`, `IsAutoPeriod`, `GetDayEnd`, `DefineRunUserForm`
+  - `GetIdClientFromGroupPayment`, `AddProcInit` (full), `FindContract` (full), `FindContractbyId` (full)
+- Added 15 new shared state fields for commission, period, tax, and payer tracking.
+- Remaining B2.5–B2.7 and Wave 3 fine-grained items (FillDataPayment, ApplyInitialFormState, third-person) are next.

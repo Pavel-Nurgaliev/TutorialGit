@@ -70,11 +70,11 @@ namespace UbsBusiness
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pnlGeneralFooterArea = new System.Windows.Forms.Panel();
             this.linkPaymentAccount = new System.Windows.Forms.LinkLabel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.lblCityCode = new System.Windows.Forms.Label();
+            this.txtCheckSum = new System.Windows.Forms.TextBox();
+            this.lblBatchNumber = new System.Windows.Forms.Label();
+            this.txtBatchNumber = new System.Windows.Forms.TextBox();
+            this.chkThirdPerson = new System.Windows.Forms.CheckBox();
             this.lblCashSymbolPayment = new System.Windows.Forms.Label();
             this.txtKsPayment = new System.Windows.Forms.TextBox();
             this.lblCashSymbolCommission = new System.Windows.Forms.Label();
@@ -104,8 +104,8 @@ namespace UbsBusiness
             this.grpRecipient = new System.Windows.Forms.GroupBox();
             this.linkContractCode = new System.Windows.Forms.LinkLabel();
             this.linkRecipientBankName = new System.Windows.Forms.LinkLabel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblCharCount160 = new System.Windows.Forms.Label();
+            this.lblCharCount210 = new System.Windows.Forms.Label();
             this.txtContractCode = new System.Windows.Forms.TextBox();
             this.btnFindContract = new System.Windows.Forms.Button();
             this.txtRecipientComment = new System.Windows.Forms.TextBox();
@@ -186,9 +186,9 @@ namespace UbsBusiness
             this.tabPageAddFields = new System.Windows.Forms.TabPage();
             this.ucfAddProperties = new UbsControl.UbsCtrlFields();
             this.tblActions = new System.Windows.Forms.TableLayoutPanel();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnCashSymb = new System.Windows.Forms.Button();
+            this.btnPattern = new System.Windows.Forms.Button();
+            this.btnCalc = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -292,11 +292,11 @@ namespace UbsBusiness
             this.pnlGeneralFooterArea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlGeneralFooterArea.Controls.Add(this.linkPaymentAccount);
-            this.pnlGeneralFooterArea.Controls.Add(this.label4);
-            this.pnlGeneralFooterArea.Controls.Add(this.textBox2);
-            this.pnlGeneralFooterArea.Controls.Add(this.label3);
-            this.pnlGeneralFooterArea.Controls.Add(this.textBox1);
-            this.pnlGeneralFooterArea.Controls.Add(this.checkBox1);
+            this.pnlGeneralFooterArea.Controls.Add(this.lblCityCode);
+            this.pnlGeneralFooterArea.Controls.Add(this.txtCheckSum);
+            this.pnlGeneralFooterArea.Controls.Add(this.lblBatchNumber);
+            this.pnlGeneralFooterArea.Controls.Add(this.txtBatchNumber);
+            this.pnlGeneralFooterArea.Controls.Add(this.chkThirdPerson);
             this.pnlGeneralFooterArea.Controls.Add(this.lblCashSymbolPayment);
             this.pnlGeneralFooterArea.Controls.Add(this.txtKsPayment);
             this.pnlGeneralFooterArea.Controls.Add(this.lblCashSymbolCommission);
@@ -336,48 +336,49 @@ namespace UbsBusiness
             this.linkPaymentAccount.TabIndex = 44;
             this.linkPaymentAccount.TabStop = true;
             this.linkPaymentAccount.Text = "Л/с плательщика";
+            this.linkPaymentAccount.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkPaymentAccount_LinkClicked);
             // 
-            // label4
+            // lblCityCode
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(253, 160);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(64, 13);
-            this.label4.TabIndex = 43;
-            this.label4.Text = "Код города";
+            this.lblCityCode.AutoSize = true;
+            this.lblCityCode.Location = new System.Drawing.Point(253, 160);
+            this.lblCityCode.Name = "lblCityCode";
+            this.lblCityCode.Size = new System.Drawing.Size(64, 13);
+            this.lblCityCode.TabIndex = 43;
+            this.lblCityCode.Text = "Код города";
             // 
-            // textBox2
+            // txtCheckSum
             // 
-            this.textBox2.Location = new System.Drawing.Point(514, 122);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(24, 20);
-            this.textBox2.TabIndex = 41;
+            this.txtCheckSum.Location = new System.Drawing.Point(514, 122);
+            this.txtCheckSum.Name = "txtCheckSum";
+            this.txtCheckSum.Size = new System.Drawing.Size(24, 20);
+            this.txtCheckSum.TabIndex = 41;
             // 
-            // label3
+            // lblBatchNumber
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(435, 10);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 13);
-            this.label3.TabIndex = 39;
-            this.label3.Text = "Номер пачки";
+            this.lblBatchNumber.AutoSize = true;
+            this.lblBatchNumber.Location = new System.Drawing.Point(435, 10);
+            this.lblBatchNumber.Name = "lblBatchNumber";
+            this.lblBatchNumber.Size = new System.Drawing.Size(73, 13);
+            this.lblBatchNumber.TabIndex = 39;
+            this.lblBatchNumber.Text = "Номер пачки";
             // 
-            // textBox1
+            // txtBatchNumber
             // 
-            this.textBox1.Location = new System.Drawing.Point(514, 7);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(89, 20);
-            this.textBox1.TabIndex = 40;
+            this.txtBatchNumber.Location = new System.Drawing.Point(514, 7);
+            this.txtBatchNumber.Name = "txtBatchNumber";
+            this.txtBatchNumber.Size = new System.Drawing.Size(89, 20);
+            this.txtBatchNumber.TabIndex = 40;
             // 
-            // checkBox1
+            // chkThirdPerson
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(11, 9);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(142, 17);
-            this.checkBox1.TabIndex = 38;
-            this.checkBox1.Text = "Оплата за третье лицо";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.chkThirdPerson.AutoSize = true;
+            this.chkThirdPerson.Location = new System.Drawing.Point(11, 9);
+            this.chkThirdPerson.Name = "chkThirdPerson";
+            this.chkThirdPerson.Size = new System.Drawing.Size(142, 17);
+            this.chkThirdPerson.TabIndex = 38;
+            this.chkThirdPerson.Text = "Оплата за третье лицо";
+            this.chkThirdPerson.UseVisualStyleBackColor = true;
             // 
             // lblCashSymbolPayment
             // 
@@ -590,8 +591,8 @@ namespace UbsBusiness
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpRecipient.Controls.Add(this.linkContractCode);
             this.grpRecipient.Controls.Add(this.linkRecipientBankName);
-            this.grpRecipient.Controls.Add(this.label2);
-            this.grpRecipient.Controls.Add(this.label1);
+            this.grpRecipient.Controls.Add(this.lblCharCount160);
+            this.grpRecipient.Controls.Add(this.lblCharCount210);
             this.grpRecipient.Controls.Add(this.txtContractCode);
             this.grpRecipient.Controls.Add(this.btnFindContract);
             this.grpRecipient.Controls.Add(this.txtRecipientComment);
@@ -629,6 +630,7 @@ namespace UbsBusiness
             this.linkContractCode.TabIndex = 28;
             this.linkContractCode.TabStop = true;
             this.linkContractCode.Text = "Код договора";
+            this.linkContractCode.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkContractCode_LinkClicked);
             // 
             // linkRecipientBankName
             // 
@@ -638,26 +640,27 @@ namespace UbsBusiness
             this.linkRecipientBankName.TabIndex = 27;
             this.linkRecipientBankName.TabStop = true;
             this.linkRecipientBankName.Text = "Наименование банка";
+            this.linkRecipientBankName.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkRecipientBankName_LinkClicked);
             // 
-            // label2
+            // lblCharCount160
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(578, 153);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(25, 13);
-            this.label2.TabIndex = 26;
-            this.label2.Text = "160";
+            this.lblCharCount160.AutoSize = true;
+            this.lblCharCount160.Location = new System.Drawing.Point(578, 153);
+            this.lblCharCount160.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCharCount160.Name = "lblCharCount160";
+            this.lblCharCount160.Size = new System.Drawing.Size(25, 13);
+            this.lblCharCount160.TabIndex = 26;
+            this.lblCharCount160.Text = "160";
             // 
-            // label1
+            // lblCharCount210
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(578, 126);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(25, 13);
-            this.label1.TabIndex = 25;
-            this.label1.Text = "210";
+            this.lblCharCount210.AutoSize = true;
+            this.lblCharCount210.Location = new System.Drawing.Point(578, 126);
+            this.lblCharCount210.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCharCount210.Name = "lblCharCount210";
+            this.lblCharCount210.Size = new System.Drawing.Size(25, 13);
+            this.lblCharCount210.TabIndex = 25;
+            this.lblCharCount210.Text = "210";
             // 
             // txtContractCode
             // 
@@ -863,6 +866,7 @@ namespace UbsBusiness
             this.linkPayerFullName.TabIndex = 20;
             this.linkPayerFullName.TabStop = true;
             this.linkPayerFullName.Text = "ФИО";
+            this.linkPayerFullName.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkPayerFullName_LinkClicked);
             // 
             // linkFindFilter
             // 
@@ -873,6 +877,7 @@ namespace UbsBusiness
             this.linkFindFilter.TabIndex = 19;
             this.linkFindFilter.TabStop = true;
             this.linkFindFilter.Text = "Список платежей плательщика";
+            this.linkFindFilter.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkFindFilter_LinkClicked);
             // 
             // txtPayerFullName
             // 
@@ -1044,7 +1049,7 @@ namespace UbsBusiness
             this.tabPageThirdPerson.Location = new System.Drawing.Point(4, 22);
             this.tabPageThirdPerson.Name = "tabPageThirdPerson";
             this.tabPageThirdPerson.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageThirdPerson.Size = new System.Drawing.Size(622, 678);
+            this.tabPageThirdPerson.Size = new System.Drawing.Size(378, 158);
             this.tabPageThirdPerson.TabIndex = 1;
             this.tabPageThirdPerson.Text = "Сведения о третьем лице";
             this.tabPageThirdPerson.UseVisualStyleBackColor = true;
@@ -1123,7 +1128,7 @@ namespace UbsBusiness
             this.tabPageTariff.Location = new System.Drawing.Point(4, 22);
             this.tabPageTariff.Name = "tabPageTariff";
             this.tabPageTariff.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTariff.Size = new System.Drawing.Size(622, 678);
+            this.tabPageTariff.Size = new System.Drawing.Size(378, 158);
             this.tabPageTariff.TabIndex = 2;
             this.tabPageTariff.Text = "Тариф";
             this.tabPageTariff.UseVisualStyleBackColor = true;
@@ -1152,7 +1157,7 @@ namespace UbsBusiness
             this.tabPageTelephone.Location = new System.Drawing.Point(4, 22);
             this.tabPageTelephone.Name = "tabPageTelephone";
             this.tabPageTelephone.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTelephone.Size = new System.Drawing.Size(622, 678);
+            this.tabPageTelephone.Size = new System.Drawing.Size(378, 158);
             this.tabPageTelephone.TabIndex = 3;
             this.tabPageTelephone.Text = "Телефонный узел";
             this.tabPageTelephone.UseVisualStyleBackColor = true;
@@ -1199,7 +1204,7 @@ namespace UbsBusiness
             this.tabPageTax.Location = new System.Drawing.Point(4, 22);
             this.tabPageTax.Name = "tabPageTax";
             this.tabPageTax.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTax.Size = new System.Drawing.Size(622, 678);
+            this.tabPageTax.Size = new System.Drawing.Size(378, 158);
             this.tabPageTax.TabIndex = 4;
             this.tabPageTax.Text = "Налог";
             this.tabPageTax.UseVisualStyleBackColor = true;
@@ -1370,7 +1375,7 @@ namespace UbsBusiness
             this.tabPageAddFields.Location = new System.Drawing.Point(4, 22);
             this.tabPageAddFields.Name = "tabPageAddFields";
             this.tabPageAddFields.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAddFields.Size = new System.Drawing.Size(622, 678);
+            this.tabPageAddFields.Size = new System.Drawing.Size(378, 158);
             this.tabPageAddFields.TabIndex = 5;
             this.tabPageAddFields.Text = "Дополнительные свойства";
             this.tabPageAddFields.UseVisualStyleBackColor = true;
@@ -1382,7 +1387,7 @@ namespace UbsBusiness
             this.ucfAddProperties.Margin = new System.Windows.Forms.Padding(4);
             this.ucfAddProperties.Name = "ucfAddProperties";
             this.ucfAddProperties.ReadOnly = false;
-            this.ucfAddProperties.Size = new System.Drawing.Size(616, 672);
+            this.ucfAddProperties.Size = new System.Drawing.Size(372, 152);
             this.ucfAddProperties.TabIndex = 0;
             // 
             // tblActions
@@ -1395,9 +1400,9 @@ namespace UbsBusiness
             this.tblActions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 82F));
             this.tblActions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 82F));
             this.tblActions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 82F));
-            this.tblActions.Controls.Add(this.button3, 1, 0);
-            this.tblActions.Controls.Add(this.button2, 2, 0);
-            this.tblActions.Controls.Add(this.button1, 4, 0);
+            this.tblActions.Controls.Add(this.btnCashSymb, 1, 0);
+            this.tblActions.Controls.Add(this.btnPattern, 2, 0);
+            this.tblActions.Controls.Add(this.btnCalc, 4, 0);
             this.tblActions.Controls.Add(this.btnSave, 3, 0);
             this.tblActions.Controls.Add(this.btnExit, 5, 0);
             this.tblActions.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1408,35 +1413,35 @@ namespace UbsBusiness
             this.tblActions.Size = new System.Drawing.Size(630, 32);
             this.tblActions.TabIndex = 2;
             // 
-            // button3
+            // btnCashSymb
             // 
-            this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button3.Location = new System.Drawing.Point(126, 3);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(91, 26);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Касс символа";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnCashSymb.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnCashSymb.Location = new System.Drawing.Point(126, 3);
+            this.btnCashSymb.Name = "btnCashSymb";
+            this.btnCashSymb.Size = new System.Drawing.Size(91, 26);
+            this.btnCashSymb.TabIndex = 5;
+            this.btnCashSymb.Text = "Касс символа";
+            this.btnCashSymb.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnPattern
             // 
-            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button2.Location = new System.Drawing.Point(223, 3);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(158, 26);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Пользовательская форма";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnPattern.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnPattern.Location = new System.Drawing.Point(223, 3);
+            this.btnPattern.Name = "btnPattern";
+            this.btnPattern.Size = new System.Drawing.Size(158, 26);
+            this.btnPattern.TabIndex = 4;
+            this.btnPattern.Text = "Пользовательская форма";
+            this.btnPattern.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnCalc
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(469, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(76, 26);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Расчет";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnCalc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnCalc.Location = new System.Drawing.Point(469, 3);
+            this.btnCalc.Name = "btnCalc";
+            this.btnCalc.Size = new System.Drawing.Size(76, 26);
+            this.btnCalc.TabIndex = 3;
+            this.btnCalc.Text = "Расчет";
+            this.btnCalc.UseVisualStyleBackColor = true;
             // 
             // btnSave
             // 
@@ -1579,9 +1584,9 @@ namespace UbsBusiness
         private TabPage tabPageGeneral;
         private TableLayoutPanel tableLayoutPanel1;
         private Panel pnlGeneralFooterArea;
-        private Label label3;
-        private TextBox textBox1;
-        private CheckBox checkBox1;
+        private Label lblBatchNumber;
+        private TextBox txtBatchNumber;
+        private CheckBox chkThirdPerson;
         private Label lblCashSymbolPayment;
         private TextBox txtKsPayment;
         private Label lblCashSymbolCommission;
@@ -1615,8 +1620,8 @@ namespace UbsBusiness
         private CheckBox chkPrintForms;
         private TextBox txtGroupPaymentId;
         private GroupBox grpRecipient;
-        private Label label2;
-        private Label label1;
+        private Label lblCharCount160;
+        private Label lblCharCount210;
         private TextBox txtContractCode;
         private Button btnFindContract;
         private TextBox txtRecipientComment;
@@ -1694,15 +1699,15 @@ namespace UbsBusiness
         private TabPage tabPageAddFields;
         private UbsControl.UbsCtrlFields ucfAddProperties;
         private TableLayoutPanel tblActions;
-        private Button button3;
-        private Button button2;
-        private Button button1;
+        private Button btnCashSymb;
+        private Button btnPattern;
+        private Button btnCalc;
         private Button btnSave;
         private Button btnExit;
         private Panel panel1;
         private Label lblSubPaymentCount;
-        private TextBox textBox2;
-        private Label label4;
+        private TextBox txtCheckSum;
+        private Label lblCityCode;
         private LinkLabel linkThirdPersonName;
         private LinkLabel linkFindFilter;
         private LinkLabel linkPayerFullName;
