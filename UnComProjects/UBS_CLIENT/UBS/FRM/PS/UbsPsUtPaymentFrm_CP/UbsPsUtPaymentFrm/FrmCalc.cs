@@ -31,7 +31,7 @@ namespace UbsBusiness
         {
             IsConfirmed = false;
             this.DialogResult = DialogResult.Cancel;
-            this.Close();
+            this.btnExit_Click(this, EventArgs.Empty);
         }
 
         private void udcCashAmount_KeyPress(object sender, KeyPressEventArgs e)
@@ -75,7 +75,7 @@ namespace UbsBusiness
             IsConfirmed = true;
             lblChangeAmountValue.Text = FormatMoney(ChangeAmount);
             this.DialogResult = DialogResult.OK;
-            this.Close();
+            this.btnExit_Click(this, EventArgs.Empty);
         }
 
         private decimal GetCashAmountValue()

@@ -47,7 +47,7 @@ namespace UbsBusiness
         #endregion
 
         #region Message
-
+        private const string MsgGettingDataContract = "Ошибка получения данных контракта";
         private const string MsgPaymentSavedDb = "Платеж сохранен в БД";
         private const string MsgRecipientAttributesSaved = "Реквизиты получателя сохранены в справочнике";
         private const string MsgRecipientContractRequired = "Не выбран договор с получателем!";

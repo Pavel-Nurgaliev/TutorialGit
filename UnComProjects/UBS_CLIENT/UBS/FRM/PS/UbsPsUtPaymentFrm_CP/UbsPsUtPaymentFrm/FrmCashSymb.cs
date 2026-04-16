@@ -40,14 +40,14 @@ namespace UbsBusiness
 
             IsConfirmed = true;
             this.DialogResult = DialogResult.OK;
-            this.Close();
+            this.btnExit_Click(this, EventArgs.Empty);
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
             IsConfirmed = false;
             this.DialogResult = DialogResult.Cancel;
-            this.Close();
+            this.btnExit_Click(this, EventArgs.Empty);
         }
 
         private void LoadGridRows()

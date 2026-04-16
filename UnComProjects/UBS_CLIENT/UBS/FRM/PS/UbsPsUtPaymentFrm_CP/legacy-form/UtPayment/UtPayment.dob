@@ -6110,6 +6110,7 @@ Private Sub InitDoc()
             UbsDDX.InitMemberData("PayerINN1") = "" '0
             txtInfoClient.Text = ""
         End If
+        '123
         UbsDDX.InitMemberData("Code") = ""
         UbsDDX.InitMemberData("CodePayment") = "" 'Данилова, 28.10.2005
         UbsDDX.InitMemberData("Comment") = ""

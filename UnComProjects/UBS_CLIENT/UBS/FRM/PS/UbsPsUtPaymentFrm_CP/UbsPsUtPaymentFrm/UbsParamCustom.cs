@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UbsService;
 
 namespace UbsBusiness
@@ -6,13 +7,27 @@ namespace UbsBusiness
     public class UbsParamCustom : UbsParam
     {
         public readonly DateTime MinDateValue = new DateTime(2222, 1, 1);
+        public UbsParamCustom() : base()
+        {
+        }
         public UbsParamCustom(object[,] paramItems):base(paramItems)
         {
         }
         public UbsParamCustom(object[] parameters) : base(parameters)
         {
         }
-
+        public UbsParamCustom(object[,] paramItems, bool comArray) : base(paramItems, comArray)
+        {
+        }
+        public UbsParamCustom(string xmlparameters) : base(xmlparameters)
+        {
+        }
+        public UbsParamCustom(KeyValuePair<string, object>[] parametersKVP) : base(parametersKVP)
+        {
+        }
+        public UbsParamCustom(Dictionary<string,object> parametersDic) : base(parametersDic)
+        {
+        }
         public string GetParamOutString(string key)
         {
             if (!this.Contains(key) || this.Value(key) == null)

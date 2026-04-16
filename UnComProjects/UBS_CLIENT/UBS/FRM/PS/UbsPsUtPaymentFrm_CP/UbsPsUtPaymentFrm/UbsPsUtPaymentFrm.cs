@@ -34,6 +34,7 @@ namespace UbsBusiness
         private bool m_isScan;
         private bool m_isClickSave;
         private string m_sidPattern = string.Empty;
+        private string m_strAddress;
         private int m_idContractOld;
         private bool m_isIsFrmPrn;
         private bool m_isGuest;
@@ -74,13 +75,14 @@ namespace UbsBusiness
         private string m_strFIOOld = string.Empty;
         private string m_strAddressOld = string.Empty;
         private string m_strINNOld = string.Empty;
+        private bool m_isLast;
         private object[] m_arrRateSend;
         private bool m_isAutoPeriodFlag;
         private bool m_forbidTaxStatusChanges;
         private string m_savedTaxStatusValue = string.Empty;
         private string m_bicOld = string.Empty;
         private bool m_isNoMessage;
-        private int m_blnSecondPayment;
+        private int m_isSecondPayment;
         private bool m_isPeriodEnable;
         private int m_codeEnergy;
         private object m_varTariff;
@@ -100,6 +102,8 @@ namespace UbsBusiness
             InitializeComponent();
 
             this.IUbsChannel.LoadResource = LoadResource;
+
+            base.UbsCtrlFieldsSupportCollection.Add(AddFieldsSupportKey, ucfAddProperties);
 
             base.Ubs_CommandLock = true;
 
@@ -219,7 +223,8 @@ namespace UbsBusiness
                         m_idPayment = Convert.ToInt32(itemArray[0]);
                     }
 
-                    InitDoc();
+                    if (!InitDoc())
+                        return null;
                 }
 
                 lblCommonAmount.Visible = true;
@@ -260,7 +265,7 @@ namespace UbsBusiness
                 else
                 {
                     MessageBox.Show(MsgNotBankClient, CaptionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    this.Close();
+                    this.btnExit_Click(this, EventArgs.Empty);
                     return;
                 }
                 m_isAddClient = true;
@@ -276,7 +281,7 @@ namespace UbsBusiness
                 else
                 {
                     MessageBox.Show(MsgPaymentNotSelectedForAdd, CaptionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    this.Close();
+                    this.btnExit_Click(this, EventArgs.Empty);
                     return;
                 }
             }
@@ -291,14 +296,17 @@ namespace UbsBusiness
                     if (m_idGroup == -1)
                     {
                         MessageBox.Show(MsgPaymentCancelled, CaptionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        this.Close();
+                        this.btnExit_Click(this, EventArgs.Empty);
                         return;
                     }
                 }
                 m_command = StrCommandAdd;
             }
 
-            AddProcInit();
+
+            if (!AddProcInit())
+                return;
+
             IsAutoPeriod();
         }
 
@@ -315,7 +323,8 @@ namespace UbsBusiness
 
             this.Text = CaptionGroupInputPrefix + m_idGroupIncoming;
 
-            AddProcInit();
+            if (!AddProcInit())
+                return;
 
             if (!m_isCheckIncoming)
             {
@@ -332,7 +341,8 @@ namespace UbsBusiness
             m_isAddparam = true;
             m_command = StrCommandAdd;
 
-            AddProcInit();
+            if (!AddProcInit())
+                return;
             ProcessAddParam(itemArray);
             IsAutoPeriod();
         }
@@ -347,7 +357,7 @@ namespace UbsBusiness
             else
             {
                 MessageBox.Show(MsgPaymentNotSelected, CaptionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
+                this.btnExit_Click(this, EventArgs.Empty);
                 return;
             }
 
@@ -357,14 +367,17 @@ namespace UbsBusiness
                 m_command = StrCommandView;
             }
 
-            InitDoc();
+            if (!InitDoc())
+                return;
         }
 
         /// <summary>COPY � AddProcInit first, then InitDoc with COPY, revert to ADD.</summary>
         private void ListKey_Copy(object[] itemArray, bool isRecordsExist)
         {
             m_command = StrCommandAdd;
-            AddProcInit();
+
+            if (!AddProcInit())
+                return;
 
             if (isRecordsExist)
             {
@@ -373,12 +386,15 @@ namespace UbsBusiness
             else
             {
                 MessageBox.Show(MsgPaymentNotSelected, CaptionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
+                this.btnExit_Click(this, EventArgs.Empty);
                 return;
             }
 
             m_command = StrCommandCopy;
-            InitDoc();
+
+            if (!InitDoc())
+                return;
+
             m_command = StrCommandAdd;
         }
 
@@ -392,7 +408,7 @@ namespace UbsBusiness
             else
             {
                 MessageBox.Show(MsgPaymentNotSelected, CaptionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
+                this.btnExit_Click(this, EventArgs.Empty);
                 return;
             }
 
@@ -411,7 +427,8 @@ namespace UbsBusiness
                 }
             }
 
-            InitDoc();
+            if (!InitDoc())
+                return;
 
             if (m_idGroupIncoming > 0)
             {
@@ -444,6 +461,11 @@ namespace UbsBusiness
         }
 
         private void linkPaymentAccount_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void chkThirdPerson_CheckedChanged(object sender, EventArgs e)
         {
 
         }

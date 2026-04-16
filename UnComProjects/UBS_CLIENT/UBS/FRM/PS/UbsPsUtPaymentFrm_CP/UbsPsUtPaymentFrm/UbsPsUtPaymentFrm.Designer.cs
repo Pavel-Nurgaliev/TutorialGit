@@ -76,11 +76,11 @@ namespace UbsBusiness
             this.txtBatchNumber = new System.Windows.Forms.TextBox();
             this.chkThirdPerson = new System.Windows.Forms.CheckBox();
             this.lblCashSymbolPayment = new System.Windows.Forms.Label();
-            this.txtKsPayment = new System.Windows.Forms.TextBox();
+            this.txtCashSymbolPayment = new System.Windows.Forms.TextBox();
             this.lblCashSymbolCommission = new System.Windows.Forms.Label();
-            this.txtKsRate = new System.Windows.Forms.TextBox();
+            this.txtCashSymbolCommission = new System.Windows.Forms.TextBox();
             this.lblCashSymbolNds = new System.Windows.Forms.Label();
-            this.txtKsNds = new System.Windows.Forms.TextBox();
+            this.txtCashSymbolNds = new System.Windows.Forms.TextBox();
             this.lblPaymentCode = new System.Windows.Forms.Label();
             this.txtPaymentCode = new System.Windows.Forms.TextBox();
             this.lblPaymentAmount = new System.Windows.Forms.Label();
@@ -107,7 +107,6 @@ namespace UbsBusiness
             this.lblCharCount160 = new System.Windows.Forms.Label();
             this.lblCharCount210 = new System.Windows.Forms.Label();
             this.txtContractCode = new System.Windows.Forms.TextBox();
-            this.btnFindContract = new System.Windows.Forms.Button();
             this.txtRecipientComment = new System.Windows.Forms.TextBox();
             this.lblRecipientBik = new System.Windows.Forms.Label();
             this.txtRecipientBik = new System.Windows.Forms.TextBox();
@@ -125,9 +124,9 @@ namespace UbsBusiness
             this.lblRecipientName = new System.Windows.Forms.Label();
             this.txtRecipientName = new System.Windows.Forms.TextBox();
             this.txtRecipientNote = new System.Windows.Forms.TextBox();
-            this.btnRecipientAttributeList = new System.Windows.Forms.Button();
             this.btnSaveRecipientAttribute = new System.Windows.Forms.Button();
             this.grpSender = new System.Windows.Forms.GroupBox();
+            this.ucaPayerAccount = new UbsControl.UbsCtrlAccount();
             this.linkPayerFullName = new System.Windows.Forms.LinkLabel();
             this.linkFindFilter = new System.Windows.Forms.LinkLabel();
             this.txtPayerFullName = new System.Windows.Forms.TextBox();
@@ -138,7 +137,6 @@ namespace UbsBusiness
             this.lblPayerClientInfo = new System.Windows.Forms.Label();
             this.txtPayerClientInfo = new System.Windows.Forms.TextBox();
             this.lblSourceMeans = new System.Windows.Forms.Label();
-            this.txtSourceMeans = new System.Windows.Forms.TextBox();
             this.lblPayerCardNumber = new System.Windows.Forms.Label();
             this.txtPayerCardNumber = new System.Windows.Forms.TextBox();
             this.chkBenefits = new System.Windows.Forms.CheckBox();
@@ -298,11 +296,11 @@ namespace UbsBusiness
             this.pnlGeneralFooterArea.Controls.Add(this.txtBatchNumber);
             this.pnlGeneralFooterArea.Controls.Add(this.chkThirdPerson);
             this.pnlGeneralFooterArea.Controls.Add(this.lblCashSymbolPayment);
-            this.pnlGeneralFooterArea.Controls.Add(this.txtKsPayment);
+            this.pnlGeneralFooterArea.Controls.Add(this.txtCashSymbolPayment);
             this.pnlGeneralFooterArea.Controls.Add(this.lblCashSymbolCommission);
-            this.pnlGeneralFooterArea.Controls.Add(this.txtKsRate);
+            this.pnlGeneralFooterArea.Controls.Add(this.txtCashSymbolCommission);
             this.pnlGeneralFooterArea.Controls.Add(this.lblCashSymbolNds);
-            this.pnlGeneralFooterArea.Controls.Add(this.txtKsNds);
+            this.pnlGeneralFooterArea.Controls.Add(this.txtCashSymbolNds);
             this.pnlGeneralFooterArea.Controls.Add(this.lblPaymentCode);
             this.pnlGeneralFooterArea.Controls.Add(this.txtPaymentCode);
             this.pnlGeneralFooterArea.Controls.Add(this.lblPaymentAmount);
@@ -379,6 +377,7 @@ namespace UbsBusiness
             this.chkThirdPerson.TabIndex = 38;
             this.chkThirdPerson.Text = "Оплата за третье лицо";
             this.chkThirdPerson.UseVisualStyleBackColor = true;
+            this.chkThirdPerson.CheckedChanged += new System.EventHandler(this.chkThirdPerson_CheckedChanged);
             // 
             // lblCashSymbolPayment
             // 
@@ -388,12 +387,12 @@ namespace UbsBusiness
             this.lblCashSymbolPayment.TabIndex = 0;
             this.lblCashSymbolPayment.Text = "Касс/симв платежа";
             // 
-            // txtKsPayment
+            // txtCashSymbolPayment
             // 
-            this.txtKsPayment.Location = new System.Drawing.Point(75, 39);
-            this.txtKsPayment.Name = "txtKsPayment";
-            this.txtKsPayment.Size = new System.Drawing.Size(50, 20);
-            this.txtKsPayment.TabIndex = 1;
+            this.txtCashSymbolPayment.Location = new System.Drawing.Point(75, 39);
+            this.txtCashSymbolPayment.Name = "txtCashSymbolPayment";
+            this.txtCashSymbolPayment.Size = new System.Drawing.Size(50, 20);
+            this.txtCashSymbolPayment.TabIndex = 1;
             // 
             // lblCashSymbolCommission
             // 
@@ -403,12 +402,12 @@ namespace UbsBusiness
             this.lblCashSymbolCommission.TabIndex = 2;
             this.lblCashSymbolCommission.Text = "Касс/симв комиссия";
             // 
-            // txtKsRate
+            // txtCashSymbolCommission
             // 
-            this.txtKsRate.Location = new System.Drawing.Point(191, 39);
-            this.txtKsRate.Name = "txtKsRate";
-            this.txtKsRate.Size = new System.Drawing.Size(50, 20);
-            this.txtKsRate.TabIndex = 3;
+            this.txtCashSymbolCommission.Location = new System.Drawing.Point(191, 39);
+            this.txtCashSymbolCommission.Name = "txtCashSymbolCommission";
+            this.txtCashSymbolCommission.Size = new System.Drawing.Size(50, 20);
+            this.txtCashSymbolCommission.TabIndex = 3;
             // 
             // lblCashSymbolNds
             // 
@@ -418,12 +417,12 @@ namespace UbsBusiness
             this.lblCashSymbolNds.TabIndex = 4;
             this.lblCashSymbolNds.Text = "Касс/симв НДС";
             // 
-            // txtKsNds
+            // txtCashSymbolNds
             // 
-            this.txtKsNds.Location = new System.Drawing.Point(314, 39);
-            this.txtKsNds.Name = "txtKsNds";
-            this.txtKsNds.Size = new System.Drawing.Size(50, 20);
-            this.txtKsNds.TabIndex = 5;
+            this.txtCashSymbolNds.Location = new System.Drawing.Point(314, 39);
+            this.txtCashSymbolNds.Name = "txtCashSymbolNds";
+            this.txtCashSymbolNds.Size = new System.Drawing.Size(50, 20);
+            this.txtCashSymbolNds.TabIndex = 5;
             // 
             // lblPaymentCode
             // 
@@ -594,7 +593,6 @@ namespace UbsBusiness
             this.grpRecipient.Controls.Add(this.lblCharCount160);
             this.grpRecipient.Controls.Add(this.lblCharCount210);
             this.grpRecipient.Controls.Add(this.txtContractCode);
-            this.grpRecipient.Controls.Add(this.btnFindContract);
             this.grpRecipient.Controls.Add(this.txtRecipientComment);
             this.grpRecipient.Controls.Add(this.lblRecipientBik);
             this.grpRecipient.Controls.Add(this.txtRecipientBik);
@@ -612,7 +610,6 @@ namespace UbsBusiness
             this.grpRecipient.Controls.Add(this.lblRecipientName);
             this.grpRecipient.Controls.Add(this.txtRecipientName);
             this.grpRecipient.Controls.Add(this.txtRecipientNote);
-            this.grpRecipient.Controls.Add(this.btnRecipientAttributeList);
             this.grpRecipient.Controls.Add(this.btnSaveRecipientAttribute);
             this.grpRecipient.Location = new System.Drawing.Point(3, 159);
             this.grpRecipient.Name = "grpRecipient";
@@ -669,20 +666,11 @@ namespace UbsBusiness
             this.txtContractCode.Size = new System.Drawing.Size(140, 20);
             this.txtContractCode.TabIndex = 1;
             // 
-            // btnFindContract
-            // 
-            this.btnFindContract.Location = new System.Drawing.Point(577, 18);
-            this.btnFindContract.Name = "btnFindContract";
-            this.btnFindContract.Size = new System.Drawing.Size(26, 22);
-            this.btnFindContract.TabIndex = 2;
-            this.btnFindContract.Text = "...";
-            this.btnFindContract.UseVisualStyleBackColor = true;
-            // 
             // txtRecipientComment
             // 
             this.txtRecipientComment.Location = new System.Drawing.Point(243, 19);
             this.txtRecipientComment.Name = "txtRecipientComment";
-            this.txtRecipientComment.Size = new System.Drawing.Size(328, 20);
+            this.txtRecipientComment.Size = new System.Drawing.Size(360, 20);
             this.txtRecipientComment.TabIndex = 4;
             // 
             // lblRecipientBik
@@ -715,7 +703,7 @@ namespace UbsBusiness
             this.ucaRecipientCorrAccount.Location = new System.Drawing.Point(365, 45);
             this.ucaRecipientCorrAccount.MaxLength = 24;
             this.ucaRecipientCorrAccount.Name = "ucaRecipientCorrAccount";
-            this.ucaRecipientCorrAccount.Size = new System.Drawing.Size(206, 20);
+            this.ucaRecipientCorrAccount.Size = new System.Drawing.Size(238, 20);
             this.ucaRecipientCorrAccount.TabIndex = 8;
             // 
             // txtRecipientBankName
@@ -813,15 +801,6 @@ namespace UbsBusiness
             this.txtRecipientNote.Size = new System.Drawing.Size(27, 20);
             this.txtRecipientNote.TabIndex = 22;
             // 
-            // btnRecipientAttributeList
-            // 
-            this.btnRecipientAttributeList.Location = new System.Drawing.Point(577, 43);
-            this.btnRecipientAttributeList.Name = "btnRecipientAttributeList";
-            this.btnRecipientAttributeList.Size = new System.Drawing.Size(26, 22);
-            this.btnRecipientAttributeList.TabIndex = 23;
-            this.btnRecipientAttributeList.Text = "...";
-            this.btnRecipientAttributeList.UseVisualStyleBackColor = true;
-            // 
             // btnSaveRecipientAttribute
             // 
             this.btnSaveRecipientAttribute.Location = new System.Drawing.Point(577, 69);
@@ -833,6 +812,7 @@ namespace UbsBusiness
             // 
             // grpSender
             // 
+            this.grpSender.Controls.Add(this.ucaPayerAccount);
             this.grpSender.Controls.Add(this.linkPayerFullName);
             this.grpSender.Controls.Add(this.linkFindFilter);
             this.grpSender.Controls.Add(this.txtPayerFullName);
@@ -843,7 +823,6 @@ namespace UbsBusiness
             this.grpSender.Controls.Add(this.lblPayerClientInfo);
             this.grpSender.Controls.Add(this.txtPayerClientInfo);
             this.grpSender.Controls.Add(this.lblSourceMeans);
-            this.grpSender.Controls.Add(this.txtSourceMeans);
             this.grpSender.Controls.Add(this.lblPayerCardNumber);
             this.grpSender.Controls.Add(this.txtPayerCardNumber);
             this.grpSender.Controls.Add(this.chkBenefits);
@@ -856,6 +835,14 @@ namespace UbsBusiness
             this.grpSender.TabIndex = 1;
             this.grpSender.TabStop = false;
             this.grpSender.Text = "Плательщик";
+            // 
+            // ucaPayerAccount
+            // 
+            this.ucaPayerAccount.Location = new System.Drawing.Point(402, 70);
+            this.ucaPayerAccount.MaxLength = 24;
+            this.ucaPayerAccount.Name = "ucaPayerAccount";
+            this.ucaPayerAccount.Size = new System.Drawing.Size(201, 20);
+            this.ucaPayerAccount.TabIndex = 21;
             // 
             // linkPayerFullName
             // 
@@ -943,13 +930,6 @@ namespace UbsBusiness
             this.lblSourceMeans.Size = new System.Drawing.Size(55, 27);
             this.lblSourceMeans.TabIndex = 9;
             this.lblSourceMeans.Text = "Источник средств";
-            // 
-            // txtSourceMeans
-            // 
-            this.txtSourceMeans.Location = new System.Drawing.Point(402, 71);
-            this.txtSourceMeans.Name = "txtSourceMeans";
-            this.txtSourceMeans.Size = new System.Drawing.Size(201, 20);
-            this.txtSourceMeans.TabIndex = 10;
             // 
             // lblPayerCardNumber
             // 
@@ -1375,7 +1355,7 @@ namespace UbsBusiness
             this.tabPageAddFields.Location = new System.Drawing.Point(4, 22);
             this.tabPageAddFields.Name = "tabPageAddFields";
             this.tabPageAddFields.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAddFields.Size = new System.Drawing.Size(378, 158);
+            this.tabPageAddFields.Size = new System.Drawing.Size(622, 678);
             this.tabPageAddFields.TabIndex = 5;
             this.tabPageAddFields.Text = "Дополнительные свойства";
             this.tabPageAddFields.UseVisualStyleBackColor = true;
@@ -1387,7 +1367,7 @@ namespace UbsBusiness
             this.ucfAddProperties.Margin = new System.Windows.Forms.Padding(4);
             this.ucfAddProperties.Name = "ucfAddProperties";
             this.ucfAddProperties.ReadOnly = false;
-            this.ucfAddProperties.Size = new System.Drawing.Size(372, 152);
+            this.ucfAddProperties.Size = new System.Drawing.Size(616, 672);
             this.ucfAddProperties.TabIndex = 0;
             // 
             // tblActions
@@ -1588,11 +1568,11 @@ namespace UbsBusiness
         private TextBox txtBatchNumber;
         private CheckBox chkThirdPerson;
         private Label lblCashSymbolPayment;
-        private TextBox txtKsPayment;
+        private TextBox txtCashSymbolPayment;
         private Label lblCashSymbolCommission;
-        private TextBox txtKsRate;
+        private TextBox txtCashSymbolCommission;
         private Label lblCashSymbolNds;
-        private TextBox txtKsNds;
+        private TextBox txtCashSymbolNds;
         private Label lblPaymentCode;
         private TextBox txtPaymentCode;
         private Label lblPaymentAmount;
@@ -1623,7 +1603,6 @@ namespace UbsBusiness
         private Label lblCharCount160;
         private Label lblCharCount210;
         private TextBox txtContractCode;
-        private Button btnFindContract;
         private TextBox txtRecipientComment;
         private Label lblRecipientBik;
         private TextBox txtRecipientBik;
@@ -1641,7 +1620,6 @@ namespace UbsBusiness
         private Label lblRecipientName;
         private TextBox txtRecipientName;
         private TextBox txtRecipientNote;
-        private Button btnRecipientAttributeList;
         private Button btnSaveRecipientAttribute;
         private GroupBox grpSender;
         private TextBox txtPayerFullName;
@@ -1652,7 +1630,6 @@ namespace UbsBusiness
         private Label lblPayerClientInfo;
         private TextBox txtPayerClientInfo;
         private Label lblSourceMeans;
-        private TextBox txtSourceMeans;
         private Label lblPayerCardNumber;
         private TextBox txtPayerCardNumber;
         private CheckBox chkBenefits;
@@ -1715,5 +1692,6 @@ namespace UbsBusiness
         private LinkLabel linkPaymentAccount;
         private LinkLabel linkContractCode;
         private LinkLabel linkRecipientBankName;
+        private UbsControl.UbsCtrlAccount ucaPayerAccount;
     }
 }

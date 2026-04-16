@@ -39,7 +39,7 @@ namespace UbsBusiness
                 if (!LoadedSuccessfully)
                 {
                     this.DialogResult = DialogResult.Cancel;
-                    this.Close();
+                    this.btnExit_Click(this, EventArgs.Empty);
                     return;
                 }
 
@@ -55,7 +55,7 @@ namespace UbsBusiness
             {
                 MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.DialogResult = DialogResult.Cancel;
-                this.Close();
+                this.btnExit_Click(this, EventArgs.Empty);
             }
         }
 
@@ -69,7 +69,7 @@ namespace UbsBusiness
             IsConfirmed = false;
             WasCreated = false;
             this.DialogResult = DialogResult.Cancel;
-            this.Close();
+            this.btnExit_Click(this, EventArgs.Empty);
         }
 
         private bool LoadContext()
@@ -197,7 +197,7 @@ namespace UbsBusiness
                 {
                     btnExecute.Enabled = false;
                     this.DialogResult = DialogResult.Cancel;
-                    this.Close();
+                    this.btnExit_Click(this, EventArgs.Empty);
                     return;
                 }
 
@@ -233,7 +233,7 @@ namespace UbsBusiness
                     if (AutoExecute)
                     {
                         this.DialogResult = DialogResult.Cancel;
-                        this.Close();
+                        this.btnExit_Click(this, EventArgs.Empty);
                     }
                     return;
                 }
@@ -242,7 +242,7 @@ namespace UbsBusiness
                 IsConfirmed = true;
                 lvwDocuments.Items.Clear();
                 this.DialogResult = DialogResult.OK;
-                this.Close();
+                this.btnExit_Click(this, EventArgs.Empty);
             }
             finally
             {
