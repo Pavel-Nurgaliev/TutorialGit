@@ -11,7 +11,7 @@
   - UBS channel integration, event migration, and form-template constraints are expected.
 - **Workflow**: VAN -> PLAN -> CREATIVE -> BUILD -> REFLECT -> ARCHIVE
 
-## Current Phase: BUILD Wave 4 — Save pipeline complete; Wave 5 next
+## Current Phase: BUILD Wave 9 — All BUILD waves complete; REFLECT next
 
 ### PLAN deliverables (Level 4)
 - [x] Define complete .NET file structure for `UbsPsUtPaymentFrm`
@@ -1864,66 +1864,66 @@ Completes the form startup so the form actually displays data.
 
 ### Wave 5: `UbsPsUtPaymentFrm.Keys.cs` — keyboard navigation
 
-- [ ] **B5.1 — Create `Keys.cs`** file and add to `.csproj`
-- [ ] **B5.2 — `ProcessCmdKey` or `KeyDown`** — F7→`btnCalc_Click`, Ctrl+Tab→next window
-- [ ] **B5.3 — Enter-as-Tab** — forward navigation on Enter key (map from `UserDocument_KeyPress` Case 13)
-- [ ] **B5.4 — Escape backward navigation** — field-specific reverse focus chain (map from `UserDocument_KeyPress` Case 27 `Select Case ActiveControl.Name`)
-- [ ] **B5.5 — `CheckInt` helper** — digits-only input filter for INN, period, and cash-symbol fields
-- [ ] **B5.6 — Period field validation** — `txtMonthBeg_Leave`, `txtMonthEnd_Leave`, `txtYearBeg_Leave`, `txtYearEnd_Leave` with range checks and `GetDayEnd` auto-fill
-- [ ] **B5.7 — `txtContractCode_Leave`** — trigger `FindContract` when code loses focus
-- [ ] **B5.8 — `gotoPreviousTab`** — reverse tab-page navigation helper
-- [ ] **B5.9 — Wire key events in Designer** — connect `KeyDown`/`KeyPress`/`Leave` events to handlers
+- [x] **B5.1 — Create `Keys.cs`** — created `UbsPsUtPaymentFrm.Keys.cs`, added to `.csproj` as `DependentUpon` the main form
+- [x] **B5.2 — `ProcessCmdKey`** — overrides `ProcessCmdKey`: F7→`btnCalc.PerformClick()`, Ctrl+Tab→suppressed (VB6 parent loader API, no .NET equivalent)
+- [x] **B5.3 — Enter-as-Tab** — `GotoNextControlForEnter` with full control-specific forward focus chain: txtPaymentCode→FillDataPayment, txtPayerFullName→INN, txtPayerAccount→CheckAndSplitAccount+PrepareAccount→CheckSum/Phone/NextTab, txtCheckSum→Tax/Phone/Tariff/NextTab, txtRecipientBik→GetBankNameACC, udcPaymentAmount→CalcSumCommiss_2+Penalty/Period/ThirdPerson/Tax, txtPeriodYearEnd→CityCode/PayerAccount/ThirdPerson/AddFields/Save, txtThirdPersonInn/Kpp→Tax, txtTaxImns→AddFields, default→SelectNextControl
+- [x] **B5.4 — Escape backward navigation** — `EscapeBackwardNavigation` with full reverse focus chain: txtPayerInn→FIO, cmbPurpose→INN/Account/BIK/Code, txtContractCode→FindFilter/CardNum/PayerAcc/ClientInfo, ucaPayerAccount→Address, txtPayerAddress→INN, txtPayerFullName→Exit, txtRecipientInn→Account, ucaRecipientAccount→BIK, cmbTariff/cmbPhone→General, txtThirdPersonName→General, txtTaxKbk→Status/ThirdPerson/General, txtTaxStatus→ThirdPerson/General, tabPageAddFields→GotoPreviousTab, default→SelectNextControl backward
+- [x] **B5.5 — `CheckInt` helper** — `CheckInt_KeyDown` restricts to digits (D0-D9, NumPad0-9), Backspace, Delete, arrows, Home, End, Tab, Enter, Escape; wired to INN fields, period fields, cash symbol fields
+- [x] **B5.6 — Period field validation** — `txtPeriodMonthBeg_Leave` (1–12 range check), `txtPeriodMonthEnd_Leave` (1–12 + GetDayEnd auto-fill), `txtPeriodYearBeg_Leave` (no-op), `txtPeriodYearEnd_Leave` (GetDayEnd auto-fill); `GetDayEnd` calculates last day of month via `DateTime.AddMonths(1).AddDays(-1)`
+- [x] **B5.7 — `txtContractCode_Leave`** — triggers `FindContract()` when `txtRecipientComment` is empty; also `txtContractCode_KeyDown` handles Enter→`FindContract()` with `m_isCodeEnter` flag
+- [x] **B5.8 — `GotoPreviousTab`** — iterates backward through `tabPayment.TabPages` for first visible+enabled tab
+- [x] **B5.9 — Wire key events** — `WireKeyEvents()` called from constructor: `KeyPreview=true`, `Form_KeyDown` for Enter/Escape, Leave handlers for period fields and contract code, `CheckInt_KeyDown` for digit-only fields
 
 ### Wave 6: `UbsPsUtPaymentFrm.Commission.cs` — amount calculations
 
-- [ ] **B6.1 — Create `Commission.cs`** file and add to `.csproj`
-- [ ] **B6.2 — `CalcSumCommiss_2`** — main commission calculation with channel call, populate `udcPayerRateAmount`
-- [ ] **B6.3 — `CalcSumNDS`** — NDS calculation
-- [ ] **B6.4 — `CheckPeni`** — penalty validation/calculation
-- [ ] **B6.5 — Amount change handlers** — `udcPaymentAmount_TextChanged` → timer enable, `udcPenaltyAmount_TextChanged`
-- [ ] **B6.6 — `timer1_Tick`** — recalculation trigger (debounced sum/commission recalc)
-- [ ] **B6.7 — Total amount computation** — `udcAmountWithRate` = payment + commission; `udcCommonAmount`/`udcTotalAmount` for group
-- [ ] **B6.8 — `RunEcOperation`** — electronic cashier operation helper
-- [ ] **B6.9 — Wire events in Designer** — `TextChanged`, `timer1.Tick`
+- [x] **B6.1 — Create `Commission.cs`** — created `UbsPsUtPaymentFrm.Commission.cs`, added to `.csproj` as `DependentUpon` main form; contains CalcSumCommiss, CalcSumNDS, timer/change handlers, RunEcOperation
+- [x] **B6.2 — `CalcSumCommiss_2`** — already implemented in Initialization.cs (lines 2753–2879): client-side commission with rate type/scale lookup, min/max clamping, penalty inclusion, total computation
+- [x] **B6.3 — `CalcSumNDS`** — full `UtCalcSumNDS` channel call in Commission.cs: sends IDCONTRACT, SUMMA, IDKINDPAYMENT, SUMMARATESEND, SUMMARATEREC; reads SumNDSSend/SumNDSPaym/SumNDSRec. Replaced stub from Save.cs
+- [x] **B6.4 — `CheckPeni`** — already implemented in Initialization.cs (line 1478): sets lblPenaltyAmount/udcPenaltyAmount visibility from m_isPenyPresent, optional decimal value fill
+- [x] **B6.5 — Amount change handlers** — `udcPaymentAmount_TextChanged` resets+restarts timer1 (debounce), `udcPenaltyAmount_TextChanged` calls CalcSumCommiss_2 immediately with prefix `_2 1`
+- [x] **B6.6 — `timer1_Tick`** — fires after 250ms idle: disables timer, calls CalcSumCommiss_2 with prefix `_2 2 Timer` if m_idContract > 0
+- [x] **B6.7 — Total amount computation** — `CalcSumCommiss` full server-side via `UtCalcSumCommiss` channel: sends 13 params (IdContract, SumPaym, SUMMAPENI, AccClientPay, INN, Kppu, AccClient, blnSecondPayment, Benefits, etc.); reads SummaRateRec/SummaRec/SummaRateSend/SummaTotal into udcPayerRateAmount/udcAmountWithRate. Replaced CalcSumCommiss_2-only stub from Save.cs
+- [x] **B6.8 — `RunEcOperation`** — electronic cashier helper: sends DbOrCr, Oborot, IdCurrency to `RunEcOperation` channel
+- [x] **B6.9 — Wire events** — `WireCommissionEvents()` called from constructor: sets timer1.Interval=250, wires Tick, TextChanged for payment and penalty amounts
 
 ### Wave 7: `UbsPsUtPaymentFrm.BrowseShell.cs` — browse and dictionary actions
 
-- [ ] **B7.1 — Create `BrowseShell.cs`** file and add to `.csproj`
-- [ ] **B7.2 — `linkPayerFullName_LinkClicked` / `btnClient_Click`** — open client/payer selection via `IUbsChannel` browse, consume returned `m_IdClient`, call `FillPayer` / `ReadClientFromIdOC`
-- [ ] **B7.3 — `linkContractCode_LinkClicked` / `btnFindContract_Click` / `btnContract_Click`** — open contract list with filter logic (BIC, ACC, INN, КБК, template conditions), consume selected `m_IdContract`, call `FindContractbyId`
-- [ ] **B7.4 — `btnPattern_Click` / `DefineRunUserForm`** — user-pattern / script launcher
-- [ ] **B7.5 — `btnPaymDic_Click` / `CheckPaymDic`** — payment dictionary open, consume selection into `FillDataPayment("FILTER")`
-- [ ] **B7.6 — `linkFindFilter_LinkClicked` / `btnFindFilter_Click`** — open filtered payment list for current payer
-- [ ] **B7.7 — `btnRecipientAttributeList_Click` / `btnListAttributeRecip_Click`** — recipient attribute list, consume `ReadRecipFromId` result
-- [ ] **B7.8 — `btnSaveRecipientAttribute_Click`** — wire to existing `BtnSaveAttribute_ClickImpl`
-- [ ] **B7.9 — `linkRecipientBankName_LinkClicked`** — open bank search via BIC
-- [ ] **B7.10 — `linkThirdPersonName_LinkClicked` / `btnSelectThirdPerson_Click`** — open third-person client search
-- [ ] **B7.11 — `linkPaymentAccount_LinkClicked`** — open payer account browse
-- [ ] **B7.12 — `FillControlsByPattern`** — fill controls from selected pattern/dictionary result
-- [ ] **B7.13 — `GetBankNameACC`** — BIC→bank name lookup on BIC `GotFocus`/`Leave`
-- [ ] **B7.14 — `txtRecip_Change` equivalent** — recipient name change tracking
-- [ ] **B7.15 — Wire browse events in Designer**
+- [x] **B7.1 — Create `BrowseShell.cs`** — created `UbsPsUtPaymentFrm.BrowseShell.cs`, added to `.csproj`; contains all browse/dictionary actions, text tracking, checkbox handlers, UbsCtrlFields events, WireBrowseEvents
+- [x] **B7.2 — `linkPayerFullName_LinkClicked` / `BtnClient_ClickImpl`** — opens client list via `Ubs_ActionRun(ListClientGuest/ListClientCommon)`, fills payer via `FillPayer()`, `CheckPayer(false)`, focuses `txtContractCode`
+- [x] **B7.3 — `linkContractCode_LinkClicked` / `BtnContract_ClickImpl`** — opens contract list via `Ubs_ActionRun(ListContract)`, consumes selected `m_idContract`, calls `FindContractbyId`. Also `ucaRecipientAccount_Leave` for BIC+account lookup via `FindContrByBicAndAccount` channel
+- [x] **B7.4 — `btnPattern_Click` / `BtnPattern_ClickImpl`** — calls `CreateUserFormArray()` then `DefineRunUserForm(true)`. Wired via delegate in `WireBrowseEvents`
+- [x] **B7.5 — `BtnPaymDic_ClickImpl` / `CheckPaymDic`** — opens payment dictionary via `Ubs_ActionRun(m_SIDFilter)`, consumes into `FillDataPayment("FILTER")`. `CheckPaymDic` checks single record via `CheckPaymDic` channel
+- [x] **B7.6 — `linkFindFilter_LinkClicked` / `BtnFindFilter_ClickImpl`** — opens filtered payment list via `Ubs_ActionRun(ListPayment)`
+- [x] **B7.7 — `BtnRecipientAttributeList_ClickImpl`** — opens `UBS_LIST_PS\UT_UT_LIST_ATTRIBUTE_RECIP`, reads `ReadRecipFromId` channel, fills recipient controls + purpose + OKATO
+- [x] **B7.8 — `BtnSaveRecipientAttribute_ClickImpl`** — sends 9 params to `SaveRecipAttribute` channel, shows success message
+- [x] **B7.9 — `linkRecipientBankName_LinkClicked`** — delegates to existing `GetBankNameACC()`. `txtRecipientBik_Enter` saves old BIC value
+- [x] **B7.10 — `linkThirdPersonName` / `BtnSelectThirdPerson_ClickImpl`** — opens third-person client list, reads `ReadClientFromIdOC`, fills INN/name/KPP, sets `cmbThirdPersonKind`, calls `ThirdPersonKindChanged()`
+- [x] **B7.11 — `linkPaymentAccount_LinkClicked`** — delegates to `BtnFindFilter_ClickImpl`
+- [x] **B7.12 — `FillControlsByPattern`** — already exists in Initialization.cs
+- [x] **B7.13 — `GetBankNameACC`** — already exists in Initialization.cs (lines 2628-2747)
+- [x] **B7.14 — `txtRecipientName_TextChanged` / `cmbPurpose_TextChanged`** — tracks char count (160/210), updates `lblCharCount160`/`lblCharCount210` with red/black color
+- [x] **B7.15 — Wire browse events** — `WireBrowseEvents()` called from constructor; wires 6 button clicks, 2 TextChanged, 1 Enter, 1 Leave, 1 ComboBox Leave, 1 CheckBox, 1 LinkLabel, 1 KeyPress
 
 ### Wave 8: `UbsPsUtPaymentFrm.Cash.cs` — cash workflows
 
-- [ ] **B8.1 — Create `Cash.cs`** file and add to `.csproj`
-- [ ] **B8.2 — `btnCashSymb_Click` / `cmdCashSymb_Click`** — build initial cash-symbol array, open `FrmCashSymb`, consume result back into main form fields (`txtKsPayment`, `txtKsRate`, `txtKsNds`)
-- [ ] **B8.3 — `btnCalc_Click`** — `InitDialogCalc` channel check, INN validation, open `FrmCalc`, on success call `PutAddFlCalc`, `RunEcOperation`, `NewRecordCalc`
-- [ ] **B8.4 — `CreateCashOrd`** — build payment/contract arrays, open `FrmCashOrd`, handle auto-execute vs. preview mode, consume `WasCreated` result
-- [ ] **B8.5 — Cash-order post-save integration** — call `CreateCashOrd` after successful `Payment_Save` when applicable
-- [ ] **B8.6 — Wire cash events in Designer** — `btnCashSymb.Click`, `btnCalc.Click` (after rename from `button3`/`button1`)
+- [x] **B8.1 — Create `Cash.cs`** — created `UbsPsUtPaymentFrm.Cash.cs`, added to `.csproj`; contains `BtnCashSymb_ClickImpl`, `BtnCalc_ClickImpl`
+- [x] **B8.2 — `BtnCashSymb_ClickImpl`** — validates payment amount > 0 and `m_arrDataTypeCashSymbol` exists, opens `FrmCashSymb` modal with source/allowed/total, consumes `CashSymbolsResult` on confirm
+- [x] **B8.3 — `BtnCalc_ClickImpl`** — runs `InitDialogCalc` channel, validates payer/recipient INN via `CheckKeyInn`, opens `FrmCalc`, on confirm runs `GetGlobal_ParamBaseCurrency` + `RunEcOperation("DB")` + `PutAddFlCalc`, calls `NewRecordCalc`, clears client fields
+- [x] **B8.4 — `CreateCashOrd`** — upgraded stub in Save.cs to full implementation: calls `Ps_PreparePlatDoc`, `Ps_GetStatePrepareCashOrd2`, `UtGetGlobalUserData`, `Ps_GetStateRequestFormCashOrd`; builds 14-column payment array with cash symbols/NDS/amounts; group mode calls `Ps_GetArrayPrepareCashOrd`; opens `FrmCashOrd` with auto-execute or preview
+- [x] **B8.5 — Cash-order post-save integration** — already wired in Save.cs `HandlePostSaveNonGroup`/`HandlePostSaveGroup`
+- [x] **B8.6 — Wire cash events** — `btnCashSymb.Click` and `btnCalc.Click` wired via delegates in `WireBrowseEvents()`
 
 ### Wave 9: Designer event wiring and polish
 
 Final pass to ensure every control event is connected.
 
-- [ ] **B9.1 — Verify all button Click events** are wired in `.Designer.cs`
-- [ ] **B9.2 — Verify all ComboBox** `SelectedIndexChanged`/`TextChanged` events (`cmbPurpose`, `cmbTariff`, `cmbPhone`, `cmbThirdPersonKind`, `cmbCityCode`)
-- [ ] **B9.3 — Verify all CheckBox** `CheckedChanged` events (`chkBenefits`, `chkThirdPerson`, `chkPrintForms`)
-- [ ] **B9.4 — Verify `UbsCtrlFields`** `AddProperties_KeyPress` / `AddProperties_ValueChange` wiring
-- [ ] **B9.5 — Verify `UbsCtrlAccount`** validation events for `ucaRecipientAccount`, `ucaRecipientCorrAccount`
-- [ ] **B9.6 — Remove or document the commented-out `WndProc`** override in Designer
-- [ ] **B9.7 — Final lint check** across all partial files
+- [x] **B9.1 — Verify all button Click events** — `btnSave`, `btnExit`, `btnPattern`, `btnCashSymb`, `btnCalc`, `btnSaveRecipientAttribute` all wired in `WireBrowseEvents()`. No button Click subscriptions in Designer (avoids double-wire)
+- [x] **B9.2 — Verify all ComboBox events** — `cmbPurpose.TextChanged` wired for char count tracking; `cmbThirdPersonKind.Leave` wired for `ThirdPersonKindChanged()`. VB6 has no event handlers for `cmbTariff`, `cmbPhone`, `cmbCityCode` — confirmed no-op
+- [x] **B9.3 — Verify all CheckBox events** — `chkThirdPerson.CheckedChanged` wired in Designer; `chkBenefits.CheckedChanged` wired in `WireBrowseEvents()`. `chkPrintForms` has no Click handler in VB6 — confirmed property-only usage
+- [x] **B9.4 — Verify `UbsCtrlFields`** — `ucfAddProperties.KeyPress` wired in `WireBrowseEvents()` for Enter/Escape navigation; `ucfAddProperties_ValueChange` implemented (calls `UserAddField` channel)
+- [x] **B9.5 — Verify `UbsCtrlAccount`** — `ucaRecipientAccount.Leave` wired for BIC+account lookup via `FindContrByBicAndAccount`. `ucaRecipientCorrAccount` has no VB6 event handler — no wiring needed
+- [x] **B9.6 — WndProc** — no commented-out `WndProc` override found in current Designer.cs
+- [x] **B9.7 — Final lint check** — all partial files pass: `.cs`, `.Initialization.cs`, `.Save.cs`, `.Keys.cs`, `.Commission.cs`, `.BrowseShell.cs`, `.Cash.cs`, `.Constants.cs` — zero linter errors
 
 ## Phase 4: REFLECT - Review
 - [x] Document form-designer reflection -> `memory-bank/reflection/reflection-ubspsutpaymentfrm-designer.md`

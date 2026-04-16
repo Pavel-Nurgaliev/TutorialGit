@@ -864,9 +864,10 @@ namespace UbsBusiness
                 {
                     m_arrSubContracts = paramOutUtReadContract.Value("Субдоговоры") as object[,];
 
-                    if (!CheckSubContracts(paramOutUtReadContract))
+                    string subContractError;
+                    if (!CheckSubContracts(out subContractError))
                     {
-                        MessageBox.Show(paramOutUtReadContract.GetParamOutString("StrError"), CaptionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(subContractError, CaptionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         m_idContract = 0;
                         return;
@@ -1308,23 +1309,58 @@ namespace UbsBusiness
 
         /// <summary>
         /// CheckSubContracts: validates sub-contracts array for group payments.
-        /// Returns true if sub-contracts are valid or absent.
+        /// For each sub-contract code, reads the contract and checks that BIC, Acc, CorrAcc are non-empty.
+        /// VB6: Function CheckSubContracts (lines 9871-9918).
         /// </summary>
-        private bool CheckSubContracts(UbsParamCustom paramOutUtReadContract)
+        private bool CheckSubContracts(out string errorMessage)
         {
+            errorMessage = string.Empty;
+
             try
             {
                 if (m_arrSubContracts == null)
-                {
                     return true;
-                }
 
-                if (!paramOutUtReadContract.GetParamOutBool("bRetVal"))
+                bool result = true;
+                int rows = m_arrSubContracts.GetLength(0);
+
+                for (int i = 0; i < rows; i++)
                 {
-                    return false;
+                    string codeContract = Convert.ToString(m_arrSubContracts[i, 0]);
+
+                    this.IUbsChannel.ParamIn("CODECONTRACT", codeContract);
+                    this.IUbsChannel.Run("ReadContractbyCode");
+
+                    var pOutCode = new UbsParamCustom(this.IUbsChannel.ParamsOut);
+                    int lngId = pOutCode.GetParamOutInt("IDCONTRACT");
+
+                    if (lngId > 0)
+                    {
+                        this.IUbsChannel.ParamIn("IdContract", lngId);
+                        this.IUbsChannel.Run("UtReadContract");
+
+                        var pOutContract = new UbsParamCustom(this.IUbsChannel.ParamsOut);
+
+                        string bic = pOutContract.GetParamOutString("BIC");
+                        string acc = pOutContract.GetParamOutString("Acc");
+                        string corrAcc = pOutContract.GetParamOutString("CorrAcc");
+
+                        if (bic.Length == 0 || acc.Length == 0 || corrAcc.Length == 0)
+                        {
+                            result = false;
+                            break;
+                        }
+                    }
                 }
 
-                return true;
+                if (!result)
+                {
+                    errorMessage = "\u0412 \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u043E\u043C \u0441\u0443\u0431\u0434\u043E\u0433\u043E\u0432\u043E\u0440\u0435 \u043E\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u044E\u0442 \u0434\u0430\u043D\u043D\u044B\u0435 \u0432 "
+                        + "\u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0445 \u043F\u043E\u043B\u044F\u0445 (\u0411\u0418\u041A \u0431\u0430\u043D\u043A\u0430 \u043F\u043E\u043B\u0443\u0447\u0430\u0442\u0435\u043B\u044F \u0438/\u0438\u043B\u0438 \u0441\u0447\u0435\u0442\u0430 \u043F\u043E\u043B\u0443\u0447\u0430\u0442\u0435\u043B\u044F). "
+                        + "\r\n\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u043F\u043B\u0430\u0442\u0435\u0436 \u043D\u0430 \u043E\u0441\u043D\u043E\u0432\u0435 \u0442\u0430\u043A\u043E\u0433\u043E \u0441\u0443\u0431\u0434\u043E\u0433\u043E\u0432\u043E\u0440\u0430 \u0431\u0443\u0434\u0435\u0442 \u043D\u0435\u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E.";
+                }
+
+                return result;
             }
             catch (Exception ex)
             {

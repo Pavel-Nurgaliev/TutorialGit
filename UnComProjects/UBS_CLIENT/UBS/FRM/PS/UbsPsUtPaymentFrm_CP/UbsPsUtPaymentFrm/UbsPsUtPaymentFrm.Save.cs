@@ -1773,61 +1773,7 @@ namespace UbsBusiness
             catch (Exception ex) { this.Ubs_ShowError(ex); }
         }
 
-        /// <summary>
-        /// CalcSumCommiss: calls CalcSumCommiss channel for commission calculation.
-        /// Delegates to CalcSumCommiss_2 or server-side depending on configuration.
-        /// </summary>
-        private bool CalcSumCommiss()
-        {
-            try
-            {
-                CalcSumCommiss_2();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                this.Ubs_ShowError(ex);
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// CalcSumNDS: calls CalcSumNDS channel for VAT calculation.
-        /// </summary>
-        private bool CalcSumNDS()
-        {
-            try
-            {
-                this.IUbsChannel.ParamIn("SummaPaym", udcPaymentAmount.DecimalValue);
-                this.IUbsChannel.ParamIn("SummaRateSend", udcPayerRateAmount.DecimalValue);
-                this.IUbsChannel.ParamIn("IdContract", m_idContract);
-                this.IUbsChannel.Run("CalcSumNDS");
-
-                var paramOut = new UbsParamCustom(this.IUbsChannel.ParamsOut);
-
-                if (!paramOut.GetParamOutBool("bRetVal"))
-                {
-                    string err = paramOut.GetParamOutString("StrError");
-                    if (err.Length > 0)
-                    {
-                        MessageBox.Show(err, CaptionPaymentAccept,
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    return false;
-                }
-
-                m_curSumNDSRec = paramOut.GetParamOutDecimal("SummaNDSRec");
-                m_curSumNDSSend = paramOut.GetParamOutDecimal("SummaNDSSend");
-                m_curSumNDSPaym = paramOut.GetParamOutDecimal("SummaNDSPaym");
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                this.Ubs_ShowError(ex);
-                return false;
-            }
-        }
+        // CalcSumCommiss and CalcSumNDS are in UbsPsUtPaymentFrm.Commission.cs
 
         private bool CheckStateFR()
         {
@@ -1847,17 +1793,102 @@ namespace UbsBusiness
             }
         }
 
+        /// <summary>
+        /// Builds payment/contract arrays, opens FrmCashOrd, handles auto-execute vs preview.
+        /// VB6: CreateCashOrd (lines 8390-8548).
+        /// </summary>
         private void CreateCashOrd()
         {
             try
             {
-                using (FrmCashOrd frm = new FrmCashOrd())
+                this.IUbsChannel.ParamIn("IdContract", m_idContract);
+                this.IUbsChannel.Run("Ps_PreparePlatDoc");
+
+                var paramOutPlat = new UbsParamCustom(this.IUbsChannel.ParamsOut);
+                bool blnPlatDoc = paramOutPlat.GetParamOutBool("blnPeparePlatDoc");
+
+                this.IUbsChannel.Run("Ps_GetStatePrepareCashOrd2");
+
+                var paramOutState = new UbsParamCustom(this.IUbsChannel.ParamsOut);
+                int intRegim = paramOutState.GetParamOutInt("StateCashOrd");
+                int intRegimRate = paramOutState.GetParamOutInt("StateCashRate");
+
+                if (intRegim == 0 && intRegimRate == 0 && !blnPlatDoc)
+                    return;
+
+                this.IUbsChannel.Run("UtGetGlobalUserData");
+                var paramOutUser = new UbsParamCustom(this.IUbsChannel.ParamsOut);
+                int lngIdUser = paramOutUser.GetParamOutInt("IDUSER");
+                int idDivision = paramOutUser.GetParamOutInt("Division");
+
+                this.IUbsChannel.ParamIn("NameSection", "\u041E\u043F\u043B\u0430\u0442\u0430 \u0443\u0441\u043B\u0443\u0433");
+                this.IUbsChannel.Run("Ps_GetStateRequestFormCashOrd");
+
+                var paramOutReq = new UbsParamCustom(this.IUbsChannel.ParamsOut);
+                string reqErr = paramOutReq.GetParamOutString("StrError");
+                int intReq = 0;
+                if (reqErr.Length == 0)
                 {
-                    frm.UbsChannelRef = this.IUbsChannel;
-                    frm.PaymentId = m_idPayment;
-                    frm.AutoExecute = true;
-                    frm.ShowDialog(this);
-                    m_isCreateCashOrd = frm.WasCreated;
+                    intReq = paramOutReq.GetParamOutInt("ISFRMPREVIEW");
+                }
+
+                object[,] varPaym;
+                object[,] varContr;
+
+                if (m_isGroup || m_idContractSecond != 0)
+                {
+                    string channelName = (m_idContractSecond != 0)
+                        ? "Ps_GetArrayPrepareCashOrdSecond"
+                        : "Ps_GetArrayPrepareCashOrd";
+
+                    this.IUbsChannel.Run(channelName);
+
+                    var paramOutArr = new UbsParamCustom(this.IUbsChannel.ParamsOut);
+                    varPaym = paramOutArr.Value("VARPAYMENTS") as object[,];
+                    varContr = paramOutArr.Value("VARCONTRACT") as object[,];
+                }
+                else
+                {
+                    varPaym = new object[1, 14];
+                    varPaym[0, 0] = m_idPayment;
+                    varPaym[0, 1] = m_idContract;
+                    varPaym[0, 2] = udcAmountWithRate.DecimalValue;
+                    varPaym[0, 3] = udcPayerRateAmount.DecimalValue;
+                    varPaym[0, 4] = m_curSumNDSSend;
+                    varPaym[0, 5] = txtPayerFullName.Text;
+
+                    object[,] varCashSymbol = new object[1, 3];
+                    varCashSymbol[0, 0] = txtCashSymbolPayment.Text;
+                    varCashSymbol[0, 1] = txtCashSymbolCommission.Text;
+                    varCashSymbol[0, 2] = txtCashSymbolNds.Text;
+                    varPaym[0, 6] = varCashSymbol;
+
+                    varPaym[0, 7] = idDivision;
+                    if (m_isCashier)
+                    {
+                        varPaym[0, 8] = lngIdUser;
+                    }
+                    varPaym[0, 9] = m_curSumNDSPaym;
+                    varPaym[0, 10] = udcPaymentAmount.DecimalValue;
+                    varPaym[0, 11] = ucaPayerAccount.Text;
+                    varPaym[0, 12] = m_curSumRateRec;
+                    varPaym[0, 13] = m_curSumNDSRec;
+
+                    varContr = new object[1, 2];
+                    varContr[0, 0] = m_idContract;
+                    varContr[0, 1] = txtContractCode.Text;
+                }
+
+                using (var frmCashOrd = new FrmCashOrd())
+                {
+                    frmCashOrd.UbsChannelRef = this.IUbsChannel;
+                    frmCashOrd.PaymentsData = varPaym;
+                    frmCashOrd.ContractsData = varContr;
+                    frmCashOrd.PaymentId = m_idPayment;
+                    frmCashOrd.AutoExecute = (intReq != 1);
+
+                    frmCashOrd.ShowDialog(this);
+                    m_isCreateCashOrd = frmCashOrd.WasCreated;
                 }
             }
             catch (Exception ex) { this.Ubs_ShowError(ex); }

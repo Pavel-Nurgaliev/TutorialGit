@@ -127,6 +127,10 @@ namespace UbsBusiness
 
             this.Load += UbsPsUtPaymentFrm_Load;
             this.FormClosing += UbsPsUtPaymentFrm_FormClosing;
+
+            WireKeyEvents();
+            WireCommissionEvents();
+            WireBrowseEvents();
         }
 
 
@@ -462,32 +466,37 @@ namespace UbsBusiness
 
         private void linkPayerFullName_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
         {
-
+            BtnClient_ClickImpl();
         }
 
         private void linkFindFilter_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
         {
-
+            BtnFindFilter_ClickImpl();
         }
 
         private void linkContractCode_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
         {
-
+            BtnContract_ClickImpl();
         }
 
         private void linkRecipientBankName_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
         {
-
+            GetBankNameACC();
         }
 
         private void linkPaymentAccount_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
         {
-
+            BtnPaymentAccount_ClickImpl();
         }
 
         private void chkThirdPerson_CheckedChanged(object sender, EventArgs e)
         {
+            ChkThirdPerson_CheckedChangedImpl();
+        }
 
+        private void btnCalc_Click(object sender, EventArgs e)
+        {
+            BtnCalc_ClickImpl();
         }
     }
 }

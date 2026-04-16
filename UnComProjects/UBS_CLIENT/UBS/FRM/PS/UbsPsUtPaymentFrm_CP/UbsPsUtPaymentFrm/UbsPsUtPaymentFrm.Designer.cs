@@ -1355,7 +1355,7 @@ namespace UbsBusiness
             this.tabPageAddFields.Location = new System.Drawing.Point(4, 22);
             this.tabPageAddFields.Name = "tabPageAddFields";
             this.tabPageAddFields.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAddFields.Size = new System.Drawing.Size(622, 678);
+            this.tabPageAddFields.Size = new System.Drawing.Size(378, 158);
             this.tabPageAddFields.TabIndex = 5;
             this.tabPageAddFields.Text = "Дополнительные свойства";
             this.tabPageAddFields.UseVisualStyleBackColor = true;
@@ -1367,7 +1367,7 @@ namespace UbsBusiness
             this.ucfAddProperties.Margin = new System.Windows.Forms.Padding(4);
             this.ucfAddProperties.Name = "ucfAddProperties";
             this.ucfAddProperties.ReadOnly = false;
-            this.ucfAddProperties.Size = new System.Drawing.Size(616, 672);
+            this.ucfAddProperties.Size = new System.Drawing.Size(372, 152);
             this.ucfAddProperties.TabIndex = 0;
             // 
             // tblActions
@@ -1422,6 +1422,7 @@ namespace UbsBusiness
             this.btnCalc.TabIndex = 3;
             this.btnCalc.Text = "Расчет";
             this.btnCalc.UseVisualStyleBackColor = true;
+            this.btnCalc.Click += new System.EventHandler(this.btnCalc_Click);
             // 
             // btnSave
             // 
@@ -1432,6 +1433,7 @@ namespace UbsBusiness
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Сохранить";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnExit
             // 
@@ -1443,6 +1445,7 @@ namespace UbsBusiness
             this.btnExit.TabIndex = 2;
             this.btnExit.Text = "Выход";
             this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // panel1
             // 

@@ -47,6 +47,10 @@ namespace UbsBusiness
         #endregion
 
         #region Message
+
+        private const string MsgCalcDoneInfo = "Расчет с клиентом проведен";
+        private const string MsgCashSymbolTypeEmpty = "Не заполнено доп поле 'Разбивка платежа по символам'!";
+        private const string MsgPaymentAmountEmpty = "Не заполнена сумма платежа!";
         private const string MsgGettingDataContract = "Ошибка получения данных контракта";
         private const string MsgPaymentSavedDb = "Платеж сохранен в БД";
         private const string MsgRecipientAttributesSaved = "Реквизиты получателя сохранены в справочнике";
@@ -98,6 +102,7 @@ namespace UbsBusiness
         private const string CaptionCashOrderCreate = "Создание кассовых ордеров";
         private const string CaptionCheckSumPayment = "Проверка суммы платежа";
         private const string SidAction = "PS";
+        private const string MsgDateError = "Ошибка в дате!";
 
         #endregion
 

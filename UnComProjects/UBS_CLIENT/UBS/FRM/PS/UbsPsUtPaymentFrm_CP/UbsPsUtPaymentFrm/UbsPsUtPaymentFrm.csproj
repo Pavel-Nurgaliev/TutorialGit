@@ -145,6 +145,22 @@
       <DependentUpon>UbsPsUtPaymentFrm.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="UbsPsUtPaymentFrm.Keys.cs">
+      <DependentUpon>UbsPsUtPaymentFrm.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UbsPsUtPaymentFrm.Commission.cs">
+      <DependentUpon>UbsPsUtPaymentFrm.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UbsPsUtPaymentFrm.BrowseShell.cs">
+      <DependentUpon>UbsPsUtPaymentFrm.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UbsPsUtPaymentFrm.Cash.cs">
+      <DependentUpon>UbsPsUtPaymentFrm.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UbsPsUtPaymentFrm.Designer.cs">
       <DependentUpon>UbsPsUtPaymentFrm.cs</DependentUpon>
     </Compile>
