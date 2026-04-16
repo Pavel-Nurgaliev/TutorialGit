@@ -1826,8 +1826,8 @@ Fixes foundational issues that block every other wave.
 - [x] **B2.2 — Add missing shared state** — added all planned shared fields to `UbsPsUtPaymentFrm.cs` with safe defaults (`string.Empty`, `DateTime.MinValue`, `FoSettingValue = -1` where required) and verified lint status
 - [x] **B2.3 — Implement `ListKey`** — fully rewritten from VB6 `UBSChild_ParamInfo("InitParamForm")` with full command routing: `ListKey_Add` (ADD/GROUP_ADD/GROUP_PROCEED/ADD_FROM_CLIENT), `ListKey_AddIncoming`, `ListKey_AddParam` (with `ProcessAddParam` filling 16 named control slots), `ListKey_View` (VIEW/GROUP_VIEW), `ListKey_Copy`, `ListKey_ChangePart` (CHANGE_PART/GROUP_CHANGE/CHANGE_PART_INCOMING); added `m_commandSource`/`fromFoAsClient`/`blnCheckIncoming`/`IdPaymentCopy` fields; added stubs: `AddProcInit`, `IsAutoPeriod`, `GetGroupIDByPaymentID`, `UpdateGroupInfo`, `ProcessAddParam`, `CheckPayer`, `GetBankNameACC`, `CalcSumCommiss_2`, `FillNalog`
 - [x] **B2.4 — Wire `Form_Load`** — connected `Load` event (`m_isInitialized`) and `FormClosing` (`CanCloseForm` guard); implemented all core initialization functions: `CheckPeni`, `CheckPayer`, `FillPayer`, `FillNalog`, `FillPurpose`, `FillTariff`, `FillPhone`, `CalcSumCommiss_2`, `GetBankNameACC`, `IsAutoPeriod`, `GetDayEnd`, `DefineRunUserForm`, `GetIdClientFromGroupPayment`, `AddProcInit` (full), `FindContract` (full), `FindContractbyId` (full)
-- [ ] **B2.5 — Wire `Form_Closing`** — implement `FormClosing` with `CanCloseForm` / save-in-progress guard
-- [ ] **B2.6 — Create `NativeMethods.cs`** — `POINT` struct, `GetCursorPos`, `Sleep` P/Invoke from `modWinAPI.bas`
+- [x] **B2.5 — Wire `Form_Closing`** — implemented `FormClosing` handler (`UbsPsUtPaymentFrm_FormClosing`) with `CanCloseForm()` guard; wired in constructor via `this.FormClosing += UbsPsUtPaymentFrm_FormClosing;`
+- [x] **B2.6 — Create `NativeMethods.cs`** — created `NativeMethods.cs` with `POINT` struct and P/Invoke declarations for `GetCursorPos` (`user32.dll`) and `Sleep` (`kernel32.dll`) mapped from `modWinAPI.bas`
 - [ ] **B2.7 — Add `NativeMethods.cs` to `.csproj`**
 
 ### Wave 3: Initialization — full `InitDoc` and data fillers
@@ -1835,7 +1835,7 @@ Fixes foundational issues that block every other wave.
 Completes the form startup so the form actually displays data.
 
 - [x] **B3.1 — Full `InitDoc`** — fully rewritten from VB6 lines 5793–6162: cashier check, InitForm call, post-InitForm processing (ChangeCommand/CloseForm/EndGroup/XOR gate), settings runs (CashSymbol/ChoiceClient/SourceMeans), command branches (View/Copy/ChangePart/Add), period dates, CheckPeni/CheckPayer/DefineRunUserForm. ReadContract also fully converted (lines 6166–6362) with all output param handling and pattern-based tab visibility
-- [ ] **B3.2 — `AddProcInit`** — print-form check (`Ps_CheckPrintForm`), script device initialization, FR/scanner setup, `InitForm` call for ADD mode
+- [x] **B3.2 — `AddProcInit`** — implemented print-form check (`Ps_CheckPrintForm`), `InitForm` call for ADD mode, and VB6-equivalent device initialization via `PsDevice.vbs` (`FormInitDevice`) with FR/scanner state capture (`bIsFR`, `strRegNumber`, `objDevice`, `bIsScan`, `objScan`)
 - [ ] **B3.3 — `FillDataPayment`** — parse `arrDataPayment` variant matrix and populate all General-tab controls (payer, recipient, amounts, cash symbols, purpose, tax fields, periods, etc.)
 - [ ] **B3.4 — `FillTariff`** — parse tariff array, populate `cmbTariff`, show/hide tariff tab
 - [x] **B3.5 — `FillPurpose`** — clears+populates `cmbPurpose` from variant array, selects first item

@@ -5,6 +5,8 @@ namespace UbsBusiness
 {
     public partial class UbsPsUtPaymentFrm
     {
+        private object[,] m_arrCashSymb;
+
         /// <summary>
         /// VB6 InitDoc: main initialization — cashier check, InitForm channel call,
         /// settings channel runs, then command-specific branch (VIEW/COPY/CHANGE_PART/ADD).
@@ -134,17 +136,11 @@ namespace UbsBusiness
                 bool bMsgBoxYesNo = paramOutInitForm.GetParamOutBool("bMsgBoxYesNo");
                 if (bRetVal != bMsgBoxYesNo)
                 {
-                    FillCityCode(this.IUbsChannel.ExistParamOut("arrCityCode")
+                    FillCityCode(paramOutInitForm.Contains("arrCityCode")
                         ? this.IUbsChannel.ParamOut("arrCityCode") : null);
 
-                    if (this.IUbsChannel.ExistParamOut("DateBeg") && this.IUbsChannel.ParamOut("DateBeg") != null)
-                    {
-                        m_dateBeg = Convert.ToDateTime(this.IUbsChannel.ParamOut("DateBeg"));
-                    }
-                    if (this.IUbsChannel.ExistParamOut("DateEnd") && this.IUbsChannel.ParamOut("DateEnd") != null)
-                    {
-                        m_dateEnd = Convert.ToDateTime(this.IUbsChannel.ParamOut("DateEnd"));
-                    }
+                    m_dateBeg = paramOutInitForm.GetParamOutDateTime("DateBeg");
+                    m_dateEnd = paramOutInitForm.GetParamOutDateTime("DateEnd");
 
                     m_isErrorKey = paramOutInitForm.GetParamOutBool("blnIsErrorKey");
                 }
@@ -158,15 +154,14 @@ namespace UbsBusiness
                     }
                 }
 
-                // Benefits
-                if (this.IUbsChannel.ExistParamOut("Льготный клиент"))
+                if (paramOutInitForm.Contains("Льготный клиент"))
                 {
                     if (paramOutInitForm.GetParamOutBool("Льготный клиент"))
                     {
                         chkBenefits.Checked = true;
                     }
                 }
-                if (this.IUbsChannel.ExistParamOut("Обоснование"))
+                if (paramOutInitForm.Contains("Обоснование"))
                 {
                     txtBenefitReason.Text = paramOutInitForm.GetParamOutString("Обоснование");
                 }
@@ -261,7 +256,7 @@ namespace UbsBusiness
                 }
                 else if (string.Equals(m_command, StrCommandChangePart, StringComparison.Ordinal))
                 {
-                    InitDoc_ChangePart();
+                    InitDoc_ChangePart(paramOutUtReadSettingSourceMeans);
                 }
                 else if (string.Equals(m_command, StrCommandAdd, StringComparison.Ordinal))
                 {
@@ -317,11 +312,11 @@ namespace UbsBusiness
         }
 
         /// <summary>CHANGE_PART branch: read contract with partial enable.</summary>
-        private void InitDoc_ChangePart()
+        private void InitDoc_ChangePart(UbsParamCustom paramOut)
         {
-            if (this.IUbsChannel.ExistParamOut("ListSymbols"))
+            if (paramOut.Contains("ListSymbols"))
             {
-                // arrCashSymb / arrDataTypeCashSymbol loaded via channel
+                m_arrCashSymb = paramOut.Value("ListSymbols") as object[,];
             }
 
             ReadContract();
@@ -462,7 +457,7 @@ namespace UbsBusiness
                     }
                 }
 
-                if (this.IUbsChannel.ExistParamOut("ArrayCashSymbols"))
+                if (paramOutPayment.Contains("ArrayCashSymbols"))
                 {
                     object arrCS = paramOutPayment.Value("ArrayCashSymbols");
                     if (arrCS is Array)
@@ -496,7 +491,7 @@ namespace UbsBusiness
                 ucaRecipientAccount.Text = paramOutPayment.GetParamOutString("AccRec");
 
                 // Third person
-                if (this.IUbsChannel.ExistParamOut("THIRDPERSON_NAME"))
+                if (paramOutPayment.Contains("THIRDPERSON_NAME"))
                 {
                     chkThirdPerson.Checked = true;
                     txtThirdPersonName.Text = paramOutPayment.GetParamOutString("THIRDPERSON_NAME");
@@ -575,23 +570,13 @@ namespace UbsBusiness
                 udcPaymentAmount.Text = paramOutPayment.GetParamOutString("SummaPaym");
                 udcPayerRateAmount.Text = paramOutPayment.GetParamOutString("SummaRateSend");
 
-                m_curSumRec =
-                    paramOutPayment.Contains("SummaRec")
-                    ? Convert.ToDecimal(paramOutPayment.Value("SummaRec")) : 0;
-                m_curSumRateRec = Convert.ToDecimal(
-                    this.IUbsChannel.ExistParamOut("SummaRateRec")
-                    ? this.IUbsChannel.ParamOut("SummaRateRec") : 0);
+                m_curSumRec = paramOutPayment.GetParamOutDecimal("SummaRec");
+                m_curSumRateRec = paramOutPayment.GetParamOutDecimal("SummaRateRec");
 
                 udcTotalAmount.Text = paramOutPayment.GetParamOutString("Summa");
 
-                if (this.IUbsChannel.ExistParamOut("DateBeg") && this.IUbsChannel.ParamOut("DateBeg") != null)
-                {
-                    m_dateBeg = Convert.ToDateTime(this.IUbsChannel.ParamOut("DateBeg"));
-                }
-                if (this.IUbsChannel.ExistParamOut("DateEnd") && this.IUbsChannel.ParamOut("DateEnd") != null)
-                {
-                    m_dateEnd = Convert.ToDateTime(this.IUbsChannel.ParamOut("DateEnd"));
-                }
+                m_dateBeg = paramOutPayment.GetParamOutDateTime("DateBeg");
+                m_dateEnd = paramOutPayment.GetParamOutDateTime("DateEnd");
 
                 m_idContract = paramOutPayment.GetParamOutInt("IdContract");
                 m_idTariff = paramOutPayment.GetParamOutInt("IdTariff");
@@ -603,7 +588,6 @@ namespace UbsBusiness
 
                 txtRecipientName.Text = strNameRecip;
 
-                // Pattern-based tab visibility
                 chkThirdPerson.Enabled = false;
                 if (string.Equals(m_sidPattern, PatternEnergy, StringComparison.Ordinal))
                 {
@@ -779,16 +763,15 @@ namespace UbsBusiness
                     m_blnSecondPayment = 1;
                 }
 
-                m_arrRateSend = new object[]
-                {
-                    paramOutUtReadTypePayment.Contains("RateTypeSend") ? paramOutUtReadTypePayment.Value("RateTypeSend") : 0,
-                    paramOutUtReadTypePayment.Contains("RatePercentSend") ? paramOutUtReadTypePayment.Value("RatePercentSend") : 0m,
-                    paramOutUtReadTypePayment.Contains("MinSumSend") ? paramOutUtReadTypePayment.Value("MinSumSend") : 0m,
-                    paramOutUtReadTypePayment.Contains("MaxSumSend") ? paramOutUtReadTypePayment.Value("MaxSumSend") : 0m,
-                    paramOutUtReadTypePayment.GetParamOutString("Комиссии с плательщика-признак ставки"),
-                    this.IUbsChannel.ExistParamOut("Комиссии с плательщика-тарифная сетка")
-                        ? this.IUbsChannel.ParamOut("Комиссии с плательщика-тарифная сетка") : null
-                };
+                m_arrRateSend = new object[6];
+
+                m_arrRateSend[0] = paramOutUtReadTypePayment.Contains("RateTypeSend") ? paramOutUtReadTypePayment.Value("RateTypeSend") : 0;
+                m_arrRateSend[1] = paramOutUtReadTypePayment.Contains("RatePercentSend") ? paramOutUtReadTypePayment.Value("RatePercentSend") : 0m;
+                m_arrRateSend[2] = paramOutUtReadTypePayment.Contains("MinSumSend") ? paramOutUtReadTypePayment.Value("MinSumSend") : 0m;
+                m_arrRateSend[3] = paramOutUtReadTypePayment.Contains("MaxSumSend") ? paramOutUtReadTypePayment.Value("MaxSumSend") : 0m;
+                m_arrRateSend[4] = paramOutUtReadTypePayment.GetParamOutString("Комиссии с плательщика-признак ставки");
+                m_arrRateSend[5] = paramOutUtReadTypePayment.Contains("Комиссии с плательщика-тарифная сетка")
+                        ? this.IUbsChannel.ParamOut("Комиссии с плательщика-тарифная сетка") : null;
 
                 bool showCodePayment = string.Equals(paramOutUtReadTypePayment.GetParamOutString("VisibleCodePayment"), "присутствует", StringComparison.Ordinal);
 
@@ -890,14 +873,14 @@ namespace UbsBusiness
                     if (string.Equals(m_commandSource, StrCommandAddParam, StringComparison.Ordinal)
                         && cmbPurpose.Text.Length == 0)
                     {
-                        object arrPurpose = this.IUbsChannel.ExistParamOut("arrPurpose")
-                            ? this.IUbsChannel.ParamOut("arrPurpose") : null;
+                        object arrPurpose = paramOutUtReadTypePayment.Contains("arrPurpose")
+                            ? paramOutUtReadTypePayment.Value("arrPurpose") : null;
                         FillPurpose(arrPurpose);
                     }
                     else if (!string.Equals(m_commandSource, StrCommandAddParam, StringComparison.Ordinal))
                     {
-                        object arrPurpose = this.IUbsChannel.ExistParamOut("arrPurpose")
-                            ? this.IUbsChannel.ParamOut("arrPurpose") : null;
+                        object arrPurpose = paramOutUtReadTypePayment.Contains("arrPurpose")
+                            ? paramOutUtReadTypePayment.Value("arrPurpose") : null;
                         FillPurpose(arrPurpose);
                     }
                 }
@@ -1240,7 +1223,6 @@ namespace UbsBusiness
             {
                 m_isCheckIncoming = false;
 
-                this.IUbsChannel.LoadResource = LoadResourcePrintForm;
                 this.IUbsChannel.ParamIn("NameSection", "Оплата услуг");
                 this.IUbsChannel.Run("Ps_CheckPrintForm");
 
@@ -1264,9 +1246,9 @@ namespace UbsBusiness
                 m_idContract = 0;
                 m_idPayment = 0;
 
-                this.UbsChannel_Run("InitForm");
+                this.IUbsChannel.Run("InitForm");
 
-                var paramOutInitForm = new UbsParamCustom(this.UbsChannel_ParamsOut);
+                var paramOutInitForm = new UbsParamCustom(this.IUbsChannel.ParamsOut);
 
                 if (!paramOutInitForm.GetParamOutBool("bRetVal") && paramOutInitForm.GetParamOutBool("bMsgBoxYesNo") && blnMsgIsVisible)
                 {
@@ -1287,6 +1269,40 @@ namespace UbsBusiness
                     uciInfo.Show();
                 }
 
+                if (m_idGroupIncoming == 0)
+                {
+                    this.IUbsChannel.ParamIn("blnGroup", m_isGroup);
+                    this.IUbsChannel.ParamIn("strBusinessName", "Оплата услуг");
+                    this.IUbsChannel.Run("FormInitDevice");
+
+                    var paramOutFormInitDevice = new UbsParamCustom(this.IUbsChannel.ParamsOut);
+                    if (!paramOutFormInitDevice.GetParamOutBool("bRetVal"))
+                    {
+                        string deviceErr = paramOutFormInitDevice.GetParamOutString("StrError");
+                        if (deviceErr.Length > 0)
+                        {
+                            MessageBox.Show(deviceErr, "ФР и сканер. " + CaptionForm,
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            this.Close();
+                            return;
+                        }
+                    }
+
+                    m_isFR = paramOutFormInitDevice.GetParamOutBool("bIsFR");
+                    m_RegNumber = paramOutFormInitDevice.GetParamOutString("strRegNumber");
+                    if (paramOutFormInitDevice.Contains("objDevice"))
+                    {
+                        m_objDevice = paramOutFormInitDevice.Value("objDevice");
+                    }
+
+                    if (paramOutFormInitDevice.Contains("objScan"))
+                    {
+                        m_isScan = paramOutFormInitDevice.GetParamOutBool("bIsScan");
+                        m_objScanner = paramOutFormInitDevice.Value("objScan");
+                    }
+                }
+
+                this.IUbsChannel.LoadResource = LoadResource;
                 m_isCheckIncoming = true;
             }
             catch (Exception ex) { this.Ubs_ShowError(ex); }
@@ -1356,8 +1372,6 @@ namespace UbsBusiness
         }
 
         /// <summary>
-        /// VB6 GetGroupIDByPaymentID: resolves m_IdGroup from a payment ID.
-        /// Sets m_IdGroup = -1 if the payment is annulled.
         /// </summary>
         private void GetGroupIDByPaymentID(int paymentId)
         {
@@ -1392,7 +1406,6 @@ namespace UbsBusiness
         /// <summary>
         /// Processes ADD_PARAM parameter tuples from param_in.
         /// Each element of itemArray is object[] { name, value, enabled }.
-        /// VB6: loops ItemArray filling controls by parameter name.
         /// </summary>
         private void ProcessAddParam(object[] itemArray)
         {
@@ -1576,7 +1589,7 @@ namespace UbsBusiness
 
                 if (!paramOutUtCheckBIKBank.GetParamOutBool("bRetVal"))
                 {
-                    string limitMsg = paramOutUtCheckBIKBank.GetParamOutString("strError") + "\r\nПродолжить ввод платежа?";
+                    string limitMsg = paramOutUtCheckBIKBank.GetParamOutString("strError") + Environment.NewLine + "Продолжить ввод платежа?";
                     if (MessageBox.Show(limitMsg, CaptionValidation,
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                     {
@@ -1704,6 +1717,9 @@ namespace UbsBusiness
 
                 decimal curSumPaym = udcPaymentAmount.DecimalValue;
 
+                var toolTip = new ToolTip();
+                toolTip.SetToolTip(udcPaymentAmount, $"Ком с плат: тип={intTypeSend}, ставка={curPerSend}, мин={curMinSumSend}, макс={curMaxSumSend}, от суммы={curSumPaym}, польз форма={m_isAddparam}, ком на польз форме={udcPayerRateAmount.DecimalValue}");
+
                 if (rateArr.Length >= 6)
                 {
                     object arrStavka = rateArr[5];
@@ -1805,18 +1821,6 @@ namespace UbsBusiness
 
         /// <summary>
         /// VB6 FillNalog: calls ReadNalog and fills tax tab controls.
-        /// param=flag (use last payment), client=idClient.
-        /// VB6→.NET control mapping uses label text as semantic guide:
-        ///   txtStatusNalog  → txtTaxStatus   (101 Статус)
-        ///   txtKBKNalog     → txtTaxKbk      (104 Код бюджетной)
-        ///   txtKBKNoteNalog → txtTaxOkato    (Расшифровка КБК)
-        ///   txtOKATONalog   → txtTaxReasonCode (105 Код ОКАТО)
-        ///   txtReasonNalog  → txtTaxPeriodCode (106 Основание)
-        ///   txtPeriodNalog  → txtTaxDocumentNumber (107 Налоговый период)
-        ///   txtNomerNalog   → txtTaxDocumentDate   (108 Номер)
-        ///   txtDateNalog    → txtTaxType     (109 Дата)
-        ///   txTypeNalog     → txtTaxImns     (110 Тип)
-        ///   txtIMNSNalog    → txtTaxKbkNote  (ИМНС)
         /// </summary>
         private void FillNalog(bool useLast, int idClient)
         {
@@ -1911,7 +1915,6 @@ namespace UbsBusiness
 
         /// <summary>
         /// VB6 FillPurpose: populates cmbPurpose from variant array.
-        /// Array layout: arrPurpose(0, i) = purpose text.
         /// </summary>
         private void FillPurpose(object arrPurpose)
         {
@@ -1942,7 +1945,6 @@ namespace UbsBusiness
             }
             catch (Exception ex) { this.Ubs_ShowError(ex); }
         }
-
 
     }
 }

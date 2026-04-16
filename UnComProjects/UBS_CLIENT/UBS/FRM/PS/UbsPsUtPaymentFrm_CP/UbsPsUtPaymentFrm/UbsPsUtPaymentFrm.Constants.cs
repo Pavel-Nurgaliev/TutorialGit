@@ -1,11 +1,13 @@
-﻿namespace UbsBusiness
+﻿using System;
+
+namespace UbsBusiness
 {
     public partial class UbsPsUtPaymentFrm
     {
+        public readonly DateTime MinDateValue = new DateTime(2222, 1, 1);
         #region Resource
 
         private const string LoadResource = @"VBS:UBS_VBD\PS\UT\UtPaymentF.vbs";
-        private const string LoadResourcePrintForm = @"VBS:UBS_VBS\PS\PsCheckPrintForm.vbs";
 
         #endregion
 

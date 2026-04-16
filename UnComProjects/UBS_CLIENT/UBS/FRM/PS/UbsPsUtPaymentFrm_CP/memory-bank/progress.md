@@ -132,7 +132,9 @@ Full next-phase plan captured in `memory-bank/tasks.md` §Phase 3 (Waves 2–9).
 - [x] All files lint-clean
 
 ### Wave 2 continued + Wave 3 partial (2026-04-14)
-- [x] **B2.4 complete — Wire Form_Load**: connected `Load` event to `m_isInitialized = true` and `FormClosing` to `CanCloseForm` guard
+- [x] **B2.4 complete — Wire Form_Load**: connected `Load` event to `m_isInitialized = true`
+- [x] **B2.5 complete — Wire Form_Closing**: wired `FormClosing` handler with `CanCloseForm()` save-in-progress guard (`e.Cancel = true` while saving)
+- [x] **B2.6 complete — Create NativeMethods.cs**: added `NativeMethods` class with `POINT` struct and P/Invoke declarations for `GetCursorPos` and `Sleep` from `modWinAPI.bas`
 - [x] Added missing shared state fields: `m_idClientOld`, `m_strFIOOld`, `m_strAddressOld`, `m_strINNOld`, `m_arrRateSend`, `m_isAutoPeriodFlag`, `m_forbidTaxStatusChanges`, `m_savedTaxStatusValue`, `m_bicOld`, `m_isNoMessage`, `m_blnSecondPayment`, `m_isPeriodEnable`, `m_codeEnergy`, `m_varTariff`, `m_isForward`
 - [x] **CheckPeni** (both overloads) — shows/hides penalty label+control, optional sets amount
 - [x] **CheckPayer** — caches FIO/address/INN for change detection, returns unchanged flag
@@ -147,13 +149,13 @@ Full next-phase plan captured in `memory-bank/tasks.md` §Phase 3 (Waves 2–9).
 - [x] **GetDayEnd** — returns last day of month for given month/year strings
 - [x] **DefineRunUserForm** — calls user-form pattern script, sets `btnPattern` caption/visibility
 - [x] **GetIdClientFromGroupPayment** — resolves client ID from incoming group via channel
-- [x] **AddProcInit** (full) — print-form check, clear state, InitForm call with yes/no fallback, calls InitDoc, device init flag
+- [x] **AddProcInit** (full) — print-form check, clear state, InitForm call with yes/no fallback, calls InitDoc, and VB6 device initialization (`PsDevice.vbs` / `FormInitDevice`) with FR/scanner state capture
 - [x] **FindContract** (full rewrite) — searches by code via `ReadContractbyCode`, calls `FindContractbyId`
 - [x] **FindContractbyId** (full rewrite) — reads `UtReadTypePayment` + `UtReadContract`, populates recipient fields (ADD_PARAM-aware), rate array, code payment visibility, penalties, purpose, bank name, commission calc, pattern-based tab visibility (Energy→FillTariff, Phone→FillPhone, Nalog→FillNalog)
 - [x] All files lint-clean
 
 ## Next Step
-- Complete **B2.5** (Wire `Form_Closing`), **B2.6–B2.7** (`NativeMethods.cs`)
-- Proceed to Wave 3 remaining items: B3.2 (AddProcInit — device init), B3.3 (FillDataPayment full), B3.10 (ApplyInitialFormState), B3.11 (Third-person)
+- Complete **B2.7** (add `NativeMethods.cs` to `.csproj`)
+- Proceed to Wave 3 remaining items: B3.3 (FillDataPayment full), B3.10 (ApplyInitialFormState), B3.11 (Third-person)
 - Wave 4 (Save pipeline) and Wave 5 (Keys) can proceed in parallel after Wave 3
 - Re-run compile verification after installing the .NET Framework 2.0 targeting pack

@@ -5,6 +5,7 @@ namespace UbsBusiness
 {
     public class UbsParamCustom : UbsParam
     {
+        public readonly DateTime MinDateValue = new DateTime(2222, 1, 1);
         public UbsParamCustom(object[,] paramItems):base(paramItems)
         {
         }
@@ -40,6 +41,26 @@ namespace UbsBusiness
             }
 
             return Convert.ToBoolean(this.Value(key));
+        }
+
+        public DateTime GetParamOutDateTime(string key)
+        {
+            if (!this.Contains(key) || this.Value(key) == null)
+            {
+                return MinDateValue;
+            }
+
+            return Convert.ToDateTime(this.Value(key));
+        }
+
+        public decimal GetParamOutDecimal(string key)
+        {
+            if (!this.Contains(key) || this.Value(key) == null)
+            {
+                return 0m;
+            }
+
+            return Convert.ToDecimal(this.Value(key));
         }
     }
 }

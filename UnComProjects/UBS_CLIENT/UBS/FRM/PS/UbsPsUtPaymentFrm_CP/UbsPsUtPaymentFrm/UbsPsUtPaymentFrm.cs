@@ -31,6 +31,7 @@ namespace UbsBusiness
         private int m_idAttributeRecip;
         private string m_checkPayer = string.Empty;
         private bool m_isFR;
+        private bool m_isScan;
         private bool m_isClickSave;
         private string m_sidPattern = string.Empty;
         private int m_idContractOld;
@@ -73,7 +74,7 @@ namespace UbsBusiness
         private string m_strFIOOld = string.Empty;
         private string m_strAddressOld = string.Empty;
         private string m_strINNOld = string.Empty;
-        private object m_arrRateSend;
+        private object[] m_arrRateSend;
         private bool m_isAutoPeriodFlag;
         private bool m_forbidTaxStatusChanges;
         private string m_savedTaxStatusValue = string.Empty;
@@ -84,6 +85,8 @@ namespace UbsBusiness
         private int m_codeEnergy;
         private object m_varTariff;
         private bool m_isForward;
+        private object m_objDevice;
+        private object m_objScanner;
 
         #endregion
 

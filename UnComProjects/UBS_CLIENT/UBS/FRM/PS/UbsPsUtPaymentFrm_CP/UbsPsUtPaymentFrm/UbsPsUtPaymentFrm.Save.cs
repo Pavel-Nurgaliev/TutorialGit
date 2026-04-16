@@ -60,14 +60,15 @@ namespace UbsBusiness
 
                 this.IUbsChannel.Run("SaveAttributeRecip");
 
-                if (this.IUbsChannel.ExistParamOut("bRetVal")
-                    && Convert.ToBoolean(this.IUbsChannel.ParamOut("bRetVal")))
+                var paramOutSaveAttributeRecip = new UbsParamCustom(this.IUbsChannel.ParamsOut);
+
+                if (paramOutSaveAttributeRecip.GetParamOutBool("bRetVal"))
                 {
                     MessageBox.Show(MsgRecipientAttributesSaved, CaptionForm, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    string strError = GetParamOutString("StrError");
+                    string strError = paramOutSaveAttributeRecip.GetParamOutString("StrError");
                     if (!string.IsNullOrEmpty(strError))
                     {
                         MessageBox.Show(strError, CaptionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -81,16 +82,18 @@ namespace UbsBusiness
         {
             try
             {
-                this.IUbsChannel.LoadResource = LoadResource;
-                this.IUbsChannel.ParamIn("COMMANDIN", m_command);
-                this.IUbsChannel.ParamIn("StrCommand", string.IsNullOrEmpty(m_command) ? StrCommandAdd : m_command);
-                this.IUbsChannel.ParamIn("IdContract", m_idContract);
-                this.IUbsChannel.ParamIn("ID_CLIENT", m_idClient);
-                this.IUbsChannel.ParamIn("blnIPDL", m_isIPDL);
-                this.IUbsChannel.ParamIn("blnTerror", m_isTerror);
-                this.IUbsChannel.Run("Payment_Save");
+                this.UbsChannel_ParamIn("COMMANDIN", m_command);
+                this.UbsChannel_ParamIn("StrCommand", string.IsNullOrEmpty(m_command) ? StrCommandAdd : m_command);
+                this.UbsChannel_ParamIn("IdContract", m_idContract);
+                this.UbsChannel_ParamIn("ID_CLIENT", m_idClient);
+                this.UbsChannel_ParamIn("blnIPDL", m_isIPDL);
+                this.UbsChannel_ParamIn("blnTerror", m_isTerror);
 
-                string strError = GetParamOutString("StrError");
+                this.UbsChannel_Run("Payment_Save");
+
+                var paramOutPaymentSave = new UbsParamCustom(this.UbsChannel_ParamsOut);
+
+                string strError = paramOutPaymentSave.GetParamOutString("StrError");
                 if (!string.IsNullOrEmpty(strError))
                 {
                     MessageBox.Show(strError, CaptionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -98,10 +101,7 @@ namespace UbsBusiness
                     return;
                 }
 
-                if (this.IUbsChannel.ExistParamOut("IdPaym") && this.IUbsChannel.ParamOut("IdPaym") != null)
-                {
-                    m_idPayment = Convert.ToInt32(this.IUbsChannel.ParamOut("IdPaym"));
-                }
+                m_idPayment = paramOutPaymentSave.GetParamOutInt("IdPaym");
 
                 this.uciInfo.Show(MsgPaymentSavedDb);
 
@@ -122,9 +122,9 @@ namespace UbsBusiness
                 this.IUbsChannel.ParamIn("IDCLIENT", m_idClient);
                 this.IUbsChannel.Run("Ut_CheckBeforeSave");
 
-                string strError = GetParamOutString("Error");
-                bool bRet = !this.IUbsChannel.ExistParamOut("bRet")
-                    || Convert.ToBoolean(this.IUbsChannel.ParamOut("bRet"));
+                var paramOutUtCheckBeforeSave = new UbsParamCustom(this.UbsChannel_ParamsOut);
+                string strError = paramOutUtCheckBeforeSave.GetParamOutString("Error");
+                bool bRet = paramOutUtCheckBeforeSave.GetParamOutBool("bRet");
 
                 if (!bRet)
                 {
@@ -190,10 +190,12 @@ namespace UbsBusiness
             try
             {
                 this.IUbsChannel.Run("CheckAddFields");
-                if (this.IUbsChannel.ExistParamOut("bRetVal")
-                    && !Convert.ToBoolean(this.IUbsChannel.ParamOut("bRetVal")))
+
+                var paramOutCheckAddFields = new UbsParamCustom(this.IUbsChannel.ParamsOut);
+
+                if (!paramOutCheckAddFields.GetParamOutBool("bRetVal"))
                 {
-                    string strError = GetParamOutString("StrError");
+                    string strError = paramOutCheckAddFields.GetParamOutString("StrError");
                     if (!string.IsNullOrEmpty(strError))
                     {
                         MessageBox.Show(strError, CaptionCheck, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -215,24 +217,25 @@ namespace UbsBusiness
         {
             try
             {
-                this.IUbsChannel.ParamIn("IDCONTRACT", m_idContract) ;
+                this.IUbsChannel.ParamIn("IDCONTRACT", m_idContract);
                 this.IUbsChannel.ParamIn("RECIPIENTNAME", string.Empty);
                 this.IUbsChannel.Run("CheckTerror");
 
-                if (!this.IUbsChannel.ExistParamOut("RETVAL"))
+                var paramOutCheckTerror = new UbsParamCustom(this.IUbsChannel.ParamsOut);
+                if (!paramOutCheckTerror.Contains("RETVAL"))
                 {
                     m_isTerror = false;
                     return true;
                 }
 
-                bool bRet = Convert.ToBoolean(this.IUbsChannel.ParamOut("RETVAL"));
+                bool bRet = paramOutCheckTerror.GetParamOutBool("RETVAL");
                 if (bRet)
                 {
                     m_isTerror = false;
                     return true;
                 }
 
-                string strError = GetParamOutString("StrError");
+                string strError = paramOutCheckTerror.GetParamOutString("StrError");
                 if (string.IsNullOrEmpty(strError))
                 {
                     return false;
