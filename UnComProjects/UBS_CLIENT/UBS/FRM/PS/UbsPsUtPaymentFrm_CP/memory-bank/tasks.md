@@ -11,7 +11,7 @@
   - UBS channel integration, event migration, and form-template constraints are expected.
 - **Workflow**: VAN -> PLAN -> CREATIVE -> BUILD -> REFLECT -> ARCHIVE
 
-## Current Phase: BUILD Wave 2 — core infrastructure and ListKey
+## Current Phase: BUILD Wave 4 — Save pipeline complete; Wave 5 next
 
 ### PLAN deliverables (Level 4)
 - [x] Define complete .NET file structure for `UbsPsUtPaymentFrm`
@@ -1835,32 +1835,32 @@ Fixes foundational issues that block every other wave.
 Completes the form startup so the form actually displays data.
 
 - [x] **B3.1 — Full `InitDoc`** — fully rewritten from VB6 lines 5793–6162: cashier check, InitForm call, post-InitForm processing (ChangeCommand/CloseForm/EndGroup/XOR gate), settings runs (CashSymbol/ChoiceClient/SourceMeans), command branches (View/Copy/ChangePart/Add), period dates, CheckPeni/CheckPayer/DefineRunUserForm. ReadContract also fully converted (lines 6166–6362) with all output param handling and pattern-based tab visibility
-- [ ] **B3.2 — `AddProcInit`** — print-form check (`Ps_CheckPrintForm`), script device initialization, FR/scanner setup, `InitForm` call for ADD mode
-- [ ] **B3.3 — `FillDataPayment`** — parse `arrDataPayment` variant matrix and populate all General-tab controls (payer, recipient, amounts, cash symbols, purpose, tax fields, periods, etc.)
-- [ ] **B3.4 — `FillTariff`** — parse tariff array, populate `cmbTariff`, show/hide tariff tab
+- [x] **B3.2 — `AddProcInit`** — print-form check (`Ps_CheckPrintForm`), script device initialization, FR/scanner setup, `InitForm` call for ADD mode; fully implemented in Wave 2 build
+- [x] **B3.3 — `FillDataPayment`** — parse `arrDataPayment` variant matrix and populate all General-tab controls (payer, recipient, amounts, cash symbols, purpose, tax fields, periods, etc.); implemented with CODE/FILTER modes, Ut_CheckSidPayment, Ut_GetDataLic, Ut_GetUserPaymentData, UT_AplyUserPaymentData channel calls; helper methods: FillDataPayment_ApplyFirstBlock, FillDataPayment_ApplySecondBlock, ApplyThirdPersonFromDataPayment, ApplyRecipientFromDataPayment, FillDataPayment_ApplyPeriod, FillDataPayment_ApplyPayerFields
+- [x] **B3.4 — `FillTariff`** — parse tariff array, populate `cmbTariff`, show/hide tariff tab; fully implemented in Wave 2 build
 - [x] **B3.5 — `FillPurpose`** — clears+populates `cmbPurpose` from variant array, selects first item
 - [x] **B3.6 — `FillPayer`** — calls `ReadClientFromIdOC`, populates payer fields (FIO, INN, address, client info, benefits)
 - [x] **B3.7 — `FillCityCode`** — already implemented (populates `cmbCityCode` from variant array)
 - [x] **B3.8 — `FillNalog`** — calls `ReadNalog`, fills all 11 tax tab controls with VB6→.NET mapping, handles tax status lock and type field disable
 - [x] **B3.9 — `FindContract` / `FindContractbyId`** — full rewrite: reads `UtReadTypePayment` + `UtReadContract`, populates recipient fields (ADD_PARAM-aware), rate array, penalties, purpose, bank name, commission calc, pattern-based tab visibility
-- [x] **B3.10 — `ApplyInitialFormState` full** — hide/show controls and tabs based on command, set caption, configure group-payment display
+- [x] **B3.10 — `ApplyInitialFormState` full** — hide/show controls and tabs based on command, set caption, configure group-payment display; implemented: form title for group/incoming, sub-payment count visibility, source-means/folder-number/payer-account toggles, VIEW-mode button disabling; wired into ListKey after InitDoc
 - [x] **B3.11 — Third-person fill** — `ThirdPersonKindChanged`, `cmb_ThirdPersonKind_LostFocus` equivalent, third-person tab population
 - [x] **B3.12 — `IsAutoPeriod` / `GetDayEnd`** — calls `UtGetAutoFillPeriod`, clears period fields when auto; `GetDayEnd` returns last day of month
-- [x] **B3.13 — `UpdateGroupInfo`** — group payment summary display
+- [x] **B3.13 — `UpdateGroupInfo`** — group payment summary display; implemented: calls UtReadGroupInfo channel, fills txtSubPaymentCount/udcCommonAmount/udcTotalAmount, handles incoming-group offset
 - [x] **B3.14 — `GetDataClientFromLic`** — populate payer data from personal account
 - [x] **B3.15 — `DefineRunUserForm`** — calls user-form pattern script, sets btnPattern caption/visibility (CreateUserFormArray deferred to B7.4)
 
 ### Wave 4: Save pipeline — complete validation and field collection
 
-- [ ] **B4.1 — `Payment_Save` full** — collect all control values into `ParamIn` / `arrDataPayment` array before `Run("Payment_Save")`; handle `arrCashSymb`, tax fields, third-person data, add-fields
-- [ ] **B4.2 — `CheckLockPassport`** — actual channel call to lock/validate passport
-- [ ] **B4.3 — `CheckIPDL`** — actual IPDL check with channel call and `UbsComValidateLibrary` reference (add assembly reference when needed)
-- [ ] **B4.4 — `CheckAccPayment`** — settlement account key validation (`CheckKeyInn` for INN, account key check)
-- [ ] **B4.5 — `CheckKeyInn`** — INN checksum validation (10-digit and 12-digit)
-- [ ] **B4.6 — `NewRecord` / `NewRecordCalc`** — save→new-record flow (clear form, re-init for next payment in group)
-- [ ] **B4.7 — Post-save group handling** — `CheckOrEndGroup`, group continuation prompt, `UpdateGroupInfo` after save
-- [ ] **B4.8 — Print form logic** — `Ps_CheckPrintForm` post-save, `chkPrintForms` integration, FR device calls
-- [ ] **B4.9 — `Form_Closing` save guard** — integrate `CanCloseForm` with `CheckOrEndGroup` for group-mode exit
+- [x] **B4.1 — `Payment_Save` full** — `BtnSave_ClickImpl` rebuilt: INN validation, cashier re-check, tax/third-person/batch/purpose validations, full `ParamIn` collection (period dates, cash symbols, pattern-specific, group, second payment, third person, tax, FO), then `Payment_Save` with post-save flow (counter updates, group continuation, external docs, print, FR, user script, new record)
+- [x] **B4.2 — `CheckLockPassport`** — channel call via `CommonCheckPassport` with `DocSeries`, `DocNumber`, `FIO` params
+- [x] **B4.3 — `CheckIPDL`** — channel call `CommonCheckIPDL`, maps `RetVal` 0/1/2 to `m_isIPDL` and allow/deny
+- [x] **B4.4 — `CheckAccPayment`** — full `CheckAndSplitAccount` (calls `UtCheckAndSplitAccount` channel) + `PrepareAccount` (calls `CalcKey` channel, key comparison with error-key tolerance)
+- [x] **B4.5 — `CheckKeyInn`** — static INN checksum: 10-digit (weights 2,4,10,3,5,9,4,6,8), 12-digit (two-pass), 5-digit КИО pass-through, Crimea "00" exception
+- [x] **B4.6 — `NewRecord` / `NewRecordCalc`** — `NewRecord` clears form, sends `CLEAR` to `PAYMENT` channel, re-calls `InitDoc`, clears recipient fields, calls `IsAutoPeriod`; `NewRecordCalc` is lighter clear for payer fields only
+- [x] **B4.7 — Post-save group handling** — `HandleCheckOrEndGroup` (types 1=end script, 2=sum-exceeds exit, 3=sum-under on close); `HandlePostSaveGroup` with `UTIsMoveValByAccountA`, `CreateCashOrd`, group continuation prompt
+- [x] **B4.8 — Print form logic** — `HandlePrintForms` calls `FormPrintPayment` with edit-return support; `HandleFiscalRegister` prints on FR with group/double-payment variants; `UpdatePrintFormFlag` from `chkPrintForms`
+- [x] **B4.9 — `Form_Closing` save guard** — `CanCloseForm` blocks close during `m_isSave`, handles incoming-group `CheckOrEndGroup` type 3 (sum-under continue prompt)
 
 ### Wave 5: `UbsPsUtPaymentFrm.Keys.cs` — keyboard navigation
 

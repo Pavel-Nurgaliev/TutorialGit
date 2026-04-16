@@ -90,6 +90,24 @@ namespace UbsBusiness
         private object m_objDevice;
         private object m_objScanner;
 
+        private string m_strSignAccCode = string.Empty;
+        private string m_strSignKey = string.Empty;
+        private string m_strNameProcAcc = string.Empty;
+        private int m_nLenKey;
+        private bool m_bIncludeKey;
+        private bool m_bIsCheckKey;
+        private bool m_isControlSum;
+        private int m_countPaper;
+        private bool m_isStopPrint;
+        private bool m_needRefreshGrid;
+        private int m_oldGroupId;
+        private bool m_isArbitrary;
+        private decimal m_curSumNDSRec;
+        private decimal m_curSumNDSSend;
+        private decimal m_curSumNDSPaym;
+        private bool m_isCreateCashOrd;
+        private object m_arrSecondPaym;
+
         #endregion
 
         /// <summary>
@@ -230,6 +248,8 @@ namespace UbsBusiness
                 lblCommonAmount.Visible = true;
                 udcCommonAmount.Visible = true;
                 udcTotalAmount.Visible = true;
+
+                ApplyInitialFormState();
 
                 if (txtPayerFullName.Enabled)
                 {

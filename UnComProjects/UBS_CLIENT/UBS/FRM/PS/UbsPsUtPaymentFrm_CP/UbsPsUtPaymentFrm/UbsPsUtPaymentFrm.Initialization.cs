@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Net.Sockets;
 using System.Windows.Forms;
-using UbsControl;
 using UbsService;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace UbsBusiness
 {
@@ -1065,18 +1062,18 @@ namespace UbsBusiness
                 }
 
                 // params
-                paramOutUtReadContract["AccClientPay"] = ucaPayerAccount.Text;
-                paramOutUtReadContract["IdClient"] = m_idClient;
-                paramOutUtReadContract["INN"] = txtRecipientInn.Text;
-                paramOutUtReadContract["Kppu"] = txtRecipientKpp.Text;
-                paramOutUtReadContract["AccClient"] = ucaRecipientAccount.Text;
-                paramOutUtReadContract["IsGuest"] = m_isGuest;
+                paramOutUtReadContract.Value("AccClientPay", ucaPayerAccount.Text);
+                paramOutUtReadContract.Value("IdClient", m_idClient);
+                paramOutUtReadContract.Value("INN", txtRecipientInn.Text);
+                paramOutUtReadContract.Value("Kppu", txtRecipientKpp.Text);
+                paramOutUtReadContract.Value("AccClient", ucaRecipientAccount.Text);
+                paramOutUtReadContract.Value("IsGuest", m_isGuest);
 
                 if (chkBenefits.Checked)
                 {
                     if (ucaPayerAccount.Text == "00000000000000000000")
                     {
-                        paramOutUtReadContract["AccClientPay"] = "20200";
+                        paramOutUtReadContract.Value("AccClientPay", "20200");
                     }
 
                     this.IUbsChannel.Run("UtCheckPaymentBenefits");
@@ -1249,22 +1246,91 @@ namespace UbsBusiness
 
         private bool IsComboBoxItemExists(string strPurpose)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < cmbPurpose.Items.Count; i++)
+            {
+                if (string.Equals(cmbPurpose.Items[i].ToString(), strPurpose, StringComparison.Ordinal))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
-        private void SetParamAccCodeKey(int m_idKindPaym)
+        /// <summary>
+        /// SetParamAccCodeKey: configures payer account field visibility and key check
+        /// settings based on the payment kind (m_idKindPaym).
+        /// VB6: calls CheckKey with account parameters, sets AccPay visibility.
+        /// </summary>
+        private void SetParamAccCodeKey(int idKindPaym)
         {
-            throw new NotImplementedException();
+            try
+            {
+                this.IUbsChannel.ParamIn("IDKINDPAYMENT", idKindPaym);
+                this.IUbsChannel.Run("CheckKey");
+
+                var paramOut = new UbsParamCustom(this.IUbsChannel.ParamsOut);
+
+                bool isCheckKey = paramOut.GetParamOutBool("bIsCheckKey");
+                m_strCheckType = paramOut.GetParamOutString("strSignKey");
+                int nLenKey = paramOut.GetParamOutInt("nLenKey");
+
+                txtPayerAccount.Visible = (nLenKey > 0);
+                linkPaymentAccount.Visible = (nLenKey > 0);
+                txtCheckSum.Visible = isCheckKey;
+                cmbCityCode.Visible = paramOut.GetParamOutBool("bIsPeriodEnable");
+                cmbCityCode.Enabled = paramOut.GetParamOutBool("bIsPeriodEnable");
+            }
+            catch (Exception ex) { this.Ubs_ShowError(ex); }
         }
 
+        /// <summary>
+        /// SetPropBank: sets recipient bank field editability based on "IsSeparateDoc" flag
+        /// and the current contract state. When separate doc is enabled,
+        /// BIK/corr-account/bank-name are editable.
+        /// </summary>
         private void SetPropBank(string isSepDoc)
         {
-            throw new NotImplementedException();
+            try
+            {
+                bool isSep = string.Equals(isSepDoc, "True", StringComparison.OrdinalIgnoreCase)
+                          || string.Equals(isSepDoc, "1", StringComparison.Ordinal);
+
+                if (isSep)
+                {
+                    txtRecipientBik.Enabled = true;
+                    ucaRecipientCorrAccount.Enabled = true;
+                    txtRecipientBankName.Enabled = true;
+                    linkRecipientBankName.Enabled = true;
+                }
+            }
+            catch (Exception ex) { this.Ubs_ShowError(ex); }
         }
 
+        /// <summary>
+        /// CheckSubContracts: validates sub-contracts array for group payments.
+        /// Returns true if sub-contracts are valid or absent.
+        /// </summary>
         private bool CheckSubContracts(UbsParamCustom paramOutUtReadContract)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (m_arrSubContracts == null)
+                {
+                    return true;
+                }
+
+                if (!paramOutUtReadContract.GetParamOutBool("bRetVal"))
+                {
+                    return false;
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                this.Ubs_ShowError(ex);
+                return false;
+            }
         }
 
         private void FillPhone(int idPhone)
@@ -1485,9 +1551,55 @@ namespace UbsBusiness
             catch (Exception ex) { this.Ubs_ShowError(ex); }
         }
 
+        /// <summary>
+        /// FillControlsByPattern: applies control values from the user-pattern script output.
+        /// The items array contains key-value pairs returned by CallingUserFormPattern.
+        /// </summary>
         private void FillControlsByPattern(object[,] items)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (items == null) return;
+
+                int rows = items.GetLength(0);
+                for (int i = 0; i < rows; i++)
+                {
+                    string key = Convert.ToString(items[i, 0]);
+                    string val = Convert.ToString(items[i, 1]);
+
+                    if (string.Equals(key, "PAYERFIO", StringComparison.Ordinal))
+                        txtPayerFullName.Text = val;
+                    else if (string.Equals(key, "PAYERINN", StringComparison.Ordinal))
+                        txtPayerInn.Text = val;
+                    else if (string.Equals(key, "PAYERADDRESS", StringComparison.Ordinal))
+                        txtPayerAddress.Text = val;
+                    else if (string.Equals(key, "CODECONTRACT", StringComparison.Ordinal))
+                    {
+                        txtContractCode.Text = val;
+                        FindContract();
+                    }
+                    else if (string.Equals(key, "BIC", StringComparison.Ordinal))
+                    {
+                        txtRecipientBik.Text = val;
+                        GetBankNameACC();
+                    }
+                    else if (string.Equals(key, "ACC", StringComparison.Ordinal))
+                        ucaRecipientAccount.Text = val;
+                    else if (string.Equals(key, "INN", StringComparison.Ordinal))
+                        txtRecipientInn.Text = val;
+                    else if (string.Equals(key, "PURPOSE", StringComparison.Ordinal))
+                        cmbPurpose.Text = val;
+                    else if (string.Equals(key, "RECIPIENTNAME", StringComparison.Ordinal))
+                        txtRecipientName.Text = val;
+                    else if (string.Equals(key, "SUMMA", StringComparison.Ordinal))
+                        udcPaymentAmount.Text = val;
+                    else if (string.Equals(key, "ACCCODE", StringComparison.Ordinal))
+                        txtPayerAccount.Text = val;
+                    else if (string.Equals(key, "CODEPAYMENT", StringComparison.Ordinal))
+                        txtPaymentCode.Text = val;
+                }
+            }
+            catch (Exception ex) { this.Ubs_ShowError(ex); }
         }
 
         /// <summary>
@@ -1510,16 +1622,478 @@ namespace UbsBusiness
             catch (Exception ex) { this.Ubs_ShowError(ex); }
         }
 
-        private void FillDataPayment(object arrDataPayment)
+        /// <summary>
+        /// FillDataPayment: заполняет поля формы из кода платежа или из списка л/с.
+        /// TypeCall: "CODE" — ввод кода платежа, "FILTER" — из списка платежей клиента.
+        /// VB6: Sub FillDataPayment(TypeCall As String), lines 2510–2983.
+        /// </summary>
+        private void FillDataPayment(string typeCall)
         {
-            if (arrDataPayment == null)
+            try
+            {
+                if (string.Equals(typeCall, "CODE", StringComparison.Ordinal))
+                {
+                    if (txtPaymentCode.Text.Trim().Length == 0)
+                    {
+                        return;
+                    }
+                    this.IUbsChannel.ParamIn("CodePayment", txtPaymentCode.Text);
+                    this.IUbsChannel.ParamIn("IdContract", m_idContract);
+                    this.IUbsChannel.ParamIn("IDKINDPAYMENT", m_idKindPaym);
+                    this.IUbsChannel.Run("Ut_CheckSidPayment");
+                }
+                else if (string.Equals(typeCall, "FILTER", StringComparison.Ordinal))
+                {
+                    this.IUbsChannel.ParamIn("IdPaymentDic", m_idPaymentDic);
+                    this.IUbsChannel.ParamIn("IdContract", m_idContract);
+                    this.IUbsChannel.ParamIn("IDKINDPAYMENT", m_idKindPaym);
+                    this.IUbsChannel.Run("Ut_GetDataLic");
+
+                    var paramOutGetDataLic = new UbsParamCustom(this.IUbsChannel.ParamsOut);
+                    txtPaymentCode.Text = paramOutGetDataLic.GetParamOutString("CodePayment");
+                }
+
+                var paramOut = new UbsParamCustom(this.IUbsChannel.ParamsOut);
+
+                if (paramOut.Contains("strError"))
+                {
+                    string err = paramOut.GetParamOutString("strError");
+                    if (err.Length > 0)
+                    {
+                        MessageBox.Show(err, CaptionValidation, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+
+                if (paramOut.Contains("strMessage"))
+                {
+                    string msg = paramOut.GetParamOutString("strMessage");
+                    if (msg.Length > 0)
+                    {
+                        if (MessageBox.Show(msg + Environment.NewLine + "Вы хотите продолжить работу?",
+                            CaptionValidation, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                        {
+                            return;
+                        }
+                    }
+                }
+
+                if (paramOut.Contains("arrDataPayment"))
+                {
+                    ucfAddProperties.Refresh();
+                    FillDataPayment_ApplyFirstBlock(paramOut);
+                }
+
+                if (string.Equals(typeCall, "FILTER", StringComparison.Ordinal))
+                {
+                    txtPayerAccount.Enabled = false;
+                    return;
+                }
+
+                this.IUbsChannel.ParamIn("CodeContract", txtContractCode.Text);
+                this.IUbsChannel.ParamIn("CodePayment", txtPaymentCode.Text);
+                this.IUbsChannel.ParamIn("NameSection", "Оплата услуг");
+                this.IUbsChannel.ParamIn("BIC", txtRecipientBik.Text.Trim());
+                this.IUbsChannel.ParamIn("ACC", ucaRecipientAccount.Text);
+                this.IUbsChannel.Run("Ut_GetUserPaymentData");
+
+                var paramOutUser = new UbsParamCustom(this.IUbsChannel.ParamsOut);
+
+                if (!paramOutUser.GetParamOutBool("bRetVal"))
+                {
+                    string strErr = paramOutUser.GetParamOutString("StrError");
+                    if (strErr.Length > 0)
+                    {
+                        MessageBox.Show("Ошибка пользовательского сценария:" + Environment.NewLine + strErr,
+                            CaptionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtPaymentCode.Focus();
+                    }
+                    return;
+                }
+
+                if (paramOutUser.Contains("StrQuestion"))
+                {
+                    string question = paramOutUser.GetParamOutString("StrQuestion");
+                    if (question.Length > 0)
+                    {
+                        if (MessageBox.Show(question, "Внимание!",
+                            MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.Cancel)
+                        {
+                            return;
+                        }
+                    }
+                }
+
+                this.IUbsChannel.Run("UT_AplyUserPaymentData");
+
+                var paramOutApply = new UbsParamCustom(this.IUbsChannel.ParamsOut);
+
+                if (!paramOutApply.Contains("arrDataPayment"))
+                {
+                    if (udcPaymentAmount.Enabled)
+                    {
+                        udcPaymentAmount.Focus();
+                    }
+                    else if (tabPageThirdPerson.Visible)
+                    {
+                        tabPayment.SelectedTab = tabPageThirdPerson;
+                        txtThirdPersonName.Focus();
+                    }
+                    else if (tabPageTax.Visible)
+                    {
+                        tabPayment.SelectedTab = tabPageTax;
+                        if (txtTaxStatus.Enabled)
+                        {
+                            txtTaxStatus.Focus();
+                        }
+                        else
+                        {
+                            txtTaxKbk.Focus();
+                        }
+                    }
+                    return;
+                }
+
+                ucfAddProperties.Refresh();
+                FillDataPayment_ApplySecondBlock(paramOutApply);
+            }
+            catch (Exception ex) { this.Ubs_ShowError(ex); }
+        }
+
+        /// <summary>
+        /// Applies the first block of arrDataPayment fields (from Ut_CheckSidPayment / Ut_GetDataLic).
+        /// </summary>
+        private void FillDataPayment_ApplyFirstBlock(UbsParamCustom paramOut)
+        {
+            object dataPaymentObj = paramOut.Value("arrDataPayment");
+            if (!(dataPaymentObj is UbsParamCustom))
             {
                 return;
             }
 
-            // TODO B3.3: parse arrDataPayment variant matrix and populate
-            // all General-tab controls (payer, recipient, amounts, cash symbols,
-            // purpose, tax fields, periods, etc.)
+            var prm = (UbsParamCustom)dataPaymentObj;
+
+            if (tabPageTax.Visible)
+            {
+                string kbk = prm.GetParamOutString("Код бюджетной классификации");
+                if (kbk.Trim().Length > 0)
+                {
+                    txtTaxKbk.Text = kbk;
+                    string kbkNote = prm.GetParamOutString("Расшифровка КБК");
+                    if (kbkNote.Trim().Length > 0)
+                    {
+                        txtTaxKbkNote.Text = kbkNote;
+                    }
+                }
+            }
+
+            string accCode = prm.GetParamOutString("ACCCODE");
+            if (accCode.Trim().Length > 0)
+            {
+                txtPayerAccount.Text = accCode;
+                m_strAccCode = accCode;
+            }
+
+            if (prm.Contains("SUMMA") && string.Equals(m_command, StrCommandAdd, StringComparison.Ordinal))
+            {
+                udcPaymentAmount.Text = prm.GetParamOutString("SUMMA");
+                m_prefCalcRate = "_2 3";
+                CalcSumCommiss_2();
+            }
+
+            ApplyThirdPersonFromDataPayment(prm);
+            ApplyRecipientFromDataPayment(prm);
+
+            if (prm.Contains("SUMMARATESEND") && string.Equals(m_command, StrCommandAdd, StringComparison.Ordinal))
+            {
+                udcPayerRateAmount.Text = prm.GetParamOutString("SUMMARATESEND");
+            }
+
+            if (prm.Contains("SUMMATOTAL") && string.Equals(m_command, StrCommandAdd, StringComparison.Ordinal))
+            {
+                udcAmountWithRate.Text = prm.GetParamOutString("SUMMATOTAL");
+            }
+
+            if (prm.Contains("SUMMARATEREC") && string.Equals(m_command, StrCommandAdd, StringComparison.Ordinal))
+            {
+                m_curSumRateRec = prm.GetParamOutDecimal("SUMMARATEREC");
+            }
+
+            if (tabPageTax.Visible && prm.Contains("Код ОКАТО"))
+            {
+                string okato = prm.GetParamOutString("Код ОКАТО");
+                if (okato.Trim().Length > 0)
+                {
+                    txtTaxOkato.Text = okato;
+                }
+            }
+
+            if (prm.Contains("BIC"))
+            {
+                string bic = prm.GetParamOutString("BIC");
+                if (bic.Trim().Length > 0)
+                {
+                    txtRecipientBik.Text = bic;
+                    GetBankNameACC();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Applies the second block of arrDataPayment fields (from UT_AplyUserPaymentData).
+        /// </summary>
+        private void FillDataPayment_ApplySecondBlock(UbsParamCustom paramOut)
+        {
+            object dataPaymentObj = paramOut.Value("arrDataPayment");
+            if (!(dataPaymentObj is UbsParamCustom))
+            {
+                return;
+            }
+            var prm = (UbsParamCustom)dataPaymentObj;
+
+            if (tabPageTax.Visible)
+            {
+                if (prm.Contains("Статус составителя"))
+                    txtTaxStatus.Text = prm.GetParamOutString("Статус составителя");
+                if (prm.Contains("Код бюджетной классификации"))
+                    txtTaxKbk.Text = prm.GetParamOutString("Код бюджетной классификации");
+                if (prm.Contains("Расшифровка КБК"))
+                    txtTaxKbkNote.Text = prm.GetParamOutString("Расшифровка КБК");
+                if (prm.Contains("Код ОКАТО"))
+                    txtTaxOkato.Text = prm.GetParamOutString("Код ОКАТО");
+                if (prm.Contains("Основание налогового платежа"))
+                    txtTaxReasonCode.Text = prm.GetParamOutString("Основание налогового платежа");
+                if (prm.Contains("Налоговый период"))
+                    txtTaxPeriodCode.Text = prm.GetParamOutString("Налоговый период");
+                if (prm.Contains("Номер налогового документа"))
+                    txtTaxDocumentNumber.Text = prm.GetParamOutString("Номер налогового документа");
+                if (prm.Contains("Дата налогового документа"))
+                    txtTaxDocumentDate.Text = prm.GetParamOutString("Дата налогового документа");
+                if (prm.Contains("Тип налогового платежа"))
+                    txtTaxType.Text = prm.GetParamOutString("Тип налогового платежа");
+                if (prm.Contains("ИМНС"))
+                    txtTaxImns.Text = prm.GetParamOutString("ИМНС");
+            }
+
+            if (prm.Contains("КППУ"))
+                txtRecipientKpp.Text = prm.GetParamOutString("КППУ");
+
+            if (udcPaymentAmount.Visible && prm.Contains("Summa")
+                && string.Equals(m_command, StrCommandAdd, StringComparison.Ordinal))
+            {
+                udcPaymentAmount.Text = prm.GetParamOutString("Summa");
+            }
+
+            if (udcPayerRateAmount.Visible && prm.Contains("SummaRateSend")
+                && string.Equals(m_command, StrCommandAdd, StringComparison.Ordinal))
+            {
+                m_isAddparam = true;
+                udcPayerRateAmount.Text = prm.GetParamOutString("SummaRateSend");
+            }
+
+            if (udcAmountWithRate.Visible && prm.Contains("SummaTotal")
+                && string.Equals(m_command, StrCommandAdd, StringComparison.Ordinal))
+            {
+                udcAmountWithRate.Text = prm.GetParamOutString("SummaTotal");
+            }
+
+            if (txtCheckSum.Visible && prm.Contains("CheckSum"))
+            {
+                string cs = prm.GetParamOutString("CheckSum");
+                if (cs.Trim().Length > 0) txtCheckSum.Text = cs;
+            }
+
+            if (txtPayerAccount.Visible && prm.Contains("AccCode"))
+            {
+                string strAccPay = prm.GetParamOutString("AccCode").Trim();
+                if (strAccPay.Length > 0)
+                {
+                    if (cmbCityCode.Enabled)
+                    {
+                        string prefix = (strAccPay.Length >= 3) ? strAccPay.Substring(0, 3) : strAccPay;
+                        bool found = false;
+                        int foundIdx = -1;
+                        for (int n = 0; n < cmbCityCode.Items.Count; n++)
+                        {
+                            if (string.Equals(cmbCityCode.Items[n].ToString(), prefix, StringComparison.Ordinal))
+                            {
+                                found = true;
+                                foundIdx = n;
+                                break;
+                            }
+                        }
+                        if (found)
+                        {
+                            cmbCityCode.SelectedIndex = foundIdx;
+                            txtPayerAccount.Text = (strAccPay.Length > 3) ? strAccPay.Substring(3) : string.Empty;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ошибка пользовательского сценария:" + Environment.NewLine +
+                                "Код города " + prefix + " отсутствует в списке кодов городов",
+                                CaptionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            txtPaymentCode.Focus();
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        txtPayerAccount.Text = strAccPay;
+                    }
+                }
+            }
+
+            FillDataPayment_ApplyPeriod(prm);
+            FillDataPayment_ApplyPayerFields(prm);
+
+            if (ucaRecipientAccount.Visible && prm.Contains("AccClient"))
+            {
+                string accClient = prm.GetParamOutString("AccClient");
+                if (accClient.Trim().Length > 0) ucaRecipientAccount.Text = accClient;
+            }
+        }
+
+        private void FillDataPayment_ApplyPeriod(UbsParamCustom prm)
+        {
+            if (!txtPeriodDayBeg.Visible) return;
+
+            if (prm.Contains("Period"))
+            {
+                string strPeriod = prm.GetParamOutString("Period").Trim();
+                if (strPeriod.Length > 0)
+                {
+                    if (strPeriod.Length != 4)
+                    {
+                        MessageBox.Show("Ошибка пользовательского сценария:" + Environment.NewLine +
+                            "Длина строки периода не равна 4", CaptionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtPaymentCode.Focus();
+                        return;
+                    }
+
+                    string strMonth = strPeriod.Substring(2, 2);
+                    string strYear = strPeriod.Substring(0, 2);
+
+                    int month;
+                    if (!int.TryParse(strMonth, out month) || month < 1 || month > 12)
+                    {
+                        MessageBox.Show("Ошибка пользовательского сценария:" + Environment.NewLine +
+                            "Последние две цифры строки периода - месяц (от 1 до 12)",
+                            CaptionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtPaymentCode.Focus();
+                        return;
+                    }
+
+                    txtPeriodDayBeg.Text = "1";
+                    txtPeriodMonthBeg.Text = strMonth;
+                    txtPeriodYearBeg.Text = strYear;
+
+                    txtPeriodDayEnd.Text = GetDayEnd(strMonth, strYear).ToString();
+                    txtPeriodMonthEnd.Text = strMonth;
+                    txtPeriodYearEnd.Text = strYear;
+                }
+            }
+
+            if (prm.Contains("DateBegin"))
+            {
+                DateTime dtBeg = prm.GetParamOutDateTime("DateBegin");
+                if (dtBeg != DateTime.MinValue)
+                {
+                    txtPeriodDayBeg.Text = dtBeg.Day.ToString();
+                    txtPeriodMonthBeg.Text = dtBeg.Month.ToString();
+                    txtPeriodYearBeg.Text = (dtBeg.Year % 100).ToString();
+                }
+            }
+
+            if (txtPeriodDayEnd.Visible && prm.Contains("DateEnd"))
+            {
+                DateTime dtEnd = prm.GetParamOutDateTime("DateEnd");
+                if (dtEnd != DateTime.MinValue)
+                {
+                    txtPeriodDayEnd.Text = dtEnd.Day.ToString();
+                    txtPeriodMonthEnd.Text = dtEnd.Month.ToString();
+                    txtPeriodYearEnd.Text = (dtEnd.Year % 100).ToString();
+                }
+            }
+        }
+
+        private void FillDataPayment_ApplyPayerFields(UbsParamCustom prm)
+        {
+            if (txtPayerFullName.Visible && prm.Contains("PAYERFIO"))
+                txtPayerFullName.Text = prm.GetParamOutString("PAYERFIO");
+            if (txtPayerInn.Visible && prm.Contains("PAYERINN"))
+                txtPayerInn.Text = prm.GetParamOutString("PAYERINN");
+            if (txtPayerAddress.Visible && prm.Contains("PAYERADDRESS"))
+                txtPayerAddress.Text = prm.GetParamOutString("PAYERADDRESS");
+        }
+
+        private void ApplyThirdPersonFromDataPayment(UbsParamCustom prm)
+        {
+            if (prm.Contains("THIRDPERSON_NAME"))
+            {
+                chkThirdPerson.Checked = true;
+                tabPageThirdPerson.Show();
+                txtThirdPersonName.Text = prm.GetParamOutString("THIRDPERSON_NAME");
+
+                if (prm.Contains("THIRDPERSON_KIND"))
+                {
+                    int kindIdx = prm.GetParamOutInt("THIRDPERSON_KIND");
+                    if (kindIdx >= 0 && kindIdx < cmbThirdPersonKind.Items.Count)
+                    {
+                        cmbThirdPersonKind.SelectedIndex = kindIdx;
+                        if (!string.Equals(m_command, StrCommandView, StringComparison.Ordinal)
+                            && kindIdx == 2)
+                        {
+                            txtThirdPersonKpp.Enabled = true;
+                        }
+                    }
+                }
+                if (prm.Contains("THIRDPERSON_INN"))
+                    txtThirdPersonInn.Text = prm.GetParamOutString("THIRDPERSON_INN");
+                if (prm.Contains("THIRDPERSON_KPP"))
+                    txtThirdPersonKpp.Text = prm.GetParamOutString("THIRDPERSON_KPP");
+            }
+        }
+
+        private void ApplyRecipientFromDataPayment(UbsParamCustom prm)
+        {
+            if (prm.Contains("КППУ"))
+                txtRecipientKpp.Text = prm.GetParamOutString("КППУ");
+
+            if (prm.Contains("Наименование получателя в плат. документах"))
+            {
+                string name = prm.GetParamOutString("Наименование получателя в плат. документах");
+                if (name.Trim().Length > 0) txtRecipientName.Text = name;
+            }
+
+            if (prm.Contains("CORRACC"))
+            {
+                string corr = prm.GetParamOutString("CORRACC");
+                if (corr.Trim().Length > 0) ucaRecipientCorrAccount.Text = corr;
+            }
+
+            if (prm.Contains("Наименование банка"))
+            {
+                string bank = prm.GetParamOutString("Наименование банка");
+                if (bank.Trim().Length > 0) txtRecipientBankName.Text = bank;
+            }
+
+            if (prm.Contains("ACC"))
+            {
+                string acc = prm.GetParamOutString("ACC");
+                if (acc.Trim().Length > 0) ucaRecipientAccount.Text = acc;
+            }
+
+            if (prm.Contains("INN"))
+            {
+                string inn = prm.GetParamOutString("INN");
+                if (inn.Trim().Length > 0) txtRecipientInn.Text = inn;
+            }
+
+            if (prm.Contains("PURPOSE"))
+            {
+                string purpose = prm.GetParamOutString("PURPOSE");
+                if (purpose.Trim().Length > 0) cmbPurpose.Text = purpose;
+            }
         }
 
         /// <summary>
@@ -1783,14 +2357,110 @@ namespace UbsBusiness
 
         /// <summary>
         /// UpdateGroupInfo: заполняет информацию группового платежа на форме.
+        /// VB6: Sub UpdateGroupInfo(), lines 9921–9961.
         /// </summary>
         private void UpdateGroupInfo()
         {
-            //todo: implement UpdateGroupInfo
             try
             {
-                this.IUbsChannel.ParamIn("IdGroup", m_idGroup);
-                this.IUbsChannel.Run("UpdateGroupInfo");
+                txtGroupPaymentId.Text = m_idGroup.ToString();
+
+                if (m_idGroup > 0 || m_idGroupIncoming > 0)
+                {
+                    int groupId = (m_idGroupIncoming > 0) ? m_idGroupIncoming : m_idGroup;
+                    this.IUbsChannel.ParamIn("PAYMENTGROUPID", groupId);
+                    this.IUbsChannel.Run("UtReadGroupInfo");
+
+                    var paramOut = new UbsParamCustom(this.IUbsChannel.ParamsOut);
+
+                    string err = paramOut.GetParamOutString("StrError");
+                    if (err.Length > 0)
+                    {
+                        MessageBox.Show(err, "UpdateGroupInfo " + CaptionForm,
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        int qtty = paramOut.GetParamOutInt("QTTYSUBCONTRACTS");
+                        if (m_idGroupIncoming > 0)
+                        {
+                            qtty = qtty - 1;
+                        }
+                        txtSubPaymentCount.Text = qtty.ToString();
+                        udcCommonAmount.DecimalValue = paramOut.GetParamOutDecimal("CURCOMMONSUMMA");
+                        udcTotalAmount.DecimalValue = paramOut.GetParamOutDecimal("CURTOTALSUMMA");
+                    }
+                }
+                else
+                {
+                    txtSubPaymentCount.Text = "0";
+                    udcCommonAmount.DecimalValue = 0;
+                    udcTotalAmount.DecimalValue = 0;
+                }
+            }
+            catch (Exception ex) { this.Ubs_ShowError(ex); }
+        }
+
+        /// <summary>
+        /// ApplyInitialFormState: applies form-wide display state after InitDoc completes.
+        /// Sets caption, group-payment panel visibility, source-means visibility,
+        /// folder number visibility (FO mode), and payer account panel.
+        /// </summary>
+        private void ApplyInitialFormState()
+        {
+            try
+            {
+                if (m_idGroupIncoming > 0)
+                {
+                    this.Text = CaptionGroupInputPrefix + m_idGroupIncoming;
+                }
+                else if (m_isGroup)
+                {
+                    this.Text = CaptionForm;
+                }
+                else
+                {
+                    this.Text = CaptionForm;
+                }
+
+                lblSubPaymentCount.Visible = m_isGroup || m_idGroupIncoming > 0;
+                txtSubPaymentCount.Visible = m_isGroup || m_idGroupIncoming > 0;
+                txtGroupPaymentId.Visible = false;
+
+                if (m_isSourceMeansVisible)
+                {
+                    lblSourceMeans.Visible = true;
+                    ucaPayerAccount.Visible = true;
+                }
+                else
+                {
+                    lblSourceMeans.Visible = false;
+                    ucaPayerAccount.Visible = false;
+                }
+
+                if (m_calledFromFrontOffice)
+                {
+                    txtBatchNumber.Visible = true;
+                    lblBatchNumber.Visible = true;
+                }
+                else
+                {
+                    txtBatchNumber.Visible = false;
+                    lblBatchNumber.Visible = false;
+                }
+
+                if (string.Equals(m_command, StrCommandView, StringComparison.Ordinal))
+                {
+                    btnSave.Enabled = false;
+                    btnCalc.Enabled = false;
+                    btnCashSymb.Enabled = false;
+                    btnPattern.Visible = false;
+                }
+                else
+                {
+                    btnSave.Enabled = true;
+                    btnCalc.Enabled = true;
+                }
             }
             catch (Exception ex) { this.Ubs_ShowError(ex); }
         }

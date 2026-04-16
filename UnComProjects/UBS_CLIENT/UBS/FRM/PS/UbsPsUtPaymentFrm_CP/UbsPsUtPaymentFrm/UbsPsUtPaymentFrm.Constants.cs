@@ -66,6 +66,38 @@ namespace UbsBusiness
         private const string MsgNotCashier = "Текущий пользователь не является кассиром !!!";
         private const string MsgPaymentBlocked = "Платеж заблокирован, редактирование запрещено";
         private const string MsgDocumentsExistViewOnly = "По платежу сформированы документы. Форма открыта в режиме просмотра";
+        private const string MsgInnPayerCheckFailed = "Проверка контрольного числа в ИНН плательщика <{0}> не пройдена!";
+        private const string MsgInnRecipientCheckFailed = "Проверка контрольного числа в ИНН получателя <{0}> не пройдена!";
+        private const string MsgThirdPersonInnRequired = "Поле 'ИНН' третьего лица должно быть заполнено!";
+        private const string MsgThirdPersonNameRequired = "Не заполнено поле 'Наименование третьего лица'!";
+        private const string MsgThirdPersonInn12Required = "Некорректно заполнено поле 'ИНН' (вкладка 'Сведения о третьем лице'): ИНН должен состоять из 12 символов!";
+        private const string MsgThirdPersonInn12Or0Required = "Некорректно заполнено поле 'ИНН' (вкладка 'Сведения о третьем лице'): ИНН должен состоять из 12 символов или ИНН должен быть равен 0!";
+        private const string MsgThirdPersonInn10Required = "Некорректно заполнено поле 'ИНН' (вкладка 'Сведения о третьем лице'): ИНН юр. лица должен состоять из 10 символов!";
+        private const string MsgThirdPersonKpp9Required = "Некорректно заполнено поле 'КПП' (вкладка 'Сведения о третьем лице'): КПП должен состоять из 9 символов!";
+        private const string MsgBatchNumberRequired = "Поле 'Номер пачки' должно быть заполнено!";
+        private const string MsgTaxInnPayerRequired = "Для налоговых платежей обязателен ИНН плательщика!";
+        private const string MsgTaxInnRecipientRequired = "Для налоговых платежей обязательно заполнение поля ИНН!!!";
+        private const string MsgPurposeEmpty = "Не заполнено назначение платежа!!!";
+        private const string MsgPurposeTooLong = "Назначение платежа не может содержать более 210 символов!";
+        private const string MsgRecipientNameTooLong = "Наименование получателя не может содержать более 160 символов!";
+        private const string MsgPayerAccountEmpty = "Лицевой счет плательщика не может быть пустым!";
+        private const string MsgPayerCheckSumEmpty = "Ключ л/с плательщика не может быть пустым!";
+        private const string MsgSumControlExceeded = "Сумма платежа превышает допустимую, требуется дополнительный контроль";
+        private const string MsgFrDisconnected = "Разрыв связи с фискальным регистратором";
+        private const string MsgGroupSumExceeds = "Сумма принятых платежей {0} больше суммы группового платежа {1}. Выход?";
+        private const string MsgGroupSumUnder = "Сумма принятых платежей {0} меньше суммы группового платежа {1}. Продолжить ввод?";
+        private const string MsgGroupCountSummary = "Введено {0} платежей на общую сумму {1} руб.\r\nВы хотите продолжить ввод платежей в группу?";
+        private const string MsgInvalidCurrencyCode = "Введён недопустимый код валюты!";
+        private const string MsgCheckAccountBadLength = "Некорректная длина лицевого счета плательщика! ({0})";
+        private const string MsgCheckKeyError = "Ошибка в ключе! Правильный ключ '{0}'.";
+        private const string MsgCheckKeySaveWrongKey = "Ошибка в ключе! Правильный ключ '{0}'. Сохранить ошибочный ключ?";
+        private const string MsgGroupInputCaption = "Ввод группы платежей";
+        private const string MsgReturnToEdit = "Вернуться к редактированию?";
+        private const string CaptionPrintDocPrep = "Подготовка внешних документов";
+        private const string CaptionFrPrint = "Печать на ФР. ";
+        private const string CaptionCashOrderCreate = "Создание кассовых ордеров";
+        private const string CaptionCheckSumPayment = "Проверка суммы платежа";
+        private const string SidAction = "PS";
 
         #endregion
 
