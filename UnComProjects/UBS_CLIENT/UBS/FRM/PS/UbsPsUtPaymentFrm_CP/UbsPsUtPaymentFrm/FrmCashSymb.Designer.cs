@@ -1,4 +1,4 @@
-namespace UbsBusiness
+﻿namespace UbsBusiness
 {
     partial class FrmCashSymb
     {
@@ -40,13 +40,13 @@ namespace UbsBusiness
             // 
             // colCashSymbol
             // 
-            this.colCashSymbol.HeaderText = "\u041a\u0430\u0441\u0441\u043e\u0432\u044b\u0439 \u0441\u0438\u043c\u0432\u043e\u043b";
+            this.colCashSymbol.HeaderText = "Кассовый символ";
             this.colCashSymbol.Name = "colCashSymbol";
             this.colCashSymbol.Width = 160;
             // 
             // colAmount
             // 
-            this.colAmount.HeaderText = "\u0421\u0443\u043c\u043c\u0430";
+            this.colAmount.HeaderText = "Сумма";
             this.colAmount.Name = "colAmount";
             this.colAmount.Width = 180;
             // 
@@ -58,7 +58,7 @@ namespace UbsBusiness
             this.uciHelp.Name = "uciHelp";
             this.uciHelp.Size = new System.Drawing.Size(446, 13);
             this.uciHelp.TabIndex = 1;
-            this.uciHelp.Text = "Enter - \u0432\u0441\u0442\u0430\u0432\u0438\u0442\u044c \u0441\u0442\u0440\u043e\u043a\u0443; Esc - \u0443\u0434\u0430\u043b\u0438\u0442\u044c \u0441\u0442\u0440\u043e\u043a\u0443; BackSpace - \u0441\u0442\u0435\u0440\u0435\u0442\u044c \u0446\u0438\u0444\u0440\u044b; Delete - \u0443\u0434\u0430\u043b\u0438\u0442\u044c \u0437\u0430\u043f\u0438\u0441\u044c";
+            this.uciHelp.Text = "Enter - вставить строку; Esc - удалить строку; BackSpace - стереть цифры; Delete - удалить запись";
             this.uciHelp.Visible = true;
             // 
             // btnSave
@@ -67,7 +67,7 @@ namespace UbsBusiness
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(128, 28);
             this.btnSave.TabIndex = 2;
-            this.btnSave.Text = "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c";
+            this.btnSave.Text = "Сохранить";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -77,7 +77,7 @@ namespace UbsBusiness
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(128, 28);
             this.btnExit.TabIndex = 3;
-            this.btnExit.Text = "\u0412\u044b\u0445\u043e\u0434";
+            this.btnExit.Text = "Выход";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
@@ -92,7 +92,7 @@ namespace UbsBusiness
             this.Controls.Add(this.grdCashSymbols);
             this.Name = "FrmCashSymb";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "\u041a\u0430\u0441\u0441\u043e\u0432\u044b\u0435 \u0441\u0438\u043c\u0432\u043e\u043b\u044b";
+            this.Text = "Кассовые символы";
             this.Load += new System.EventHandler(this.FrmCashSymb_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grdCashSymbols)).EndInit();
             this.ResumeLayout(false);

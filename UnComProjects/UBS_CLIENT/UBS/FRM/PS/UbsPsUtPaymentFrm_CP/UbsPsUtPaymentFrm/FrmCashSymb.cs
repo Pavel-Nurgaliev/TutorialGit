@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows.Forms;
@@ -134,7 +134,7 @@ namespace UbsBusiness
 
                 if (symbolEmpty)
                 {
-                    MessageBox.Show("\u041a\u0430\u0441\u0441\u043e\u0432\u044b\u0439 \u0441\u0438\u043c\u0432\u043e\u043b \u043d\u0435 \u0437\u0430\u0434\u0430\u043d!", "\u041f\u0440\u043e\u0432\u0435\u0440\u043a\u0430 \u043a\u0430\u0441\u0441\u043e\u0432\u044b\u0445 \u0441\u0438\u043c\u0432\u043e\u043b\u043e\u0432",
+                    MessageBox.Show("Кассовый символ не задан!", "Проверка кассовых символов",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     grdCashSymbols.CurrentCell = gridRow.Cells[0];
                     grdCashSymbols.Focus();
@@ -144,7 +144,7 @@ namespace UbsBusiness
                 decimal amount;
                 if (amountEmpty || !decimal.TryParse(amountText, out amount) || amount == 0m)
                 {
-                    MessageBox.Show("\u0421\u0443\u043c\u043c\u0430 \u043d\u0435 \u0437\u0430\u0434\u0430\u043d\u0430!", "\u041f\u0440\u043e\u0432\u0435\u0440\u043a\u0430 \u043a\u0430\u0441\u0441\u043e\u0432\u044b\u0445 \u0441\u0438\u043c\u0432\u043e\u043b\u043e\u0432",
+                    MessageBox.Show("Сумма не задана!", "Проверка кассовых символов",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     grdCashSymbols.CurrentCell = gridRow.Cells[1];
                     grdCashSymbols.Focus();
@@ -160,8 +160,8 @@ namespace UbsBusiness
 
             if (total != ExpectedTotal)
             {
-                MessageBox.Show("\u041e\u0431\u0449\u0430\u044f \u0441\u0443\u043c\u043c\u0430, \u0434\u043e\u043b\u0436\u043d\u0430 \u0441\u043e\u0432\u043f\u0430\u0434\u0430\u0442\u044c \u0441 \u0432\u0432\u0435\u0434\u0435\u043d\u043d\u043e\u0439 \u043d\u0430 \u0444\u043e\u0440\u043c\u0435",
-                    "\u041f\u0440\u043e\u0432\u0435\u0440\u043a\u0430 \u043a\u0430\u0441\u0441\u043e\u0432\u044b\u0445 \u0441\u0438\u043c\u0432\u043e\u043b\u043e\u0432", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Общая сумма, должна совпадать с введенной на форме",
+                    "Проверка кассовых символов", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
@@ -207,7 +207,7 @@ namespace UbsBusiness
             string strError = Convert.ToString(GetParameter(paramOut, "strError"));
             if (!bRetValCheck && !string.IsNullOrEmpty(strError))
             {
-                MessageBox.Show(strError, "\u041f\u0440\u043e\u0432\u0435\u0440\u043a\u0430 \u043a\u0430\u0441\u0441\u043e\u0432\u044b\u0445 \u0441\u0438\u043c\u0432\u043e\u043b\u043e\u0432",
+                MessageBox.Show(strError, "Проверка кассовых символов",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }

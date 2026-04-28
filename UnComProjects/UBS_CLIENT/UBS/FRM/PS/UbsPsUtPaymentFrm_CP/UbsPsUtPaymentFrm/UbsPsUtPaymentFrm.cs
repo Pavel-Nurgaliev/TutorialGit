@@ -481,7 +481,7 @@ namespace UbsBusiness
 
         private void linkRecipientBankName_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
         {
-            GetBankNameACC();
+            BtnRecipientAttributeList_ClickImpl();
         }
 
         private void linkPaymentAccount_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
@@ -497,6 +497,26 @@ namespace UbsBusiness
         private void btnCalc_Click(object sender, EventArgs e)
         {
             BtnCalc_ClickImpl();
+        }
+
+        private void btnCashSymb_Click(object sender, EventArgs e)
+        {
+            BtnCashSymb_ClickImpl();
+        }
+
+        private void btnPattern_Click(object sender, EventArgs e)
+        {
+            BtnPattern_ClickImpl();
+        }
+
+        private void linkThirdPersonName_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            BtnSelectThirdPerson_ClickImpl();
+        }
+
+        private void btnSaveRecipientAttribute_Click(object sender, EventArgs e)
+        {
+            BtnSaveRecipientAttribute_ClickImpl();
         }
     }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -158,7 +158,7 @@ namespace UbsBusiness
             }
 
             m_documentsMatrix = GetParameter(paramOut, "VARDOC") as object[,];
-            m_documentsPayload = GetParameter(paramOut, "\u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u044b");
+            m_documentsPayload = GetParameter(paramOut, "Документы");
             return true;
         }
 
@@ -214,7 +214,7 @@ namespace UbsBusiness
                 {
                     SetParameter(paramIn, "IdPayment", PaymentId);
                 }
-                SetParameter(paramIn, "\u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u044b", m_documentsPayload);
+                SetParameter(paramIn, "Документы", m_documentsPayload);
 
                 RunChannel("UtMainCashOrder", paramIn, paramOut);
 
@@ -224,7 +224,7 @@ namespace UbsBusiness
                     string strError = Convert.ToString(GetParameter(paramOut, "StrError"));
                     if (!string.IsNullOrEmpty(strError))
                     {
-                        MessageBox.Show(strError, "\u0421\u043e\u0437\u0434\u0430\u043d\u0438\u0435 \u043a\u0430\u0441\u0441\u043e\u0432\u044b\u0445 \u043e\u0440\u0434\u0435\u0440\u043e\u0432",
+                        MessageBox.Show(strError, "Создание кассовых ордеров",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 

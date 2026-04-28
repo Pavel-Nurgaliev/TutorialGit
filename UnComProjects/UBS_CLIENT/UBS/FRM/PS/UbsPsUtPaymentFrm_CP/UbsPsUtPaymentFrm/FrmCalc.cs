@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Windows.Forms;
 
 namespace UbsBusiness
@@ -57,15 +57,14 @@ namespace UbsBusiness
 
             if (PaymentAmount == 0m)
             {
-                MessageBox.Show("\u0421\u0443\u043c\u043c\u0430 \u043f\u043b\u0430\u0442\u0435\u0436\u0430 \u043d\u0443\u043b\u0435\u0432\u0430\u044f! \u041d\u0430\u0436\u043c\u0438\u0442\u0435 \u043a\u043d\u043e\u043f\u043a\u0443 \u0412\u044b\u0445\u043e\u0434 \u0438 \u0435\u0449\u0435 \u0440\u0430\u0437 \u043a\u043d\u043e\u043f\u043a\u0443 \u0420\u0430\u0441\u0447\u0435\u0442",
-                    "\u041f\u043b\u0430\u0442\u0435\u0436", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Сумма платежа нулевая! Нажмите кнопку Выход и еще раз кнопку Расчет", "Платеж", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             decimal changeValue = cashValue - PaymentAmount;
             if (changeValue < 0m)
             {
-                MessageBox.Show("\u041d\u0435\u0434\u043e\u0441\u0442\u0430\u0442\u043e\u043a \u0441\u0443\u043c\u043c\u044b \u043d\u0430\u043b\u0438\u0447\u043d\u044b\u0445!", "\u041f\u043b\u0430\u0442\u0435\u0436",
+                MessageBox.Show("Недостаток суммы наличных!", "Платеж",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }

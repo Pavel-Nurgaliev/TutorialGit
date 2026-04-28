@@ -1,4 +1,4 @@
-namespace UbsBusiness
+﻿namespace UbsBusiness
 {
     partial class FrmCashOrd
     {
@@ -45,22 +45,22 @@ namespace UbsBusiness
             // 
             // colPayerAccount
             // 
-            this.colPayerAccount.Text = "\u0421\u0447\u0435\u0442 \u043f\u043b\u0430\u0442\u0435\u043b\u044c\u0449\u0438\u043a\u0430";
+            this.colPayerAccount.Text = "Счет плательщика";
             this.colPayerAccount.Width = 160;
             // 
             // colRecipientAccount
             // 
-            this.colRecipientAccount.Text = "\u0421\u0447\u0435\u0442 \u043f\u043e\u043b\u0443\u0447\u0430\u0442\u0435\u043b\u044f";
+            this.colRecipientAccount.Text = "Счет получателя";
             this.colRecipientAccount.Width = 160;
             // 
             // colAmount
             // 
-            this.colAmount.Text = "\u0421\u0443\u043c\u043c\u0430";
+            this.colAmount.Text = "Сумма";
             this.colAmount.Width = 120;
             // 
             // colNote
             // 
-            this.colNote.Text = "\u041f\u0440\u0438\u043c\u0435\u0447\u0430\u043d\u0438\u0435";
+            this.colNote.Text = "Примечание";
             this.colNote.Width = 295;
             // 
             // btnExecute
@@ -69,7 +69,7 @@ namespace UbsBusiness
             this.btnExecute.Name = "btnExecute";
             this.btnExecute.Size = new System.Drawing.Size(157, 31);
             this.btnExecute.TabIndex = 1;
-            this.btnExecute.Text = "\u0412\u044b\u043f\u043e\u043b\u043d\u0438\u0442\u044c";
+            this.btnExecute.Text = "Выполнить";
             this.btnExecute.UseVisualStyleBackColor = true;
             this.btnExecute.Click += new System.EventHandler(this.btnExecute_Click);
             // 
@@ -79,7 +79,7 @@ namespace UbsBusiness
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(157, 31);
             this.btnExit.TabIndex = 2;
-            this.btnExit.Text = "\u0412\u044b\u0445\u043e\u0434";
+            this.btnExit.Text = "Выход";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
@@ -93,7 +93,7 @@ namespace UbsBusiness
             this.Controls.Add(this.lvwDocuments);
             this.Name = "FrmCashOrd";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "\u041f\u043e\u0434\u0433\u043e\u0442\u043e\u0432\u043a\u0430 \u043a\u0430\u0441\u0441\u043e\u0432\u044b\u0445 \u043e\u0440\u0434\u0435\u0440\u043e\u0432";
+            this.Text = "Подготовка кассовых ордеров";
             this.Load += new System.EventHandler(this.FrmCashOrd_Load);
             this.ResumeLayout(false);
 

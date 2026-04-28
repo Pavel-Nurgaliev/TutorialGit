@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Windows.Forms;
 
 namespace UbsBusiness
@@ -36,7 +36,7 @@ namespace UbsBusiness
             txtPeriodYearEnd.KeyDown += CheckInt_KeyDown;
         }
 
-        #region ProcessCmdKey ˜ F7, Ctrl+Tab
+        #region ProcessCmdKey ï¿½ F7, Ctrl+Tab
 
         /// <summary>
         /// Intercepts command keys before normal processing.
@@ -62,7 +62,7 @@ namespace UbsBusiness
 
         #endregion
 
-        #region Form_KeyDown ˜ Enter-as-Tab and Escape backward
+        #region Form_KeyDown ï¿½ Enter-as-Tab and Escape backward
 
         /// <summary>
         /// Main keyboard handler: Enter?forward, Escape?backward.
@@ -92,7 +92,7 @@ namespace UbsBusiness
 
         /// <summary>
         /// Forward focus chain on Enter key.
-        /// VB6: Sub GotoNextControlForEnter() (lines 9568˜9865).
+        /// VB6: Sub GotoNextControlForEnter() (lines 9568ï¿½9865).
         /// </summary>
         private void GotoNextControlForEnter()
         {
@@ -421,7 +421,7 @@ namespace UbsBusiness
 
         /// <summary>
         /// Reverse focus chain on Escape key.
-        /// VB6: UserDocument_KeyPress Case 27 (lines 6410˜6578).
+        /// VB6: UserDocument_KeyPress Case 27 (lines 6410ï¿½6578).
         /// </summary>
         private void EscapeBackwardNavigation()
         {
@@ -571,11 +571,11 @@ namespace UbsBusiness
 
         #endregion
 
-        #region CheckInt ˜ digits-only filter
+        #region CheckInt ï¿½ digits-only filter
 
         /// <summary>
         /// Restricts input to digits, Backspace, and Delete.
-        /// VB6: Private Sub CheckInt(Control As TextBox, KeyCode As Integer) (lines 8870˜8885).
+        /// VB6: Private Sub CheckInt(Control As TextBox, KeyCode As Integer) (lines 8870ï¿½8885).
         /// </summary>
         private void CheckInt_KeyDown(object sender, KeyEventArgs e)
         {
@@ -599,7 +599,7 @@ namespace UbsBusiness
         #region Period field validation
 
         /// <summary>
-        /// VB6: txtMonthBeg_LostFocus (lines 4742˜4756).
+        /// VB6: txtMonthBeg_LostFocus (lines 4742ï¿½4756).
         /// </summary>
         private void txtPeriodMonthBeg_Leave(object sender, EventArgs e)
         {
@@ -617,7 +617,7 @@ namespace UbsBusiness
         }
 
         /// <summary>
-        /// VB6: txtMonthEnd_LostFocus (lines 4760˜4778).
+        /// VB6: txtMonthEnd_LostFocus (lines 4760ï¿½4778).
         /// </summary>
         private void txtPeriodMonthEnd_Leave(object sender, EventArgs e)
         {
@@ -641,14 +641,14 @@ namespace UbsBusiness
         }
 
         /// <summary>
-        /// VB6: txtYearBeg_LostFocus (lines 4782˜4793) ˜ no-op validation placeholder.
+        /// VB6: txtYearBeg_LostFocus (lines 4782ï¿½4793) ï¿½ no-op validation placeholder.
         /// </summary>
         private void txtPeriodYearBeg_Leave(object sender, EventArgs e)
         {
         }
 
         /// <summary>
-        /// VB6: txtYearEnd_LostFocus (lines 4796˜4811).
+        /// VB6: txtYearEnd_LostFocus (lines 4796ï¿½4811).
         /// </summary>
         private void txtPeriodYearEnd_Leave(object sender, EventArgs e)
         {
@@ -665,7 +665,7 @@ namespace UbsBusiness
         #region Contract code focus handlers
 
         /// <summary>
-        /// VB6: txtCode_LostFocus ˜ triggers FindContract when code loses focus.
+        /// VB6: txtCode_LostFocus ï¿½ triggers FindContract when code loses focus.
         /// </summary>
         private void txtContractCode_Leave(object sender, EventArgs e)
         {
@@ -677,7 +677,7 @@ namespace UbsBusiness
 
         /// <summary>
         /// Enter on contract code triggers FindContract directly.
-        /// VB6: txtCode_KeyDown (lines 2485˜2492).
+        /// VB6: txtCode_KeyDown (lines 2485ï¿½2492).
         /// </summary>
         private void txtContractCode_KeyDown(object sender, KeyEventArgs e)
         {
@@ -696,7 +696,7 @@ namespace UbsBusiness
 
         /// <summary>
         /// Navigates to the previous visible/enabled tab page.
-        /// VB6: Function gotoPreviousTab() (lines 10147˜10164).
+        /// VB6: Function gotoPreviousTab() (lines 10147ï¿½10164).
         /// </summary>
         private bool GotoPreviousTab()
         {

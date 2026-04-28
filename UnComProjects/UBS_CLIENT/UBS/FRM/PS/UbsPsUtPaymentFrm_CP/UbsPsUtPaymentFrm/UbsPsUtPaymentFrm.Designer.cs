@@ -809,6 +809,7 @@ namespace UbsBusiness
             this.btnSaveRecipientAttribute.TabIndex = 24;
             this.btnSaveRecipientAttribute.Text = "C";
             this.btnSaveRecipientAttribute.UseVisualStyleBackColor = true;
+            this.btnSaveRecipientAttribute.Click += new System.EventHandler(this.btnSaveRecipientAttribute_Click);
             // 
             // grpSender
             // 
@@ -1029,7 +1030,7 @@ namespace UbsBusiness
             this.tabPageThirdPerson.Location = new System.Drawing.Point(4, 22);
             this.tabPageThirdPerson.Name = "tabPageThirdPerson";
             this.tabPageThirdPerson.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageThirdPerson.Size = new System.Drawing.Size(378, 158);
+            this.tabPageThirdPerson.Size = new System.Drawing.Size(622, 678);
             this.tabPageThirdPerson.TabIndex = 1;
             this.tabPageThirdPerson.Text = "Сведения о третьем лице";
             this.tabPageThirdPerson.UseVisualStyleBackColor = true;
@@ -1043,6 +1044,7 @@ namespace UbsBusiness
             this.linkThirdPersonName.TabIndex = 9;
             this.linkThirdPersonName.TabStop = true;
             this.linkThirdPersonName.Text = "Наименование третьего лица";
+            this.linkThirdPersonName.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkThirdPersonName_LinkClicked);
             // 
             // txtThirdPersonName
             // 
@@ -1402,6 +1404,7 @@ namespace UbsBusiness
             this.btnCashSymb.TabIndex = 5;
             this.btnCashSymb.Text = "Касс символа";
             this.btnCashSymb.UseVisualStyleBackColor = true;
+            this.btnCashSymb.Click += new System.EventHandler(this.btnCashSymb_Click);
             // 
             // btnPattern
             // 
@@ -1412,6 +1415,7 @@ namespace UbsBusiness
             this.btnPattern.TabIndex = 4;
             this.btnPattern.Text = "Пользовательская форма";
             this.btnPattern.UseVisualStyleBackColor = true;
+            this.btnPattern.Click += new System.EventHandler(this.btnPattern_Click);
             // 
             // btnCalc
             // 

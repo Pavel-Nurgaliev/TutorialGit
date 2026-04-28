@@ -211,14 +211,14 @@ namespace UbsBusiness
 
                 var paramOutUtReadSettingEnterCashSymbol = new UbsParamCustom(this.IUbsChannel.ParamsOut);
 
-                if (!paramOutInitForm.GetParamOutBool("bRetVal") && paramOutInitForm.GetParamOutString("strError").Length > 0)
+                if (!paramOutUtReadSettingEnterCashSymbol.GetParamOutBool("bRetVal") && paramOutUtReadSettingEnterCashSymbol.GetParamOutString("strError").Length > 0)
                 {
-                    MessageBox.Show(paramOutInitForm.GetParamOutString("strError"), CaptionInitForm,
+                    MessageBox.Show(paramOutUtReadSettingEnterCashSymbol.GetParamOutString("strError"), CaptionInitForm,
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    int checkKSSymb = paramOutInitForm.GetParamOutInt("UtEnterCashSymbol");
+                    int checkKSSymb = paramOutUtReadSettingEnterCashSymbol.GetParamOutInt("UtEnterCashSymbol");
                     bool ksVisible = (checkKSSymb != 0);
                     txtCashSymbolPayment.Visible = ksVisible;
                     txtCashSymbolCommission.Visible = ksVisible;
@@ -234,14 +234,17 @@ namespace UbsBusiness
                 else
                 {
                     this.IUbsChannel.Run("UtReadSettingChoiceClient");
-                    if (!paramOutInitForm.GetParamOutBool("bRetVal") && paramOutInitForm.GetParamOutString("strError").Length > 0)
+
+                    var paramOutUtReadSettingChoiceClient = new UbsParamCustom(this.IUbsChannel.ParamsOut);
+
+                    if (!paramOutUtReadSettingChoiceClient.GetParamOutBool("bRetVal") && paramOutUtReadSettingChoiceClient.GetParamOutString("strError").Length > 0)
                     {
-                        MessageBox.Show(paramOutInitForm.GetParamOutString("strError"), CaptionInitForm,
+                        MessageBox.Show(paramOutUtReadSettingChoiceClient.GetParamOutString("strError"), CaptionInitForm,
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else
                     {
-                        m_isGuest = (paramOutInitForm.GetParamOutInt("ChoiceClient") == 0);
+                        m_isGuest = (paramOutUtReadSettingChoiceClient.GetParamOutInt("ChoiceClient") == 0);
                     }
                 }
 
@@ -249,9 +252,9 @@ namespace UbsBusiness
                 this.IUbsChannel.Run("UtReadSettingSourceMeans");
 
                 var paramOutUtReadSettingSourceMeans = new UbsParamCustom(this.IUbsChannel.ParamsOut);
-                if (!paramOutInitForm.GetParamOutBool("bRetVal") && paramOutInitForm.GetParamOutString("strError").Length > 0)
+                if (!paramOutUtReadSettingSourceMeans.GetParamOutBool("bRetVal") && paramOutUtReadSettingSourceMeans.GetParamOutString("strError").Length > 0)
                 {
-                    MessageBox.Show(paramOutInitForm.GetParamOutString("strError"), CaptionInitForm,
+                    MessageBox.Show(paramOutUtReadSettingSourceMeans.GetParamOutString("strError"), CaptionInitForm,
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
@@ -273,7 +276,7 @@ namespace UbsBusiness
                 }
                 else if (string.Equals(m_command, StrCommandChangePart, StringComparison.Ordinal))
                 {
-                    InitDoc_ChangePart(paramOutUtReadSettingSourceMeans);
+                    InitDoc_ChangePart(paramOutInitForm);
                 }
                 else if (string.Equals(m_command, StrCommandAdd, StringComparison.Ordinal))
                 {
@@ -864,10 +867,9 @@ namespace UbsBusiness
                 {
                     m_arrSubContracts = paramOutUtReadContract.Value("Субдоговоры") as object[,];
 
-                    string subContractError;
-                    if (!CheckSubContracts(out subContractError))
+                    if (!CheckSubContracts(out var errorMessage))
                     {
-                        MessageBox.Show(subContractError, CaptionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(errorMessage, CaptionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         m_idContract = 0;
                         return;
@@ -978,7 +980,7 @@ namespace UbsBusiness
                     ucaRecipientAccount.Text = accFromContract;
                 }
 
-                var isSepDoc = paramOutUtReadContract.GetParamOutString("IsSeparateDoc");
+                var isSepDoc = paramOutUtReadContract.GetParamOutBool("IsSeparateDoc");
                 m_sidPattern = paramOutUtReadContract.GetParamOutString("IdPattern");
                 m_strAddress = paramOutUtReadContract.GetParamOutString("Adress");
 
@@ -1289,28 +1291,21 @@ namespace UbsBusiness
         /// and the current contract state. When separate doc is enabled,
         /// BIK/corr-account/bank-name are editable.
         /// </summary>
-        private void SetPropBank(string isSepDoc)
+        private void SetPropBank(bool isSepDoc)
         {
             try
             {
-                bool isSep = string.Equals(isSepDoc, "True", StringComparison.OrdinalIgnoreCase)
-                          || string.Equals(isSepDoc, "1", StringComparison.Ordinal);
-
-                if (isSep)
-                {
-                    txtRecipientBik.Enabled = true;
-                    ucaRecipientCorrAccount.Enabled = true;
-                    txtRecipientBankName.Enabled = true;
-                    linkRecipientBankName.Enabled = true;
-                }
+                txtRecipientBik.Enabled =
+                ucaRecipientCorrAccount.Enabled =
+                txtRecipientBankName.Enabled =
+                linkRecipientBankName.Enabled = isSepDoc;
             }
             catch (Exception ex) { this.Ubs_ShowError(ex); }
         }
 
         /// <summary>
         /// CheckSubContracts: validates sub-contracts array for group payments.
-        /// For each sub-contract code, reads the contract and checks that BIC, Acc, CorrAcc are non-empty.
-        /// VB6: Function CheckSubContracts (lines 9871-9918).
+        /// Returns true if sub-contracts are valid or absent.
         /// </summary>
         private bool CheckSubContracts(out string errorMessage)
         {
@@ -1355,9 +1350,7 @@ namespace UbsBusiness
 
                 if (!result)
                 {
-                    errorMessage = "\u0412 \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u043E\u043C \u0441\u0443\u0431\u0434\u043E\u0433\u043E\u0432\u043E\u0440\u0435 \u043E\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u044E\u0442 \u0434\u0430\u043D\u043D\u044B\u0435 \u0432 "
-                        + "\u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0445 \u043F\u043E\u043B\u044F\u0445 (\u0411\u0418\u041A \u0431\u0430\u043D\u043A\u0430 \u043F\u043E\u043B\u0443\u0447\u0430\u0442\u0435\u043B\u044F \u0438/\u0438\u043B\u0438 \u0441\u0447\u0435\u0442\u0430 \u043F\u043E\u043B\u0443\u0447\u0430\u0442\u0435\u043B\u044F). "
-                        + "\r\n\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u043F\u043B\u0430\u0442\u0435\u0436 \u043D\u0430 \u043E\u0441\u043D\u043E\u0432\u0435 \u0442\u0430\u043A\u043E\u0433\u043E \u0441\u0443\u0431\u0434\u043E\u0433\u043E\u0432\u043E\u0440\u0430 \u0431\u0443\u0434\u0435\u0442 \u043D\u0435\u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E.";
+                    errorMessage = "В выбранном субдоговоре отсутствуют данные в обязательных полях (БИК банка получателя и/или счета получателя). " + Environment.NewLine + "Сохранить платеж на основе такого субдоговора будет невозможно.";
                 }
 
                 return result;
@@ -2323,7 +2316,7 @@ namespace UbsBusiness
 
                 m_isAutoPeriodFlag = false;
 
-                var paramOutUtGetAutoFillPeriod = new UbsParamCustom(this.UbsChannel_ParamsOut);
+                var paramOutUtGetAutoFillPeriod = new UbsParamCustom(this.IUbsChannel.ParamsOut);
 
                 if (paramOutUtGetAutoFillPeriod.GetParamOutBool("bRetVal"))
                 {

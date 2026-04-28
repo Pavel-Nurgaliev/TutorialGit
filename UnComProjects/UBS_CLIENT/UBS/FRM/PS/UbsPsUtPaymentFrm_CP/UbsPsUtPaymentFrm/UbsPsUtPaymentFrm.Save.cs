@@ -1821,7 +1821,7 @@ namespace UbsBusiness
                 int lngIdUser = paramOutUser.GetParamOutInt("IDUSER");
                 int idDivision = paramOutUser.GetParamOutInt("Division");
 
-                this.IUbsChannel.ParamIn("NameSection", "\u041E\u043F\u043B\u0430\u0442\u0430 \u0443\u0441\u043B\u0443\u0433");
+                this.IUbsChannel.ParamIn("NameSection", "Оплата услуг");
                 this.IUbsChannel.Run("Ps_GetStateRequestFormCashOrd");
 
                 var paramOutReq = new UbsParamCustom(this.IUbsChannel.ParamsOut);

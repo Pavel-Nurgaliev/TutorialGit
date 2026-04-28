@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using UbsService;
 
 namespace UbsBusiness
 {
@@ -8,12 +10,26 @@ namespace UbsBusiness
     {
         private const int MaxRecipientNameLength = 160;
         private const int MaxPurposeLength = 210;
-        private const string ListClientGuest = "UBS_LIST_OC_OC_CLIENTS";
-        private const string ListClientCommon = "UBS_LIST_COMMON_CLIENT";
-        private const string ListContract = @"UBS_PS_UT_LIST_CONTRACT";
-        private const string ListPayment = @"UBS_PS_UT_LIST_PAYMENT";
-        private const string ListAttributeRecip = @"UBS_PS_LIST_ATTRIBUTE_RECIPIENT";
-        private const string DefaultPaymDicFilter = @"UBS_PS_LIST_PAYM_DIC";
+        private const string ListClientGuest = "UBS_OC_CLIENTS";
+        private const string ListClientCommon = "UBS_COMMON_LIST_CLIENT";
+        private const string ListContract = "UBS_PS_UT_LIST_CONTRACT";
+        private const string ListPayment = "UBS_PS_UT_LIST_PAYMENT";
+        private const string ListAttributeRecip = "UBS_PS_LIST_ATTRIBUTE_RECIPIENT";
+        private const string DefaultPaymDicFilter = "UBS_PS_LIST_PAYM_DIC";
+
+        private enum BrowseListKind
+        {
+            None,
+            ClientNonGuest,
+            ClientGuest,
+            Contract,
+            PaymentDictionary,
+            RecipientAttribute,
+            ThirdPerson,
+            PaymentList
+        }
+
+        private BrowseListKind m_browseListKind;
 
         #region Client selection
 
@@ -22,32 +38,40 @@ namespace UbsBusiness
             try
             {
                 string listSid = m_isGuest ? ListClientGuest : ListClientCommon;
+                m_browseListKind = m_isGuest ? BrowseListKind.ClientGuest : BrowseListKind.ClientNonGuest;
 
-                object[] ids = this.Ubs_ActionRun(listSid, this, true) as object[];
-                if (ids == null || ids.Length == 0)
-                    return;
-
-                int selectedId = Convert.ToInt32(ids[0]);
-                if (selectedId <= 0)
-                    return;
-
-                m_idClient = selectedId;
-
-                if (m_idClient > 0)
+                try
                 {
-                    linkFindFilter.Visible = true;
+                    object[] ids = this.Ubs_ActionRun(listSid, this, true) as object[];
+                    if (ids == null || ids.Length == 0)
+                        return;
+
+                    int selectedId = Convert.ToInt32(ids[0]);
+                    if (selectedId <= 0)
+                        return;
+
+                    m_idClient = selectedId;
+
+                    if (m_idClient > 0)
+                    {
+                        linkFindFilter.Visible = true;
+                    }
+
+                    FillPayer();
+                    CheckPayer(false);
+
+                    m_docNumber = string.Empty;
+                    m_docSeries = string.Empty;
+
+                    if (string.Equals(m_command, StrCommandAdd, StringComparison.Ordinal)
+                        && txtContractCode.Enabled)
+                    {
+                        txtContractCode.Focus();
+                    }
                 }
-
-                FillPayer();
-                CheckPayer(false);
-
-                m_docNumber = string.Empty;
-                m_docSeries = string.Empty;
-
-                if (string.Equals(m_command, StrCommandAdd, StringComparison.Ordinal)
-                    && txtContractCode.Enabled)
+                finally
                 {
-                    txtContractCode.Focus();
+                    m_browseListKind = BrowseListKind.None;
                 }
             }
             catch (Exception ex) { this.Ubs_ShowError(ex); }
@@ -61,15 +85,23 @@ namespace UbsBusiness
         {
             try
             {
-                object[] ids = this.Ubs_ActionRun(ListContract, this, true) as object[];
-                if (ids == null || ids.Length == 0)
-                    return;
-
-                int selectedId = Convert.ToInt32(ids[0]);
-                if (selectedId > 0)
+                m_browseListKind = BrowseListKind.Contract;
+                try
                 {
-                    m_idContract = selectedId;
-                    FindContractbyId();
+                    object[] ids = this.Ubs_ActionRun(ListContract, this, true) as object[];
+                    if (ids == null || ids.Length == 0)
+                        return;
+
+                    int selectedId = Convert.ToInt32(ids[0]);
+                    if (selectedId > 0)
+                    {
+                        m_idContract = selectedId;
+                        FindContractbyId();
+                    }
+                }
+                finally
+                {
+                    m_browseListKind = BrowseListKind.None;
                 }
             }
             catch (Exception ex) { this.Ubs_ShowError(ex); }
@@ -163,15 +195,23 @@ namespace UbsBusiness
                     ? m_SIDFilter
                     : DefaultPaymDicFilter;
 
-                object[] ids = this.Ubs_ActionRun(filterSid, this, true) as object[];
-                if (ids == null || ids.Length == 0)
-                    return;
-
-                int selectedId = Convert.ToInt32(ids[0]);
-                if (selectedId > 0)
+                m_browseListKind = BrowseListKind.PaymentDictionary;
+                try
                 {
-                    m_idPaymentDic = selectedId;
-                    FillDataPayment("FILTER");
+                    object[] ids = this.Ubs_ActionRun(filterSid, this, true) as object[];
+                    if (ids == null || ids.Length == 0)
+                        return;
+
+                    int selectedId = Convert.ToInt32(ids[0]);
+                    if (selectedId > 0)
+                    {
+                        m_idPaymentDic = selectedId;
+                        FillDataPayment("FILTER");
+                    }
+                }
+                finally
+                {
+                    m_browseListKind = BrowseListKind.None;
                 }
             }
             catch (Exception ex) { this.Ubs_ShowError(ex); }
@@ -209,15 +249,23 @@ namespace UbsBusiness
         {
             try
             {
-                object[] ids = this.Ubs_ActionRun(ListPayment, this, true) as object[];
-                if (ids == null || ids.Length == 0)
-                    return;
-
-                int selectedId = Convert.ToInt32(ids[0]);
-                if (selectedId > 0)
+                m_browseListKind = BrowseListKind.PaymentList;
+                try
                 {
-                    m_idPaymentDic = selectedId;
-                    FillDataPayment("FILTER");
+                    object[] ids = this.Ubs_ActionRun(ListPayment, this, true) as object[];
+                    if (ids == null || ids.Length == 0)
+                        return;
+
+                    int selectedId = Convert.ToInt32(ids[0]);
+                    if (selectedId > 0)
+                    {
+                        m_idPaymentDic = selectedId;
+                        FillDataPayment("FILTER");
+                    }
+                }
+                finally
+                {
+                    m_browseListKind = BrowseListKind.None;
                 }
             }
             catch (Exception ex) { this.Ubs_ShowError(ex); }
@@ -234,7 +282,17 @@ namespace UbsBusiness
                 this.IUbsChannel.ParamIn("IdContract", m_idContract);
                 this.IUbsChannel.Run("GetRecipAttributeList");
 
-                object[] ids = this.Ubs_ActionRun(ListAttributeRecip, this, true) as object[];
+                m_browseListKind = BrowseListKind.RecipientAttribute;
+                object[] ids;
+                try
+                {
+                    ids = this.Ubs_ActionRun(ListAttributeRecip, this, true) as object[];
+                }
+                finally
+                {
+                    m_browseListKind = BrowseListKind.None;
+                }
+
                 if (ids == null || ids.Length == 0)
                     return;
 
@@ -249,10 +307,10 @@ namespace UbsBusiness
 
                 var paramOut = new UbsParamCustom(this.IUbsChannel.ParamsOut);
 
-                txtRecipientName.Text = paramOut.GetParamOutString("\u041D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u0435 \u043F\u043E\u043B\u0443\u0447\u0430\u0442\u0435\u043B\u044F \u0432 \u043F\u043B\u0430\u0442. \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430\u0445");
+                txtRecipientName.Text = paramOut.GetParamOutString("Наименование получателя в плат. документах");
                 txtRecipientBik.Text = paramOut.GetParamOutString("BIC");
                 ucaRecipientCorrAccount.Text = paramOut.GetParamOutString("CORRACC");
-                txtRecipientBankName.Text = paramOut.GetParamOutString("\u041D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u0435 \u0431\u0430\u043D\u043A\u0430");
+                txtRecipientBankName.Text = paramOut.GetParamOutString("Наименование банка");
                 ucaRecipientAccount.Text = paramOut.GetParamOutString("ACC");
                 txtRecipientInn.Text = paramOut.GetParamOutString("INN");
                 cmbPurpose.Text = paramOut.GetParamOutString("PURPOSE");
@@ -280,10 +338,10 @@ namespace UbsBusiness
 
                 this.IUbsChannel.ParamIn("IdContract", m_idContract);
                 this.IUbsChannel.ParamIn("IdAttributeRecip", m_idAttributeRecip);
-                this.IUbsChannel.ParamIn("\u041D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u0435 \u043F\u043E\u043B\u0443\u0447\u0430\u0442\u0435\u043B\u044F \u0432 \u043F\u043B\u0430\u0442. \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430\u0445", txtRecipientName.Text);
+                this.IUbsChannel.ParamIn("Наименование получателя в плат. документах", txtRecipientName.Text);
                 this.IUbsChannel.ParamIn("BIC", txtRecipientBik.Text);
                 this.IUbsChannel.ParamIn("CORRACC", ucaRecipientCorrAccount.Text);
-                this.IUbsChannel.ParamIn("\u041D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u0435 \u0431\u0430\u043D\u043A\u0430", txtRecipientBankName.Text);
+                this.IUbsChannel.ParamIn("Наименование банка", txtRecipientBankName.Text);
                 this.IUbsChannel.ParamIn("ACC", ucaRecipientAccount.Text);
                 this.IUbsChannel.ParamIn("INN", txtRecipientInn.Text);
                 this.IUbsChannel.ParamIn("PURPOSE", cmbPurpose.Text);
@@ -329,8 +387,18 @@ namespace UbsBusiness
             try
             {
                 string listSid = m_isGuest ? ListClientGuest : ListClientCommon;
+                m_browseListKind = BrowseListKind.ThirdPerson;
 
-                object[] ids = this.Ubs_ActionRun(listSid, this, true) as object[];
+                object[] ids;
+                try
+                {
+                    ids = this.Ubs_ActionRun(listSid, this, true) as object[];
+                }
+                finally
+                {
+                    m_browseListKind = BrowseListKind.None;
+                }
+
                 if (ids == null || ids.Length == 0)
                     return;
 
@@ -534,15 +602,6 @@ namespace UbsBusiness
 
         private void WireBrowseEvents()
         {
-            btnSave.Click += btnSave_Click;
-            btnExit.Click += btnExit_Click;
-            btnPattern.Click += delegate { BtnPattern_ClickImpl(); };
-            btnCashSymb.Click += delegate { BtnCashSymb_ClickImpl(); };
-            btnCalc.Click += delegate { BtnCalc_ClickImpl(); };
-            btnSaveRecipientAttribute.Click += delegate { BtnSaveRecipientAttribute_ClickImpl(); };
-
-            linkThirdPersonName.LinkClicked += delegate { BtnSelectThirdPerson_ClickImpl(); };
-
             txtRecipientName.TextChanged += txtRecipientName_TextChanged;
             cmbPurpose.TextChanged += cmbPurpose_TextChanged;
 
@@ -552,6 +611,166 @@ namespace UbsBusiness
             chkBenefits.CheckedChanged += chkBenefits_CheckedChanged;
 
             ucfAddProperties.KeyPress += ucfAddProperties_KeyPress;
+
+            this.Ubs_ActionRunBegin += new UbsActionRunBeginEventHandler(UbsPsUtPaymentFrm_Ubs_ActionRunBegin);
+        }
+
+        private void UbsPsUtPaymentFrm_Ubs_ActionRunBegin(object sender, UbsActionRunEventArgs args)
+        {
+            try
+            {
+                if (m_browseListKind == BrowseListKind.PaymentList
+                                    && string.Equals(args.Action, ListPayment, StringComparison.Ordinal))
+                {
+                    args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                        new KeyValuePair<string, object>("наименование", m_isGuest ? "ID Посетитель" : "ID Клиент банка"),
+                        new KeyValuePair<string, object>("значение по умолчанию", 2),
+                        new KeyValuePair<string, object>("условие по умолчанию", "="),
+                        new KeyValuePair<string, object>("скрытый", true) }));
+                    args.IUbs.Run("UbsItemsRefresh", null);
+                    return;
+                }
+
+                if (m_browseListKind == BrowseListKind.ClientNonGuest
+                    && string.Equals(args.Action, ListClientCommon, StringComparison.Ordinal))
+                {
+                    args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                        new KeyValuePair<string, object>("наименование", "Тип"),
+                        new KeyValuePair<string, object>("значение по умолчанию", 2),
+                        new KeyValuePair<string, object>("условие по умолчанию", "="),
+                        new KeyValuePair<string, object>("скрытый", true) }));
+                    args.IUbs.Run("UbsItemsRefresh", null);
+                    return;
+                }
+
+                if (m_browseListKind == BrowseListKind.RecipientAttribute
+                    && string.Equals(args.Action, ListAttributeRecip, StringComparison.Ordinal))
+                {
+                    args.IUbs.Run("UbsItemsRemove", null);
+                    args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                        new KeyValuePair<string, object>("наименование", "Идентификатор договора"),
+                        new KeyValuePair<string, object>("значение по умолчанию", m_idContract),
+                        new KeyValuePair<string, object>("условие по умолчанию", "="),
+                        new KeyValuePair<string, object>("скрытый", true) }));
+                    args.IUbs.Run("UbsItemsRefresh", null);
+                    return;
+                }
+
+                if (m_browseListKind == BrowseListKind.PaymentDictionary)
+                {
+                    args.IUbs.Run("UbsItemsRemove", null);
+                    args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                        new KeyValuePair<string, object>("наименование", "л/с плательщика"),
+                        new KeyValuePair<string, object>("значение по умолчанию", txtPayerAccount.Text),
+                        new KeyValuePair<string, object>("условие по умолчанию", "="),
+                        new KeyValuePair<string, object>("скрытый", false) }));
+                    if (m_idContract > 0)
+                    {
+                        args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                            new KeyValuePair<string, object>("наименование", "Идентификатор договора"),
+                            new KeyValuePair<string, object>("значение по умолчанию", m_idContract),
+                            new KeyValuePair<string, object>("условие по умолчанию", "="),
+                            new KeyValuePair<string, object>("скрытый", false) }));
+                    }
+                    args.IUbs.Run("UbsItemsRefresh", null);
+                    return;
+                }
+
+                if (m_browseListKind == BrowseListKind.Contract
+                    && string.Equals(args.Action, ListContract, StringComparison.Ordinal))
+                {
+                    args.IUbs.Run("UbsItemsRemove", null);
+
+                    if (m_calledFromFrontOffice)
+                    {
+                        args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                            new KeyValuePair<string, object>("наименование", "Доступен для единой формы обслуживания"),
+                            new KeyValuePair<string, object>("значение по умолчанию", 1),
+                            new KeyValuePair<string, object>("условие по умолчанию", "="),
+                            new KeyValuePair<string, object>("скрытый", true) }));
+                    }
+
+                    if (!m_contractFilterLimitations)
+                    {
+                        string bic = txtRecipientBik.Text.Trim();
+                        string acc = ucaRecipientAccount.Text.Trim();
+                        string inn = txtRecipientInn.Text.Trim();
+
+                        if (bic.Length > 0 || (acc.Length > 0 && acc != "00000000000000000000"))
+                        {
+                            if (bic.Length > 0)
+                            {
+                                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                                    new KeyValuePair<string, object>("наименование", "БИК"),
+                                    new KeyValuePair<string, object>("значение по умолчанию", bic),
+                                    new KeyValuePair<string, object>("условие по умолчанию", "="),
+                                    new KeyValuePair<string, object>("скрытый", false) }));
+                            }
+                            if (acc.Length > 0 && acc != "00000000000000000000")
+                            {
+                                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                                    new KeyValuePair<string, object>("наименование", "Расчетный счет"),
+                                    new KeyValuePair<string, object>("значение по умолчанию", acc),
+                                    new KeyValuePair<string, object>("условие по умолчанию", "="),
+                                    new KeyValuePair<string, object>("скрытый", false) }));
+                            }
+                            if (inn.Length > 0)
+                            {
+                                args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                                    new KeyValuePair<string, object>("наименование", "ИНН"),
+                                    new KeyValuePair<string, object>("значение по умолчанию", inn),
+                                    new KeyValuePair<string, object>("условие по умолчанию", "="),
+                                    new KeyValuePair<string, object>("скрытый", false) }));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (string.Equals(m_searchKBK, "Да", StringComparison.Ordinal))
+                        {
+                            args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                                new KeyValuePair<string, object>("наименование", "КБК"),
+                                new KeyValuePair<string, object>("значение по умолчанию", txtTaxKbk.Text),
+                                new KeyValuePair<string, object>("условие по умолчанию", "="),
+                                new KeyValuePair<string, object>("скрытый", true) }));
+                        }
+
+                        if (m_searchTemplate.Length > 0
+                            && !string.Equals(m_searchTemplate, "*", StringComparison.Ordinal))
+                        {
+                            args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                                new KeyValuePair<string, object>("наименование", "Шаблон"),
+                                new KeyValuePair<string, object>("значение по умолчанию", m_searchTemplate),
+                                new KeyValuePair<string, object>("условие по умолчанию", "="),
+                                new KeyValuePair<string, object>("скрытый", true) }));
+                        }
+
+                        if (string.Equals(m_searchBIK, "Да", StringComparison.Ordinal))
+                        {
+                            args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                                new KeyValuePair<string, object>("наименование", "БИК"),
+                                new KeyValuePair<string, object>("значение по умолчанию", txtRecipientBik.Text),
+                                new KeyValuePair<string, object>("условие по умолчанию", "="),
+                                new KeyValuePair<string, object>("скрытый", true) }));
+                        }
+                        else if (m_searchBIK.Length == 0)
+                        {
+                            args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
+                                new KeyValuePair<string, object>("наименование", "БИК"),
+                                new KeyValuePair<string, object>("значение по умолчанию", string.Empty),
+                                new KeyValuePair<string, object>("условие по умолчанию", "="),
+                                new KeyValuePair<string, object>("скрытый", true) }));
+                        }
+                    }
+
+                    args.IUbs.Run("UbsItemsRefresh", null);
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.Ubs_ShowError(ex);
+            }
         }
 
         #endregion

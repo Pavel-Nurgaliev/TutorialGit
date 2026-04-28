@@ -1,4 +1,4 @@
-namespace UbsBusiness
+﻿namespace UbsBusiness
 {
     partial class FrmCalc
     {
@@ -34,7 +34,7 @@ namespace UbsBusiness
             this.lblAcceptedPaymentsAmount.Name = "lblAcceptedPaymentsAmount";
             this.lblAcceptedPaymentsAmount.Size = new System.Drawing.Size(149, 13);
             this.lblAcceptedPaymentsAmount.TabIndex = 0;
-            this.lblAcceptedPaymentsAmount.Text = "\u0421\u0443\u043c\u043c\u0430 \u043f\u0440\u0438\u043d\u044f\u0442\u044b\u0445 \u043f\u043b\u0430\u0442\u0435\u0436\u0435\u0439";
+            this.lblAcceptedPaymentsAmount.Text = "Сумма принятых платежей";
             // 
             // lblCashAmount
             // 
@@ -43,7 +43,7 @@ namespace UbsBusiness
             this.lblCashAmount.Name = "lblCashAmount";
             this.lblCashAmount.Size = new System.Drawing.Size(93, 13);
             this.lblCashAmount.TabIndex = 1;
-            this.lblCashAmount.Text = "\u0421\u0443\u043c\u043c\u0430 \u043d\u0430\u043b\u0438\u0447\u043d\u044b\u0445";
+            this.lblCashAmount.Text = "Сумма наличных";
             // 
             // lblChangeAmount
             // 
@@ -52,7 +52,7 @@ namespace UbsBusiness
             this.lblChangeAmount.Name = "lblChangeAmount";
             this.lblChangeAmount.Size = new System.Drawing.Size(40, 13);
             this.lblChangeAmount.TabIndex = 2;
-            this.lblChangeAmount.Text = "\u0421\u0434\u0430\u0447\u0430";
+            this.lblChangeAmount.Text = "Сдача";
             // 
             // lblPaymentAmountValue
             // 
@@ -89,7 +89,7 @@ namespace UbsBusiness
             this.btnCalculate.Name = "btnCalculate";
             this.btnCalculate.Size = new System.Drawing.Size(121, 28);
             this.btnCalculate.TabIndex = 6;
-            this.btnCalculate.Text = "\u0420\u0430\u0441\u0447\u0435\u0442";
+            this.btnCalculate.Text = "Расчет";
             this.btnCalculate.UseVisualStyleBackColor = true;
             this.btnCalculate.Click += new System.EventHandler(this.btnCalculate_Click);
             // 
@@ -99,7 +99,7 @@ namespace UbsBusiness
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(121, 28);
             this.btnExit.TabIndex = 7;
-            this.btnExit.Text = "\u0412\u044b\u0445\u043e\u0434";
+            this.btnExit.Text = "Выход";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
@@ -121,7 +121,7 @@ namespace UbsBusiness
             this.MinimizeBox = false;
             this.Name = "FrmCalc";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "\u0420\u0430\u0441\u0447\u0435\u0442 \u0441 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u043c";
+            this.Text = "Расчет с клиентом";
             this.Load += new System.EventHandler(this.FrmCalc_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
