@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using UbsControl;
 using UbsService;
-using static System.Windows.Forms.AxHost;
 
 namespace UbsBusiness
 {
@@ -781,9 +780,9 @@ namespace UbsBusiness
             m_idAgent = 0;
             txtAgent.Text = string.Empty;
             txtNumAgent.Text = string.Empty;
-            dateAgent.DateValue = MinDate;
-            dateReward.DateValue = MinDate;
-            dateAdjustment.DateValue = MinDate;
+            dateAgent.DateValue = MaxDate;
+            dateReward.DateValue = MaxDate;
+            dateAdjustment.DateValue = MaxDate;
             costAmount.DecimalValue = 0m;
             paidAmount.DecimalValue = 0m;
             transAmount.DecimalValue = 0m;
@@ -888,15 +887,7 @@ namespace UbsBusiness
 
                 txtPreviousContract.Text = Convert.ToString(m_paramOut.Value("InfoPrevContract"));
 
-                if (tabControl.TabPages.Count > 2 && tabControl.TabPages[2].Enabled)
-                {
-                    tabControl.SelectedIndex = 2;
-                    cmbPortfolio.Focus();
-                }
-                else if (tabControl.TabPages.Count > 3)
-                {
-                    tabControl.SelectedIndex = 3;
-                }
+                cmbWarrant.Focus();
             }
 
             EnabledCmdControl(true);
@@ -1536,11 +1527,11 @@ namespace UbsBusiness
                 return;
             }
 
-            m_paramIn.Clear();
-            m_paramOut.Clear();
-
             m_arrTypePeriod = m_paramOut.Value("Типы периодов") as object[,];
             m_arrTypeDate = m_paramOut.Value("Типы дат гашений") as object[,];
+
+            m_paramIn.Clear();
+            m_paramOut.Clear();
 
             m_paramIn.Value("StrCommand", m_command);
 
@@ -2003,7 +1994,7 @@ namespace UbsBusiness
             }
             else
             {
-                dateCloseGarant.DateValue = MinDate;
+                dateCloseGarant.DateValue = MaxDate;
             }
 
             ReReadDocFinalize();
@@ -2195,6 +2186,31 @@ namespace UbsBusiness
 
         private void ReReadDocApplyPayFeeGuarantRiskAndCombos()
         {
+            m_arrInterval = new object[1, 4];
+
+            m_arrInterval[0, 0] =
+                m_paramOut.Value("Вознаграждение. Тип периода");
+            m_arrInterval[0, 1] =
+                m_paramOut.Value("Вознаграждение. Период");
+            m_arrInterval[0, 2] =
+                m_paramOut.Value("Вознаграждение. Тип даты");
+            m_arrInterval[0, 3] =
+                m_paramOut.Value("Вознаграждение. Номер дня");
+
+            m_arrIntervalBonus = new object[1, 4];
+
+            m_arrIntervalBonus[0, 0] =
+                m_paramOut.Value("Вознаграждение за выдачу. Тип периода");
+            m_arrIntervalBonus[0, 1] =
+                m_paramOut.Value("Вознаграждение за выдачу. Период");
+            m_arrIntervalBonus[0, 2] =
+                m_paramOut.Value("Вознаграждение за выдачу. Тип даты");
+            m_arrIntervalBonus[0, 3] =
+                m_paramOut.Value("Вознаграждение за выдачу. Номер дня");
+
+            dateNextPayFee.DateValue = Convert.ToDateTime(m_paramOut.Value("Дата следующей уплаты вознаграждения"));
+            dateNextPayFeeBonus.DateValue = Convert.ToDateTime(m_paramOut.Value("Дата след. упл.вознаграждения за выдачу"));
+
             // ===================== Вознаграждение (гарант) =====================
             m_orderPayFeeGuarant = Convert.ToString(m_paramOut["Порядок уплаты вознаграждения (гарант)"]);
 
@@ -2389,7 +2405,7 @@ namespace UbsBusiness
         private void ReReadDocApplyEditNonDraftVisibility()
         {
             if (m_idState != 4)
-                dateCloseGarant.DateValue = MinDate;
+                dateCloseGarant.DateValue = MaxDate;
         }
 
         private void ReReadDocPreamble()
@@ -2557,7 +2573,7 @@ namespace UbsBusiness
 
                     if (dateValue >= MaxDate || dateValue <= MinDate)
                     {
-                        dateCtrl.DateValue = MinDate;
+                        dateCtrl.DateValue = MaxDate;
                     }
                 }
             }
@@ -2689,27 +2705,28 @@ namespace UbsBusiness
         {
             string selected = cmbKindGarant.Text;
 
+            var kvpList = new List<KeyValuePair<int, string>>();
+
+            if (m_termsFrameContract != null)
+            {
+                int rows = m_termsFrameContract.GetLength(0);
+
+                for (int i = 0; i < rows; i++)
+                {
+                    kvpList.Add(new KeyValuePair<int, string>(
+                        i,
+                        Convert.ToString(m_termsFrameContract[i, 0])));
+                }
+            }
+
+            kvpList.Add(new KeyValuePair<int, string>(-1, string.Empty));
+
             cmbKindGarant.BeginUpdate();
             try
             {
-                cmbKindGarant.Items.Clear();
+                InitComboBox(cmbKindGarant, kvpList);
 
-                if (m_termsFrameContract != null)
-                {
-                    int rows = m_termsFrameContract.GetLength(0);
-
-                    for (int i = 0; i < rows; i++)
-                    {
-                        cmbKindGarant.Items.Add(Convert.ToString(m_termsFrameContract[i, 0]));
-                    }
-                }
-
-                cmbKindGarant.Items.Add(string.Empty);
-
-                if (cmbKindGarant.Items.Count > 0)
-                    cmbKindGarant.SelectedIndex = cmbKindGarant.Items.Count - 1;
-
-                cmbKindGarant.Text = string.Empty;
+                cmbKindGarant.SelectedIndex = kvpList.Count - 1;
 
                 if (!string.IsNullOrEmpty(selected))
                     cmbKindGarant.Text = selected;
@@ -2816,7 +2833,7 @@ namespace UbsBusiness
 
             InitComboBox(cmbKindGarant, kvpList);
 
-            cmbKindGarant.SelectedIndex = cmbKindGarant.Items.Count - 1;
+            //cmbKindGarant.SelectedIndex = cmbKindGarant.Items.Count - 1;
             if (cmbKindGarant.SelectedItem != null)
             {
                 SetComboItem(cmbKindGarant, (KeyValuePair<int, string>)cmbKindGarant.SelectedItem);

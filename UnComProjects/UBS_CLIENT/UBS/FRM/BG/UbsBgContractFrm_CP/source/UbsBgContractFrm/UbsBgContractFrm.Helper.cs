@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using UbsService;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace UbsBusiness
 {
@@ -461,24 +462,6 @@ namespace UbsBusiness
 
             return res;
         }
-
-        /// <summary>
-        /// Строит список KVP из массива в формате VB (row 0 = id, row 1 = text, колонки = элементы).
-        /// </summary>
-        private static List<KeyValuePair<int, string>> MakeKvpListFromColumnBased(object[,] arr)
-        {
-            var res = new List<KeyValuePair<int, string>>();
-            if (arr == null || arr.GetLength(0) < 2)
-                return res;
-            int cols = arr.GetLength(1);
-            for (int c = 0; c < cols; c++)
-            {
-                int id = Convert.ToInt32(arr[0, c]);
-                string text = Convert.ToString(arr[1, c]);
-                res.Add(new KeyValuePair<int, string>(id, text));
-            }
-            return res;
-        }
         private void ResetListKeyState()
         {
             m_idContract = 0;
@@ -928,7 +911,7 @@ namespace UbsBusiness
                 return;
 
             ListViewItem selectedItem = lvwAccounts.SelectedItems[0];
-
+            
             m_strSection = selectedItem.SubItems[1].Text;   // VB6: SubItems(1) = раздел ("А"/"В")
             m_accType = selectedItem.Text;               // VB6: SelectedItem.Text = тип счёта
             m_strListItemKey = selectedItem.Name;               // VB6: SelectedItem.Key
@@ -972,47 +955,70 @@ namespace UbsBusiness
         /// </summary>
         private void GetAccount()
         {
-            var filterName = string.Empty;
-
-            if (m_strSection == PartA)
+            try
             {
-                filterName = @"UBS_FLT\OD\ACCOUNT0.flt";
-            }
-            else if (m_strSection == PartB)
-            {
-                filterName = @"UBS_FLT\OD\ACCOUNT2.flt";
-            }
+                var filterAction = string.Empty;
 
-            object[] ids = this.Ubs_ActionRun(ActionUbsGuarOperationList, this, true) as object[];
-
-            if (ids != null && ids.Length > 0)
-            {
-                m_paramIn.Clear();
-                m_paramOut.Clear();
-
-                m_paramIn.Value("IdPrevContract", m_idPrevContract);
-                RunUbsChannel("BGReadPreviuosContract", m_paramIn, m_paramOut);
-                txtPreviousContract.Text = Convert.ToString(m_paramOut.Value("InfoPrevContract"));
-
-                if (tabPage2.Enabled)
+                if (m_strSection == PartA)
                 {
-                    tabControl.SelectedIndex = 1;
-
-                    cmbPortfolio.Focus();
+                    filterAction = ActionUbsOdListAccount0;
                 }
-                else
+                else if (m_strSection == PartB)
                 {
-                    tabControl.SelectedIndex = 2;
+                    filterAction = ActionUbsOdListAccount2;
+                }
+
+                object[] ids = this.Ubs_ActionRun(filterAction, this, true) as object[];
+
+                if (ids != null && ids.Length > 0)
+                {
+                    m_paramIn.Clear();
+                    m_paramOut.Clear();
+
+                    m_paramIn.Value("ID", ids[0]);
+                    m_paramIn.Value("Раздел", m_strSection);
+                    RunUbsChannel("BGReadAccountInfoById", m_paramIn, m_paramOut);
+
+                    AddAccount(m_paramOut, m_strSection);
 
                     lvwAccounts.Focus();
                 }
-            }
-            else
-            {
-                MessageBox.Show(PreviousContractIsNotSelected, m_captionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+                {
+                    MessageBox.Show(MsgAccountNotSelected, m_captionForm, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                return;
+                    return;
+                }
             }
+            catch (Exception ex)
+            {
+                base.Ubs_ShowError(ex);
+            }
+        }
+
+        private void AddAccount(UbsParam paramOut, string part)
+        {
+            string accountNumber = Convert.ToString(paramOut.Value("Номер счета"));
+            string balance = Convert.ToString(paramOut.Value("Остаток"));
+
+            //Добавление выбранного счета в массив счетов
+            if (m_arrAccounts != null && m_arrAccounts.GetLength(0) > 0)
+            {
+                for (int i = 0; i < m_arrAccounts.GetLength(0); i++)
+                {
+                    if ((string)m_arrAccounts[i,0] == m_strListItemKey)
+                    {
+                        m_arrAccounts[i, 2] = accountNumber;
+
+                        break;
+                    }
+                }
+            }
+
+            ListViewItem item = lvwAccounts.Items[m_strListItemKey];
+
+            item.SubItems[2].Text = accountNumber;
+            item.SubItems[3].Text = balance;
         }
 
         /// <summary>
@@ -1055,8 +1061,8 @@ namespace UbsBusiness
                     return;
                 }
 
-                var periodTypes = MakeKvpListFromColumnBased(m_arrTypePeriod);
-                var dateTypes = MakeKvpListFromColumnBased(m_arrTypeDate);
+                var periodTypes = MakeKvpList(m_arrTypePeriod);
+                var dateTypes = MakeKvpList(m_arrTypeDate);
 
                 using (var form = new UbsBgBonusPayIntervalFrm())
                 {

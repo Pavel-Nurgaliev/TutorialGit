@@ -1,0 +1,1185 @@
+VERSION 5.00
+Object = "{C3A4B116-8248-4301-BB9C-E2DF040AAE6B}#1.0#0"; "UbsCtrl.dll"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
+Object = "{654DF6AF-C9A1-4D4E-89AC-9F01D9B7C3ED}#1.9#0"; "UbsChlCtrl.ocx"
+Begin VB.UserDocument PCFileIO 
+   ClientHeight    =   3750
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   6105
+   HScrollSmallChange=   225
+   KeyPreview      =   -1  'True
+   ScaleHeight     =   3750
+   ScaleWidth      =   6105
+   VScrollSmallChange=   225
+   Begin VB.ComboBox cbMode 
+      Height          =   315
+      Left            =   180
+      Style           =   2  'Dropdown List
+      TabIndex        =   5
+      Top             =   1260
+      Visible         =   0   'False
+      Width           =   5715
+   End
+   Begin UbsChlCtrl.UbsChannel UbsChnlAsync 
+      Index           =   6
+      Left            =   2580
+      Top             =   3180
+      _ExtentX        =   873
+      _ExtentY        =   873
+   End
+   Begin UbsChlCtrl.UbsChannel UbsChnlAsync 
+      Index           =   5
+      Left            =   2340
+      Top             =   3180
+      _ExtentX        =   873
+      _ExtentY        =   873
+   End
+   Begin UbsChlCtrl.UbsChannel UbsChnlAsync 
+      Index           =   4
+      Left            =   2100
+      Top             =   3180
+      _ExtentX        =   873
+      _ExtentY        =   873
+   End
+   Begin UbsChlCtrl.UbsChannel UbsChnlAsync 
+      Index           =   3
+      Left            =   1920
+      Top             =   3180
+      _ExtentX        =   873
+      _ExtentY        =   873
+   End
+   Begin UbsChlCtrl.UbsChannel UbsChnlAsync 
+      Index           =   2
+      Left            =   1620
+      Top             =   3180
+      _ExtentX        =   873
+      _ExtentY        =   873
+   End
+   Begin UbsChlCtrl.UbsChannel UbsChnlAsync 
+      Index           =   1
+      Left            =   1260
+      Top             =   3180
+      _ExtentX        =   873
+      _ExtentY        =   873
+   End
+   Begin UbsChlCtrl.UbsChannel UbsChnlAsync 
+      Index           =   0
+      Left            =   900
+      Top             =   3180
+      _ExtentX        =   873
+      _ExtentY        =   873
+   End
+   Begin VB.ComboBox cmbProc 
+      Height          =   315
+      Left            =   1320
+      Style           =   2  'Dropdown List
+      TabIndex        =   3
+      Top             =   540
+      Width           =   4575
+   End
+   Begin UbsChlCtrl.UbsChannel UbsChannel 
+      Left            =   180
+      Top             =   3060
+      _ExtentX        =   873
+      _ExtentY        =   873
+   End
+   Begin VB.CommandButton Browse 
+      Caption         =   "..."
+      Height          =   312
+      Left            =   5520
+      TabIndex        =   8
+      Top             =   1920
+      Width           =   372
+   End
+   Begin VB.CommandButton Go 
+      Caption         =   "Загрузить!"
+      Height          =   372
+      Left            =   2760
+      TabIndex        =   18
+      Top             =   3240
+      Width           =   1935
+   End
+   Begin VB.CommandButton cmdExit 
+      Caption         =   "Выход"
+      Height          =   372
+      Left            =   4800
+      TabIndex        =   19
+      Top             =   3240
+      Width           =   1092
+   End
+   Begin VB.TextBox PathFile 
+      Height          =   312
+      Left            =   180
+      TabIndex        =   7
+      Top             =   1920
+      Width           =   5355
+   End
+   Begin UBSCTRLLibCtl.UbsControlDate DateOper 
+      Height          =   315
+      Left            =   4200
+      TabIndex        =   1
+      Top             =   120
+      Width           =   1275
+      _cx             =   115804356
+      _cy             =   115802662
+      Appearance      =   1
+      Enabled         =   -1  'True
+      Object.TabStop         =   -1  'True
+      Text            =   "  .  .    "
+      Valid           =   -1  'True
+      Format          =   1
+      ReadOnly        =   0
+   End
+   Begin MSComDlg.CommonDialog CommonDlg 
+      Left            =   180
+      Top             =   2280
+      _ExtentX        =   688
+      _ExtentY        =   688
+      _Version        =   393216
+   End
+   Begin VB.Label lbMode 
+      Caption         =   "Выгружаемые операции"
+      Height          =   255
+      Left            =   180
+      TabIndex        =   4
+      Top             =   960
+      Visible         =   0   'False
+      Width           =   5655
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Обработано % записей из %"
+      Height          =   255
+      Left            =   180
+      TabIndex        =   17
+      Top             =   2820
+      Width           =   5655
+   End
+   Begin VB.Label lblChannelInfo 
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "7"
+      Height          =   255
+      Index           =   6
+      Left            =   5580
+      TabIndex        =   16
+      Top             =   2400
+      Width           =   195
+   End
+   Begin VB.Label lblChannelInfo 
+      Alignment       =   2  'Center
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "6"
+      Height          =   255
+      Index           =   5
+      Left            =   5280
+      TabIndex        =   15
+      Top             =   2400
+      Width           =   195
+   End
+   Begin VB.Label lblChannelInfo 
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "5"
+      Height          =   255
+      Index           =   4
+      Left            =   4980
+      TabIndex        =   14
+      Top             =   2400
+      Width           =   195
+   End
+   Begin VB.Label lblChannelInfo 
+      Alignment       =   2  'Center
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "4"
+      Height          =   255
+      Index           =   3
+      Left            =   4680
+      TabIndex        =   13
+      Top             =   2400
+      Width           =   195
+   End
+   Begin VB.Label lblChannelInfo 
+      Alignment       =   2  'Center
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "3"
+      Height          =   255
+      Index           =   2
+      Left            =   4380
+      TabIndex        =   12
+      Top             =   2400
+      Width           =   195
+   End
+   Begin VB.Label lblChannelInfo 
+      Alignment       =   2  'Center
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "2"
+      Height          =   255
+      Index           =   1
+      Left            =   4080
+      TabIndex        =   11
+      Top             =   2400
+      Width           =   195
+   End
+   Begin VB.Label lblChannelInfo 
+      Alignment       =   2  'Center
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "1"
+      Height          =   255
+      Index           =   0
+      Left            =   3780
+      TabIndex        =   10
+      Top             =   2400
+      Width           =   195
+   End
+   Begin VB.Label lblChannel 
+      Alignment       =   2  'Center
+      Caption         =   "Каналы"
+      Height          =   255
+      Left            =   3000
+      TabIndex        =   9
+      Top             =   2400
+      Width           =   675
+   End
+   Begin VB.Label lblProc 
+      Caption         =   "Процессинг"
+      Height          =   255
+      Left            =   180
+      TabIndex        =   2
+      Top             =   600
+      Width           =   1035
+   End
+   Begin VB.Label LabelFile 
+      Caption         =   "Файл для загрузки"
+      Height          =   195
+      Left            =   180
+      TabIndex        =   6
+      Top             =   1680
+      Width           =   5535
+   End
+   Begin VB.Label LabelDate 
+      Caption         =   "Дата загрузки"
+      Height          =   195
+      Left            =   180
+      TabIndex        =   0
+      Top             =   180
+      Width           =   3675
+   End
+End
+Attribute VB_Name = "PCFileIO"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Option Explicit
+Implements UBSChild
+Dim Parent As UBSParrent
+Dim NumWin As Integer, NumCallWindow As Integer
+Dim CallWindowClose As Boolean, NeedRefresh As Boolean
+Dim StrCommand As String
+Dim FixMyWindow As Boolean
+Dim ItemArray As Variant
+Dim ArrParam As Variant
+Dim ArrayParams As Variant
+Dim ArrProcPath As Variant
+Dim IdProcessing As Integer
+Dim strPathFile As String
+
+Dim User As Object
+Dim ToolPubs As Object
+Dim ToolErr As Object
+Dim UbsFile As Object
+Dim SID_Action, SID_Script, NameFunction
+Dim ScriptRunner As Object
+Dim FlInOut As String
+
+Dim nCountChanel As Integer
+Dim g As Integer
+Dim objInParam As Object
+Dim objOutParam As Object
+Dim WaitBox As Object
+Dim blnRespond As Boolean
+Dim blnUseAsyncChnls As Boolean
+
+Dim objArray As Object
+
+Dim lngRecordCounter As Long, lngRecordUp As Long
+Dim strImportReport As String
+
+Dim IdFile
+Dim arrFileNameServer
+
+Private Sub UbsChnlAsync_Error(Index As Integer, ByVal ErrorDescription As String)
+
+On Error GoTo ErrCode
+
+    lblChannelInfo(Index).BackColor = RGB(255, 0, 0)
+    
+    objInParam.ClearParameters
+    objInParam.Parameter("Error") = ErrorDescription
+    objInParam.Parameter("NC") = Index + 1
+    
+    UbsChnlAsync(Index).RunAsync "ProcessOperationsOfProcessing_AsyncIfError", objInParam
+
+    Exit Sub
+
+ErrCode:
+'    blnRespond = False
+    ToolErr.UbsErrMsg "UbsChnlAsync_Error", "ошибка выполнения"
+End Sub
+
+Private Sub UbsChnlAsync_Notice(Index As Integer, ByVal TextNotice As String)
+    Dim nOK As Long
+    Dim strReport As String
+    
+    On Error GoTo ErrCode
+    
+    nOK = 0
+    strReport = "Обработано {0} сообщений из " & lngRecordCounter
+    
+    If Len(TextNotice) > 3 Then
+        If Left(TextNotice, 3) = "OK:" Then
+            On Error Resume Next
+            nOK = CLng(Trim(Mid(TextNotice, 4)))
+            lngRecordUp = lngRecordUp + nOK
+            On Error GoTo ErrCode
+            Label1.Caption = Replace(strReport, "{0}", lngRecordUp)
+        End If
+    End If
+    
+    Exit Sub
+ErrCode:
+    ToolErr.UbsErrMsg "UbsChnlAsync_Notice", "ошибка выполнения"
+End Sub
+
+Private Sub Browse_Click()
+  CommonDlg.CancelError = True
+On Error GoTo ErrCode
+  
+  If FlInOut = "In" Then
+    CommonDlg.InitDir = PathFile.Text
+    CommonDlg.ShowOpen
+    PathFile.Text = CommonDlg.FileName
+    ' если файл выбран
+    If Len(Trim(PathFile.Text)) > 0 Then Go.SetFocus
+  Else
+    PathFile.Text = UbsFile.SelectFolder(UserDocument.hWnd, LabelFile.Caption, PathFile.Text)
+  End If
+  Exit Sub
+  
+ErrCode:
+  Exit Sub
+End Sub
+
+Private Sub cmbProc_Click()
+    Dim i As Integer
+    Dim ArrPath As Variant
+    ' Дорофеев Ю.
+
+    If IdProcessing <> CLng(cmbProc.ItemData(cmbProc.ListIndex)) Then
+        ' обновления пути к файлу в зависимости от настроек ПЦ
+        If Not IsEmpty(ArrProcPath) Then
+            For i = 0 To UBound(ArrProcPath, 2)
+                If CLng(cmbProc.ItemData(cmbProc.ListIndex)) = ArrProcPath(0, i) Then
+                    ArrPath = ArrProcPath(1, i)
+                    PathFile.Text = GetSettingFilePath(strPathFile, ArrPath, User.Division)
+                End If
+            Next
+        End If
+        IdProcessing = CLng(cmbProc.ItemData(cmbProc.ListIndex))
+    End If
+End Sub
+
+Private Sub cmdExit_Click()
+On Error GoTo ErrorCode
+
+If blnRespond Then
+   Dim x As Integer
+   For x = 0 To UbsChnlAsync.UBound()
+       UbsChnlAsync(x).StopRun
+   Next
+                  
+   While blnRespond
+         DoEvents
+   Wend
+End If
+Parent.CloseWindow NumWin
+
+Exit Sub
+
+ErrorCode:
+  ToolErr.UbsErrMsg "cmdExit_Click", "ошибка выполнения"
+End Sub
+
+Private Sub Go_Click()
+
+    Dim nNameGo As String
+    Dim datOperDay As Date
+
+On Error GoTo ErrorCode
+
+    IdFile = 0
+    ' отчет об обработанных
+    lngRecordCounter = 0
+    lngRecordUp = 0
+    Label1.Caption = "Обработано 0 сообщений из 0"
+    strImportReport = ""
+
+nNameGo = Go.Caption
+Call SetButtonGoAndcmdExit("Подождите...", False)
+  
+    If RTrim(PathFile.Text) = "" Then
+        MsgBox "Не установлено имя файла", , "Ошибка"
+        Call SetButtonGoAndcmdExit(nNameGo, True)
+        PathFile.SetFocus
+        Exit Sub
+    End If
+    If DateOper.Visible Then
+        If DateOper.DateValue = #1/1/2222# Then
+            MsgBox "Не установлена дата загрузки", , "Ошибка"
+            Call SetButtonGoAndcmdExit(nNameGo, True)
+            DateOper.SetFocus
+            Exit Sub
+        End If
+        
+        datOperDay = User.CommonDate("Операционный день PLCARD")
+        If DateOper.DateValue > datOperDay Then
+            MsgBox "Дата проведения " & DateOper.DateValue & " больше даты операционного дня PLCARD " & datOperDay & ".", , "Ошибка"
+            Call SetButtonGoAndcmdExit(nNameGo, True)
+            DateOper.SetFocus
+            Exit Sub
+        End If
+    End If
+  
+  UserDocument.MousePointer = 11
+  
+  If SID_Action = "" Then
+    ScriptRunner.Read SID_Script
+  Else
+    ScriptRunner.ReadAction SID_Action
+  End If
+  
+  ScriptRunner.ClearParameters
+  
+  If DateOper.Visible Then ScriptRunner.Parameter("DateOper") = DateOper.DateValue
+  
+  If FlInOut <> "In" Then
+    If PathFile.Text <> "" Then
+      PathFile.Text = UbsFile.BuildPath(PathFile.Text, "")
+    End If
+  End If
+    
+  ScriptRunner.Parameter("PathFile") = PathFile.Text
+  
+  ScriptRunner.Parameter("StrCommand") = StrCommand
+  
+  If Not IsEmpty(ArrayParams) Then
+    ScriptRunner.Parameter("ArrayParams") = ArrayParams
+  End If
+  
+  ScriptRunner.Parameter("KeyArray") = ItemArray
+  ScriptRunner.Parameter("UbsUser") = User
+  
+  If cmbProc.Visible Then
+    ScriptRunner.Parameter("IdProcessing") = cmbProc.ItemData(cmbProc.ListIndex)
+  End If
+  If cbMode.Visible Then
+    ScriptRunner.Parameter("FormMode") = cbMode.Text
+  End If
+  
+  Dim b As Boolean
+
+    If NameFunction = "" Then
+        If SID_Action = "" Then
+            ScriptRunner.ExecuteScript
+        Else
+            ScriptRunner.ExecuteAction
+        End If
+    Else
+        ScriptRunner.Run NameFunction
+    End If
+
+    If Not CBool(ScriptRunner.Parameter("ResultReport")) Or Not blnUseAsyncChnls Then
+        If Not CBool(ScriptRunner.Parameter("NotShowReport")) Then
+            Set WaitBox = CreateObject("UbsWait.UbsWaitBox")
+            WaitBox.WriteLine = ScriptRunner.Parameter("StrReport")
+            WaitBox.MaximizeView
+            WaitBox.ViewFile
+            Set WaitBox = Nothing
+        End If
+        UserDocument.MousePointer = 0
+        NeedRefresh = True
+        Call SetButtonGoAndcmdExit(nNameGo, True)
+        Exit Sub
+    End If
+    
+    strImportReport = Trim(ScriptRunner.Parameter("ReportImport_Async"))
+
+    '================= Для обработки операций в несколько (от 1-7) потоков
+    ' На данный момент ТОЛЬКО для режима "Загрузка файла с операциями из процессинга"
+    If blnUseAsyncChnls Then
+        Dim varDataOper: varDataOper = ScriptRunner.Parameter("varDataOper")
+        IdFile = ScriptRunner.Parameter("IdFile")
+       
+        Dim v
+        ' --- (108103) ---
+        'ScriptRunner.Parameter("varDataOper") ' Массив операций уже там
+        ScriptRunner.Parameter("nParts") = nCountChanel
+        ScriptRunner.Run "SplitOperArray"
+        v = ScriptRunner.Parameter("arrResult")
+    ' --- (108103) ---
+       
+       If Not IsEmpty(varDataOper) Then
+          Dim N As Integer
+           
+            objInParam.Parameter("IdFile") = IdFile
+            objInParam.Parameter("State") = 255
+            Call UbsChannel.Run("PCPRCFile_SetStateParam", objInParam, objOutParam)
+          
+            lngRecordCounter = UBound(varDataOper, 2) + 1
+            Label1.Caption = "Обработано 0 сообщений из 0"
+          
+            ' --- (108103) ---
+            'Call objArray.SplitArray(nCountChanel, varDataOper, v) '
+          
+            blnRespond = True
+            arrFileNameServer = Array("", "", "", "", "", "", "")
+          
+            For N = 0 To UBound(v)
+                If IsArray(v(N)) Then
+                    objInParam.Parameter("RS") = v(N)
+                    objInParam.Parameter("Номер канала") = N
+                    objInParam.Parameter("DateOper") = DateOper.DateValue
+                    objInParam.Parameter("IdFile") = IdFile
+                    objInParam.ClearParameter "ReportError"
+                 
+                    UbsChnlAsync(N).UnLoadResource
+                    UbsChnlAsync(N).HostAddress = Parent.LoaderParamInfo(NumWin, "HostAddress")
+                    UbsChnlAsync(N).UserGUID = Parent.LoaderParamInfo(NumWin, "GuidSession")
+                    UbsChnlAsync(N).FormatParamOut = "XML"
+                    UbsChnlAsync(N).FormatParamIn = "XML"
+                    UbsChnlAsync(N).ServerNotice = True
+                 
+                    UbsChnlAsync(N).Tag = "Активный"
+                    lblChannelInfo(N).BackColor = RGB(22, 181, 214)
+                 
+                    UbsChnlAsync(N).LoadResource = "VBS:UBS_VBS\PLCARD\OPENWAY\PCFileOperOW.vbs"
+                    UbsChnlAsync(N).RunAsync "ProcessOperationsOfProcessing_Async", objInParam
+                End If
+            Next
+       
+            Go.Caption = "Обработка операций..."
+            Go.Enabled = False
+            cmdExit.Caption = "Отмена"
+       Else
+            Call SetButtonGoAndcmdExit(nNameGo, True)
+            If strImportReport <> "" Then strImportReport = strImportReport & vbNewLine
+            strImportReport = strImportReport & "Данных для обработки нет!"
+            
+            Set WaitBox = CreateObject("UbsWait.UbsWaitBox")
+            WaitBox.WriteLine = strImportReport
+            WaitBox.MaximizeView
+            WaitBox.ViewFile
+            Set WaitBox = Nothing
+       End If
+    End If
+    '=========================================================
+  
+    UserDocument.MousePointer = 0
+    NeedRefresh = True
+Exit Sub
+
+ErrorCode:
+  UserDocument.MousePointer = 0
+  ToolErr.UbsErrMsg "Go_Click", "ошибка выполнения"
+  UbsChannel.NumFrame = 0
+  Call SetButtonGoAndcmdExit(nNameGo, True)
+End Sub
+Sub SetButtonGoAndcmdExit(ByVal NameButtonGo As String, ByVal bEnable As Boolean)
+    Go.Caption = NameButtonGo
+    Go.Enabled = bEnable
+    cmdExit.Enabled = bEnable
+    Browse.Enabled = bEnable
+End Sub
+
+Private Property Get UBSChild_ActualParameter() As Variant
+End Property
+
+Private Property Get UBSChild_Height() As Integer
+  UBSChild_Height = UserDocument.MinHeight
+End Property
+
+Private Property Let UBSChild_HeightBrowser(ByVal RHS As Variant)
+
+End Property
+
+Private Property Get UBSChild_ImageList(Key As String) As Object
+  Key = "PROCESS"
+End Property
+
+Private Property Get UBSChild_IsExistParam(ByVal NameParam As String) As Boolean
+  Dim ss As Variant
+  UBSChild_IsExistParam = False
+  For Each ss In ArrParam
+    If ss = NameParam Then
+      UBSChild_IsExistParam = True
+      Exit For
+    End If
+  Next
+End Property
+
+Private Sub UBSChild_NotifyCloseWindow(ByVal NumWindow As Integer)
+    If NumWindow = NumCallWindow Then
+        CallWindowClose = True
+        If FixMyWindow = False Then
+            cmdExit_Click
+        End If
+    End If
+End Sub
+
+Private Sub UBSChild_NotifyFixWindow(ByVal NumWindow As Variant, ByVal FixState As Boolean)
+  If NumWindow = NumWin Then
+    FixMyWindow = FixState
+  End If
+End Sub
+
+Private Property Let UBSChild_NumWindow(ByVal RHS As Integer)
+  NumWin = RHS
+End Property
+
+Private Property Let UBSChild_ParamInfo(ByVal NameParam As String, ByVal RHS As Variant)
+On Error GoTo ErrorCode
+  Select Case NameParam
+    Case "LoadFromMenu"
+      Initialize
+      NumCallWindow = 0
+      ItemArray = Empty
+      StrCommand = RHS
+      InitFile
+      Parent.WindowDraw(NumWin) = True
+      ToolPubs.NextCtrl
+      ToolPubs.PrevCtrl
+      cmbProc.SetFocus
+      Exit Property
+    Case "InitParamForm"
+      Initialize
+      NumCallWindow = RHS(0)
+      ItemArray = RHS(1)
+      StrCommand = RHS(2)
+      InitFile
+      Parent.WindowDraw(NumWin) = True
+      ToolPubs.NextCtrl
+      ToolPubs.PrevCtrl
+      PathFile.SetFocus
+      Exit Property
+    Case Else
+      ToolErr.UbsErrRaise "UBSChild_ParamInfo", "Параметр " & NameParam & " не поддерживается"
+  End Select
+
+ErrorCode:
+
+    ToolErr.UbsErrMsg "UBSChild_ParamInfo", "ошибка выполнения"
+    UbsChannel.NumFrame = 0
+    Parent.CloseWindow NumWin
+End Property
+
+Private Property Get UBSChild_ParamInfo(ByVal NameParam As String) As Variant
+  If NameParam = "WaitShow" Then
+    UBSChild_ParamInfo = True
+  End If
+End Property
+
+Private Property Let UBSChild_Parrent(ByVal RHS As Object)
+  Set Parent = RHS
+End Property
+
+Private Property Let UBSChild_RunParameter(ByVal RHS As String)
+
+End Property
+
+Private Property Get UBSChild_Sizable() As Boolean
+  UBSChild_Sizable = False
+End Property
+
+Private Property Get UBSChild_TitleWindow() As String
+  UBSChild_TitleWindow = "Работа с файлом"
+End Property
+
+Private Property Get UBSChild_Width() As Integer
+  UBSChild_Width = UserDocument.MinWidth
+End Property
+
+Private Property Let UBSChild_WidthBrowser(ByVal RHS As Variant)
+
+End Property
+
+Private Sub InitFile()
+Dim j, arrSetting
+On Error GoTo ErrorCode
+    
+    Set User = Parent.User
+    
+    If StrCommand = "PCFileInTransactionsExportOws" Then
+       ' =========== Читаем кол-во потоков 28/05/08
+        arrSetting = User.ReadSetting("Пластиковые карты", "Количество потоков")
+        nCountChanel = 0
+        If IsArray(arrSetting) Then
+            For j = 0 To UBound(arrSetting, 2)
+                If CStr(arrSetting(0, j)) = CStr("Обработка операций из ПЦ") Then
+                    nCountChanel = arrSetting(1, j)
+                End If
+            Next
+            If nCountChanel = 0 Then
+                MsgBox "Неправильно настроена установка 'Количество потоков' для операции 'Обработка операций из ПЦ'", vbCritical, "Ошибка!"
+                Parent.CloseWindow NumWin
+                Exit Sub
+            End If
+        Else
+            MsgBox "Не найдена установка 'Количество потоков'", vbCritical, "Ошибка!"
+            Parent.CloseWindow NumWin
+            Exit Sub
+        End If
+       If nCountChanel < 1 Then nCountChanel = 1
+       If nCountChanel > 7 Then nCountChanel = 7
+    
+       For j = 0 To 6
+           If lblChannelInfo(j).Index <= nCountChanel - 1 Then
+              lblChannelInfo(j).Visible = True
+           Else
+              lblChannelInfo(j).Visible = False
+           End If
+       Next
+       blnUseAsyncChnls = True
+    Else
+       lblChannel.Visible = False
+       Label1.Visible = False
+       blnUseAsyncChnls = False
+       For j = 0 To lblChannelInfo().UBound
+           lblChannelInfo(j).Visible = False
+       Next
+    End If
+    '=========================================
+
+    Set ScriptRunner = CreateObject("URunScr.IUbsRunScript")
+    
+    UbsChannel.HostAddress = Parent.LoaderParamInfo(NumWin, "HostAddress")
+    UbsChannel.UserGUID = Parent.LoaderParamInfo(NumWin, "GuidSession")
+    'UbsChannel.LoadResource = "VBS:UBS_VBS\SYSTEM\Empty.vbs"
+    UbsChannel.LoadResource = "VBS:UBS_VBS\PLCARD\Processing\PCPRCFile.vbs"
+    UbsChannel.FormatParamIn = "XML"
+    UbsChannel.FormatParamOut = "XML"
+  
+    ScriptRunner.UbsUser = User
+    ScriptRunner.DataAccess = User.CreateObject("UbsDataAccess")
+    ScriptRunner.UbsChannel = UbsChannel
+    
+    'If blnUseAsyncChnls Then Call InitChannelAsync("VBS:UBS_VBS\PLCARD\OPENWAY\PCFileOperOW.vbs", nCountChanel, Parent, NumWin, UbsChnlAsync)
+    
+    DateOper.DateValue = User.CommonDate("Server")
+    
+    Dim ArrStr As Variant
+    Dim NameScript As String
+  
+    NameScript = "UBS_PLCARD_FILE_INP_OUT_INIT"
+    
+    ArrStr = Split(StrCommand, ",")
+    
+    If IsEmpty(ArrStr) Then
+        ToolErr.UbsErrRaise "InitFile", "Параметр запуска действия не определен"
+        Exit Sub
+    End If
+    If UBound(ArrStr) > 0 Then
+        If Trim(ArrStr(1)) <> "" Then
+          NameScript = Trim(ArrStr(1))
+        End If
+    End If
+    ScriptRunner.ReadAction NameScript
+
+    ScriptRunner.ClearParameters
+    ScriptRunner.Parameter("StrCommand") = Trim(ArrStr(0))
+
+    ScriptRunner.ExecuteAction
+
+    If ScriptRunner.Parameter("InOut") = "" Then
+        ToolErr.UbsErrRaise "InitFile", ""
+        Exit Sub
+    End If
+
+    If ScriptRunner.Parameter("InOut") = "In" Then
+        LabelFile.Caption = ScriptRunner.Parameter("LabelFile")
+        LabelDate.Caption = ScriptRunner.Parameter("LabelDate")
+        Go.Caption = "Загрузить"
+        FlInOut = "In"
+    Else
+        LabelFile.Caption = ScriptRunner.Parameter("LabelFile")
+        LabelDate.Caption = ScriptRunner.Parameter("LabelDate")
+        Go.Caption = "Выгрузить"
+        FlInOut = "Out"
+    End If
+    If ScriptRunner.Parameter("NeedDateOper") = True Then
+        LabelDate.Visible = True
+        DateOper.Visible = True
+    Else
+        LabelDate.Visible = False
+        DateOper.Visible = False
+    End If
+    If ScriptRunner.Parameter("ArrayParams") = "UBS_VBS_PLCARD_FILE_OUT_SRV_2" Then
+        Label1.Visible = False
+        lbMode.Visible = True
+        cbMode.Visible = True
+        cbMode.Clear
+        cbMode.AddItem "Все операции"
+        cbMode.AddItem "Операции создания новых карт, включая срочное создание"
+        cbMode.AddItem "Операции срочного создания новых карт"
+        cbMode.ListIndex = 0
+    End If
+    
+    SID_Action = ScriptRunner.Parameter("SID_Action")
+    SID_Script = ScriptRunner.Parameter("SID_Script")
+    NameFunction = ScriptRunner.Parameter("NameFunction")
+    ArrayParams = Empty
+    If ScriptRunner.ExistParameter("ArrayParams") Then
+      ArrayParams = ScriptRunner.Parameter("ArrayParams")
+    End If
+  
+    ' Дорофеев Ю.
+    Dim i As Integer
+    Dim arrProc As Variant
+    arrProc = ScriptRunner.Parameter("ProcList")
+    ArrProcPath = ScriptRunner.Parameter("FileOutInPath")
+
+    cmbProc.AddItem "(по умолчанию)"
+    cmbProc.ItemData(cmbProc.NewIndex) = 0
+    cmbProc.ListIndex = 0
+    
+    If IsArray(arrProc) Then
+        For i = 0 To UBound(arrProc, 2)
+            cmbProc.AddItem arrProc(1, i)
+            cmbProc.ItemData(cmbProc.NewIndex) = arrProc(0, i)
+        Next
+    End If
+    
+    Dim Setup As Object
+    Dim ArrPath As Variant
+    
+    Set Setup = User.CreateObject("UbsSetup")
+    Setup.UbsUser = User
+    ' по умолчанию грузим нулевой процессинг
+    ArrPath = Setup.ReadSetting("Пластиковые карты", "Прием и выгрузка файлов", 1, "SS")
+
+    strPathFile = ScriptRunner.Parameter("SetupPathFile")
+    PathFile.Text = GetSettingFilePath(strPathFile, ArrPath, User.Division)
+    
+    If IsEmpty(ArrProcPath) Then
+        If Not IsEmpty(ArrPath) Then ReDim ArrProcPath(1, 0)
+    Else
+        If Not IsEmpty(ArrPath) Then ReDim Preserve ArrProcPath(1, UBound(ArrProcPath, 2) + 1)
+    End If
+    
+    If Not IsEmpty(ArrProcPath) Then
+        ArrProcPath(0, UBound(ArrProcPath, 2)) = 0
+        ArrProcPath(1, UBound(ArrProcPath, 2)) = ArrPath
+    End If
+
+    CommonDlg.InitDir = PathFile.Text
+    Set Setup = Nothing
+
+    Exit Sub
+ErrorCode:
+    ToolErr.UbsErrMsg "UBSChild_ParamInfo", "ошибка выполнения"
+    UbsChannel.NumFrame = 0
+    Parent.CloseWindow NumWin
+End Sub
+
+'Private Sub UbsChnlAsync_Respond_OLD(Index As Integer, ByVal LastRespond As Boolean, OutParams As Object)
+'    Dim bIsOk As Boolean
+'    Dim c As Integer
+'
+'On Error GoTo ErrorCode
+'
+'    If OutParams.ExistParameter("ReportError") Then
+'        ' на случай глобальных ошибок
+'        MsgBox OutParams.Parameter("ReportError"), vbCritical, "Ошибка!"
+'        cmdExit.Caption = "Выход"
+'        For c = 0 To lblChannelInfo().UBound
+'            lblChannelInfo(c).BackColor = Go.BackColor
+'        Next
+'        Call SetButtonGoAndcmdExit("Загрузка!", True)
+'        blnRespond = False
+'        ClientFileName = ""
+'    Else
+'        Dim objFile As Object
+'        Dim SrvFileNameFull As String, SrvFileName As String, ClientFileNameTmp As String
+'        Dim nPos As Long
+'        Set objFile = CreateObject("Lib1.IUbsFile") ' промежуточные файлы
+'        Set WaitBox = CreateObject("UbsWait.UbsWaitBox")
+'
+'        ' Создаю один файл на клиенте(итоговый)
+'        If ClientFileName = "" Then
+'            ClientFileName = UbsFile.GetTempFile
+'            If Not UbsFile.OpenTextFile(ClientFileName, False) Then
+'                MsgBox "Файл-протокол " & ClientFileName & " не открыт на запись", vbCritical, "Ошибка!"
+'                Exit Sub
+'            End If
+'        End If
+'
+'        SrvFileNameFull = OutParams.Parameter("Имя файла")
+'
+'        nPos = InStrRev(SrvFileNameFull, "\")
+'        If nPos <> 0 Then
+'            SrvFileName = Right(SrvFileNameFull, Len(SrvFileNameFull) - nPos)
+'        Else
+'            SrvFileName = SrvFileNameFull
+'        End If
+'
+'        ClientFileNameTmp = UbsFile.GetTempFile
+'        objFile.DeleteFile ClientFileNameTmp
+'
+'        ' копируем файл-отчет на клиент
+'        UbsChannel.GetFile ClientFileNameTmp, "Temp", SrvFileName
+'
+'        ' удаляем файл с сервера
+'        objInParam.Parameter("VirtualFolder") = "Temp"
+'        objInParam.Parameter("ServerFile") = SrvFileName
+'        UbsChannel.Run "DeleteServerFileExStub", objInParam, objOutParam
+'
+'        ' пишу в итоговый
+'        If strImportReport <> "" Then
+'            UbsFile.WriteLine strImportReport
+'            strImportReport = ""
+'        End If
+'        UbsFile.WriteLine objFile.ReadAll(ClientFileNameTmp)
+'
+'        objFile.CloseFile
+'        objFile.DeleteFile ClientFileNameTmp
+'
+'        bIsOk = True
+'
+'        lblChannelInfo(Index).BackColor = RGB(255, 255, 255)
+'
+'        UbsChnlAsync(Index).Tag = ""
+'        For c = 0 To UbsChnlAsync.UBound()
+'            If UbsChnlAsync(c).Tag <> "" Then bIsOk = False
+'        Next
+'
+'        If bIsOk Then
+'            objInParam.Parameter("IdFile") = IdFile
+'            objInParam.Parameter("State") = 0
+'            Call UbsChannel.Run("PCPRCFile_SetStateParam", objInParam, objOutParam)
+'
+'            UbsFile.CloseFile
+'            WaitBox.FileName = ClientFileName
+'            cmdExit.Caption = "Выход"
+'            Call SetButtonGoAndcmdExit("Загрузка!", True)
+'            For c = 0 To lblChannelInfo().UBound
+'                lblChannelInfo(c).BackColor = Go.BackColor
+'            Next
+'            WaitBox.MaximizeView
+'            WaitBox.ViewFile
+'            blnRespond = False
+'            Set WaitBox = Nothing
+'
+'            UbsFile.DeleteFile ClientFileName
+'            ClientFileName = ""
+'        End If
+'    End If
+'
+'    Exit Sub
+'
+'ErrorCode:
+'    ToolErr.UbsErrMsg "UbsChnlAsync_Respond", "ошибка выполнения"
+'End Sub
+
+Private Sub UbsChnlAsync_Respond(Index As Integer, ByVal LastRespond As Boolean, OutParams As Object)
+    Dim FileNameServer As String
+    Dim nPos As Long
+    Dim bIsOk As Boolean
+    Dim i
+    
+    On Error GoTo ErrorCode
+    
+    If OutParams.ExistParameter("ReportError") Then
+        ' на случай глобальных ошибок
+        MsgBox OutParams.Parameter("ReportError"), vbCritical, "Ошибка!"
+        cmdExit.Caption = "Выход"
+        lblChannelInfo(Index).BackColor = Go.BackColor
+        Call SetButtonGoAndcmdExit("Загрузка!", True)
+    Else
+        FileNameServer = OutParams.Parameter("Имя файла")
+        nPos = InStrRev(FileNameServer, "\")
+        If nPos <> 0 Then arrFileNameServer(Index) = Right(FileNameServer, Len(FileNameServer) - nPos) Else arrFileNameServer(Index) = FileNameServer
+        lblChannelInfo(Index).BackColor = RGB(255, 255, 255)
+    End If
+    UbsChnlAsync(Index).Tag = ""
+
+    bIsOk = True
+    For i = 0 To UbsChnlAsync.UBound()
+        If UbsChnlAsync(i).Tag <> "" Then bIsOk = False
+    Next
+
+    If bIsOk Then
+        DoAsincReport
+    
+        Call SetButtonGoAndcmdExit("Загрузка!", True)
+        For i = 0 To lblChannelInfo().UBound
+            lblChannelInfo(i).BackColor = Go.BackColor
+        Next
+        cmdExit.Caption = "Выход"
+    
+        blnRespond = False
+    End If
+
+    Exit Sub
+
+ErrorCode:
+    ToolErr.UbsErrMsg "UbsChnlAsync_Respond", "ошибка выполнения"
+End Sub
+
+Private Sub DoAsincReport()
+    Dim ClientFileName As String, ClientFileNameTmp As String
+    Dim objFile As Object
+    Dim i
+    
+    On Error GoTo ErrCode
+    
+    UbsChannel.NumFrame = 0
+    UbsChannel.LoadResource = "VBS:UBS_VBS\PLCARD\Processing\PCPRCFile.vbs"
+    
+    ' Запись о загруженном файле в состояние "Обработан"
+    objInParam.Parameter("IdFile") = IdFile
+    objInParam.Parameter("State") = 0
+    Call UbsChannel.Run("PCPRCFile_SetStateParam", objInParam, objOutParam)
+
+    For i = 0 To UBound(arrFileNameServer, 1)
+        If Trim(arrFileNameServer(i)) <> "" Then
+            If ClientFileName = "" Then
+                ' Создаем один файл на клиенте(итоговый)
+                ClientFileName = UbsFile.GetTempFile
+                If Not UbsFile.OpenTextFile(ClientFileName, False) Then
+                    MsgBox "Файл-протокол " & ClientFileName & " не открыт на запись", vbCritical, "Ошибка!"
+                    Exit Sub
+                End If
+            End If
+                
+            ' Получаем имя временного файла
+            ClientFileNameTmp = UbsFile.GetTempFile
+            UbsFile.DeleteFile ClientFileNameTmp
+            ' копируем на клиент файл-отчет канала i
+            UbsChannel.GetFile ClientFileNameTmp, "Temp", arrFileNameServer(i)
+            ' удаляем файл-отчет канала i с сервера
+            objInParam.Parameter("VirtualFolder") = "Temp"
+            objInParam.Parameter("ServerFile") = arrFileNameServer(i)
+            UbsChannel.Run "DeleteServerFileExStub", objInParam, objOutParam
+            ' пишу в итоговый файл протокол импорта
+            If strImportReport <> "" Then
+                UbsFile.WriteLine strImportReport
+                strImportReport = ""
+            End If
+            ' пишу в итоговый протокол канала i
+            If objFile Is Nothing Then Set objFile = CreateObject("Lib1.IUbsFile")
+            UbsFile.WriteLine objFile.ReadAll(ClientFileNameTmp)
+            UbsFile.DeleteFile ClientFileNameTmp
+        End If
+    Next
+   
+    ' Если была запись в файл ...
+    If ClientFileName <> "" Then
+        UbsFile.CloseFile
+    
+        Set WaitBox = CreateObject("UbsWait.UbsWaitBox")
+        WaitBox.FileName = ClientFileName
+        WaitBox.MaximizeView
+        WaitBox.ViewFile
+        Set WaitBox = Nothing
+     
+        UbsFile.DeleteFile ClientFileName
+    End If
+    
+    Exit Sub
+    
+ErrCode:
+    ToolErr.UbsErrMsg "DoAsincReport", "ошибка выполнения"
+End Sub
+
+Private Sub UserDocument_Hide()
+       
+    If blnRespond Then
+        Dim k
+        
+        For k = 0 To UbsChnlAsync.UBound()
+            UbsChnlAsync(k).StopRun
+        Next
+        
+        While blnRespond
+            DoEvents
+        Wend
+        
+        For k = 0 To UbsChnlAsync.UBound()
+            UbsChnlAsync(k).UnLoadResource
+        Next
+    End If
+    UbsChannel.UnLoadResource
+    ScriptRunner.Clear
+         
+    Set User = Nothing
+    Set ToolPubs = Nothing
+    Set ToolErr = Nothing
+    Set UbsFile = Nothing
+    Set ScriptRunner = Nothing
+    Set objInParam = Nothing
+    Set objOutParam = Nothing
+    Set WaitBox = Nothing
+  
+  If CallWindowClose = False Then
+    Dim NeedRefreshGrid As Variant
+    NeedRefreshGrid = NeedRefresh
+    If NumCallWindow <> 0 Then
+      If Parent.IsExistParam(NumCallWindow, "NeedRefreshGrid") Then
+        Parent.ParamInfo(NumCallWindow, "NeedRefreshGrid") = NeedRefreshGrid
+      End If
+    End If
+  End If
+End Sub
+
+Private Sub UserDocument_Initialize()
+    ReDim ArrParam(2)
+    ArrParam(0) = "WaitShow"
+    ArrParam(1) = "InitParamGrid"
+    ArrParam(2) = "LoadFromMenu"
+    IdProcessing = 0
+  
+    Label1.Caption = ""
+End Sub
+
+Private Sub Initialize()
+    NeedRefresh = False
+    CallWindowClose = False
+    Set ToolPubs = CreateObject("ToolPubs.Interfaces")
+    Set ToolErr = CreateObject("ToolPubs.IUbsError")
+    Set UbsFile = CreateObject("Lib1.IUbsFile")
+    Set objInParam = CreateObject("Lib2.IUbsParam")
+    Set objOutParam = CreateObject("Lib2.IUbsParam")
+    Set objArray = CreateObject("Lib1.IUbsArray")
+    
+End Sub
+
+
+Private Sub UserDocument_KeyPress(KeyAscii As Integer)
+On Error GoTo ErrorCode
+
+  Select Case (KeyAscii)
+    Case 13
+      KeyAscii = Asc(Chr(0))
+      If UserDocument.ActiveControl.Name = "PathFile" And Len(Trim(PathFile.Text)) > 0 Then
+         Go.SetFocus
+      Else
+         ToolPubs.NextCtrl
+      End If
+    Case 27
+      KeyAscii = Asc(Chr(0))
+      ToolPubs.PrevCtrl
+  End Select
+  Exit Sub
+
+ErrorCode:
+  ToolErr.UbsErrMsg "UserDocument_KeyPress", "ошибка выполнения"
+
+End Sub

@@ -8,6 +8,7 @@ namespace UbsBusiness
 
         private const int BasicCurrency = 810;
 
+        private const string MsgAccountNotSelected = "Не выбран счёт!";
         private const string MsgContractNotSelected = "Не выбран договор!";
         private const string MsgFrameContractNotSelected = "Не выбран рамочный договор!";
         private const string MsgRateTypesParameterMissing = "Параметр <Список типов процентных ставок> отсутствует.";
@@ -60,7 +61,7 @@ namespace UbsBusiness
 
         private const string BusinessCode = "BG";
 
-        private const string PartA = "A";
+        private const string PartA = "А";
         private const string PartB = "В";
 
         private const string AddByFrameContrantCommand = "ADD_BY_FRAME_CONTRACT";
@@ -72,7 +73,7 @@ namespace UbsBusiness
         private const string ActionUbsBgListModel = "UBS_BG_LIST_MODEL";
         private const string ActionUbsBgListAgent = "UBS_BG_LIST_AGENT";
         private const string ActionUbsCommonListClient = "UBS_COMMON_LIST_CLIENT";
-        private const string ActionUbsBgListContract = "UBS_BG_LIST_CONTRACT";
+        private const string ActionUbsBgListContract = "UBS_BG_LIST_GUARANT";
         private const string ActionUbsBgGuarListContract = "UBS_BG_GUAR_LIST_CONTRACT";
         private const string ActionUbsGuarOperationList = "UBS_GUAR_LIST_OPERATION_LOG";
         private const string ActionUbsOdListAccount0 = "UBS_OD_LIST_ACCOUNT0";

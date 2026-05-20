@@ -305,7 +305,7 @@ namespace UbsBusiness
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(633, 689);
-            this.tabControl.TabIndex = 101;
+            this.tabControl.TabIndex = 1;
             this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
             // 
             // tabPage1
@@ -391,6 +391,7 @@ namespace UbsBusiness
             this.txtPreviousContract.ReadOnly = true;
             this.txtPreviousContract.Size = new System.Drawing.Size(444, 20);
             this.txtPreviousContract.TabIndex = 34;
+            this.txtPreviousContract.TabStop = false;
             // 
             // linkPreviousContract
             // 
@@ -736,6 +737,7 @@ namespace UbsBusiness
             this.txtGarant.ReadOnly = true;
             this.txtGarant.Size = new System.Drawing.Size(438, 20);
             this.txtGarant.TabIndex = 7;
+            this.txtGarant.TabStop = false;
             // 
             // linkGarant
             // 
@@ -755,6 +757,7 @@ namespace UbsBusiness
             this.txtBeneficiar.ReadOnly = true;
             this.txtBeneficiar.Size = new System.Drawing.Size(318, 20);
             this.txtBeneficiar.TabIndex = 4;
+            this.txtBeneficiar.TabStop = false;
             // 
             // linkBeneficiar
             // 
@@ -793,6 +796,7 @@ namespace UbsBusiness
             this.txtPrincipal.ReadOnly = true;
             this.txtPrincipal.Size = new System.Drawing.Size(438, 20);
             this.txtPrincipal.TabIndex = 2;
+            this.txtPrincipal.TabStop = false;
             // 
             // linkPrincipal
             // 
@@ -812,6 +816,7 @@ namespace UbsBusiness
             this.transAmount.ReadOnly = true;
             this.transAmount.Size = new System.Drawing.Size(106, 20);
             this.transAmount.TabIndex = 23;
+            this.transAmount.TabStop = false;
             this.transAmount.Text = "0";
             // 
             // label6
@@ -829,6 +834,7 @@ namespace UbsBusiness
             this.paidAmount.ReadOnly = true;
             this.paidAmount.Size = new System.Drawing.Size(100, 20);
             this.paidAmount.TabIndex = 21;
+            this.paidAmount.TabStop = false;
             this.paidAmount.Text = "0";
             // 
             // costAmount
@@ -838,6 +844,7 @@ namespace UbsBusiness
             this.costAmount.ReadOnly = true;
             this.costAmount.Size = new System.Drawing.Size(100, 20);
             this.costAmount.TabIndex = 17;
+            this.costAmount.TabStop = false;
             this.costAmount.Text = "0";
             // 
             // label4
@@ -856,6 +863,7 @@ namespace UbsBusiness
             this.dateAdjustment.ReadOnly = true;
             this.dateAdjustment.Size = new System.Drawing.Size(100, 20);
             this.dateAdjustment.TabIndex = 19;
+            this.dateAdjustment.TabStop = false;
             this.dateAdjustment.Text = "  .  .    ";
             this.dateAdjustment.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -883,6 +891,7 @@ namespace UbsBusiness
             this.dateReward.ReadOnly = true;
             this.dateReward.Size = new System.Drawing.Size(100, 20);
             this.dateReward.TabIndex = 15;
+            this.dateReward.TabStop = false;
             this.dateReward.Text = "  .  .    ";
             this.dateReward.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -923,6 +932,7 @@ namespace UbsBusiness
             this.dateAgent.ReadOnly = true;
             this.dateAgent.Size = new System.Drawing.Size(100, 20);
             this.dateAgent.TabIndex = 12;
+            this.dateAgent.TabStop = false;
             this.dateAgent.Text = "  .  .    ";
             this.dateAgent.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -958,6 +968,7 @@ namespace UbsBusiness
             this.txtAgent.ReadOnly = true;
             this.txtAgent.Size = new System.Drawing.Size(175, 20);
             this.txtAgent.TabIndex = 8;
+            this.txtAgent.TabStop = false;
             // 
             // cmbKindGarant
             // 
@@ -984,6 +995,7 @@ namespace UbsBusiness
             this.txtModel.ReadOnly = true;
             this.txtModel.Size = new System.Drawing.Size(473, 20);
             this.txtModel.TabIndex = 4;
+            this.txtModel.TabStop = false;
             // 
             // linkModel
             // 
@@ -1013,6 +1025,7 @@ namespace UbsBusiness
             this.txtFrameContract.ReadOnly = true;
             this.txtFrameContract.Size = new System.Drawing.Size(473, 20);
             this.txtFrameContract.TabIndex = 1;
+            this.txtFrameContract.TabStop = false;
             // 
             // linkFrameContract
             // 
@@ -1038,7 +1051,7 @@ namespace UbsBusiness
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(625, 663);
+            this.tabPage2.Size = new System.Drawing.Size(384, 215);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Риски";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1200,7 +1213,7 @@ namespace UbsBusiness
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(625, 663);
+            this.tabPage4.Size = new System.Drawing.Size(384, 215);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Ставки";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -1498,7 +1511,7 @@ namespace UbsBusiness
             // btnDelRate
             // 
             this.btnDelRate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelRate.Location = new System.Drawing.Point(540, 71);
+            this.btnDelRate.Location = new System.Drawing.Point(1022, 71);
             this.btnDelRate.Name = "btnDelRate";
             this.btnDelRate.Size = new System.Drawing.Size(82, 26);
             this.btnDelRate.TabIndex = 3;
@@ -1509,7 +1522,7 @@ namespace UbsBusiness
             // btnEditRate
             // 
             this.btnEditRate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEditRate.Location = new System.Drawing.Point(540, 39);
+            this.btnEditRate.Location = new System.Drawing.Point(1022, 39);
             this.btnEditRate.Name = "btnEditRate";
             this.btnEditRate.Size = new System.Drawing.Size(82, 26);
             this.btnEditRate.TabIndex = 2;
@@ -1520,7 +1533,7 @@ namespace UbsBusiness
             // btnAddRate
             // 
             this.btnAddRate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddRate.Location = new System.Drawing.Point(540, 7);
+            this.btnAddRate.Location = new System.Drawing.Point(1022, 7);
             this.btnAddRate.Name = "btnAddRate";
             this.btnAddRate.Size = new System.Drawing.Size(82, 26);
             this.btnAddRate.TabIndex = 1;
@@ -1534,7 +1547,7 @@ namespace UbsBusiness
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trvRates.Location = new System.Drawing.Point(9, 7);
             this.trvRates.Name = "trvRates";
-            this.trvRates.Size = new System.Drawing.Size(529, 138);
+            this.trvRates.Size = new System.Drawing.Size(1011, 138);
             this.trvRates.TabIndex = 0;
             this.trvRates.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trvRates_AfterSelect);
             // 
@@ -1548,7 +1561,7 @@ namespace UbsBusiness
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(625, 663);
+            this.tabPage5.Size = new System.Drawing.Size(384, 215);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Обеспечения";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -1556,7 +1569,7 @@ namespace UbsBusiness
             // btnListGuarantOperDog
             // 
             this.btnListGuarantOperDog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnListGuarantOperDog.Location = new System.Drawing.Point(541, 103);
+            this.btnListGuarantOperDog.Location = new System.Drawing.Point(1023, 103);
             this.btnListGuarantOperDog.Name = "btnListGuarantOperDog";
             this.btnListGuarantOperDog.Size = new System.Drawing.Size(82, 26);
             this.btnListGuarantOperDog.TabIndex = 4;
@@ -1567,7 +1580,7 @@ namespace UbsBusiness
             // btnInclude
             // 
             this.btnInclude.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnInclude.Location = new System.Drawing.Point(541, 71);
+            this.btnInclude.Location = new System.Drawing.Point(1023, 71);
             this.btnInclude.Name = "btnInclude";
             this.btnInclude.Size = new System.Drawing.Size(82, 26);
             this.btnInclude.TabIndex = 3;
@@ -1578,7 +1591,7 @@ namespace UbsBusiness
             // btnEditGuarant
             // 
             this.btnEditGuarant.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEditGuarant.Location = new System.Drawing.Point(541, 39);
+            this.btnEditGuarant.Location = new System.Drawing.Point(1023, 39);
             this.btnEditGuarant.Name = "btnEditGuarant";
             this.btnEditGuarant.Size = new System.Drawing.Size(82, 26);
             this.btnEditGuarant.TabIndex = 2;
@@ -1589,7 +1602,7 @@ namespace UbsBusiness
             // btnAddGuarant
             // 
             this.btnAddGuarant.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddGuarant.Location = new System.Drawing.Point(541, 7);
+            this.btnAddGuarant.Location = new System.Drawing.Point(1023, 7);
             this.btnAddGuarant.Name = "btnAddGuarant";
             this.btnAddGuarant.Size = new System.Drawing.Size(82, 26);
             this.btnAddGuarant.TabIndex = 1;
@@ -1611,7 +1624,7 @@ namespace UbsBusiness
             this.lvwGuarant.HideSelection = false;
             this.lvwGuarant.Location = new System.Drawing.Point(3, 3);
             this.lvwGuarant.Name = "lvwGuarant";
-            this.lvwGuarant.Size = new System.Drawing.Size(535, 660);
+            this.lvwGuarant.Size = new System.Drawing.Size(1017, 1556);
             this.lvwGuarant.TabIndex = 0;
             this.lvwGuarant.UseCompatibleStateImageBehavior = false;
             this.lvwGuarant.View = System.Windows.Forms.View.Details;
@@ -1638,7 +1651,7 @@ namespace UbsBusiness
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(625, 663);
+            this.tabPage6.Size = new System.Drawing.Size(384, 215);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Дополнительные свойства";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -1649,12 +1662,13 @@ namespace UbsBusiness
             this.ubsCtrlFields.Location = new System.Drawing.Point(3, 3);
             this.ubsCtrlFields.Name = "ubsCtrlFields";
             this.ubsCtrlFields.ReadOnly = false;
-            this.ubsCtrlFields.Size = new System.Drawing.Size(619, 657);
+            this.ubsCtrlFields.Size = new System.Drawing.Size(378, 209);
             this.ubsCtrlFields.TabIndex = 0;
             // 
             // UbsBgContractFrm
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(633, 721);
             this.Name = "UbsBgContractFrm";
             this.Text = "Шаблон формы";

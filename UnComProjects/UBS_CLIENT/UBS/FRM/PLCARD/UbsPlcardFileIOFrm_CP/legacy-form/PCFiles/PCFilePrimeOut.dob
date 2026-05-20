@@ -1,0 +1,298 @@
+VERSION 5.00
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
+Begin VB.UserDocument PCFilePrimeOut 
+   ClientHeight    =   1410
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   5910
+   HScrollSmallChange=   225
+   ScaleHeight     =   1410
+   ScaleWidth      =   5910
+   VScrollSmallChange=   225
+   Begin VB.CommandButton Browse 
+      Caption         =   "..."
+      Height          =   312
+      Left            =   5460
+      TabIndex        =   1
+      Top             =   420
+      Width           =   372
+   End
+   Begin VB.TextBox PathFile 
+      Height          =   312
+      Left            =   120
+      TabIndex        =   0
+      Top             =   420
+      Width           =   5292
+   End
+   Begin VB.CommandButton Exit 
+      Caption         =   "Выход"
+      Height          =   372
+      Left            =   4740
+      TabIndex        =   3
+      Top             =   900
+      Width           =   1092
+   End
+   Begin VB.CommandButton Unload 
+      Caption         =   "Выгрузить"
+      Height          =   372
+      Left            =   3600
+      TabIndex        =   2
+      Top             =   900
+      Width           =   1092
+   End
+   Begin MSComDlg.CommonDialog CommonDlg 
+      Left            =   120
+      Top             =   840
+      _ExtentX        =   688
+      _ExtentY        =   688
+      _Version        =   393216
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Файл для выгрузки"
+      Height          =   192
+      Left            =   120
+      TabIndex        =   4
+      Top             =   180
+      Width           =   5292
+   End
+End
+Attribute VB_Name = "PCFilePrimeOut"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Attribute VB_Ext_KEY = "VBD_Name" ,"UBS_VBD\PLCARD\PCFilePrimeOut.htm"
+Attribute VB_Ext_KEY = "VBD_BuildName" ,"UBS_VBD\PLCARD\PCFilePrimeOut.htm"
+Attribute VB_Ext_KEY = "VBD_Description" ,"Выгрузка операций для PRIME"
+Attribute VB_Ext_KEY = "VBD_Business" ,"Пластиковые карты"
+Attribute VB_Ext_KEY = "VBD_InMenu" ,"0"
+Option Explicit
+Implements UBSChild
+Dim Parent As UBSParrent
+Dim NumWin As Integer, NumCallWindow As Integer
+Dim CallWindowClose As Boolean, NeedRefresh As Boolean
+Dim FixMyWindow As Boolean
+Dim ArrParam As Variant
+Dim ItemArray As Variant
+
+Dim User As Object
+Dim ToolPubs As Object
+Dim ToolErr As Object
+Dim ScriptRunner As Object
+
+Private Sub Browse_Click()
+  CommonDlg.CancelError = True
+On Error GoTo ErrCode
+  
+  CommonDlg.InitDir = PathFile.Text
+  CommonDlg.ShowSave
+  PathFile.Text = CommonDlg.FileName
+  Exit Sub
+  
+ErrCode:
+  Exit Sub
+End Sub
+
+Private Sub Exit_Click()
+  Parent.CloseWindow NumWin
+End Sub
+
+Private Sub Unload_Click()
+On Error GoTo ErrorCode
+  Dim FSO As Object
+  
+  If RTrim(PathFile.Text) = "" Then
+    MsgBox "Не установлено имя файла", , "Ошибка"
+    PathFile.SetFocus
+    Exit Sub
+  End If
+  Set FSO = CreateObject("ToolPubs.IUbsFile")
+  If FSO.FileExists(PathFile.Text) = True Then
+    Dim Response As Integer
+    Response = MsgBox("Файл уже существует. Перезаписать?", vbOKCancel + vbQuestion, PathFile.Text)
+    If Response <> vbOK Then
+      PathFile.SetFocus
+      Exit Sub
+    End If
+  End If
+  UserDocument.MousePointer = 11
+  
+  NeedRefresh = True
+  ScriptRunner.ReadAction "UBS_PLCARD_FILE_OUT_OPERATION_MAKE" '"UBS_VBS_PLCARD_FILEPRIME_OUT_L"
+  ScriptRunner.ClearParameters
+  ScriptRunner.Parameter("KeyArray") = ItemArray
+  ScriptRunner.Parameter("FileOut") = PathFile
+  ScriptRunner.Parameter("UbsUser") = User
+  ScriptRunner.Run "Handle_FileOut"
+  
+  'MsgBox "Операция выполнена."
+  UserDocument.MousePointer = 0
+  NeedRefresh = True
+Exit Sub
+
+ErrorCode:
+  UserDocument.MousePointer = 0
+  ToolErr.UbsErrMsg "Unload_Click", "ошибка выполнения"
+End Sub
+
+Private Property Get UBSChild_ActualParameter() As Variant
+End Property
+
+Private Property Get UBSChild_Height() As Integer
+  UBSChild_Height = 1404
+End Property
+
+Private Property Let UBSChild_HeightBrowser(ByVal RHS As Variant)
+
+End Property
+
+Private Property Get UBSChild_ImageList(Key As String) As Object
+  Key = "PROCESSOUT"
+End Property
+
+Private Property Get UBSChild_IsExistParam(ByVal NameParam As String) As Boolean
+  Dim ss As Variant
+  UBSChild_IsExistParam = False
+  For Each ss In ArrParam
+    If ss = NameParam Then
+      UBSChild_IsExistParam = True
+      Exit For
+    End If
+  Next
+End Property
+
+Private Sub UBSChild_NotifyCloseWindow(ByVal NumWindow As Integer)
+  If NumWindow = NumCallWindow Then
+    CallWindowClose = True
+    If FixMyWindow = False Then
+      Exit_Click
+    End If
+  End If
+End Sub
+
+Private Sub UBSChild_NotifyFixWindow(ByVal NumWindow As Variant, ByVal FixState As Boolean)
+  If NumWindow = NumWin Then
+    FixMyWindow = FixState
+  End If
+End Sub
+
+Private Property Let UBSChild_NumWindow(ByVal RHS As Integer)
+  NumWin = RHS
+End Property
+
+Private Property Let UBSChild_ParamInfo(ByVal NameParam As String, ByVal RHS As Variant)
+On Error GoTo ErrorCode
+  Select Case NameParam
+'    Case "LoadFromMenu"
+'      Initialize
+'      NumCallWindow = 0
+'      InitFile
+'      Parent.WindowDraw(NumWin) = True
+'      ToolPubs.NextCtrl
+'      ToolPubs.PrevCtrl
+'      PathFile.SetFocus
+'      Exit Property
+    Case "InitParamForm"
+      Initialize
+      NumCallWindow = RHS(0)
+      ItemArray = RHS(1)
+      If IsEmpty(ItemArray) Then
+        ToolErr.UbsErrRaise "UBSChild_ParamInfo", "[InitParamForm]: Массив идентификаторов пуст"
+      End If
+      InitFile
+      Parent.WindowDraw(NumWin) = True
+      ToolPubs.NextCtrl
+      ToolPubs.PrevCtrl
+      PathFile.SetFocus
+      Exit Property
+    Case Else
+      ToolErr.UbsErrRaise "UBSChild_ParamInfo", "Параметр " & NameParam & " не поддерживается"
+  End Select
+
+ErrorCode:
+  ToolErr.UbsErrMsg "UBSChild_ParamInfo", "ошибка выполнения"
+  Parent.CloseWindow NumWin
+End Property
+
+Private Property Get UBSChild_ParamInfo(ByVal NameParam As String) As Variant
+  If NameParam = "WaitShow" Then
+    UBSChild_ParamInfo = True
+  End If
+End Property
+
+Private Property Let UBSChild_Parrent(ByVal RHS As Object)
+  Set Parent = RHS
+End Property
+
+Private Property Let UBSChild_RunParameter(ByVal RHS As String)
+
+End Property
+
+Private Property Get UBSChild_Sizable() As Boolean
+  UBSChild_Sizable = False
+End Property
+
+Private Property Get UBSChild_TitleWindow() As String
+  UBSChild_TitleWindow = "Выгрузка операций в процессинг"
+End Property
+
+Private Property Get UBSChild_Width() As Integer
+  UBSChild_Width = 5904
+End Property
+
+Private Property Let UBSChild_WidthBrowser(ByVal RHS As Variant)
+
+End Property
+
+Private Sub InitFile()
+  Dim Setup As Object
+  Dim ArrPath As Variant
+  Dim i As Integer
+  
+  Set User = Parent.User
+  Set ScriptRunner = CreateObject("URunScr.IUbsRunScript")
+  ScriptRunner.UbsUser = User
+  ScriptRunner.DataAccess = User.CreateObject("UbsDataAccess")
+  Set Setup = User.CreateObject("UbsSetup")
+  Setup.UbsUser = User
+  ArrPath = Setup.ReadSetting("Пластиковые карты", "Прием и выгрузка файлов", 1, "SS")
+  PathFile.Text = GetSettingFilePath("Выгрузка файла операций в PRIME", ArrPath, User.Division)
+  'For i = 0 To UBound(ArrPath, 2)
+  '  If ArrPath(0, i) = "Выгрузка файла операций в PRIME" Then
+  '    PathFile.Text = ArrPath(1, i)
+      CommonDlg.InitDir = PathFile.Text
+  '  End If
+  'Next
+  Set Setup = Nothing
+End Sub
+
+Private Sub UserDocument_Hide()
+  Set User = Nothing
+  Set ToolPubs = Nothing
+  Set ToolErr = Nothing
+  Set ScriptRunner = Nothing
+  If CallWindowClose = False Then
+    Dim NeedRefreshGrid As Variant
+    NeedRefreshGrid = NeedRefresh
+    If NumCallWindow <> 0 Then
+      If Parent.IsExistParam(NumCallWindow, "NeedRefreshGrid") Then
+        Parent.ParamInfo(NumCallWindow, "NeedRefreshGrid") = NeedRefreshGrid
+      End If
+    End If
+  End If
+End Sub
+
+Private Sub UserDocument_Initialize()
+  ReDim ArrParam(1)
+  ArrParam(0) = "WaitShow"
+  ArrParam(1) = "InitParamGrid"
+End Sub
+
+Private Sub Initialize()
+  NeedRefresh = False
+  CallWindowClose = False
+  Set ToolPubs = CreateObject("ToolPubs.Interfaces")
+  Set ToolErr = CreateObject("ToolPubs.IUbsError")
+End Sub
+
+

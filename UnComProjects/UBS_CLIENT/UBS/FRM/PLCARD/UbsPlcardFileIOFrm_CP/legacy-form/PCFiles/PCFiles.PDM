@@ -1,0 +1,138 @@
+[Root]
+Most Recent Package=Internet Package 1
+
+
+[Package|Internet Package 1|Root]
+SubWizProgID=PDWizard.InetCABPkgSubWiz
+BuildFolder=\\Store-02\users\Отдел программирования\Сидоров\_PROJECTS\UBS_CLIENT\UBS\VBD\PLCARD\PCFiles\Package
+
+[Package|Internet Package 1|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Internet Package 1|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Internet Package 1|Files Found]
+
+[Package|Internet Package 1|Files Released]
+
+[Package|Internet Package 1|Missing Dependency Information]
+D:\Program Files\UniSAB\ActiveX\Ubs\UbsCtrl.dll=
+D:\Program Files\UniSAB\ActiveX\Ubs\UBSParrents.dll=
+D:\Program Files\UniSAB\ActiveX\Ubs\UBSChilds.dll=
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsChlCtrl.ocx=
+C:\Program Files\UniSAB\ActiveX\Ubs\UbsCtrl.dll=
+C:\Program Files\UniSAB\ActiveX\Ubs\UBSParrents.dll=
+C:\Program Files\UniSAB\ActiveX\Ubs\UBSChilds.dll=
+D:\Program Files\UniSAB\ActiveX\Ubs\UbsChlCtrl.ocx=
+C:\Windows\System32\MSSTDFMT.DLL=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsChlCtrl.ocx=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsCtrl.dll=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UBSParrents.dll=
+C:\ProgramData\UniSAB\ActiveX\Ubs\UBSChilds.dll=
+C:\UBS_CLIENT\ActiveX\Ubs\UbsCtrl.dll=
+
+[Package|Internet Package 1|Out-of-Date Dependency Information]
+D:\WINDOWS\system32\COMDLG32.OCX=
+D:\WINDOWS\system32\msstdfmt.dll=
+C:\Windows\System32\msstdfmt.dll=
+C:\Windows\System32\MSCOMCTL.OCX=
+C:\Windows\System32\COMDLG32.OCX=
+
+[Package|Internet Package 1|Files Added]
+
+[Package|Internet Package 1|Files Removed]
+d:\windows\system32\comdlg32.ocx=
+d:\program files\unisab\activex\ubs\ubschilds.dll=
+d:\program files\unisab\activex\ubs\ubschlctrl.ocx=
+d:\program files\unisab\activex\ubs\ubsctrl.dll=
+d:\program files\unisab\activex\ubs\ubsparrents.dll=
+d:\windows\system32\msvbvm60.dll=
+d:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\oleaut32.dll=
+d:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\olepro32.dll=
+d:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\asycfilt.dll=
+d:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\stdole2.tlb=
+d:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
+c:\windows\system32\comdlg32.ocx=
+c:\program files\unisab\activex\ubs\ubschilds.dll=
+c:\program files\unisab\activex\ubs\ubschlctrl.ocx=
+c:\program files\unisab\activex\ubs\ubsctrl.dll=
+c:\program files\unisab\activex\ubs\ubsparrents.dll=
+c:\windows\system32\msvbvm60.dll=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\oleaut32.dll=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\olepro32.dll=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\asycfilt.dll=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\stdole2.tlb=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
+c:\windows\system32\msstdfmt.dll=
+d:\windows\system32\msstdfmt.dll=
+c:\windows\system32\mscomctl.ocx=
+c:\windows\system32\oleaut32.dll=
+c:\windows\system32\olepro32.dll=
+c:\windows\system32\asycfilt.dll=
+c:\windows\system32\stdole2.tlb=
+c:\programdata\unisab\activex\ubs\ubschilds.dll=
+c:\programdata\unisab\activex\ubs\ubschlctrl.ocx=
+c:\programdata\unisab\activex\ubs\ubsctrl.dll=
+c:\programdata\unisab\activex\ubs\ubsparrents.dll=
+c:\ubs_client\activex\ubs\ubsctrl.dll=
+c:\ubs_client\activex\ubs\ubschlctrl.ocx=
+
+[Package|Internet Package 1|Files In Project]
+C:\WINDOWS\system32\msvbvm60.dll=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=No
+C:\WINDOWS\system32\COMDLG32.OCX=No
+C:\WINDOWS\system32\MSCOMCTL.OCX=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=No
+C:\Windows\System32\msstdfmt.dll=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UBSChilds.dll=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UBSParrents.dll=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsCtrl.dll=No
+C:\ProgramData\UniSAB\ActiveX\Ubs\UbsChlCtrl.ocx=No
+\\Store-02\users\Отдел программирования\Сидоров\_PROJECTS\UBS_CLIENT\UBS\VBD\PLCARD\PCFiles\PCFiles.dll=Yes
+
+[Package|Internet Package 1|Configure Registry Files]
+Applicable=No
+
+[Package|Internet Package 1|Configure Remote Servers]
+Applicable=No
+
+[Package|Internet Package 1|Install Locations]
+
+[Package|Internet Package 1|Configure Shared Files]
+Applicable=
+
+[Package|Internet Package 1|ComponentInfo]
+PCFiles.dll=thiscab
+
+[Package|Internet Package 1|ObjectInfo]
+PCOper_FIn=true;true
+PCFileIO=true;true
+PCFileOdOut=true;true
+PCFileOperIn=true;true
+PCFilePrimeOut=true;true
+PCFileZPIn=true;true
+PCFileCardOut=true;true
+PCFileCardIn=true;true
+PCOper_ZPIn=true;true
+
+[Package|Internet Package 1|Package]
+PackageFolder=\\Store-02\users\Отдел программирования\Сидоров\_PROJECTS\UBS_CLIENT\UBS\VBD\PLCARD\PCFiles\Package
+ProjectFolder=\\Store-02\users\Отдел программирования\Сидоров\_PROJECTS\UBS_CLIENT\UBS\VBD\PLCARD\PCFiles
+ServerSideCab=\\Store-02\users\Отдел программирования\Сидоров\_PROJECTS\UBS_CLIENT\UBS\VBD\PLCARD\PCFiles\Package\PCFiles.CAB
+File1=\\Store-02\users\Отдел программирования\Сидоров\_PROJECTS\UBS_CLIENT\UBS\VBD\PLCARD\PCFiles\Package\PCFiles.CAB
+File2=\\Store-02\users\Отдел программирования\Сидоров\_PROJECTS\UBS_CLIENT\UBS\VBD\PLCARD\PCFiles\Package\PCOper_ZPIn.VBD
+File3=\\Store-02\users\Отдел программирования\Сидоров\_PROJECTS\UBS_CLIENT\UBS\VBD\PLCARD\PCFiles\Package\PCFileIO.VBD
+File4=\\Store-02\users\Отдел программирования\Сидоров\_PROJECTS\UBS_CLIENT\UBS\VBD\PLCARD\PCFiles\Package\PCFileZPIn.VBD
+File5=\\Store-02\users\Отдел программирования\Сидоров\_PROJECTS\UBS_CLIENT\UBS\VBD\PLCARD\PCFiles\Package\PCFileCardOut.VBD
+File6=\\Store-02\users\Отдел программирования\Сидоров\_PROJECTS\UBS_CLIENT\UBS\VBD\PLCARD\PCFiles\Package\PCOper_FIn.VBD
+File7=\\Store-02\users\Отдел программирования\Сидоров\_PROJECTS\UBS_CLIENT\UBS\VBD\PLCARD\PCFiles\Package\PCFileOdOut.VBD
+File8=\\Store-02\users\Отдел программирования\Сидоров\_PROJECTS\UBS_CLIENT\UBS\VBD\PLCARD\PCFiles\Package\PCFileOperIn.VBD
+File9=\\Store-02\users\Отдел программирования\Сидоров\_PROJECTS\UBS_CLIENT\UBS\VBD\PLCARD\PCFiles\Package\PCFilePrimeOut.VBD
+File10=\\Store-02\users\Отдел программирования\Сидоров\_PROJECTS\UBS_CLIENT\UBS\VBD\PLCARD\PCFiles\Package\PCFiles.HTM
+Handler1=PDWizard.WebPostDplySubWiz
+Handler2=PDWizard.FolderDplySubWiz

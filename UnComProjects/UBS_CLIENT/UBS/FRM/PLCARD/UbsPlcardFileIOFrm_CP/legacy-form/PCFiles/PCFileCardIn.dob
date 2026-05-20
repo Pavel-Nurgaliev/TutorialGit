@@ -1,0 +1,807 @@
+VERSION 5.00
+Object = "{C3A4B116-8248-4301-BB9C-E2DF040AAE6B}#1.0#0"; "UbsCtrl.dll"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
+Object = "{654DF6AF-C9A1-4D4E-89AC-9F01D9B7C3ED}#1.9#0"; "UbsChlCtrl.ocx"
+Begin VB.UserDocument PCFileCardIn 
+   ClientHeight    =   4920
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   5940
+   HScrollSmallChange=   225
+   KeyPreview      =   -1  'True
+   ScaleHeight     =   4920
+   ScaleWidth      =   5940
+   VScrollSmallChange=   225
+   Begin VB.ComboBox cmbRejim 
+      Height          =   315
+      Left            =   1260
+      Style           =   2  'Dropdown List
+      TabIndex        =   11
+      Top             =   4440
+      Width           =   2235
+   End
+   Begin VB.ComboBox CDivision 
+      Height          =   315
+      Left            =   2220
+      Style           =   2  'Dropdown List
+      TabIndex        =   9
+      Top             =   3600
+      Width           =   3555
+   End
+   Begin VB.ComboBox Combo1 
+      DataField       =   "Да"
+      BeginProperty DataFormat 
+         Type            =   4
+         Format          =   ""
+         HaveTrueFalseNull=   0
+         FirstDayOfWeek  =   0
+         FirstWeekOfYear =   0
+         LCID            =   1049
+         SubFormatType   =   8
+      EndProperty
+      Height          =   315
+      ItemData        =   "PCFileCardIn.dox":0000
+      Left            =   2340
+      List            =   "PCFileCardIn.dox":0002
+      Style           =   2  'Dropdown List
+      TabIndex        =   10
+      Top             =   4080
+      Width           =   1155
+   End
+   Begin UbsChlCtrl.UbsChannel UbsChannel 
+      Left            =   4680
+      Top             =   60
+      _ExtentX        =   873
+      _ExtentY        =   873
+   End
+   Begin VB.ComboBox LProduct 
+      Height          =   315
+      Left            =   1500
+      Style           =   2  'Dropdown List
+      TabIndex        =   1
+      Top             =   540
+      Width           =   4272
+   End
+   Begin VB.Frame Frame1 
+      Caption         =   "Ответственные исполнители"
+      Height          =   1332
+      Left            =   120
+      TabIndex        =   17
+      Top             =   960
+      Width           =   5712
+      Begin VB.ComboBox LOIspDog 
+         Height          =   288
+         Left            =   1380
+         Style           =   2  'Dropdown List
+         TabIndex        =   4
+         Top             =   960
+         Width           =   4272
+      End
+      Begin VB.ComboBox LOIspCli 
+         Height          =   288
+         Left            =   1380
+         Style           =   2  'Dropdown List
+         TabIndex        =   3
+         Top             =   600
+         Width           =   4272
+      End
+      Begin VB.ComboBox LOIspAcc 
+         Height          =   288
+         Left            =   1380
+         Style           =   2  'Dropdown List
+         TabIndex        =   2
+         Top             =   240
+         Width           =   4272
+      End
+      Begin VB.Label Label8 
+         Alignment       =   1  'Right Justify
+         Caption         =   "по договорам"
+         Height          =   192
+         Left            =   60
+         TabIndex        =   20
+         Top             =   1020
+         Width           =   1272
+      End
+      Begin VB.Label Label7 
+         Alignment       =   1  'Right Justify
+         Caption         =   "по клиентам"
+         Height          =   192
+         Left            =   60
+         TabIndex        =   19
+         Top             =   660
+         Width           =   1272
+      End
+      Begin VB.Label Label6 
+         Alignment       =   1  'Right Justify
+         Caption         =   "по счетам"
+         Height          =   192
+         Left            =   60
+         TabIndex        =   18
+         Top             =   300
+         Width           =   1272
+      End
+   End
+   Begin VB.TextBox PathFile 
+      Height          =   312
+      Left            =   120
+      TabIndex        =   7
+      Top             =   3180
+      Width           =   5292
+   End
+   Begin VB.CommandButton Browse 
+      Caption         =   "..."
+      Height          =   312
+      Left            =   5460
+      TabIndex        =   8
+      Top             =   3180
+      Width           =   372
+   End
+   Begin VB.CommandButton ClMainList 
+      Caption         =   "..."
+      Height          =   312
+      Left            =   5460
+      TabIndex        =   6
+      Top             =   2580
+      Width           =   372
+   End
+   Begin VB.TextBox ClMain 
+      Enabled         =   0   'False
+      Height          =   312
+      Left            =   120
+      TabIndex        =   5
+      Top             =   2580
+      Width           =   5292
+   End
+   Begin VB.CommandButton cmdExit 
+      Caption         =   "Выход"
+      Height          =   372
+      Left            =   4740
+      TabIndex        =   13
+      Top             =   4380
+      Width           =   1092
+   End
+   Begin VB.CommandButton Load 
+      Caption         =   "Загрузить"
+      Height          =   372
+      Left            =   3600
+      TabIndex        =   12
+      Top             =   4380
+      Width           =   1092
+   End
+   Begin MSComDlg.CommonDialog CommonDlg 
+      Left            =   3960
+      Top             =   0
+      _ExtentX        =   688
+      _ExtentY        =   688
+      _Version        =   393216
+   End
+   Begin UBSCTRLLibCtl.UbsControlDate DateIn 
+      Height          =   315
+      Left            =   1500
+      TabIndex        =   0
+      Top             =   60
+      Width           =   1275
+      _cx             =   2244
+      _cy             =   550
+      Appearance      =   1
+      Enabled         =   -1  'True
+      Object.TabStop         =   -1  'True
+      Text            =   "  .  .    "
+      Valid           =   -1  'True
+      Format          =   1
+      ReadOnly        =   0
+   End
+   Begin VB.Label lblRejim 
+      Caption         =   "Режим"
+      Height          =   195
+      Left            =   120
+      TabIndex        =   24
+      Top             =   4500
+      Width           =   795
+   End
+   Begin VB.Label Label9 
+      Caption         =   "Отделение обслуживания"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   23
+      Top             =   3600
+      Width           =   1995
+   End
+   Begin VB.Label Label5 
+      Caption         =   "Взимание платы за выпуск"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   22
+      Top             =   4080
+      Width           =   2115
+   End
+   Begin VB.Label Label3 
+      Alignment       =   1  'Right Justify
+      Caption         =   "Продукт"
+      Height          =   195
+      Left            =   180
+      TabIndex        =   21
+      Top             =   600
+      Width           =   1215
+   End
+   Begin VB.Label Label2 
+      Caption         =   "Дата загрузки"
+      Height          =   195
+      Left            =   180
+      TabIndex        =   16
+      Top             =   120
+      Width           =   1215
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Файл для загрузки"
+      Height          =   195
+      Left            =   120
+      TabIndex        =   15
+      Top             =   2940
+      Width           =   5535
+   End
+   Begin VB.Label Label4 
+      Caption         =   "Ответственный клиент"
+      Height          =   195
+      Left            =   120
+      TabIndex        =   14
+      Top             =   2340
+      Width           =   5535
+   End
+End
+Attribute VB_Name = "PCFileCardIn"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Attribute VB_Ext_KEY = "VBD_Name" ,"UBS_VBD\PLCARD\PCFileCardIn.htm"
+Attribute VB_Ext_KEY = "VBD_BuildName" ,"UBS_VBD\PLCARD\PCFileCardIn.htm"
+Attribute VB_Ext_KEY = "VBD_Description" ,"Загрузка файла заявок для выпуска карт"
+Attribute VB_Ext_KEY = "VBD_Business" ,"Пластиковые карты"
+Attribute VB_Ext_KEY = "VBD_InMenu" ,"1"
+Option Explicit
+Implements UBSChild
+Dim Parent As UBSParrent
+Dim NumWin As Integer, NumCallWindow As Integer
+Dim NumChildWinClientM As Integer
+Dim CallWindowClose As Boolean, NeedRefresh As Boolean
+Dim FixMyWindow As Boolean
+Dim ArrParam As Variant
+Dim SelectedClientM As Long
+Dim OIAcc As Long, OICli As Long, OIDog As Long
+Dim NumProd As Integer
+Dim CNumDivision As Long
+
+Dim User As Object
+Dim ToolPubs As Object
+Dim ToolErr As Object
+Dim ScriptRunner As Object
+Dim OFilter As Object
+Dim GridC As Object
+Dim Client As Object
+
+Private Sub Browse_Click()
+     CommonDlg.CancelError = True
+ On Error GoTo ErrCode
+  
+     CommonDlg.InitDir = PathFile.Text
+     CommonDlg.ShowOpen
+     PathFile.Text = CommonDlg.FileName
+    
+     If UserDocument.ActiveControl.Name = "Browse" Then Call ToolPubs.GoToCtrl(Combo1)
+        
+     Exit Sub
+  
+ErrCode:
+     Exit Sub
+End Sub
+
+Private Sub CDivision_Click()
+ On Error GoTo ErrorCode
+     If CDivision.ListIndex < 0 Then Exit Sub
+     If CDivision.ListCount > 0 Then
+         CNumDivision = CDivision.ItemData(CDivision.ListIndex)
+     End If
+    
+     Exit Sub
+ErrorCode:
+     ToolErr.UbsErrMsg "CDivision_Click", "ошибка выполнения"
+End Sub
+
+Private Sub ClMainList_Click()
+ On Error GoTo ErrorCode
+     If NumChildWinClientM <> 0 Then
+         Parent.SetFocusToWindow NumChildWinClientM
+         Exit Sub
+     End If
+     Parent.GetWindow "UBS_LIST_COMMON_CLIENT", NumChildWinClientM
+     If NumChildWinClientM <> 0 Then
+         Dim InitParamGrid As Variant
+         ReDim InitParamGrid(2)
+         GridC.Clear
+         GridC.Read "UBS_LIST_COMMON_CLIENT"
+         If Parent.IsExistParam(NumChildWinClientM, "InitParamGrid") Then
+             InitParamGrid(0) = NumWin
+             Set InitParamGrid(1) = GridC
+             InitParamGrid(2) = True
+             Parent.ParamInfo(NumChildWinClientM, "InitParamGrid") = InitParamGrid
+             Parent.SetFocusToWindow NumChildWinClientM
+         End If
+     End If
+     Exit Sub
+ErrorCode:
+     ToolErr.UbsErrMsg "ClMainList_Click", "ошибка выполнения"
+End Sub
+
+Private Sub cmdExit_Click()
+ On Error GoTo ErrorCode
+     Parent.CloseWindow NumWin
+     Exit Sub
+ErrorCode:
+     ToolErr.UbsErrMsg "cmdExit_Click", "ошибка выполнения"
+End Sub
+
+Private Sub SetEnableButton(ByVal bEnable)
+ClMainList.Enabled = bEnable
+Browse.Enabled = bEnable
+Load.Enabled = bEnable
+cmdExit.Enabled = bEnable
+End Sub
+
+Private Sub Load_Click()
+ On Error GoTo ErrorCode
+     Dim FSO As Object
+     
+     Call SetEnableButton(False)
+    
+     If NumProd = -1 Then
+         MsgBox "Не задан продукт карт!", vbCritical, "Ошибка"
+         Call SetEnableButton(True)
+         LProduct.SetFocus
+         Exit Sub
+     End If
+     If OIAcc = -1 Then
+         MsgBox "Не задан ответственный исполнитель!", vbCritical, "Ошибка"
+         Call SetEnableButton(True)
+         LOIspAcc.SetFocus
+         Exit Sub
+     End If
+     If OICli = -1 Then
+         MsgBox "Не задан ответственный исполнитель!", vbCritical, "Ошибка"
+         Call SetEnableButton(True)
+         LOIspCli.SetFocus
+         Exit Sub
+     End If
+     If OIDog = -1 Then
+         MsgBox "Не задан ответственный исполнитель!", vbCritical, "Ошибка"
+         Call SetEnableButton(True)
+         LOIspDog.SetFocus
+         Exit Sub
+     End If
+     If DateIn.DateValue = #1/1/2222# Then
+         MsgBox "Не установлена дата загрузки!", vbCritical, "Ошибка"
+         Call SetEnableButton(True)
+         DateIn.SetFocus
+         Exit Sub
+     End If
+     If RTrim(PathFile.Text) = "" Then
+         MsgBox "Не установлено имя файла!", vbCritical, "Ошибка"
+         Call SetEnableButton(True)
+         PathFile.SetFocus
+         Exit Sub
+     End If
+     Set FSO = CreateObject("ToolPubs.IUbsFile")
+     If FSO.FileExists(PathFile.Text) = False Then
+         MsgBox "Неверное имя или путь к файлу!", vbCritical, "Ошибка"
+         Call SetEnableButton(True)
+         PathFile.SetFocus
+         Exit Sub
+     End If
+     UserDocument.MousePointer = 11
+  
+     ScriptRunner.ReadAction "UBS_PLCARD_FILE_INP_REQUEST_EXEC"
+     ScriptRunner.ClearParameters
+   
+     ScriptRunner.Parameter("IdProduct") = NumProd
+     ScriptRunner.Parameter("IdOIAcc") = OIAcc
+     ScriptRunner.Parameter("IdOICli") = OICli
+     ScriptRunner.Parameter("IdOIDog") = OIDog
+     ScriptRunner.Parameter("DateOpen") = DateIn.DateValue
+     ScriptRunner.Parameter("FileIn") = PathFile.Text
+     ScriptRunner.Parameter("MainClient") = Client
+     ScriptRunner.Parameter("UbsUser") = User
+     ScriptRunner.Parameter("TakeComissForCreate") = Combo1.ItemData(Combo1.ListIndex)
+     ScriptRunner.Parameter("Номер отделения") = CNumDivision
+     ScriptRunner.Parameter("blnRejim") = CBool(cmbRejim.ItemData(cmbRejim.ListIndex))
+     
+     ScriptRunner.Run "Handle_FileIn"
+    
+     UserDocument.MousePointer = 0
+     Call SetEnableButton(True)
+     NeedRefresh = True
+     Exit Sub
+
+ErrorCode:
+     UserDocument.MousePointer = 0
+     Call SetEnableButton(True)
+     UbsChannel.NumFrame = 0
+     ToolErr.UbsErrMsg "Load_Click", "ошибка выполнения"
+End Sub
+
+Private Sub LOIspAcc_Click()
+ On Error GoTo ErrorCode
+     If LOIspAcc.ListCount > 0 Then
+         OIAcc = LOIspAcc.ItemData(LOIspAcc.ListIndex)
+     End If
+     Exit Sub
+ErrorCode:
+     ToolErr.UbsErrMsg "LOIspAcc_Click", "ошибка выполнения"
+End Sub
+
+Private Sub LOIspCli_Click()
+ On Error GoTo ErrorCode
+     If LOIspCli.ListCount > 0 Then
+         OICli = LOIspCli.ItemData(LOIspCli.ListIndex)
+     End If
+     Exit Sub
+ErrorCode:
+     ToolErr.UbsErrMsg "LOIspCli_Click", "ошибка выполнения"
+End Sub
+
+Private Sub LOIspDog_Click()
+ On Error GoTo ErrorCode
+   If LOIspDog.ListCount > 0 Then
+     OIDog = LOIspDog.ItemData(LOIspDog.ListIndex)
+   End If
+ Exit Sub
+ErrorCode:
+   ToolErr.UbsErrMsg "LOIspDog_Click", "ошибка выполнения"
+End Sub
+
+Private Sub LProduct_Click()
+ On Error GoTo ErrorCode
+   If LProduct.ListCount > 0 Then
+     NumProd = LProduct.ItemData(LProduct.ListIndex)
+   End If
+ Exit Sub
+ErrorCode:
+   ToolErr.UbsErrMsg "LProduct_Change", "ошибка выполнения"
+End Sub
+
+Private Property Get UBSChild_ActualParameter() As Variant
+End Property
+
+Private Property Get UBSChild_Height() As Integer
+     UBSChild_Height = UserDocument.MinHeight
+End Property
+
+Private Property Let UBSChild_HeightBrowser(ByVal RHS As Variant)
+
+End Property
+
+Private Property Get UBSChild_ImageList(Key As String) As Object
+   Key = "PROCESSIN"
+End Property
+
+Private Property Get UBSChild_IsExistParam(ByVal NameParam As String) As Boolean
+   Dim ss As Variant
+   UBSChild_IsExistParam = False
+   For Each ss In ArrParam
+     If ss = NameParam Then
+       UBSChild_IsExistParam = True
+       Exit For
+     End If
+   Next
+End Property
+
+Private Sub UBSChild_NotifyCloseWindow(ByVal NumWindow As Integer)
+  If NumWindow = NumChildWinClientM Then
+     NumChildWinClientM = 0
+   End If
+   If NumWindow = NumCallWindow Then
+     CallWindowClose = True
+     If FixMyWindow = False Then
+       cmdExit_Click
+     End If
+   End If
+End Sub
+
+Private Sub UBSChild_NotifyFixWindow(ByVal NumWindow As Variant, ByVal FixState As Boolean)
+   If NumWindow = NumChildWinClientM Then
+     NumChildWinClientM = 0
+   End If
+   If NumWindow = NumWin Then
+     FixMyWindow = FixState
+   End If
+End Sub
+
+Private Property Let UBSChild_NumWindow(ByVal RHS As Integer)
+   NumWin = RHS
+End Property
+
+Private Property Let UBSChild_ParamInfo(ByVal NameParam As String, ByVal RHS As Variant)
+ On Error GoTo ErrorCode
+   Dim ItemArray As Variant
+   Select Case NameParam
+    Case "LoadFromMenu"
+       Initialize
+       NumCallWindow = 0
+       InitFile
+       Parent.WindowDraw(NumWin) = True
+       ToolPubs.NextCtrl
+       ToolPubs.PrevCtrl
+       DateIn.SetFocus
+       Exit Property
+    Case "InitParamForm"
+       Initialize
+      NumCallWindow = RHS(0)
+       InitFile
+       Parent.WindowDraw(NumWin) = True
+       ToolPubs.NextCtrl
+       ToolPubs.PrevCtrl
+       DateIn.SetFocus
+       Exit Property
+    Case "RetFromGrid"
+       If NumChildWinClientM = RHS(0) Then
+         ItemArray = RHS(1)
+         If Not IsEmpty(ItemArray) Then
+           SelectedClientM = ItemArray(0)
+         Else
+           ToolErr.UbsErrRaise "UBSChild_ParamInfo", "[RetFromGrid]: Массив идентификаторов пуст"
+         End If
+         Client.Clear
+         Client.Read SelectedClientM
+         ClMain.Text = Client.Name
+         Parent.CloseWindow NumChildWinClientM
+         If UserDocument.ActiveControl.Name = "ClMainList" Then
+             If Trim(PathFile.Text) = "" Then
+                 Call ToolPubs.GoToCtrl(Browse)
+             Else
+                 Call ToolPubs.GoToCtrl(PathFile)
+             End If
+         End If
+        
+       End If
+       Exit Property
+  Case Else
+       ToolErr.UbsErrRaise "UBSChild_ParamInfo", "Параметр " & NameParam & " не поддерживается"
+   End Select
+
+ErrorCode:
+   ToolErr.UbsErrMsg "UBSChild_ParamInfo", "ошибка выполнения"
+   Parent.CloseWindow NumWin
+End Property
+
+Private Property Get UBSChild_ParamInfo(ByVal NameParam As String) As Variant
+   If NameParam = "WaitShow" Then
+     UBSChild_ParamInfo = True
+   End If
+End Property
+
+Private Property Let UBSChild_Parrent(ByVal RHS As Object)
+   Set Parent = RHS
+End Property
+
+Private Property Let UBSChild_RunParameter(ByVal RHS As String)
+
+End Property
+
+Private Property Get UBSChild_Sizable() As Boolean
+  UBSChild_Sizable = False
+End Property
+
+Private Property Get UBSChild_TitleWindow() As String
+   UBSChild_TitleWindow = "Загрузка файла списка для выпуска карт"
+End Property
+
+Private Property Get UBSChild_Width() As Integer
+   UBSChild_Width = UserDocument.MinWidth
+End Property
+
+Private Property Let UBSChild_WidthBrowser(ByVal RHS As Variant)
+
+End Property
+
+Private Sub InitFile()
+     Dim DataAccess As Object
+     Dim ArrDivision As Variant
+     Dim N As Integer, nCount As Integer
+     Set User = Parent.User
+     Set DataAccess = User.CreateObject("UbsDataAccess")
+     Set ScriptRunner = CreateObject("URunScr.IUbsRunScript")
+    
+     Dim InParam As Object, OutParam As Object
+   
+    Set InParam = CreateObject("Lib2.IUbsParam") 'Вх. параметры канала.
+     Set OutParam = CreateObject("Lib2.IUbsParam") 'Вых. параметры канала.
+  
+     UbsChannel.HostAddress = Parent.LoaderParamInfo(NumWin, "HostAddress")
+     UbsChannel.UserGUID = Parent.LoaderParamInfo(NumWin, "GuidSession")
+     UbsChannel.LoadResource = "VBS:UBS_VBS\PLCARD\PcCardContract.vbs"
+     UbsChannel.FormatParamIn = "XML"
+     UbsChannel.FormatParamOut = "XML"
+  
+     ScriptRunner.UbsUser = User
+     ScriptRunner.DataAccess = User.CreateObject("UbsDataAccess")
+    
+     Set Client = User.CreateObject("UBSCLIENT")
+     Client.UbsUser = User
+     Client.DataAccess = DataAccess
+     Client.Clear
+   
+     Set OFilter = User.CreateObject("UbsFilter")
+     OFilter.UbsUser = User
+     OFilter.DataAccess = DataAccess
+    
+     Set GridC = User.CreateObject("UbsGridList")
+     GridC.UbsUser = User
+     GridC.DataAccess = DataAccess
+    
+     DateIn.DateValue = User.CommonDate("Server")
+     SelectedClientM = 0
+    
+     Dim ArrO As Variant
+    
+     UbsChannel.Run "GetProducts", InParam, OutParam
+     ArrO = OutParam.Parameter("ArrProducts")
+  
+     If Not IsArray(ArrO) Then
+         MsgBox "Не заполнен словарь продуктов пластиковых карт", , "Ошибка"
+         cmdExit_Click
+         Exit Sub
+     End If
+    
+     LProduct.Clear
+     For N = 0 To UBound(ArrO, 2)
+         LProduct.AddItem ArrO(1, N), N
+         LProduct.ItemData(N) = ArrO(0, N)
+     Next
+  
+     ArrO = User.ListExecutors("OD_ACCOUNTS0", 4)
+     LOIspAcc.Clear
+    
+     If Not IsEmpty(ArrO) Then
+         nCount = UBound(ArrO, 2)
+         For N = 0 To nCount
+             LOIspAcc.AddItem ArrO(1, N), N
+             LOIspAcc.ItemData(N) = ArrO(0, N)
+         Next
+     End If
+     ArrO = User.ListExecutors("CLIENTS", 4)
+     LOIspCli.Clear
+     If Not IsEmpty(ArrO) Then
+         nCount = UBound(ArrO, 2)
+         For N = 0 To nCount
+             LOIspCli.AddItem ArrO(1, N), N
+             LOIspCli.ItemData(N) = ArrO(0, N)
+         Next
+     End If
+    
+     ArrO = User.ListExecutors("CARD_CONTRACT", 4)
+     LOIspDog.Clear
+     If Not IsEmpty(ArrO) Then
+         nCount = UBound(ArrO, 2)
+         For N = 0 To nCount
+             LOIspDog.AddItem ArrO(1, N), N
+             LOIspDog.ItemData(N) = ArrO(0, N)
+         Next
+     End If
+    
+     NumProd = -1
+     OIAcc = -1
+     OICli = -1
+     OIDog = -1
+     
+     'комбобокс "Режим" (Проверка/Обработка)
+     cmbRejim.AddItem "проверка", 0
+     cmbRejim.ItemData(0) = 0
+    
+     cmbRejim.AddItem "обработка", 1
+     cmbRejim.ItemData(1) = 1
+  
+     cmbRejim.ListIndex = 0
+'======================================================
+    
+    ' Дорофеев Ю. [13.05.2008]
+    ' Заполнение списка отделений
+    ' -----------------------------
+     InParam.Parameter("InitForm") = "Список отделений"
+     InParam.Parameter("StrCommand") = "Add"
+     Call UbsChannel.Run("PcContrFormInit", InParam, OutParam)
+     ArrDivision = OutParam.Parameter("Список отделений")
+     If Not IsEmpty(ArrDivision) Then
+         CDivision.Clear
+         nCount = UBound(ArrDivision, 2)
+         For N = 0 To nCount
+             CDivision.AddItem ArrDivision(0, N), N
+             CDivision.ItemData(N) = ArrDivision(1, N)
+          
+             If CLng(CDivision.ItemData(N)) = CLng(User.Division) Then
+                 CDivision.ListIndex = N
+             End If
+         Next
+     End If
+    ' -----------------------------
+
+     Dim Setup As Object
+     Dim ArrPath As Variant
+     Dim i As Integer
+    
+     Set Setup = User.CreateObject("UbsSetup")
+     Setup.UbsUser = User
+     ArrPath = Setup.ReadSetting("Пластиковые карты", "Прием и выгрузка файлов", 1, "SS")
+     PathFile.Text = GetSettingFilePath("Прием файла заявок для выпуска карт", ArrPath, User.Division)
+     CommonDlg.InitDir = PathFile.Text
+  
+     Combo1.AddItem "Да"
+     Combo1.ItemData(Combo1.NewIndex) = 0
+     Combo1.AddItem "Нет"
+     Combo1.ItemData(Combo1.NewIndex) = 1
+     Combo1.ListIndex = 0
+    
+     Set Setup = Nothing
+End Sub
+
+Private Sub UserDocument_Hide()
+  Set User = Nothing
+   Set ToolPubs = Nothing
+   Set ToolErr = Nothing
+   Set ScriptRunner = Nothing
+   Set Client = Nothing
+   Set OFilter = Nothing
+   Set GridC = Nothing
+   If CallWindowClose = False Then
+     Dim NeedRefreshGrid As Variant
+    NeedRefreshGrid = NeedRefresh
+     If NumCallWindow <> 0 Then
+       If Parent.IsExistParam(NumCallWindow, "NeedRefreshGrid") Then
+         Parent.ParamInfo(NumCallWindow, "NeedRefreshGrid") = NeedRefreshGrid
+       End If
+     End If
+   End If
+End Sub
+
+Private Sub UserDocument_Initialize()
+   ReDim ArrParam(3)
+   ArrParam(0) = "WaitShow"
+   ArrParam(1) = "InitParamGrid"
+   ArrParam(2) = "LoadFromMenu"
+   ArrParam(3) = "RetFromGrid"
+End Sub
+
+Private Sub Initialize()
+   NeedRefresh = False
+   CallWindowClose = False
+   CNumDivision = 0
+   Set ToolPubs = CreateObject("ToolPubs.Interfaces")
+   Set ToolErr = CreateObject("ToolPubs.IUbsError")
+End Sub
+
+Private Sub UserDocument_KeyPress(KeyAscii As Integer)
+ On Error GoTo errH
+     Select Case (KeyAscii)
+        Case 13
+             If UserDocument.ActiveControl.Name = "ClMainList" Then
+                 If Trim(PathFile.Text) = "" Then
+                     Call ToolPubs.GoToCtrl(Browse)
+                 Else
+                     Call ToolPubs.GoToCtrl(PathFile)
+                 End If
+             ElseIf UserDocument.ActiveControl.Name = "PathFile" Then
+                 ToolPubs.NextCtrl
+             Else
+                 ToolPubs.NextCtrl: KeyAscii = 0
+             End If
+       Case 27
+             If UserDocument.ActiveControl.Name = "Combo1" Then
+                 ToolPubs.PrevCtrl
+             Else
+                 ToolPubs.PrevCtrl: KeyAscii = 0
+            End If
+     End Select
+    
+     Exit Sub
+
+errH:
+     ToolErr.UbsErrMsg "UserDocument_KeyPress", "ошибка выполнения"
+End Sub

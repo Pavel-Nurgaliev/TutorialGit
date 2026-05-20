@@ -1,0 +1,1282 @@
+VERSION 5.00
+Object = "{C3A4B116-8248-4301-BB9C-E2DF040AAE6B}#1.0#0"; "UbsCtrl.dll"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
+Object = "{654DF6AF-C9A1-4D4E-89AC-9F01D9B7C3ED}#1.9#0"; "UbsChlCtrl.ocx"
+Begin VB.UserDocument PCFileZPIn 
+   ClientHeight    =   4860
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   6390
+   HScrollSmallChange=   225
+   KeyPreview      =   -1  'True
+   ScaleHeight     =   4860
+   ScaleWidth      =   6390
+   VScrollSmallChange=   225
+   Begin VB.ComboBox cmbGainType 
+      Height          =   315
+      Left            =   180
+      Style           =   2  'Dropdown List
+      TabIndex        =   9
+      Top             =   2280
+      Width           =   5895
+   End
+   Begin VB.Timer Timer1 
+      Left            =   5760
+      Top             =   3000
+   End
+   Begin VB.CommandButton cmdPaymentOrder 
+      Caption         =   "..."
+      Height          =   315
+      Left            =   5760
+      TabIndex        =   7
+      Top             =   1620
+      Width           =   375
+   End
+   Begin VB.TextBox PaymentOrder 
+      Enabled         =   0   'False
+      Height          =   315
+      Left            =   180
+      TabIndex        =   6
+      Top             =   1620
+      Width           =   5475
+   End
+   Begin VB.CheckBox chkControlRun 
+      Caption         =   "Контрольный расчет"
+      Height          =   315
+      Left            =   3240
+      TabIndex        =   12
+      Top             =   2940
+      Width           =   2295
+   End
+   Begin VB.ComboBox cmbFindCard 
+      Height          =   315
+      Left            =   180
+      Style           =   2  'Dropdown List
+      TabIndex        =   11
+      Top             =   2940
+      Width           =   2715
+   End
+   Begin UbsChlCtrl.UbsChannel UbsChannel 
+      Left            =   360
+      Top             =   4140
+      _ExtentX        =   873
+      _ExtentY        =   873
+   End
+   Begin UBSCTRLLibCtl.UbsControlDate DateIn 
+      Height          =   315
+      Left            =   2340
+      TabIndex        =   1
+      Top             =   300
+      Width           =   1275
+      _cx             =   115804356
+      _cy             =   115802662
+      Appearance      =   1
+      Enabled         =   -1  'True
+      Object.TabStop         =   -1  'True
+      Text            =   "  .  .    "
+      Valid           =   -1  'True
+      Format          =   1
+      ReadOnly        =   0
+   End
+   Begin VB.TextBox PathFile 
+      Height          =   312
+      Left            =   180
+      TabIndex        =   3
+      Top             =   960
+      Width           =   5535
+   End
+   Begin VB.CommandButton cmdExit 
+      Caption         =   "Выход"
+      Height          =   372
+      Left            =   5100
+      TabIndex        =   23
+      Top             =   4260
+      Width           =   1092
+   End
+   Begin VB.CommandButton Load 
+      Caption         =   "Загрузить"
+      Height          =   372
+      Left            =   3900
+      TabIndex        =   22
+      Top             =   4260
+      Width           =   1092
+   End
+   Begin VB.CommandButton Browse 
+      Caption         =   "..."
+      Height          =   312
+      Left            =   5760
+      TabIndex        =   4
+      Top             =   960
+      Width           =   372
+   End
+   Begin MSComDlg.CommonDialog CommonDlg 
+      Left            =   4620
+      Top             =   360
+      _ExtentX        =   688
+      _ExtentY        =   688
+      _Version        =   393216
+   End
+   Begin UbsChlCtrl.UbsChannel UbsChnlAsync 
+      Index           =   0
+      Left            =   1200
+      Top             =   4140
+      _ExtentX        =   873
+      _ExtentY        =   873
+   End
+   Begin UbsChlCtrl.UbsChannel UbsChnlAsync 
+      Index           =   1
+      Left            =   1320
+      Top             =   4140
+      _ExtentX        =   873
+      _ExtentY        =   873
+   End
+   Begin UbsChlCtrl.UbsChannel UbsChnlAsync 
+      Index           =   2
+      Left            =   1440
+      Top             =   4140
+      _ExtentX        =   873
+      _ExtentY        =   873
+   End
+   Begin UbsChlCtrl.UbsChannel UbsChnlAsync 
+      Index           =   3
+      Left            =   1560
+      Top             =   4140
+      _ExtentX        =   873
+      _ExtentY        =   873
+   End
+   Begin UbsChlCtrl.UbsChannel UbsChnlAsync 
+      Index           =   4
+      Left            =   1680
+      Top             =   4140
+      _ExtentX        =   873
+      _ExtentY        =   873
+   End
+   Begin UbsChlCtrl.UbsChannel UbsChnlAsync 
+      Index           =   5
+      Left            =   1800
+      Top             =   4140
+      _ExtentX        =   873
+      _ExtentY        =   873
+   End
+   Begin UbsChlCtrl.UbsChannel UbsChnlAsync 
+      Index           =   6
+      Left            =   1920
+      Top             =   4140
+      _ExtentX        =   873
+      _ExtentY        =   873
+   End
+   Begin VB.Label Label4 
+      Caption         =   "Вид дохода"
+      Height          =   255
+      Left            =   180
+      TabIndex        =   8
+      Top             =   2040
+      Width           =   1875
+   End
+   Begin VB.Label lbPaymentOrder 
+      Caption         =   "Сводный платеж:"
+      Height          =   195
+      Left            =   180
+      TabIndex        =   5
+      Top             =   1380
+      Width           =   2895
+   End
+   Begin VB.Label lblProgress 
+      Caption         =   "Обработано сообщений % из %"
+      Height          =   255
+      Left            =   180
+      TabIndex        =   21
+      Top             =   3720
+      Width           =   5955
+   End
+   Begin VB.Label lblChannelInfo 
+      Alignment       =   2  'Center
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "7"
+      Height          =   255
+      Index           =   6
+      Left            =   3540
+      TabIndex        =   20
+      Top             =   3420
+      Width           =   195
+   End
+   Begin VB.Label lblChannelInfo 
+      Alignment       =   2  'Center
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "6"
+      Height          =   255
+      Index           =   5
+      Left            =   3180
+      TabIndex        =   19
+      Top             =   3420
+      Width           =   195
+   End
+   Begin VB.Label lblChannelInfo 
+      Alignment       =   2  'Center
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "5"
+      Height          =   255
+      Index           =   4
+      Left            =   2820
+      TabIndex        =   18
+      Top             =   3420
+      Width           =   195
+   End
+   Begin VB.Label lblChannelInfo 
+      Alignment       =   2  'Center
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "4"
+      Height          =   255
+      Index           =   3
+      Left            =   2460
+      TabIndex        =   17
+      Top             =   3420
+      Width           =   195
+   End
+   Begin VB.Label lblChannelInfo 
+      Alignment       =   2  'Center
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "3"
+      Height          =   255
+      Index           =   2
+      Left            =   2100
+      TabIndex        =   16
+      Top             =   3420
+      Width           =   195
+   End
+   Begin VB.Label lblChannelInfo 
+      Alignment       =   2  'Center
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "2"
+      Height          =   255
+      Index           =   1
+      Left            =   1740
+      TabIndex        =   15
+      Top             =   3420
+      Width           =   195
+   End
+   Begin VB.Label lblChannelInfo 
+      Alignment       =   2  'Center
+      BorderStyle     =   1  'Fixed Single
+      Caption         =   "1"
+      Height          =   255
+      Index           =   0
+      Left            =   1380
+      TabIndex        =   14
+      Top             =   3420
+      Width           =   195
+   End
+   Begin VB.Label lblChnl 
+      Caption         =   "Каналы"
+      Height          =   195
+      Left            =   180
+      TabIndex        =   13
+      Top             =   3420
+      Width           =   855
+   End
+   Begin VB.Label Label3 
+      Caption         =   "Поиск карты"
+      Height          =   195
+      Left            =   240
+      TabIndex        =   10
+      Top             =   2700
+      Width           =   1155
+   End
+   Begin VB.Label Label2 
+      Caption         =   "Дата загрузки"
+      Height          =   195
+      Left            =   180
+      TabIndex        =   0
+      Top             =   360
+      Width           =   1755
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Файл для загрузки"
+      Height          =   195
+      Left            =   180
+      TabIndex        =   2
+      Top             =   720
+      Width           =   5535
+   End
+End
+Attribute VB_Name = "PCFileZPIn"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Attribute VB_Ext_KEY = "VBD_Name" ,"UBS_VBD\PLCARD\PCFileZPIn.htm"
+Attribute VB_Ext_KEY = "VBD_BuildName" ,"UBS_VBD\PLCARD\PCFileZPIn.htm"
+Attribute VB_Ext_KEY = "VBD_Description" ,"Загрузка файла заработной платы"
+Attribute VB_Ext_KEY = "VBD_Business" ,"Пластиковые карты"
+Attribute VB_Ext_KEY = "VBD_InMenu" ,"1"
+Option Explicit
+Implements UBSChild
+Dim Parent As UBSParrent
+Dim NumWin As Integer, NumCallWindow As Integer
+Dim NumChildWin As Long
+Dim CallWindowClose As Boolean, NeedRefresh As Boolean
+Dim FixMyWindow As Boolean
+Dim ArrParam As Variant
+Dim CountResponceMax
+Dim CountResponce
+Dim User As Object
+Dim ToolPubs As Object
+Dim ToolErr As Object
+Dim ScriptRunner As Object
+Dim objInterfaces As Object
+
+Dim ClientFileName As String
+Dim nCountChanel As Integer
+Dim objInParam As Object
+Dim WaitBox
+Dim blnRespond As Boolean
+Dim UbsFile As Object
+Dim varZPData
+Dim objFormat As Object
+Dim objArray As Object
+
+Dim lngRecordCounter As Long, lngRecordUp As Long
+
+' Типы платежных поручений для обработки
+Dim varTypePaymentOrder
+Dim PaymentOrderId As Long
+Dim PaymentOrderType As String, PaymentOrderTypeTmp As String
+Dim ParamIn As Object, ParamOut As Object
+Dim varDoc
+Dim varGainType
+
+Dim IdFile As Long
+
+
+Private Sub Browse_Click()
+  CommonDlg.CancelError = True
+On Error GoTo ErrCode
+  
+  CommonDlg.InitDir = PathFile.Text
+  CommonDlg.ShowOpen
+  PathFile.Text = CommonDlg.FileName
+  Exit Sub
+  
+ErrCode:
+  Exit Sub
+End Sub
+
+Private Sub cmdExit_Click()
+    On Error GoTo ErrorCode
+    
+    If blnRespond Then
+        Dim x As Integer
+        For x = 0 To UbsChnlAsync.UBound()
+            UbsChnlAsync(x).StopRun
+        Next
+                  
+        While blnRespond
+            DoEvents
+        Wend
+    End If
+  
+    Parent.CloseWindow NumWin
+
+    Exit Sub
+
+ErrorCode:
+    ToolErr.UbsErrMsg "cmdExit_Click", "ошибка выполнения"
+End Sub
+
+Private Sub cmdPaymentOrder_Click()
+    Dim objGridList As Object
+    Dim lngKey
+    Dim templ As String
+    Dim var, i
+    
+    On Error GoTo ErrorCode
+    
+    If NumChildWin <> 0 Then
+        Parent.SetFocusToWindow NumChildWin
+        Exit Sub
+    End If
+    
+    PaymentOrderTypeTmp = ""
+    frmPaymentOrder.Relult = vbCancel
+    
+    If frmPaymentOrder.ListPaymentOrder.ListCount = 0 Then
+        If IsArray(varTypePaymentOrder) Then
+            For i = 0 To UBound(varTypePaymentOrder, 2)
+                frmPaymentOrder.ListPaymentOrder.AddItem varTypePaymentOrder(2, i)
+                frmPaymentOrder.ListPaymentOrder.ItemData(frmPaymentOrder.ListPaymentOrder.NewIndex) = varTypePaymentOrder(0, i)
+            Next
+            frmPaymentOrder.ListPaymentOrder.ListIndex = 0
+        End If
+    End If
+    
+    frmPaymentOrder.Show vbModal, Me
+    If frmPaymentOrder.Relult = vbCancel Then Exit Sub
+    If frmPaymentOrder.ListPaymentOrder.ListIndex < 0 Then Exit Sub
+    
+    For i = 0 To UBound(varTypePaymentOrder, 2)
+        If varTypePaymentOrder(0, i) = frmPaymentOrder.ListPaymentOrder.ItemData(frmPaymentOrder.ListPaymentOrder.ListIndex) Then
+            PaymentOrderTypeTmp = varTypePaymentOrder(1, i)
+            Exit For
+        End If
+    Next
+    
+    If PaymentOrderTypeTmp = "RC" Then _
+        templ = "UBS_LIST_RC_PAYMENT_BASE_R"
+    If PaymentOrderTypeTmp = "CLBANK" Then _
+        templ = "UBS_LIST_CLBANK_DOCUMENT_RUB_FULL"
+    
+    Parent.GetWindow templ, NumChildWin
+    
+    If NumChildWin <> 0 Then
+        Set objGridList = Parent.ParamInfo(NumChildWin, "UbsGridList")
+        
+        If PaymentOrderTypeTmp = "CLBANK" Then
+            If DateIn.IsValid Then
+                lngKey = objGridList.AddWhereItem("Дата создания", 1, DateIn.DateValue + 1)
+                objGridList.WhereItemFlags(lngKey) = 1
+            End If
+            lngKey = objGridList.AddWhereItem("Счет получателя", 8, Array("00000000000000000000", ""))
+            objGridList.WhereItemFlags(lngKey) = 1
+            lngKey = objGridList.AddWhereItem("Ид. состояния обработки", 8, Array(4, 7))
+            objGridList.WhereItemFlags(lngKey) = 1
+        End If
+        
+        If PaymentOrderTypeTmp = "RC" Then
+            If DateIn.IsValid Then
+                lngKey = objGridList.AddWhereItem("Дата проведения платежа", 3, DateIn.DateValue)
+                objGridList.WhereItemFlags(lngKey) = 1
+            End If
+            lngKey = objGridList.AddWhereItem("Л/с получателя", 8, Array("00000000000000000000", ""))
+            objGridList.WhereItemFlags(lngKey) = 1
+            'lngKey = objGridList.AddWhereItem("Стадия обработки", 4, 3)
+            'objGridList.WhereItemFlags(lngKey) = 1
+            lngKey = objGridList.AddWhereItem("Список стадий обработки", 8, Array("UBS_UNKNOWN", "UBS_REC_ERROR"))
+            objGridList.WhereItemFlags(lngKey) = 1
+        End If
+      
+        Dim InitParamGrid As Variant
+        ReDim InitParamGrid(5)
+
+        If Parent.IsExistParam(NumChildWin, "InitParamGrid") Then
+            InitParamGrid(0) = NumWin
+            InitParamGrid(2) = True
+            InitParamGrid(5) = 2        ' Сразу на вкладку "Список"
+            Parent.ParamInfo(NumChildWin, "InitParamGrid") = InitParamGrid
+            Parent.SetFocusToWindow NumChildWin
+        End If
+    End If
+    
+    Exit Sub
+
+ErrorCode:
+    ToolErr.UbsErrMsg "cmdPaymentOrder_Click", "ошибка выполнения"
+End Sub
+
+Sub SetFileStatus(ByVal State As Long)
+    ParamIn.Parameter("IdFile") = IdFile
+    ParamIn.Parameter("State") = State
+    Call UbsChannel.Run("PCPRCFile_SetStateParam", ParamIn, ParamOut)
+End Sub
+
+Private Sub Load_Click()
+    Dim arrData
+    Dim MaxTr
+    Dim Tr
+    Dim nThread, arrThread
+    Dim FSO As Object
+    
+    
+    On Error GoTo ErrorCode
+  
+    IdFile = 0
+    varDoc = Empty
+  
+    If DateIn.DateValue = #1/1/2222# Then
+        MsgBox "Не установлена дата загрузки", , "Ошибка"
+        DateIn.SetFocus
+        Exit Sub
+    End If
+    
+    If RTrim(PathFile.Text) = "" Then
+        MsgBox "Не установлено имя файла", , "Ошибка"
+        PathFile.SetFocus
+        Exit Sub
+    End If
+    
+    Set FSO = CreateObject("ToolPubs.IUbsFile")
+    If FSO.FileExists(PathFile.Text) = False Then
+        MsgBox "Неверное имя или путь к файлу", , "Ошибка"
+        PathFile.SetFocus
+        Exit Sub
+    End If
+  
+    UserDocument.MousePointer = 11
+    
+    varZPData = Empty
+    
+    lngRecordCounter = 0
+    lngRecordUp = 0
+    Call UbsChnlAsync_Notice(0, "OK: 0")
+    
+    
+    
+    ScriptRunner.ReadAction "UBS_PLCARD_SALARY_FILE_LOAD" '"UBS_VBS_PLCARD_FILEZP_IN_L"
+    
+    ' Закачка
+    ScriptRunner.ClearParameters
+    ScriptRunner.Parameter("DateIn") = DateIn.DateValue
+    ScriptRunner.Parameter("FileIn") = PathFile.Text
+    ScriptRunner.Parameter("SearchByAccount") = cmbFindCard.ItemData(cmbFindCard.ListIndex)
+    ScriptRunner.Parameter("MultiThread") = True
+    ScriptRunner.Parameter("lblProgress") = lblProgress
+    'ScriptRunner.Parameter("SearchByAccount") = chkFindMode.Value
+    ScriptRunner.Parameter("UbsUser") = User
+    If PaymentOrderId > 0 Then
+        ScriptRunner.Parameter("Сводный платеж.Идентификатор") = PaymentOrderId
+        ScriptRunner.Parameter("Сводный платеж.Бизнес") = PaymentOrderType
+    End If
+    
+    ScriptRunner.Run "Handle_FileIn"
+    IdFile = CLng(ScriptRunner.Parameter("IdFile"))
+    
+    If Not CBool(ScriptRunner.Parameter("blnResult")) Then
+        If IdFile > 0 Then
+            ParamIn.Parameter("Идентификатор файла") = IdFile
+            ParamIn.Parameter("UndoOnImportError") = True
+            UbsChannel.Run "PCSalaryImport_Undo", ParamIn, ParamOut
+        End If
+        GoTo ExitCode
+    End If
+    
+    If IdFile > 0 Then
+        If PaymentOrderId > 0 Then
+            ParamIn.Parameter("Идентификатор файла") = IdFile
+            ParamIn.Parameter("Сводный платеж.Идентификатор") = PaymentOrderId
+            ParamIn.Parameter("Сводный платеж.Бизнес") = PaymentOrderType
+            UbsChannel.Run "PCSalaryImport_RegisterFileSourceParam", ParamIn, ParamOut
+            'WaitBox.WriteLine = ParamOut.Parameter("strReport")
+        End If
+    End If
+    
+    SetFileStatus 1
+    
+    ' Обработка
+    ScriptRunner.ClearParameters
+    ScriptRunner.Run "PCSalaryImport_GetData", IdFile, arrData
+    
+
+    
+    If IsArray(arrData) Then
+        Load.Enabled = False
+        cmdExit.Caption = "Отмена"
+        
+        lngRecordCounter = UBound(arrData, 2) + 1
+        Call UbsChnlAsync_Notice(0, "OK: 0")
+        
+        SetFileStatus 255
+        
+        Call objArray.SplitArray(nCountChanel, arrData, arrThread)
+
+        blnRespond = True
+        CountResponce = 0
+        CountResponceMax = UBound(arrThread) + 1
+        For nThread = 0 To UBound(arrThread)
+            If IsArray(arrThread(nThread)) Then
+            
+                objInParam.Parameter("arrData") = arrThread(nThread)
+                objInParam.Parameter("intThread") = nThread
+                objInParam.Parameter("datOper") = DateIn.DateValue
+                objInParam.Parameter("Ид.файла") = IdFile
+                objInParam.Parameter("blnControlRun") = CBool(chkControlRun.Value = vbChecked)
+                If PaymentOrderId > 0 Then
+                    objInParam.Parameter("Сводный платеж.Идентификатор") = PaymentOrderId
+                    objInParam.Parameter("Сводный платеж.Бизнес") = PaymentOrderType
+                End If
+                
+                objInParam.Parameter("Вид дохода") = ""
+                If cmbGainType.ListIndex > -1 Then
+                    If cmbGainType.ItemData(cmbGainType.ListIndex) >= 0 Then
+                        objInParam.Parameter("Вид дохода") = Trim(varGainType(1, cmbGainType.ItemData(cmbGainType.ListIndex)))
+                    End If
+                End If
+
+                objInParam.ClearParameter "ReportError"
+            
+                UbsChnlAsync(nThread).LoadResource = "VBS:UBS_VBS\PLCARD\OPENWAY\PCSalaryImport.vbs"
+
+                UbsChnlAsync(nThread).Tag = "Активный"
+                lblChannelInfo(nThread).BackColor = RGB(165, 80, 100)
+         
+                UbsChnlAsync(nThread).RunAsync "PCSalaryImport_ProcessData", objInParam
+                
+            End If
+        Next
+    Else
+        Load.Enabled = True
+        SetFileStatus 0
+        MsgBox "Данных для обработки нет!", vbInformation, "Довыполнение операций по файлу"
+    End If
+    
+   ' If IdFile > 0 And (chkControlRun.Value = vbChecked) Then
+   '    ScriptRunner.Run "PCSalaryUnloadFile", IdFile
+   ' End If
+  '  On Error Resume Next
+  '  If IdFile > 0 And (chkControlRun.Value = vbChecked) Then
+   '     ScriptRunner.Run "DeleteFileData", IdFile
+   ' End If
+   ' On Error GoTo 0
+
+    
+    'если файл занесли в базу и контрольный запуск, то удаляем данные по файлу из базы
+  
+ExitCode:
+    UserDocument.MousePointer = 0
+    NeedRefresh = True
+    Exit Sub
+
+ErrorCode:
+    UserDocument.MousePointer = 0
+    UbsChannel.NumFrame = 0
+    ToolErr.UbsErrMsg "Load_Click", "ошибка выполнения"
+End Sub
+
+Private Sub Timer1_Timer()
+Timer1.Enabled = False
+      '   MsgBox CountResponce & "zzz" & CountResponceMax
+           If IdFile > 0 And (chkControlRun.Value = vbChecked) Then
+                ScriptRunner.Run "DeleteFileData", IdFile
+           End If
+End Sub
+
+Private Sub UbsChannel_Respond(ByVal LastRespond As Boolean, OutParams As Object)
+
+End Sub
+
+Private Property Get UBSChild_ActualParameter() As Variant
+End Property
+
+Private Property Get UBSChild_Height() As Integer
+    UBSChild_Height = UserDocument.MinHeight
+End Property
+
+Private Property Let UBSChild_HeightBrowser(ByVal RHS As Variant)
+
+End Property
+
+Private Property Get UBSChild_ImageList(Key As String) As Object
+   Key = "PROCESSIN"
+End Property
+
+Private Property Get UBSChild_IsExistParam(ByVal NameParam As String) As Boolean
+  Dim ss As Variant
+   UBSChild_IsExistParam = False
+   For Each ss In ArrParam
+     If ss = NameParam Then
+      UBSChild_IsExistParam = True
+      Exit For
+     End If
+   Next
+End Property
+
+Private Sub UBSChild_NotifyCloseWindow(ByVal NumWindow As Integer)
+    If NumWindow = NumCallWindow Then
+        CallWindowClose = True
+        If FixMyWindow = False Then
+            cmdExit_Click
+        End If
+    End If
+
+    If NumWindow = NumChildWin Then
+        NumChildWin = 0
+    End If
+End Sub
+
+Private Sub UBSChild_NotifyFixWindow(ByVal NumWindow As Variant, ByVal FixState As Boolean)
+  If NumWindow = NumWin Then
+     FixMyWindow = FixState
+   End If
+End Sub
+
+Private Property Let UBSChild_NumWindow(ByVal RHS As Integer)
+  NumWin = RHS
+End Property
+
+Private Property Let UBSChild_ParamInfo(ByVal NameParam As String, ByVal RHS As Variant)
+    On Error GoTo ErrorCode
+   
+    Select Case NameParam
+        Case "LoadFromMenu"
+            Initialize
+            NumCallWindow = 0
+            InitFile
+            Parent.WindowDraw(NumWin) = True
+            ToolPubs.NextCtrl
+            ToolPubs.PrevCtrl
+            PathFile.SetFocus
+            Exit Property
+        Case "InitParamForm"
+            Initialize
+            NumCallWindow = RHS(0)
+            InitFile
+            Parent.WindowDraw(NumWin) = True
+            ToolPubs.NextCtrl
+            ToolPubs.PrevCtrl
+            PathFile.SetFocus
+            Exit Property
+        Case "RetFromGrid"
+            If NumChildWin = RHS(0) Then
+                If IsArray(RHS(1)) Then
+                    ParamIn.Parameter("Сводный платеж.Идентификатор") = CLng(RHS(1)(0))
+                    ParamIn.Parameter("Сводный платеж.Бизнес") = PaymentOrderTypeTmp
+                    UbsChannel.Run "PCSalaryImport_ReadPaymOrder", ParamIn, ParamOut
+                    
+                    If CBool(ParamOut.Parameter("bResult")) Then
+                        PaymentOrderId = CLng(RHS(1)(0))
+                        PaymentOrderType = PaymentOrderTypeTmp
+                        PaymentOrder.Text = ParamOut.Parameter("Сводный платеж.Описание")
+                    Else
+                        MsgBox ParamOut.Parameter("StrReport"), vbCritical, "Ошибка!"
+                    End If
+                End If
+                
+                Parent.CloseWindow NumChildWin
+            End If
+            Exit Property
+        Case Else
+            ToolErr.UbsErrRaise "UBSChild_ParamInfo", "Параметр " & NameParam & " не поддерживается"
+    End Select
+
+ErrorCode:
+    ToolErr.UbsErrMsg "UBSChild_ParamInfo", "ошибка выполнения"
+    Parent.CloseWindow NumWin
+End Property
+
+Private Property Get UBSChild_ParamInfo(ByVal NameParam As String) As Variant
+  If NameParam = "WaitShow" Then
+     UBSChild_ParamInfo = True
+   End If
+End Property
+
+Private Property Let UBSChild_Parrent(ByVal RHS As Object)
+  Set Parent = RHS
+End Property
+
+Private Property Let UBSChild_RunParameter(ByVal RHS As String)
+
+End Property
+
+Private Property Get UBSChild_Sizable() As Boolean
+   UBSChild_Sizable = False
+End Property
+
+Private Property Get UBSChild_TitleWindow() As String
+  UBSChild_TitleWindow = "Загрузка файла заработной платы"
+End Property
+
+Private Property Get UBSChild_Width() As Integer
+  UBSChild_Width = UserDocument.MinWidth
+End Property
+
+Private Property Let UBSChild_WidthBrowser(ByVal RHS As Variant)
+
+End Property
+
+Private Sub InitFile()
+    Dim Setup As Object
+    Dim ArrPath As Variant
+    Dim j, arrSetting
+    Dim i As Integer
+    Dim strValue As String
+    Dim arrValue As Variant
+    
+    On Error GoTo ErrorCode
+    
+    Set User = Parent.User
+    Set ScriptRunner = CreateObject("URunScr.IUbsRunScript")
+    ScriptRunner.UbsUser = User
+    ScriptRunner.DataAccess = User.CreateObject("UbsDataAccess")
+    ScriptRunner.UbsChannel = UbsChannel
+  
+    DateIn.DateValue = User.CommonDate("Server")
+
+
+    Set Setup = User.CreateObject("UbsSetup")
+    Setup.UbsUser = User
+    ArrPath = Setup.ReadSetting("Пластиковые карты", "Прием и выгрузка файлов", 1, "SS")
+    PathFile.Text = GetSettingFilePath("Прием файла заработной платы", ArrPath, User.Division)
+
+    'Трубаков В
+    '-----------------------------------
+    cmbFindCard.AddItem "по номеру карты"
+    cmbFindCard.ItemData(0) = CLng(0)
+    cmbFindCard.AddItem "по номеру счета"
+    cmbFindCard.ItemData(1) = CLng(1)
+
+    arrValue = Setup.ReadSetting("Пластиковые карты", "Форматы файлов", 0, "SS")
+    If IsArray(arrValue) Then
+        For i = 0 To UBound(arrValue, 2)
+            If arrValue(0, i) = "Файл с заработной платой" Then
+                strValue = arrValue(1, i)
+                Exit For
+            End If
+        Next
+    End If
+
+    If UCase(strValue) = "ТАТФОНД" Then
+        cmbFindCard.ListIndex = 0
+    Else
+        cmbFindCard.ListIndex = 1
+    End If
+    '-----------------------------------
+
+    For i = 0 To UBound(ArrPath, 2)
+           CommonDlg.InitDir = PathFile.Text
+    Next
+
+    ' ===========
+    arrSetting = User.ReadSetting("Пластиковые карты", "Количество потоков")
+    nCountChanel = 0
+    If IsArray(arrSetting) Then
+        For j = 0 To UBound(arrSetting, 2)
+            If CStr(arrSetting(0, j)) = CStr("Обработка файла по зарплате/пополнению/списанию") Then
+                nCountChanel = arrSetting(1, j)
+            End If
+        Next
+        If nCountChanel = 0 Then
+            MsgBox "Неправильно настроена установка 'Количество потоков' для операции 'Обработка файла по зарплате/пополнению/списанию'", vbCritical, "Ошибка!"
+            Parent.CloseWindow NumWin
+            Exit Sub
+        End If
+    Else
+        MsgBox "Не найдена установка 'Количество потоков'", vbCritical, "Ошибка!"
+        Parent.CloseWindow NumWin
+        Exit Sub
+    End If
+    If nCountChanel < 1 Then nCountChanel = 1
+    If nCountChanel > 7 Then nCountChanel = 7
+
+    For j = 0 To 6
+        If lblChannelInfo(j).Index <= nCountChanel - 1 Then
+            lblChannelInfo(j).Visible = True
+        Else
+            lblChannelInfo(j).Visible = False
+        End If
+    Next
+   
+    Call InitChannelAsync("VBS:UBS_VBS\PLCARD\OPENWAY\PCSalaryImport.vbs", nCountChanel, Parent, NumWin, UbsChnlAsync)
+   
+    ' ----------------------------------------------------
+    ' Типы платежных поручений для обработки
+    frmPaymentOrder.ListPaymentOrder.Clear
+    
+    UbsChannel.Run "PCSalaryImport_GetTypePaymentOrder", ParamIn, ParamOut
+    varTypePaymentOrder = ParamOut.Parameter("Типы платежных поручений")
+    If IsArray(varTypePaymentOrder) Then
+        For i = 0 To UBound(varTypePaymentOrder, 2)
+            frmPaymentOrder.ListPaymentOrder.AddItem varTypePaymentOrder(2, i)
+            frmPaymentOrder.ListPaymentOrder.ItemData(frmPaymentOrder.ListPaymentOrder.NewIndex) = varTypePaymentOrder(0, i)
+        Next
+        frmPaymentOrder.ListPaymentOrder.ListIndex = 0
+    End If
+    ' ----------------------------------------------------
+   
+    ' ----------------------------------------------------
+    ' Вид дохода
+    varGainType = User.ReadSetting("Операционный день", "Кодовые назначения платежа")
+    cmbGainType.Clear
+    cmbGainType.AddItem ""
+    cmbGainType.ItemData(0) = -1
+    If IsArray(varGainType) Then
+        For i = 0 To UBound(varGainType, 2)
+            If UCase(varGainType(0, i)) = "ВИД ДОХОДА" Then
+                cmbGainType.AddItem varGainType(2, i)
+                cmbGainType.ItemData(cmbGainType.NewIndex) = i
+                If varGainType(1, i) = "1" Then
+                    cmbGainType.ListIndex = cmbGainType.NewIndex
+                End If
+            End If
+        Next
+    End If
+    ' ----------------------------------------------------
+    
+    Exit Sub
+    
+ErrorCode:
+   ToolErr.UbsMsgRaise "InitFile", "ошибка выполнения"
+End Sub
+
+Private Sub UbsChnlAsync_Error(Index As Integer, ByVal ErrorDescription As String)
+    On Error GoTo ErrCode
+
+'MsgBox "UbsChnlAsync_Error(" & Index & ") = " & ErrorDescription, , "qwe"
+
+    lblChannelInfo(Index).BackColor = RGB(255, 0, 0)
+    
+    objInParam.ClearParameters
+    objInParam.Parameter("Error") = ErrorDescription
+    objInParam.Parameter("NC") = Index + 1
+    
+    UbsChnlAsync(Index).RunAsync "PCSalaryImport__AsyncError", objInParam
+    
+    Exit Sub
+
+ErrCode:
+    blnRespond = False
+    ToolErr.UbsErrMsg "UbsChnlAsync_Error", "ошибка выполнения"
+End Sub
+
+Private Sub UbsChnlAsync_Notice(Index As Integer, ByVal TextNotice As String)
+    Dim nOK As Long
+    Dim strReport As String
+    
+    On Error GoTo ErrCode
+'MsgBox "UbsChnlAsync_Notice(" & Index & ") = " & TextNotice, , "qwe"
+    nOK = 0
+    strReport = "Обработано {0} сообщений из " & lngRecordCounter
+    
+    If Len(TextNotice) > 3 Then
+        If Left(TextNotice, 3) = "OK:" Then
+            On Error Resume Next
+            nOK = CLng(Trim(Mid(TextNotice, 4)))
+            lngRecordUp = lngRecordUp + nOK
+            On Error GoTo ErrCode
+            lblProgress.Caption = Replace(strReport, "{0}", lngRecordUp)
+        End If
+    End If
+    
+    Exit Sub
+
+ErrCode:
+    ToolErr.UbsErrMsg "UbsChnlAsync_Notice", "ошибка выполнения"
+End Sub
+
+Private Sub UbsChnlAsync_Respond(Index As Integer, ByVal LastRespond As Boolean, OutParams As Object)
+    Dim bIsOk As Boolean
+    Dim c, g, lngItemZPT, lngItemZP As Integer
+    Dim varZPTmp
+    Dim var, i
+    
+
+    On Error GoTo ErrorCode
+    
+ CountResponce = CountResponce + 1
+'    MsgBox CountResponce
+      '  MsgBox CountResponce & "xxxxx" & CountResponceMax
+
+
+    If OutParams.ExistParameter("ReportError") Then
+        Dim w: Set w = CreateObject("UbsWait.UbsWaitBox")
+        w.WriteLine = OutParams.Parameter("ReportError")
+        w.ViewFile
+        w.MaximizeView
+        Set w = Nothing
+        
+        ' на случай глобальных ошибок
+        'MsgBox OutParams.Parameter("ReportError"), vbCritical, "Ошибка!"
+        cmdExit.Caption = "Выход"
+        cmdExit.Enabled = True
+        Load.Caption = "Загрузка!"
+        Load.Enabled = True
+        For c = 0 To lblChannelInfo().UBound
+            lblChannelInfo(c).BackColor = Load.BackColor
+        Next
+        blnRespond = False
+        ClientFileName = ""
+        Exit Sub
+    Else
+        Dim objFile As Object
+        Dim SrvFileNameFull As String, SrvFileName As String, ClientFileNameTmp As String
+        Dim nPos As Long
+        Set objFile = CreateObject("Lib1.IUbsFile") ' промежуточные файлы
+        Set WaitBox = CreateObject("UbsWait.UbsWaitBox")
+        
+        ' Создаю один файл на клиенте(итоговый)
+        If ClientFileName = "" Then
+            ClientFileName = UbsFile.GetTempFile
+            If Not UbsFile.OpenTextFile(ClientFileName, False) Then
+                MsgBox "Файл-протокол " & ClientFileName & " не открыт на запись", vbCritical, "Ошибка!"
+                Exit Sub
+            End If
+        End If
+        
+        'здесь описана обработка массива с различными счетами по зп, на момент написания в нем должна быть всего одна строка
+        If chkControlRun.Value = vbChecked Then
+            If OutParams.ExistParameter("varZPData") Then
+                varZPTmp = OutParams.Parameter("varZPData")
+                
+                If IsEmpty(varZPData) Then
+                    ReDim varZPData(4, 0)
+                    varZPData(0, 0) = 0  'ID счета
+                    varZPData(1, 0) = "" 'счет
+                    varZPData(2, 0) = 0  'сальдо
+                    varZPData(3, 0) = 0  'сумма зп
+                    varZPData(4, 0) = 0  'сумма комиссии
+                End If
+                
+                'переносим пришедшие данные по зарплате в общий массив
+                For lngItemZP = 0 To UBound(varZPData, 2)
+                    For lngItemZPT = 0 To UBound(varZPTmp, 2)
+                        If varZPData(0, lngItemZP) = varZPTmp(0, lngItemZPT) Then
+                            varZPData(3, lngItemZP) = varZPData(3, lngItemZP) + varZPTmp(3, lngItemZPT)
+                            varZPData(4, lngItemZP) = varZPData(4, lngItemZP) + varZPTmp(4, lngItemZPT)
+                            
+                            varZPTmp(0, lngItemZPT) = 0 'трем ИД, используем как флаг
+                        End If
+                    Next
+                Next
+                
+                'добавили данные, смотрим, есть ли новые и добавляем их в массив
+                For lngItemZPT = 0 To UBound(varZPTmp, 2)
+                    If varZPTmp(0, lngItemZPT) > 0 Then
+                        
+                        If varZPData(0, 0) = 0 Then
+                            'запись первой строки данных
+                            varZPData(0, 0) = varZPTmp(0, lngItemZPT)
+                            varZPData(1, 0) = varZPTmp(1, lngItemZPT)
+                            varZPData(2, 0) = varZPTmp(2, lngItemZPT)
+                            varZPData(3, 0) = varZPTmp(3, lngItemZPT)
+                            varZPData(4, 0) = varZPTmp(4, lngItemZPT)
+                        Else
+                            'запись последующих строк
+                            lngItemZP = UBound(varZPData, 2) + 1
+                            ReDim Preserve varZPData(4, lngItemZP)
+                            varZPData(0, lngItemZP) = varZPTmp(0, lngItemZPT)
+                            varZPData(1, lngItemZP) = varZPTmp(1, lngItemZPT)
+                            varZPData(2, lngItemZP) = varZPTmp(2, lngItemZPT)
+                            varZPData(3, lngItemZP) = varZPTmp(3, lngItemZPT)
+                            varZPData(4, lngItemZP) = varZPTmp(4, lngItemZPT)
+                        End If
+                        
+                    End If
+                Next
+                
+            End If
+        End If
+        
+        SrvFileNameFull = OutParams.Parameter("Имя файла")
+        
+        nPos = InStrRev(SrvFileNameFull, "\")
+        If nPos <> 0 Then
+            SrvFileName = Right(SrvFileNameFull, Len(SrvFileNameFull) - nPos)
+        Else
+            SrvFileName = SrvFileNameFull
+        End If
+        
+        ClientFileNameTmp = UbsFile.GetTempFile
+        objFile.DeleteFile ClientFileNameTmp
+           
+        ' копируем файл-отчет на клиент
+        UbsChannel.GetFile ClientFileNameTmp, "Temp", SrvFileName
+
+        ' удаляем файл с сервера
+        ScriptRunner.Run "DeleteServerFileEx", "Temp", SrvFileName
+                
+        ' пишу в итоговый
+        UbsFile.WriteLine objFile.ReadAll(ClientFileNameTmp)
+        
+        objFile.CloseFile
+        objFile.DeleteFile ClientFileNameTmp
+            
+        bIsOk = True
+        
+        lblChannelInfo(Index).BackColor = RGB(255, 255, 255)
+        
+        UbsChnlAsync(Index).Tag = ""
+        For c = 0 To UbsChnlAsync.UBound()
+            If UbsChnlAsync(c).Tag <> "" Then bIsOk = False
+        Next
+                
+        If OutParams.ExistParameter("Сводный платеж.Массив документов") Then
+            var = OutParams.Parameter("Сводный платеж.Массив документов")
+            If IsArray(var) Then
+                For i = 0 To UBound(var, 2)
+                    If IsArray(varDoc) Then
+                        ReDim Preserve varDoc(2, UBound(varDoc, 2) + 1)
+                    Else
+                        ReDim varDoc(2, 0)
+                    End If
+                    varDoc(0, UBound(varDoc, 2)) = var(0, i)
+                    varDoc(1, UBound(varDoc, 2)) = var(1, i)
+                    varDoc(2, UBound(varDoc, 2)) = var(2, i)
+                Next
+            End If
+        End If
+
+Dim bSetFileState As Boolean: bSetFileState = True
+
+        If bIsOk Then
+            'для протокола в контрольном режиме
+            If chkControlRun.Value = vbChecked Then
+                If IsArray(varZPData) Then
+                    For lngItemZP = 0 To UBound(varZPData, 2)
+                        UbsFile.WriteLine "Со счета '" & varZPData(1, lngItemZP) & "'" _
+                            & ", сальдо = " & Trim(objFormat.FixToSaldo(varZPData(2, lngItemZP), 20, 2, "-")) & "," _
+                            & " списывается заработная плата общей суммой = " & Trim(objFormat.FixToSaldo(varZPData(3, lngItemZP), 20, 2, "-")) _
+                            & " и суммой комиссии = " & Trim(objFormat.FixToSaldo(varZPData(4, lngItemZP), 20, 2, "-"))
+                            
+' (79521)
+'                        If (varZPData(3, lngItemZP) + varZPData(4, lngItemZP)) > varZPData(2, lngItemZP) Then
+'                            UbsFile.WriteLine "ОШИБКА!!!! Сумма списываемых средств превышает сальдо счета на " _
+'                                & Trim(objFormat.FixToSaldo(((varZPData(3, lngItemZP) + varZPData(4, lngItemZP)) - varZPData(2, lngItemZP)), 20, 2, "-"))
+'                        End If
+                                
+                        ParamIn.ClearParameters
+                        ParamOut.ClearParameters
+                        ParamIn.Parameter("DateTrn") = DateIn.DateValue
+                        ParamIn.Parameter("Salary.Payment.IdAccDB") = varZPData(0, lngItemZP)
+                        ParamIn.Parameter("Salary.Payment.AccDB") = varZPData(1, lngItemZP)
+                        ParamIn.Parameter("Salary.Payment.SaldoAccDB") = varZPData(2, lngItemZP)
+                        ParamIn.Parameter("Salary.Payment.curDB") = varZPData(3, lngItemZP)
+                        ParamIn.Parameter("Salary.Fee.curDB") = varZPData(4, lngItemZP)
+                        UbsChannel.Run "PCSalaryImport_CheckMoveFunds", ParamIn, ParamOut
+                        If Not CBool(ParamOut.Parameter("bResult")) Then
+                            UbsFile.WriteLine "ОШИБКА!!!! " & ParamOut.Parameter("StrReport")
+                        End If
+                    Next
+                End If
+            Else
+                If PaymentOrderId > 0 And PaymentOrderType = "RC" Then
+                    ParamIn.ClearParameters
+                    ParamOut.ClearParameters
+                    
+                    ParamIn.Parameter("Сводный платеж.Идентификатор") = PaymentOrderId
+                    ParamIn.Parameter("Сводный платеж.Массив документов") = varDoc
+                    
+                    UbsChannel.Run "PCSalaryImport_CreateSvodAvizo", ParamIn, ParamOut
+                    
+                    UbsFile.WriteLine vbNewLine & ParamOut.Parameter("strReport")
+                    
+                    If Not CBool(ParamOut.Parameter("bResult")) Then
+                        ParamIn.Parameter("Идентификатор файла") = IdFile
+                        ParamIn.Parameter("UndoOnImportError") = True
+                        UbsChannel.Run "PCSalaryImport_Undo", ParamIn, ParamOut
+                        bSetFileState = False
+                        MsgBox "Ошибка создания сводного авизо по сводному платежу!" & vbNewLine & _
+                            "Загрузка отменена.", vbCritical, "Ошибка"
+                    End If
+                End If
+            End If
+        
+            UbsFile.CloseFile
+            
+            WaitBox.FileName = ClientFileName
+            cmdExit.Caption = "Выход"
+            cmdExit.Enabled = True
+            Load.Caption = "Загрузка"
+            Load.Enabled = True
+            For c = 0 To lblChannelInfo().UBound
+                lblChannelInfo(c).BackColor = Load.BackColor
+            Next
+      '      On Error Resume Next
+            If bSetFileState Then SetFileStatus 0
+       '     On Error GoTo 0
+            WaitBox.MaximizeView
+            WaitBox.ViewFile
+            blnRespond = False
+            Set WaitBox = Nothing
+            
+            UbsFile.DeleteFile ClientFileName
+            ClientFileName = ""
+            Timer1.Interval = 1000
+            Timer1.Enabled = True
+             'If IdFile > 0 And (chkControlRun.Value = vbChecked) Then
+             '   ScriptRunner.Run "DeleteFileData", IdFile
+           'End If
+        End If
+'  If CountResponce = CountResponceMax Then
+ '    Timer1.Interval = 1000
+ '    Timer1.Enabled = True
+ ' End If
+     
+    
+    
+    
+        Exit Sub
+    End If
+
+ErrorCode:
+    ToolErr.UbsErrMsg "UbsChnlAsync_Respond", "ошибка выполнения"
+End Sub
+
+Private Sub UserDocument_Hide()
+    If blnRespond Then
+        Dim k
+
+        For k = 0 To UbsChnlAsync.UBound()
+            UbsChnlAsync(k).StopRun
+        Next
+     
+        While blnRespond
+            DoEvents
+        Wend
+     
+    End If
+     
+    Set User = Nothing
+    Set ToolPubs = Nothing
+    Set ToolErr = Nothing
+    Set ScriptRunner = Nothing
+    Set objInterfaces = Nothing
+    
+    Set objInParam = Nothing
+    Set UbsFile = Nothing
+    Set ParamIn = Nothing
+    Set ParamOut = Nothing
+    
+    If CallWindowClose = False Then
+        Dim NeedRefreshGrid As Variant
+        NeedRefreshGrid = NeedRefresh
+        If NumCallWindow <> 0 Then
+            If Parent.IsExistParam(NumCallWindow, "NeedRefreshGrid") Then
+                Parent.ParamInfo(NumCallWindow, "NeedRefreshGrid") = NeedRefreshGrid
+            End If
+        End If
+    End If
+End Sub
+
+Private Sub UserDocument_KeyPress(KeyAscii As Integer)
+    Select Case (KeyAscii)
+        Case 13                              'Enter
+             KeyAscii = 0
+             objInterfaces.NextCtrl        'SendKeys "{TAB}"
+    Case 27                              'Esc
+             KeyAscii = 0
+            objInterfaces.PrevCtrl        'SendKeys "+{TAB}"
+    End Select
+End Sub
+
+Private Sub UserDocument_Initialize()
+    ReDim ArrParam(3)
+    
+    ArrParam(0) = "WaitShow"
+    ArrParam(1) = "InitParamGrid"
+    ArrParam(2) = "LoadFromMenu"
+    ArrParam(3) = "RetFromGrid"
+
+    lblProgress.Caption = ""
+End Sub
+
+Private Sub Initialize()
+    NeedRefresh = False
+    CallWindowClose = False
+     
+    Set ToolPubs = CreateObject("ToolPubs.Interfaces")
+    Set ToolErr = CreateObject("ToolPubs.IUbsError")
+    Set objInterfaces = CreateObject("ToolPubs.Interfaces")
+
+    Set objInParam = CreateObject("Lib2.IUbsParam")
+    Set UbsFile = CreateObject("Lib1.IUbsFile")
+    
+    Set objFormat = CreateObject("Lib3.IUbsFormat")
+    Set objArray = CreateObject("Lib1.IUbsArray")
+    
+    Set ParamIn = CreateObject("Lib2.IUbsParam")
+    Set ParamOut = CreateObject("Lib2.IUbsParam")
+    
+    UbsChannel.HostAddress = Parent.LoaderParamInfo(NumWin, "HostAddress")
+    UbsChannel.UserGUID = Parent.LoaderParamInfo(NumWin, "GuidSession")
+    UbsChannel.LoadResource = "VBS:UBS_VBS\PLCARD\OPENWAY\PCSalaryImport.vbs"
+    UbsChannel.FormatParamIn = "XML"
+    UbsChannel.FormatParamOut = "XML"
+End Sub
+

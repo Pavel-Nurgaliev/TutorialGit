@@ -214,9 +214,8 @@ namespace UbsBusiness
         #endregion
         private void cbTypePeriod_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbTypePeriod.SelectedIndex == 0)
+            if (cbTypePeriod.SelectedIndex == 0 || cbTypePeriod.Items.Count == 0)
             {
-                cbTypeDate.SelectedIndex = 0;
                 cbTypeDate.Enabled = false;
             }
             else
