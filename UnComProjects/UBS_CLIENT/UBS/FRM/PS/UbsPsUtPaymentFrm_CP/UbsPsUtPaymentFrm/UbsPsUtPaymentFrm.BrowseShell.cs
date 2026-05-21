@@ -256,11 +256,31 @@ namespace UbsBusiness
                     if (ids == null || ids.Length == 0)
                         return;
 
-                    int selectedId = Convert.ToInt32(ids[0]);
-                    if (selectedId > 0)
+                    if (ids != null && ids.Length > 0)
                     {
-                        m_idPaymentDic = selectedId;
-                        FillDataPayment("FILTER");
+                        m_idPaymentCopy = Convert.ToInt32(ids[0]);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Платеж не выбран", "Копирование платежа", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        return;
+                    }
+
+                    if (m_idPaymentCopy > 0)
+                    {
+                        var curSumTemp = udcPaymentAmount.DecimalValue;
+
+                        m_command = "ADD";
+                        m_idPayment = m_idPaymentCopy;
+                        m_command = "COPY";
+
+                        InitDoc();
+                        m_command = "ADD";
+
+                        udcPaymentAmount.DecimalValue = curSumTemp;
+                        m_prefCalcRate = "_2 7";
+                        CalcSumCommiss_2();
                     }
                 }
                 finally
@@ -624,7 +644,7 @@ namespace UbsBusiness
                 {
                     args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
                         new KeyValuePair<string, object>("наименование", m_isGuest ? "ID Посетитель" : "ID Клиент банка"),
-                        new KeyValuePair<string, object>("значение по умолчанию", 2),
+                        new KeyValuePair<string, object>("значение по умолчанию", m_idClient),
                         new KeyValuePair<string, object>("условие по умолчанию", "="),
                         new KeyValuePair<string, object>("скрытый", true) }));
                     args.IUbs.Run("UbsItemsRefresh", null);

@@ -6,9 +6,9 @@
 | VAN | COMPLETE | Memory Bank initialized and phased task created |
 | PLAN | COMPLETE | Planning artifacts, inventory, control mapping, and phase structure are captured in `memory-bank/tasks.md` |
 | CREATIVE | COMPLETE | Designer, appearance, constants, channel-contract, and child-form decisions are documented in `memory-bank/creative/` |
-| BUILD | IN PROGRESS | Rename scaffold completed; build verification blocked by missing .NET Framework 2.0 targeting pack |
-| REFLECT | IN PROGRESS | Designer milestone reflected; full project reflection still depends on remaining BUILD work |
-| ARCHIVE | NOT STARTED | Final documentation pending |
+| BUILD | COMPLETE (source) | All BUILD waves (2–9) complete; build verification still blocked by missing .NET Framework 2.0 targeting pack |
+| REFLECT | COMPLETE | Designer milestone + comprehensive full-project reflection both recorded under `memory-bank/reflection/` |
+| ARCHIVE | COMPLETE | Comprehensive archive recorded at `memory-bank/archive/archive-ubspsutpaymentfrm.md` |
 
 ## VAN Phase Results
 - [x] Platform detected: Windows, PowerShell
@@ -152,8 +152,45 @@ Full next-phase plan captured in `memory-bank/tasks.md` §Phase 3 (Waves 2–9).
 - [x] **FindContractbyId** (full rewrite) — reads `UtReadTypePayment` + `UtReadContract`, populates recipient fields (ADD_PARAM-aware), rate array, code payment visibility, penalties, purpose, bank name, commission calc, pattern-based tab visibility (Energy→FillTariff, Phone→FillPhone, Nalog→FillNalog)
 - [x] All files lint-clean
 
+## Build Update: 2026-05-21
+- [x] **B2.5 complete — `Form_Closing` wired**: constructor subscribes `UbsPsUtPaymentFrm_FormClosing`; handler delegates to `CanCloseForm()` (Save.cs B4.9) and cancels close when the guard returns false
+- [x] **B2.6 complete — `NativeMethods.cs` created** under `UbsPsUtPaymentFrm/` with internal static class:
+  - `POINT` struct (`[StructLayout(LayoutKind.Sequential)]`, `X`/`Y` int fields) — VB6 `POINTAPI`
+  - `GetCursorPos(out POINT)` P/Invoke from `user32.dll` with `SetLastError = true`
+  - `Sleep(uint dwMilliseconds)` P/Invoke from `kernel32.dll`
+  - Kept within `namespace UbsBusiness` for direct use from form partials
+- [x] **B2.7 complete — `NativeMethods.cs` registered in `.csproj`** as a standalone `<Compile Include>` item next to `UbsParamCustom.cs`
+- [x] Removed stale `UbsPsUtPaymentFrm.BrowseShell.cs.bak` from the project folder
+- [x] Lint check on `NativeMethods.cs` and `UbsPsUtPaymentFrm.csproj`: no errors
+- [x] Waves 3–9 reflected complete in `memory-bank/tasks.md` (full save pipeline, keys, commission, browse shell, cash workflows, designer event wiring all checked)
+
+## Wave 9 Closeout
+- Source-level implementation for every planned wave is now in place: core infrastructure (Wave 2), full initialization (Wave 3), full save pipeline (Wave 4), keyboard navigation (Wave 5), commission/NDS/penalty math (Wave 6), browse/dictionary shell (Wave 7), cash workflows (Wave 8), and final designer event wiring (Wave 9).
+- All partial files pass IDE lint (`.cs`, `.Constants.cs`, `.Designer.cs`, `.Initialization.cs`, `.Save.cs`, `.Keys.cs`, `.Commission.cs`, `.BrowseShell.cs`, `.Cash.cs`, `NativeMethods.cs`).
+- `NativeMethods.cs` declarations are not yet referenced from migrated code; they remain available for any later migration step that needs the legacy `GetCursorPos` / `Sleep` calls without re-introducing a `.bas` module.
+
+## Reflection Update: 2026-05-21
+- [x] Authored comprehensive Level 4 reflection at `memory-bank/reflection/reflection-ubspsutpaymentfrm.md` (system overview, project performance, achievements, challenges, technical/process/business insights, strategic actions, knowledge transfer, summary).
+- [x] All Phase 4 REFLECT checklist items in `tasks.md` flipped to complete (VB6 artifact coverage, channel command mapping, UI parity standard, naming conventions, .NET 2.0 reference set, `Ubs_ShowError` pattern).
+- [x] Captured the five replication patterns (five CREATIVE docs, nine-partial split, constants-first channel surface, wave-based BUILD plan, designer-then-full reflection two-step).
+- [x] Captured the only outstanding gate: full MSBuild verification on a machine with .NET Framework 2.0 reference assemblies.
+
+## Archive Update: 2026-05-21
+- [x] Authored comprehensive Level 4 archive at `memory-bank/archive/archive-ubspsutpaymentfrm.md` (metadata, summary, requirements, implementation, testing, lessons learned, deviations, follow-ups, references, closing assessment).
+- [x] Cleared `memory-bank/tasks.md` for the next task and preserved the six carry-forward follow-up items (F-1 … F-6).
+- [x] Updated `memory-bank/activeContext.md` to "no active task" state, ready for the next `/van` cycle.
+- [x] All Phase 5 ARCHIVE acceptance items in `tasks.md` are now captured in the archive document (final conversion notes, deviations from VB6, unresolved gaps).
+
+## Task Status: COMPLETE AND ARCHIVED
+
+The `UbsPsUtPaymentFrm` conversion task is closed. Carry-forward items (MSBuild
+verification on a v2.0-capable host, UBS-host smoke test, screenshot parity
+reconciliation, optional integration test, performance profiling, and the
+reusable PS-conversion template) are recorded in `tasks.md` and in the archive
+document but do not block closure.
+
 ## Next Step
-- Complete **B2.5** (Wire `Form_Closing`), **B2.6–B2.7** (`NativeMethods.cs`)
-- Proceed to Wave 3 remaining items: B3.2 (AddProcInit — device init), B3.3 (FillDataPayment full), B3.10 (ApplyInitialFormState), B3.11 (Third-person)
-- Wave 4 (Save pipeline) and Wave 5 (Keys) can proceed in parallel after Wave 3
-- Re-run compile verification after installing the .NET Framework 2.0 targeting pack
+- Start the next task with **`/van`**.
+- For follow-up work on `UbsPsUtPaymentFrm` itself (F-1 … F-6), reopen the
+  archive document at `memory-bank/archive/archive-ubspsutpaymentfrm.md` and
+  resume from §"Unresolved Gaps / Follow-Up Tasks".

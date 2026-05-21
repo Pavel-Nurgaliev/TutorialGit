@@ -129,6 +129,7 @@
     <Compile Include="FrmCashSymb.Designer.cs">
       <DependentUpon>FrmCashSymb.cs</DependentUpon>
     </Compile>
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="UbsParamCustom.cs" />
     <Compile Include="UbsPsUtPaymentFrm.cs">
       <SubType>Form</SubType>
