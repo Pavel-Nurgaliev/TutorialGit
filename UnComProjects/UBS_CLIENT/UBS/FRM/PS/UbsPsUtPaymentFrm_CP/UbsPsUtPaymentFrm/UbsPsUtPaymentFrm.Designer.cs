@@ -109,7 +109,7 @@ namespace UbsBusiness
             this.txtContractCode = new System.Windows.Forms.TextBox();
             this.txtRecipientComment = new System.Windows.Forms.TextBox();
             this.lblRecipientBik = new System.Windows.Forms.Label();
-            this.txtRecipientBik = new System.Windows.Forms.TextBox();
+            this.txtRecipientBic = new System.Windows.Forms.TextBox();
             this.lblRecipientCorrAccount = new System.Windows.Forms.Label();
             this.ucaRecipientCorrAccount = new UbsControl.UbsCtrlAccount();
             this.txtRecipientBankName = new System.Windows.Forms.TextBox();
@@ -280,8 +280,8 @@ namespace UbsBusiness
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 156F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 101F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(616, 672);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
@@ -595,7 +595,7 @@ namespace UbsBusiness
             this.grpRecipient.Controls.Add(this.txtContractCode);
             this.grpRecipient.Controls.Add(this.txtRecipientComment);
             this.grpRecipient.Controls.Add(this.lblRecipientBik);
-            this.grpRecipient.Controls.Add(this.txtRecipientBik);
+            this.grpRecipient.Controls.Add(this.txtRecipientBic);
             this.grpRecipient.Controls.Add(this.lblRecipientCorrAccount);
             this.grpRecipient.Controls.Add(this.ucaRecipientCorrAccount);
             this.grpRecipient.Controls.Add(this.txtRecipientBankName);
@@ -668,6 +668,7 @@ namespace UbsBusiness
             // 
             // txtRecipientComment
             // 
+            this.txtRecipientComment.Enabled = false;
             this.txtRecipientComment.Location = new System.Drawing.Point(243, 19);
             this.txtRecipientComment.Name = "txtRecipientComment";
             this.txtRecipientComment.Size = new System.Drawing.Size(360, 20);
@@ -682,12 +683,12 @@ namespace UbsBusiness
             this.lblRecipientBik.TabIndex = 5;
             this.lblRecipientBik.Text = "БИК";
             // 
-            // txtRecipientBik
+            // txtRecipientBic
             // 
-            this.txtRecipientBik.Location = new System.Drawing.Point(97, 45);
-            this.txtRecipientBik.Name = "txtRecipientBik";
-            this.txtRecipientBik.Size = new System.Drawing.Size(140, 20);
-            this.txtRecipientBik.TabIndex = 6;
+            this.txtRecipientBic.Location = new System.Drawing.Point(97, 45);
+            this.txtRecipientBic.Name = "txtRecipientBic";
+            this.txtRecipientBic.Size = new System.Drawing.Size(140, 20);
+            this.txtRecipientBic.TabIndex = 6;
             // 
             // lblRecipientCorrAccount
             // 
@@ -700,6 +701,7 @@ namespace UbsBusiness
             // 
             // ucaRecipientCorrAccount
             // 
+            this.ucaRecipientCorrAccount.Enabled = false;
             this.ucaRecipientCorrAccount.Location = new System.Drawing.Point(365, 45);
             this.ucaRecipientCorrAccount.MaxLength = 24;
             this.ucaRecipientCorrAccount.Name = "ucaRecipientCorrAccount";
@@ -708,6 +710,7 @@ namespace UbsBusiness
             // 
             // txtRecipientBankName
             // 
+            this.txtRecipientBankName.Enabled = false;
             this.txtRecipientBankName.Location = new System.Drawing.Point(97, 71);
             this.txtRecipientBankName.Name = "txtRecipientBankName";
             this.txtRecipientBankName.Size = new System.Drawing.Size(474, 20);
@@ -800,6 +803,7 @@ namespace UbsBusiness
             this.txtRecipientNote.Name = "txtRecipientNote";
             this.txtRecipientNote.Size = new System.Drawing.Size(27, 20);
             this.txtRecipientNote.TabIndex = 22;
+            this.txtRecipientNote.Visible = false;
             // 
             // btnSaveRecipientAttribute
             // 
@@ -977,16 +981,16 @@ namespace UbsBusiness
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.Controls.Add(this.ubsCtrlInfo1, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.uciInfo, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 647);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 626);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(610, 22);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(610, 43);
             this.tableLayoutPanel2.TabIndex = 4;
             // 
             // ubsCtrlInfo1
@@ -995,10 +999,10 @@ namespace UbsBusiness
             this.ubsCtrlInfo1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.ubsCtrlInfo1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.ubsCtrlInfo1.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.ubsCtrlInfo1.Interval = 500;
-            this.ubsCtrlInfo1.Location = new System.Drawing.Point(308, 9);
+            this.ubsCtrlInfo1.Interval = 360000;
+            this.ubsCtrlInfo1.Location = new System.Drawing.Point(49, 30);
             this.ubsCtrlInfo1.Name = "ubsCtrlInfo1";
-            this.ubsCtrlInfo1.Size = new System.Drawing.Size(299, 13);
+            this.ubsCtrlInfo1.Size = new System.Drawing.Size(558, 13);
             this.ubsCtrlInfo1.TabIndex = 2;
             this.ubsCtrlInfo1.Text = "uciInfo";
             this.ubsCtrlInfo1.Visible = false;
@@ -1009,10 +1013,10 @@ namespace UbsBusiness
             this.uciInfo.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.uciInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.uciInfo.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.uciInfo.Interval = 500;
-            this.uciInfo.Location = new System.Drawing.Point(3, 9);
+            this.uciInfo.Interval = 360000;
+            this.uciInfo.Location = new System.Drawing.Point(3, 30);
             this.uciInfo.Name = "uciInfo";
-            this.uciInfo.Size = new System.Drawing.Size(299, 13);
+            this.uciInfo.Size = new System.Drawing.Size(40, 13);
             this.uciInfo.TabIndex = 1;
             this.uciInfo.Text = "uciFR";
             this.uciInfo.Visible = false;
@@ -1030,7 +1034,7 @@ namespace UbsBusiness
             this.tabPageThirdPerson.Location = new System.Drawing.Point(4, 22);
             this.tabPageThirdPerson.Name = "tabPageThirdPerson";
             this.tabPageThirdPerson.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageThirdPerson.Size = new System.Drawing.Size(622, 678);
+            this.tabPageThirdPerson.Size = new System.Drawing.Size(378, 158);
             this.tabPageThirdPerson.TabIndex = 1;
             this.tabPageThirdPerson.Text = "Сведения о третьем лице";
             this.tabPageThirdPerson.UseVisualStyleBackColor = true;
@@ -1612,7 +1616,7 @@ namespace UbsBusiness
         private TextBox txtContractCode;
         private TextBox txtRecipientComment;
         private Label lblRecipientBik;
-        private TextBox txtRecipientBik;
+        private TextBox txtRecipientBic;
         private Label lblRecipientCorrAccount;
         private UbsControl.UbsCtrlAccount ucaRecipientCorrAccount;
         private TextBox txtRecipientBankName;

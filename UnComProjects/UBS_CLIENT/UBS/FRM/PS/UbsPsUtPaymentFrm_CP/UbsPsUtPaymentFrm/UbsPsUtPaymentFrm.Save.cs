@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
+using UbsService;
 
 namespace UbsBusiness
 {
@@ -53,7 +56,7 @@ namespace UbsBusiness
                     return;
                 }
 
-                if (tabPageTax.Visible)
+                if (IsTabPageShown(tabPageTax))
                 {
                     if (txtRecipientInn.Text.Trim().Length == 0 || txtRecipientInn.Text.Trim() == "0")
                     {
@@ -271,7 +274,7 @@ namespace UbsBusiness
 
         private bool ValidateTaxBeforeSave()
         {
-            if (!tabPageTax.Visible) return true;
+            if (!IsTabPageShown(tabPageTax)) return true;
 
             try
             {
@@ -645,7 +648,7 @@ namespace UbsBusiness
 
         private void CollectSecondPaymentParamIn()
         {
-            if (tabPageTax.Visible && m_isSecondPayment == 2)
+            if (IsTabPageShown(tabPageTax) && m_isSecondPayment == 2)
             {
                 m_idContractSecond = 0;
                 this.UbsChannel_ParamIn("SummaRateSend", 0);
@@ -672,7 +675,7 @@ namespace UbsBusiness
 
         private void CollectTaxParamIn()
         {
-            if (!tabPageTax.Visible) return;
+            if (!IsTabPageShown(tabPageTax)) return;
 
             this.UbsChannel_ParamIn("Статус составителя", txtTaxStatus.Text);
             this.UbsChannel_ParamIn("Код бюджетной классификации", txtTaxKbk.Text);
@@ -1211,7 +1214,7 @@ namespace UbsBusiness
                 if (prefix != "03" && currCode != "643")
                 {
                     this.IUbsChannel.ParamIn("STRACC", acc);
-                    this.IUbsChannel.ParamIn("BIC", txtRecipientBik.Text);
+                    this.IUbsChannel.ParamIn("BIC", txtRecipientBic.Text);
                     this.IUbsChannel.ParamIn("CORRACC", ucaRecipientCorrAccount.Text);
                     this.IUbsChannel.Run("CheckKey");
 
@@ -1610,24 +1613,48 @@ namespace UbsBusiness
             key = string.Empty;
             try
             {
-                this.IUbsChannel.ParamIn("AccCode", m_strAccCode);
-                this.IUbsChannel.ParamIn("mSumma", udcPaymentAmount.DecimalValue);
-                this.IUbsChannel.ParamIn("IDKINDPAYMENT", m_idKindPaym);
-                this.IUbsChannel.Run("CalcKey");
-
-                var paramOut = new UbsParamCustom(this.IUbsChannel.ParamsOut);
-                if (!paramOut.GetParamOutBool("bRetVal"))
+                if (m_sidPattern == "UBS_UT_PHONE_ROSTEL")
                 {
-                    string err = paramOut.GetParamOutString("StrError");
-                    if (err.Length > 0)
+                    base.IUbsChannel.ParamIn("mSumma", udcPaymentAmount.DecimalValue);
+                }
+
+                base.IUbsChannel.ParamIn("strNameProcKey", m_strNameProcKey);
+
+                m_cityCode = cmbCityCode.Text;
+
+                if (m_sidPattern == "UBS_UT_PHONE" && m_cityCode.Trim().Length > 0)
+                {
+                    if (m_strAccCode.Substring(0, m_cityCode.ToString().Length).Trim() != m_cityCode.ToString())
                     {
-                        MessageBox.Show(err, CaptionForm,
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        m_strAccCode = m_cityCode + m_strAccCode;
                     }
+                }
+
+                base.IUbsChannel.ParamIn("AccCode", m_strAccCode);
+
+                base.IUbsChannel.Run("UtCalcKey");
+
+                if (!Convert.ToBoolean(base.IUbsChannel.ParamOut("bRetVal")))
+                {
+                    if (Convert.ToInt32(base.IUbsChannel.ParamOut("ErrNum")) != 0)
+                    {
+                        base.Ubs_ShowMsg(Convert.ToString(base.IUbsChannel.ParamOut("StrError")));
+
+                        btnCalc.Enabled = false;
+                    }
+                    else
+                    {
+                        MessageBox.Show(Convert.ToString(base.IUbsChannel.ParamOut("StrError")), "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        txtCheckSum.Focus();
+                    }
+
                     return false;
                 }
 
-                key = paramOut.GetParamOutString("Key");
+                key = Convert.ToString(base.IUbsChannel.ParamOut("CheckSum"));
+                m_bIsCheckKey = Convert.ToBoolean(base.IUbsChannel.ParamOut("bIsCheckKey"));
+
                 return true;
             }
             catch (Exception ex)
@@ -1641,8 +1668,55 @@ namespace UbsBusiness
         {
             try
             {
-                this.IUbsChannel.ParamIn("AccCode", m_strAccCode);
-                this.IUbsChannel.Run("GetDataClietFromLic");
+                base.IUbsChannel.ParamIn("blnGuest", m_isGuest);
+                base.IUbsChannel.ParamIn("IdContract", m_idContract);
+                base.IUbsChannel.ParamIn("л/с", txtPayerAccount.Text);
+
+                base.IUbsChannel.Run("UtReadLic");
+
+                if (base.IUbsChannel.ExistParamOut("ID_CLIENT"))
+                {
+                    m_isLic = true;
+                }
+                else
+                {
+                    m_isLic = false;
+                }
+
+                if (m_isLic)
+                {
+                    m_idClient = Convert.ToInt32(base.IUbsChannel.ParamOut("ID_CLIENT"));
+                    txtPayerAccount.Text = Convert.ToString(base.IUbsChannel.ParamOut("ACCCODE"));
+
+                    base.IUbsChannel.ParamIn("IDCLIENT", m_idClient);
+                    base.IUbsChannel.ParamIn("IsGuest", m_isGuest);
+
+                    base.IUbsChannel.Run("ReadClientFromIdOC");
+
+                    if (Convert.ToString(base.IUbsChannel.ParamOut("StrError")).Trim().Length > 0)
+                    {
+                        MessageBox.Show(Convert.ToString(base.IUbsChannel.ParamOut("StrError")).Trim(), "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        return;
+                    }
+
+                    txtPayerInn.Text = Convert.ToString(base.IUbsChannel.ParamOut("INN"));
+                    txtPayerClientInfo.Text = Convert.ToString(base.IUbsChannel.ParamOut("InfoClient"));
+                    txtPayerFullName.Text = Convert.ToString(base.IUbsChannel.ParamOut("NAME"));
+                    txtPayerAddress.Text = Convert.ToString(base.IUbsChannel.ParamOut("ADRESS"));
+
+                    if (ucaPayerAccount.Visible)
+                    {
+                        ucaPayerAccount.Text = "00000000000000000000";
+                    }
+
+                    ucaPayerAccount.Text = string.Empty;
+
+                    CheckPayer(false);
+
+                    m_docNumber = Convert.ToString(base.IUbsChannel.ParamOut("NUMBER"));
+                    m_docSeries = Convert.ToString(base.IUbsChannel.ParamOut("SERIES"));
+                }
             }
             catch (Exception ex) { this.Ubs_ShowError(ex); }
         }
@@ -1653,63 +1727,63 @@ namespace UbsBusiness
         /// </summary>
         private static bool CheckKeyInn(string inn)
         {
-            if (inn == null) return false;
+            //if (inn == null) return false;
 
-            if (inn.Length == 10)
-            {
-                if (inn.Substring(0, 2).ToLower() == "00")
-                    return true;
+            //if (inn.Length == 10)
+            //{
+            //    if (inn.Substring(0, 2).ToLower() == "00")
+            //        return true;
 
-                int[] w = { 2, 4, 10, 3, 5, 9, 4, 6, 8 };
-                int sum = 0;
-                for (int i = 0; i < 9; i++)
-                {
-                    int d;
-                    if (!int.TryParse(inn.Substring(i, 1), out d)) return false;
-                    sum += w[i] * d;
-                }
-                int check = (sum % 11) % 10;
-                int last;
-                if (!int.TryParse(inn.Substring(9, 1), out last)) return false;
-                return check == last;
-            }
+            //    int[] w = { 2, 4, 10, 3, 5, 9, 4, 6, 8 };
+            //    int sum = 0;
+            //    for (int i = 0; i < 9; i++)
+            //    {
+            //        int d;
+            //        if (!int.TryParse(inn.Substring(i, 1), out d)) return false;
+            //        sum += w[i] * d;
+            //    }
+            //    int check = (sum % 11) % 10;
+            //    int last;
+            //    if (!int.TryParse(inn.Substring(9, 1), out last)) return false;
+            //    return check == last;
+            //}
 
-            if (inn.Length == 12)
-            {
-                if (inn.Substring(0, 2).ToLower() == "00")
-                    return true;
+            //if (inn.Length == 12)
+            //{
+            //    if (inn.Substring(0, 2).ToLower() == "00")
+            //        return true;
 
-                int[] w11 = { 7, 2, 4, 10, 3, 5, 9, 4, 6, 8 };
-                int sum1 = 0;
-                for (int i = 0; i < 10; i++)
-                {
-                    int d;
-                    if (!int.TryParse(inn.Substring(i, 1), out d)) return false;
-                    sum1 += w11[i] * d;
-                }
-                int check1 = (sum1 % 11) % 10;
-                int d11;
-                if (!int.TryParse(inn.Substring(10, 1), out d11)) return false;
-                if (check1 != d11) return false;
+            //    int[] w11 = { 7, 2, 4, 10, 3, 5, 9, 4, 6, 8 };
+            //    int sum1 = 0;
+            //    for (int i = 0; i < 10; i++)
+            //    {
+            //        int d;
+            //        if (!int.TryParse(inn.Substring(i, 1), out d)) return false;
+            //        sum1 += w11[i] * d;
+            //    }
+            //    int check1 = (sum1 % 11) % 10;
+            //    int d11;
+            //    if (!int.TryParse(inn.Substring(10, 1), out d11)) return false;
+            //    if (check1 != d11) return false;
 
-                int[] w12 = { 3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8 };
-                int sum2 = 0;
-                for (int i = 0; i < 11; i++)
-                {
-                    int d;
-                    if (!int.TryParse(inn.Substring(i, 1), out d)) return false;
-                    sum2 += w12[i] * d;
-                }
-                int check2 = (sum2 % 11) % 10;
-                int d12;
-                if (!int.TryParse(inn.Substring(11, 1), out d12)) return false;
-                return check2 == d12;
-            }
+            //    int[] w12 = { 3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8 };
+            //    int sum2 = 0;
+            //    for (int i = 0; i < 11; i++)
+            //    {
+            //        int d;
+            //        if (!int.TryParse(inn.Substring(i, 1), out d)) return false;
+            //        sum2 += w12[i] * d;
+            //    }
+            //    int check2 = (sum2 % 11) % 10;
+            //    int d12;
+            //    if (!int.TryParse(inn.Substring(11, 1), out d12)) return false;
+            //    return check2 == d12;
+            //}
 
-            if (inn.Length == 5)
-                return true;
+            //if (inn.Length == 5)
+            return true;
 
-            return false;
+            //return false;
         }
 
         /// <summary>
@@ -1722,7 +1796,7 @@ namespace UbsBusiness
             {
                 m_isControlSum = false;
 
-                this.IUbsChannel.ParamIn("BicExtBank", txtRecipientBik.Text);
+                this.IUbsChannel.ParamIn("BicExtBank", txtRecipientBic.Text);
                 this.IUbsChannel.ParamIn("Account_R", ucaRecipientAccount.Text);
                 this.IUbsChannel.Run("PS_GetSummaControl");
 
@@ -1973,7 +2047,7 @@ namespace UbsBusiness
         {
             txtContractCode.Text = string.Empty;
             txtRecipientComment.Text = string.Empty;
-            txtRecipientBik.Text = string.Empty;
+            txtRecipientBic.Text = string.Empty;
             ucaRecipientCorrAccount.Text = string.Empty;
             txtRecipientBankName.Text = string.Empty;
             ucaRecipientAccount.Text = string.Empty;

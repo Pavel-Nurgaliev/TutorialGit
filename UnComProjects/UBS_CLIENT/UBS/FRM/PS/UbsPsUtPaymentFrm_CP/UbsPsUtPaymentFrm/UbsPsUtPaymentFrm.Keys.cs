@@ -132,7 +132,7 @@ namespace UbsBusiness
                     return;
                 }
 
-                if (active == txtRecipientBik)
+                if (active == txtRecipientBic)
                 {
                     OnEnter_RecipientBik();
                     return;
@@ -174,7 +174,7 @@ namespace UbsBusiness
 
                 if (active == txtThirdPersonInn)
                 {
-                    if (tabPageTax.Visible && !txtThirdPersonKpp.Enabled)
+                    if (IsTabPageShown(tabPageTax) && !txtThirdPersonKpp.Enabled)
                     {
                         tabPayment.SelectedTab = tabPageTax;
                         txtTaxKbk.Focus();
@@ -188,7 +188,7 @@ namespace UbsBusiness
 
                 if (active == txtThirdPersonKpp)
                 {
-                    if (tabPageTax.Visible)
+                    if (IsTabPageShown(tabPageTax))
                     {
                         tabPayment.SelectedTab = tabPageTax;
                         txtTaxKbk.Focus();
@@ -242,7 +242,7 @@ namespace UbsBusiness
             {
                 txtCheckSum.Focus();
             }
-            else if (tabPageTelephone.Visible)
+            else if (IsTabPageShown(tabPageTelephone))
             {
                 tabPayment.SelectedTab = tabPageTelephone;
                 cmbPhone.Focus();
@@ -261,18 +261,18 @@ namespace UbsBusiness
                 return;
             }
 
-            if (tabPageTax.Visible)
+            if (IsTabPageShown(tabPageTax))
             {
                 tabPayment.SelectedTab = tabPageTax;
                 if (txtTaxStatus.Enabled) txtTaxStatus.Focus();
                 else txtTaxKbk.Focus();
             }
-            else if (tabPageTelephone.Visible)
+            else if (IsTabPageShown(tabPageTelephone))
             {
                 tabPayment.SelectedTab = tabPageTelephone;
                 cmbPhone.Focus();
             }
-            else if (tabPageTariff.Visible)
+            else if (IsTabPageShown(tabPageTariff))
             {
                 tabPayment.SelectedTab = tabPageTariff;
                 cmbTariff.Focus();
@@ -289,7 +289,7 @@ namespace UbsBusiness
             if (!GetBankNameACC())
             {
                 tabPayment.SelectedTab = tabPageGeneral;
-                if (txtRecipientBik.Enabled) txtRecipientBik.Focus();
+                if (txtRecipientBic.Enabled) txtRecipientBic.Focus();
             }
             else
             {
@@ -323,12 +323,12 @@ namespace UbsBusiness
                 tabPayment.SelectedTab = tabPageGeneral;
                 SelectNextControl(udcPaymentAmount, true, true, true, true);
             }
-            else if (tabPageThirdPerson.Visible)
+            else if (IsTabPageShown(tabPageThirdPerson))
             {
                 tabPayment.SelectedTab = tabPageThirdPerson;
                 txtThirdPersonName.Focus();
             }
-            else if (tabPageTax.Visible)
+            else if (IsTabPageShown(tabPageTax))
             {
                 tabPayment.SelectedTab = tabPageTax;
                 if (txtTaxStatus.Enabled) txtTaxStatus.Focus();
@@ -353,12 +353,12 @@ namespace UbsBusiness
                 tabPayment.SelectedTab = tabPageGeneral;
                 SelectNextControl(udcPenaltyAmount, true, true, true, true);
             }
-            else if (tabPageThirdPerson.Visible)
+            else if (IsTabPageShown(tabPageThirdPerson))
             {
                 tabPayment.SelectedTab = tabPageThirdPerson;
                 txtThirdPersonName.Focus();
             }
-            else if (tabPageTax.Visible)
+            else if (IsTabPageShown(tabPageTax))
             {
                 tabPayment.SelectedTab = tabPageTax;
                 if (txtTaxStatus.Enabled) txtTaxStatus.Focus();
@@ -380,7 +380,7 @@ namespace UbsBusiness
             {
                 txtPayerAccount.Focus();
             }
-            else if (tabPageThirdPerson.Visible)
+            else if (IsTabPageShown(tabPageThirdPerson))
             {
                 tabPayment.SelectedTab = tabPageThirdPerson;
                 txtThirdPersonName.Focus();
@@ -441,7 +441,7 @@ namespace UbsBusiness
                 {
                     if (txtRecipientInn.Enabled) txtRecipientInn.Focus();
                     else if (ucaRecipientAccount.Enabled) ucaRecipientAccount.Focus();
-                    else if (txtRecipientBik.Enabled) txtRecipientBik.Focus();
+                    else if (txtRecipientBic.Enabled) txtRecipientBic.Focus();
                     else if (txtContractCode.Enabled) txtContractCode.Focus();
                     return;
                 }
@@ -493,7 +493,7 @@ namespace UbsBusiness
 
                 if (active == ucaRecipientAccount)
                 {
-                    if (txtRecipientBik.Enabled) txtRecipientBik.Focus();
+                    if (txtRecipientBic.Enabled) txtRecipientBic.Focus();
                     return;
                 }
 
@@ -522,7 +522,7 @@ namespace UbsBusiness
                     {
                         txtTaxStatus.Focus();
                     }
-                    else if (tabPageThirdPerson.Visible)
+                    else if (IsTabPageShown(tabPageThirdPerson))
                     {
                         tabPayment.SelectedTab = tabPageThirdPerson;
                         if (txtThirdPersonKpp.Enabled)
@@ -542,7 +542,7 @@ namespace UbsBusiness
 
                 if (active == txtTaxStatus)
                 {
-                    if (tabPageThirdPerson.Visible)
+                    if (IsTabPageShown(tabPageThirdPerson))
                     {
                         tabPayment.SelectedTab = tabPageThirdPerson;
                         if (txtThirdPersonKpp.Enabled) txtThirdPersonKpp.Focus();

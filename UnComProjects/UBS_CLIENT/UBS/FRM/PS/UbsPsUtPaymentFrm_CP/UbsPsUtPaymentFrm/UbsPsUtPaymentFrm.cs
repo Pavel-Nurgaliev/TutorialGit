@@ -93,6 +93,7 @@ namespace UbsBusiness
         private string m_strSignAccCode = string.Empty;
         private string m_strSignKey = string.Empty;
         private string m_strNameProcAcc = string.Empty;
+        private string m_strNameProcKey;
         private int m_nLenKey;
         private bool m_bIncludeKey;
         private bool m_bIsCheckKey;
@@ -107,6 +108,16 @@ namespace UbsBusiness
         private decimal m_curSumNDSPaym;
         private bool m_isCreateCashOrd;
         private object m_arrSecondPaym;
+
+        /// <summary>
+        /// User-form init payload built by <c>CreateUserFormArray</c> and passed
+        /// to the <c>UTPUFT.vbs</c> script as the <c>InitArray</c> parameter.
+        /// Layout per array-rule: <c>object[recordIndex, fieldIndex]</c> where
+        /// column 0 = legacy VB6 control / variable name (string),
+        /// column 1 = value (string / decimal / DateTime / int / add-field value),
+        /// column 2 = mode (0 = control, 1 = variable, 3 = add-field).
+        /// </summary>
+        private object[,] m_varUFArray;
 
         #endregion
 

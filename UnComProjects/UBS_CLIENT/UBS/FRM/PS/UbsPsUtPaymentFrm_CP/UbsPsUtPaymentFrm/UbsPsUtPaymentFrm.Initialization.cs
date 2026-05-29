@@ -21,6 +21,7 @@ namespace UbsBusiness
         private bool m_isLetter;
         private object[,] m_arrSubContracts;
         private bool m_isEditRecip;
+        private string m_cityCode;
 
         /// <summary>
         /// InitDoc: сначала устанавливаются настройки из ListKey, потом инициализация полей формы в специальных режимах (VIEW/COPY/CHANGE_PART/ADD).
@@ -41,18 +42,24 @@ namespace UbsBusiness
                 txtPaymentCode.Visible = false;
                 lblPaymentCode.Visible = false;
 
+                linkRecipientBankName.Enabled = false;
+                btnSaveRecipientAttribute.Visible = false;
+
                 if (string.Equals(m_command, StrCommandAdd, StringComparison.Ordinal))
                 {
                     linkFindFilter.Visible = false;
                 }
 
+                txtPayerAccount.Visible = false;
+                linkPaymentAccount.Visible = false;
                 txtCheckSum.Visible = false;
                 cmbCityCode.Visible = false;
                 cmbCityCode.Enabled = false;
-                tabPageTariff.Hide();
-                tabPageTelephone.Hide();
-                tabPageTax.Hide();
-                tabPageThirdPerson.Hide();
+                lblCityCode.Visible = false;
+                HideTabPage(tabPageTariff);
+                HideTabPage(tabPageTelephone);
+                HideTabPage(tabPageTax);
+                HideTabPage(tabPageThirdPerson);
                 m_numTabAddFl = 5;
 
                 m_isSave = false;
@@ -204,7 +211,6 @@ namespace UbsBusiness
                 {
                     m_command = StrCommandView;
                     uciInfo.Show(MsgDocumentsExistViewOnly);
-                    uciInfo.Show();
                 }
 
                 this.IUbsChannel.Run("UtReadSettingEnterCashSymbol");
@@ -380,7 +386,7 @@ namespace UbsBusiness
             }
             else
             {
-                lblCashSymbolCommission.Visible = false;
+                lblCashSymbolNds.Visible = false;
                 txtCashSymbolNds.Visible = false;
             }
 
@@ -430,7 +436,7 @@ namespace UbsBusiness
             txtContractCode.Text = string.Empty;
             txtPaymentCode.Text = string.Empty;
             txtRecipientComment.Text = string.Empty;
-            txtRecipientBik.Text = string.Empty;
+            txtRecipientBic.Text = string.Empty;
             txtRecipientInn.Text = string.Empty;
             ucaRecipientCorrAccount.Text = string.Empty;
             txtRecipientBankName.Text = string.Empty;
@@ -517,7 +523,7 @@ namespace UbsBusiness
                 txtContractCode.Text = paramOutPayment.GetParamOutString("Code");
                 txtPaymentCode.Text = paramOutPayment.GetParamOutString("CodePayment");
                 txtRecipientComment.Text = paramOutPayment.GetParamOutString("Comment");
-                txtRecipientBik.Text = paramOutPayment.GetParamOutString("BIC");
+                txtRecipientBic.Text = paramOutPayment.GetParamOutString("BIC");
                 ucaRecipientCorrAccount.Text = paramOutPayment.GetParamOutString("AccCorr");
                 txtRecipientBankName.Text = paramOutPayment.GetParamOutString("NameBank");
                 txtRecipientInn.Text = paramOutPayment.GetParamOutString("INNRec1");
@@ -586,21 +592,21 @@ namespace UbsBusiness
                 lblPaymentCode.Visible = showCodePayment;
 
                 // Account code
-                string strAccCode = paramOutPayment.GetParamOutString("AccCode");
-                if (strAccCode.Trim().Length > 0)
+                m_strAccCode = paramOutPayment.GetParamOutString("AccCode");
+                if (m_strAccCode.Trim().Length > 0)
                 {
                     string includeKey = paramOutPayment.GetParamOutString("IncludeKey");
                     if (string.Equals(includeKey, "входит в счет", StringComparison.Ordinal))
                     {
-                        txtSubPaymentCount.Text = strAccCode + paramOutPayment.GetParamOutString("CheckSum");
+                        txtPayerAccount.Text = m_strAccCode + paramOutPayment.GetParamOutString("CheckSum");
                     }
                     else
                     {
-                        txtSubPaymentCount.Text = strAccCode;
-                        string cityCode = paramOutPayment.GetParamOutString("CityCode");
+                        txtPayerAccount.Text = m_strAccCode;
+                        m_cityCode = paramOutPayment.GetParamOutString("CityCode");
                         for (int i = 0; i < cmbCityCode.Items.Count; i++)
                         {
-                            if (string.Equals(cmbCityCode.Items[i].ToString(), cityCode, StringComparison.Ordinal))
+                            if (string.Equals(cmbCityCode.Items[i].ToString(), m_cityCode, StringComparison.Ordinal))
                             {
                                 cmbCityCode.SelectedIndex = i;
                                 break;
@@ -621,7 +627,7 @@ namespace UbsBusiness
                 m_curSumRec = paramOutPayment.GetParamOutDecimal("SummaRec");
                 m_curSumRateRec = paramOutPayment.GetParamOutDecimal("SummaRateRec");
 
-                udcTotalAmount.Text = paramOutPayment.GetParamOutString("Summa");
+                //m_summaTotal = paramOutPayment.GetParamOutString("Summa");
 
                 m_dateBeg = paramOutPayment.GetParamOutDateTime("DateBeg");
                 m_dateEnd = paramOutPayment.GetParamOutDateTime("DateEnd");
@@ -639,32 +645,32 @@ namespace UbsBusiness
                 chkThirdPerson.Enabled = false;
                 if (string.Equals(m_sidPattern, PatternEnergy, StringComparison.Ordinal))
                 {
-                    txtSubPaymentCount.Text = strAccCode;
-                    tabPageTax.Show();
+                    txtSubPaymentCount.Text = m_strAccCode;
+                    ShowTabPage(tabPageTax);
                     chkThirdPerson.Enabled = true;
                     if (chkThirdPerson.Checked)
                     {
-                        tabPageThirdPerson.Show();
+                        ShowTabPage(tabPageThirdPerson);
                     }
                 }
                 else if (string.Equals(m_sidPattern, PatternPhone, StringComparison.Ordinal))
                 {
                     cmbCityCode.Visible = true;
                     cmbCityCode.Enabled = true;
-                    tabPageTelephone.Show();
+                    ShowTabPage(tabPageTelephone);
                 }
                 else if (string.Equals(m_sidPattern, PatternNalog, StringComparison.Ordinal))
                 {
-                    tabPageTax.Show();
+                    ShowTabPage(tabPageTax);
                     chkThirdPerson.Enabled = true;
                     if (chkThirdPerson.Checked)
                     {
-                        tabPageThirdPerson.Show();
+                        ShowTabPage(tabPageThirdPerson);
                     }
                 }
                 else if (string.Equals(m_sidPattern, PatternPhoneAcc, StringComparison.Ordinal))
                 {
-                    tabPageTelephone.Show();
+                    ShowTabPage(tabPageTelephone);
                 }
             }
             catch (Exception ex) { this.Ubs_ShowError(ex); }
@@ -741,19 +747,19 @@ namespace UbsBusiness
                 }
 
                 chkThirdPerson.Enabled = false;
-                tabPageTariff.Hide();
-                tabPageTelephone.Hide();
-                tabPageTax.Hide();
-                tabPageThirdPerson.Hide();
+                HideTabPage(tabPageTariff);
+                HideTabPage(tabPageTelephone);
+                HideTabPage(tabPageTax);
+                HideTabPage(tabPageThirdPerson);
                 cmbCityCode.Visible = false;
                 cmbCityCode.Enabled = false;
-                linkPaymentAccount.Visible = false;
+                //linkPaymentAccount.Visible = false;
 
                 if (!string.Equals(m_commandSource, StrCommandAddParam, StringComparison.Ordinal))
                 {
                     txtRecipientName.Text = string.Empty;
                     txtRecipientComment.Text = string.Empty;
-                    txtRecipientBik.Text = string.Empty;
+                    txtRecipientBic.Text = string.Empty;
                     ucaRecipientCorrAccount.Text = string.Empty;
                     txtRecipientInn.Text = string.Empty;
                     ucaRecipientAccount.Text = string.Empty;
@@ -876,11 +882,17 @@ namespace UbsBusiness
                     }
                 }
 
+                // Mirror VB6 UtPayment.dob lines 7894-7908:
+                // visibility = (flag != 0) AND (cash-symbol regime is on).
+                bool showCommission = paramOutUtReadContract.GetParamOutInt("RateTypeSend") != 0
+                                      && m_isRegimCashSymb;
                 lblCashSymbolCommission.Visible =
-                txtCashSymbolCommission.Visible = (paramOutUtReadContract.GetParamOutInt("RateTypeSend") == 0);
+                txtCashSymbolCommission.Visible = showCommission;
 
+                bool showNds = paramOutUtReadContract.GetParamOutInt("ShowNDS") != 0
+                               && m_isRegimCashSymb;
                 lblCashSymbolNds.Visible =
-                lblCashSymbolNds.Visible = (paramOutUtReadContract.GetParamOutInt("ShowNDS") == 0);
+                txtCashSymbolNds.Visible = showNds;
 
                 if (!paramOutUtReadContract.GetParamOutBool("bRetVal") && paramOutUtReadContract.GetParamOutString("StrError").Length > 0)
                 {
@@ -916,55 +928,60 @@ namespace UbsBusiness
                     && txtContractCode.Text.Length == 0
                     && paramOutUtReadContract.GetParamOutString("Code").Length > 0)
                 {
-                    txtContractCode.Text = paramOutUtReadTypePayment.GetParamOutString("Code");
+                    txtContractCode.Text = paramOutUtReadContract.GetParamOutString("Code");
                 }
                 else if (!string.Equals(m_commandSource, StrCommandAddParam, StringComparison.Ordinal))
                 {
-                    txtContractCode.Text = paramOutUtReadTypePayment.GetParamOutString("Code");
+                    txtContractCode.Text = paramOutUtReadContract.GetParamOutString("Code");
                 }
 
                 if (string.Equals(m_commandSource, StrCommandAddParam, StringComparison.Ordinal)
                     && txtRecipientComment.Text.Length == 0
                     && paramOutUtReadContract.GetParamOutString("Comment").Length > 0)
                 {
-                    txtRecipientComment.Text = paramOutUtReadTypePayment.GetParamOutString("Comment");
+                    txtRecipientComment.Text = paramOutUtReadContract.GetParamOutString("Comment");
                 }
                 else if (!string.Equals(m_commandSource, StrCommandAddParam, StringComparison.Ordinal))
                 {
-                    txtRecipientComment.Text = paramOutUtReadTypePayment.GetParamOutString("Comment");
+                    txtRecipientComment.Text = paramOutUtReadContract.GetParamOutString("Comment");
                 }
 
                 if (string.Equals(m_commandSource, StrCommandAddParam, StringComparison.Ordinal)
-                    && txtRecipientBik.Text.Length == 0
+                    && txtRecipientBic.Text.Length == 0
                     && paramOutUtReadContract.GetParamOutString("BIC").Length > 0)
                 {
-                    txtRecipientBik.Text = paramOutUtReadTypePayment.GetParamOutString("BIC");
+                    txtRecipientBic.Text = paramOutUtReadContract.GetParamOutString("BIC");
                 }
                 else if (!string.Equals(m_commandSource, StrCommandAddParam, StringComparison.Ordinal))
                 {
-                    txtRecipientBik.Text = paramOutUtReadTypePayment.GetParamOutString("BIC");
+                    txtRecipientBic.Text = paramOutUtReadContract.GetParamOutString("BIC");
                 }
 
                 if (string.Equals(m_commandSource, StrCommandAddParam, StringComparison.Ordinal)
                     && ucaRecipientCorrAccount.Text.Length == 0
                     && paramOutUtReadContract.GetParamOutString("CorrAcc").Length > 0)
                 {
-                    ucaRecipientCorrAccount.Text = paramOutUtReadTypePayment.GetParamOutString("CorrAcc");
+                    ucaRecipientCorrAccount.Text = paramOutUtReadContract.GetParamOutString("CorrAcc");
                 }
                 else if (!string.Equals(m_commandSource, StrCommandAddParam, StringComparison.Ordinal))
                 {
-                    ucaRecipientCorrAccount.Text = paramOutUtReadTypePayment.GetParamOutString("CorrAcc");
+                    ucaRecipientCorrAccount.Text = paramOutUtReadContract.GetParamOutString("CorrAcc");
                 }
 
                 if (string.Equals(m_commandSource, StrCommandAddParam, StringComparison.Ordinal)
                     && txtRecipientInn.Text.Length == 0
                     && paramOutUtReadContract.GetParamOutString("INN").Length > 0)
                 {
-                    txtRecipientInn.Text = paramOutUtReadTypePayment.GetParamOutString("INN");
+                    txtRecipientInn.Text = paramOutUtReadContract.GetParamOutString("INN");
                 }
                 else if (!string.Equals(m_commandSource, StrCommandAddParam, StringComparison.Ordinal))
                 {
-                    txtRecipientInn.Text = paramOutUtReadTypePayment.GetParamOutString("INN");
+                    txtRecipientInn.Text = paramOutUtReadContract.GetParamOutString("INN");
+                }
+
+                if (paramOutUtReadContract.Contains("КППУ"))
+                {
+                    txtRecipientKpp.Text = paramOutUtReadContract.GetParamOutString("КППУ");
                 }
 
                 string accFromContract = paramOutUtReadContract.GetParamOutString("Acc");
@@ -989,9 +1006,9 @@ namespace UbsBusiness
 
                 linkRecipientBankName.Enabled = btnSaveRecipientAttribute.Enabled = (m_idContract != 0 && noRecipBik && noRecipAcc);
 
-                bool isArbitrary = (txtRecipientBik.Text.Trim().Length == 0);
+                bool isArbitrary = (txtRecipientBic.Text.Trim().Length == 0);
 
-                if ((paramOutUtReadContract.GetParamOutInt("IdClient") == 0 || string.Equals(ucaRecipientAccount.Text, "00000000000000000000", StringComparison.Ordinal))
+                if ((paramOutUtReadContract.GetParamOutInt("IdClient") == 0 && string.Equals(ucaRecipientAccount.Text, "00000000000000000000", StringComparison.Ordinal))
                     && accFromContract.Length > 0)
                 {
                     m_isEditRecip = true;
@@ -1054,9 +1071,9 @@ namespace UbsBusiness
                     {
                         txtRecipientInn.Focus();
                     }
-                    else if (txtRecipientBik.Visible && txtRecipientBik.Enabled && (isArbitrary || m_isEditRecip))
+                    else if (txtRecipientBic.Visible && txtRecipientBic.Enabled && (isArbitrary || m_isEditRecip))
                     {
-                        txtRecipientBik.Focus();
+                        txtRecipientBic.Focus();
                     }
                     else if (cmbPurpose.Visible && cmbPurpose.Enabled)
                     {
@@ -1116,25 +1133,25 @@ namespace UbsBusiness
 
                 if (ucfAddProperties.Collection.Count == 0)
                 {
-                    tabPageAddFields.Hide();
+                    HideTabPage(tabPageAddFields);
                 }
                 else
                 {
-                    tabPageAddFields.Show();
+                    ShowTabPage(tabPageAddFields);
                 }
 
                 chkThirdPerson.Enabled = false;
-                tabPageTariff.Hide();
-                tabPageTelephone.Hide();
-                tabPageTax.Hide();
-                tabPageThirdPerson.Hide();
+                HideTabPage(tabPageTariff);
+                HideTabPage(tabPageTelephone);
+                HideTabPage(tabPageTax);
+                HideTabPage(tabPageThirdPerson);
                 cmbCityCode.Visible = false;
                 cmbCityCode.Enabled = false;
 
                 switch (m_sidPattern)
                 {
                     case PatternEnergy:
-                        tabPageTariff.Show();
+                        ShowTabPage(tabPageTariff);
                         FillTariff(m_idTariff);
 
                         if (tabPayment.SelectedTab == tabPageAddFields)
@@ -1153,15 +1170,15 @@ namespace UbsBusiness
                     case PatternPhone:
                         cmbCityCode.Visible = true;
                         cmbCityCode.Enabled = true;
-                        tabPageTelephone.Show();
+                        ShowTabPage(tabPageTelephone);
                         FillPhone(m_idPhone);
                         break;
                     case PatternPhoneAcc:
-                        tabPageTelephone.Show();
+                        ShowTabPage(tabPageTelephone);
                         FillPhone(m_idPhone);
                         break;
                     case PatternNalog:
-                        tabPageTax.Show();
+                        ShowTabPage(tabPageTax);
                         chkThirdPerson.Enabled = true;
                         FillNalog(false, 0);
                         break;
@@ -1172,7 +1189,7 @@ namespace UbsBusiness
 
                 if (m_idContract != 0 && !string.Equals(m_command, StrCommandView, StringComparison.Ordinal))
                 {
-                    txtRecipientBik.Enabled = (txtRecipientBik.Text.Length == 0);
+                    txtRecipientBic.Enabled = (txtRecipientBic.Text.Length == 0);
                     txtRecipientInn.Enabled = (txtRecipientInn.Text.Length == 0);
                     ucaRecipientAccount.Enabled =
                         string.Equals(ucaRecipientAccount.Text, "00000000000000000000", StringComparison.Ordinal)
@@ -1181,9 +1198,9 @@ namespace UbsBusiness
 
                 if (m_isForward)
                 {
-                    if (txtRecipientBik.Enabled)
+                    if (txtRecipientBic.Enabled)
                     {
-                        txtRecipientBik.Focus();
+                        txtRecipientBic.Focus();
                     }
                     else if (ucaRecipientAccount.Enabled)
                     {
@@ -1209,14 +1226,14 @@ namespace UbsBusiness
 
                 if (string.Equals(m_command, StrCommandAdd, StringComparison.Ordinal)
                     && string.Equals(m_sidPattern, PatternNalog, StringComparison.Ordinal)
-                    && m_idClient != 0 && txtRecipientBik.Text.Trim().Length > 0)
+                    && m_idClient != 0 && txtRecipientBic.Text.Trim().Length > 0)
                 {
                     FillNalog(true, m_idClient);
                 }
 
                 this.IUbsChannel.ParamIn("IdContract", m_idContract);
                 this.IUbsChannel.ParamIn("IdClient", m_idContract);
-                this.IUbsChannel.ParamIn("BIC", txtRecipientBik.Text);
+                this.IUbsChannel.ParamIn("BIC", txtRecipientBic.Text);
                 this.IUbsChannel.Run("UtGetAccINNFromLastPayment");
 
                 var paramOutUtGetAccINNFromLastPayment = new UbsParamCustom(this.IUbsChannel.ParamsOut);
@@ -1268,20 +1285,95 @@ namespace UbsBusiness
         {
             try
             {
-                this.IUbsChannel.ParamIn("IDKINDPAYMENT", idKindPaym);
-                this.IUbsChannel.Run("CheckKey");
+                var paramIn = new UbsParam();
 
-                var paramOut = new UbsParamCustom(this.IUbsChannel.ParamsOut);
+                paramIn.Value("IDKINDPAYMENT", idKindPaym);
 
-                bool isCheckKey = paramOut.GetParamOutBool("bIsCheckKey");
-                m_strCheckType = paramOut.GetParamOutString("strSignKey");
-                int nLenKey = paramOut.GetParamOutInt("nLenKey");
+                base.IUbsChannel.ParamsInParam = paramIn;
 
-                txtPayerAccount.Visible = (nLenKey > 0);
-                linkPaymentAccount.Visible = (nLenKey > 0);
-                txtCheckSum.Visible = isCheckKey;
-                cmbCityCode.Visible = paramOut.GetParamOutBool("bIsPeriodEnable");
-                cmbCityCode.Enabled = paramOut.GetParamOutBool("bIsPeriodEnable");
+                base.IUbsChannel.Run("GetPropAccCode");
+
+                var paramOut = base.IUbsChannel.ParamsOutParam;
+
+                m_bIncludeKey = Convert.ToBoolean(paramOut.Value("INCLUDEKEY"));
+                m_strSignAccCode = Convert.ToString(paramOut.Value("SIGNACCCODE"));
+                m_strSignKey = Convert.ToString(paramOut.Value("SIGNKEY"));
+                m_nLenKey = Convert.ToInt32(paramOut.Value("LENKEY"));
+                m_strNameProcAcc = Convert.ToString(paramOut.Value("PROCCHECKACCCODE"));
+                m_strNameProcKey = Convert.ToString(paramOut.Value("PROCCHECKKEY"));
+
+                var isAccEnable = Convert.ToBoolean(paramOut.Value("ISACCENABLE"));
+                var isBtnEnable = Convert.ToBoolean(paramOut.Value("ISBTNENABLE"));
+
+                txtPayerAccount.Enabled = isAccEnable;
+
+                if (txtPayerAccount.Enabled)
+                {
+                    txtPayerAccount.Tag = paramOut.Value("TOTALLENACC");
+                    txtPayerAccount.MaxLength = Convert.ToInt32(paramOut.Value("LENACC"));
+                }
+                else
+                {
+                    txtPayerAccount.Text = string.Empty;
+                    txtCheckSum.Text = string.Empty;
+                }
+
+                txtPayerAccount.Visible = isAccEnable;
+                if (isAccEnable && isBtnEnable)
+                {
+                    linkPaymentAccount.Visible = isBtnEnable;
+                }
+
+                txtPayerAccount.Enabled =
+                    linkPaymentAccount.Visible =
+                    isAccEnable;
+
+                m_isPeriodEnable = Convert.ToBoolean(paramOut.Value("IsPeriodEnable"));
+                txtPeriodDayBeg.Visible = Convert.ToBoolean(paramOut.Value("IsPeriodEnable"));
+                txtPeriodMonthBeg.Visible = Convert.ToBoolean(paramOut.Value("IsPeriodEnable"));
+                txtPeriodYearBeg.Visible = Convert.ToBoolean(paramOut.Value("IsPeriodEnable"));
+                txtPeriodDayEnd.Visible = Convert.ToBoolean(paramOut.Value("IsPeriodEnable"));
+                txtPeriodMonthEnd.Visible = Convert.ToBoolean(paramOut.Value("IsPeriodEnable"));
+                txtPeriodYearEnd.Visible = Convert.ToBoolean(paramOut.Value("IsPeriodEnable"));
+                lblPeriodBeg.Visible = Convert.ToBoolean(paramOut.Value("IsPeriodEnable"));
+                lblPeriodEnd.Visible = Convert.ToBoolean(paramOut.Value("IsPeriodEnable"));
+
+                if (!txtPayerAccount.Visible && !txtPayerAccount.Enabled)
+                {
+                    txtPayerAccount.Text = string.Empty;
+                    txtCheckSum.Text = string.Empty;
+                    txtPayerAccount.Tag = 0;
+                }
+
+                if (Convert.ToBoolean(paramOut.Value("ISKEYENABLE")))
+                {
+                    txtCheckSum.Visible = true;
+                    txtCheckSum.Enabled = true;
+
+                    if (Convert.ToBoolean(paramOut.Value("INCLUDEKEY")))
+                    {
+                        txtCheckSum.Visible = false;
+                        txtCheckSum.Enabled = false;
+                    }
+                }
+                else
+                {
+                    txtCheckSum.Visible = false;
+                    txtCheckSum.Enabled = false;
+                }
+
+                if (!txtCheckSum.Visible && !txtCheckSum.Enabled)
+                {
+                    txtCheckSum.Text = string.Empty;
+                    txtCheckSum.MaxLength = 0;
+                    txtCheckSum.Tag = 0;
+                }
+                else
+                {
+                    var lenkey = Convert.ToInt32(paramOut.Value("LENKEY"));
+                    txtCheckSum.MaxLength = lenkey;
+                    txtCheckSum.Tag = lenkey;
+                }
             }
             catch (Exception ex) { this.Ubs_ShowError(ex); }
         }
@@ -1295,10 +1387,7 @@ namespace UbsBusiness
         {
             try
             {
-                txtRecipientBik.Enabled =
-                ucaRecipientCorrAccount.Enabled =
-                txtRecipientBankName.Enabled =
-                linkRecipientBankName.Enabled = isSepDoc;
+                txtRecipientInn.Enabled = isSepDoc;
             }
             catch (Exception ex) { this.Ubs_ShowError(ex); }
         }
@@ -1435,7 +1524,7 @@ namespace UbsBusiness
             txtContractCode.Enabled =
             txtRecipientComment.Enabled =
             linkContractCode.Enabled =
-            txtRecipientBik.Enabled =
+            txtRecipientBic.Enabled =
             ucaRecipientCorrAccount.Enabled =
             txtRecipientBankName.Enabled =
             txtRecipientInn.Enabled =
@@ -1542,6 +1631,7 @@ namespace UbsBusiness
                 paramInCallingUserFormPattern.Value("DocHandle", UbsShortNumerator.Number);
                 paramInCallingUserFormPattern.Value("IdContract", m_idContract);
                 paramInCallingUserFormPattern.Value("RunUserForm", runFlag);
+                paramInCallingUserFormPattern.Value("InitArray", m_varUFArray);
 
                 scripter.UbsScriptParam = paramInScripter;
 
@@ -1609,7 +1699,7 @@ namespace UbsBusiness
                     }
                     else if (string.Equals(key, "BIC", StringComparison.Ordinal))
                     {
-                        txtRecipientBik.Text = val;
+                        txtRecipientBic.Text = val;
                         GetBankNameACC();
                     }
                     else if (string.Equals(key, "ACC", StringComparison.Ordinal))
@@ -1722,7 +1812,7 @@ namespace UbsBusiness
                 this.IUbsChannel.ParamIn("CodeContract", txtContractCode.Text);
                 this.IUbsChannel.ParamIn("CodePayment", txtPaymentCode.Text);
                 this.IUbsChannel.ParamIn("NameSection", "Оплата услуг");
-                this.IUbsChannel.ParamIn("BIC", txtRecipientBik.Text.Trim());
+                this.IUbsChannel.ParamIn("BIC", txtRecipientBic.Text.Trim());
                 this.IUbsChannel.ParamIn("ACC", ucaRecipientAccount.Text);
                 this.IUbsChannel.Run("Ut_GetUserPaymentData");
 
@@ -1763,12 +1853,12 @@ namespace UbsBusiness
                     {
                         udcPaymentAmount.Focus();
                     }
-                    else if (tabPageThirdPerson.Visible)
+                    else if (IsTabPageShown(tabPageThirdPerson))
                     {
                         tabPayment.SelectedTab = tabPageThirdPerson;
                         txtThirdPersonName.Focus();
                     }
-                    else if (tabPageTax.Visible)
+                    else if (IsTabPageShown(tabPageTax))
                     {
                         tabPayment.SelectedTab = tabPageTax;
                         if (txtTaxStatus.Enabled)
@@ -1802,7 +1892,7 @@ namespace UbsBusiness
 
             var prm = (UbsParamCustom)dataPaymentObj;
 
-            if (tabPageTax.Visible)
+            if (IsTabPageShown(tabPageTax))
             {
                 string kbk = prm.GetParamOutString("Код бюджетной классификации");
                 if (kbk.Trim().Length > 0)
@@ -1848,7 +1938,7 @@ namespace UbsBusiness
                 m_curSumRateRec = prm.GetParamOutDecimal("SUMMARATEREC");
             }
 
-            if (tabPageTax.Visible && prm.Contains("Код ОКАТО"))
+            if (IsTabPageShown(tabPageTax) && prm.Contains("Код ОКАТО"))
             {
                 string okato = prm.GetParamOutString("Код ОКАТО");
                 if (okato.Trim().Length > 0)
@@ -1862,7 +1952,7 @@ namespace UbsBusiness
                 string bic = prm.GetParamOutString("BIC");
                 if (bic.Trim().Length > 0)
                 {
-                    txtRecipientBik.Text = bic;
+                    txtRecipientBic.Text = bic;
                     GetBankNameACC();
                 }
             }
@@ -1880,7 +1970,7 @@ namespace UbsBusiness
             }
             var prm = (UbsParamCustom)dataPaymentObj;
 
-            if (tabPageTax.Visible)
+            if (IsTabPageShown(tabPageTax))
             {
                 if (prm.Contains("Статус составителя"))
                     txtTaxStatus.Text = prm.GetParamOutString("Статус составителя");
@@ -2060,7 +2150,7 @@ namespace UbsBusiness
             if (prm.Contains("THIRDPERSON_NAME"))
             {
                 chkThirdPerson.Checked = true;
-                tabPageThirdPerson.Show();
+                ShowTabPage(tabPageThirdPerson);
                 txtThirdPersonName.Text = prm.GetParamOutString("THIRDPERSON_NAME");
 
                 if (prm.Contains("THIRDPERSON_KIND"))
@@ -2246,7 +2336,6 @@ namespace UbsBusiness
                 {
                     m_command = StrCommandView;
                     uciInfo.Show(MsgDocumentsExistViewOnly);
-                    uciInfo.Show();
                 }
 
                 if (m_idGroupIncoming == 0)
@@ -2551,8 +2640,8 @@ namespace UbsBusiness
                     }
                     else if (string.Equals(name, "БИК", StringComparison.Ordinal))
                     {
-                        txtRecipientBik.Text = Convert.ToString(value);
-                        txtRecipientBik.Enabled = enabled;
+                        txtRecipientBic.Text = Convert.ToString(value);
+                        txtRecipientBic.Enabled = enabled;
                         GetBankNameACC();
                     }
                     else if (string.Equals(name, "Р/с", StringComparison.Ordinal))
@@ -2658,7 +2747,7 @@ namespace UbsBusiness
         {
             try
             {
-                this.IUbsChannel.ParamIn("BIC", txtRecipientBik.Text);
+                this.IUbsChannel.ParamIn("BIC", txtRecipientBic.Text);
                 this.IUbsChannel.Run("UtCheckBIKBank");
 
                 var paramOutUtCheckBIKBank = new UbsParamCustom(this.IUbsChannel.ParamsOut);
@@ -2673,7 +2762,7 @@ namespace UbsBusiness
                     return false;
                 }
 
-                this.IUbsChannel.ParamIn("BIC", txtRecipientBik.Text);
+                this.IUbsChannel.ParamIn("BIC", txtRecipientBic.Text);
                 this.IUbsChannel.Run("UtCheckBIKLimitSharing");
 
                 if (!paramOutUtCheckBIKBank.GetParamOutBool("bRetVal"))
@@ -2684,8 +2773,8 @@ namespace UbsBusiness
                     {
                         txtContractCode.Text = string.Empty;
                         txtRecipientComment.Text = string.Empty;
-                        txtRecipientBik.Text = string.Empty;
-                        txtRecipientBik.Enabled = true;
+                        txtRecipientBic.Text = string.Empty;
+                        txtRecipientBic.Enabled = true;
                         ucaRecipientCorrAccount.Text = "00000000000000000000";
                         txtRecipientBankName.Text = string.Empty;
                         txtRecipientInn.Text = string.Empty;
@@ -2699,7 +2788,7 @@ namespace UbsBusiness
                     }
                 }
 
-                this.IUbsChannel.ParamIn("BIC", txtRecipientBik.Text);
+                this.IUbsChannel.ParamIn("BIC", txtRecipientBic.Text);
                 this.IUbsChannel.Run("ReadBankBIK");
 
                 var paramOutReadBankBIK = new UbsParamCustom(this.IUbsChannel.ParamsOut);
@@ -2717,7 +2806,7 @@ namespace UbsBusiness
                     {
                         object[,] arr = (object[,])pars;
                         int rows = arr.GetLength(0);
-                        bool bicChanged = !string.Equals(txtRecipientBik.Text, m_bicOld, StringComparison.Ordinal);
+                        bool bicChanged = !string.Equals(txtRecipientBic.Text, m_bicOld, StringComparison.Ordinal);
 
                         for (int i = 0; i < rows; i++)
                         {
@@ -2746,8 +2835,8 @@ namespace UbsBusiness
                     else
                     {
                         string bankName = paramOutReadBankBIK.GetParamOutString("BANKNAME");
-                        string corrAcc = paramOutUtCheckBIKBank.GetParamOutString("CORRACC");
-                        bool bicChanged = !string.Equals(txtRecipientBik.Text, m_bicOld, StringComparison.Ordinal);
+                        string corrAcc = paramOutReadBankBIK.GetParamOutString("CORRACC");
+                        bool bicChanged = !string.Equals(txtRecipientBic.Text, m_bicOld, StringComparison.Ordinal);
 
                         if (txtRecipientBankName.Text.Trim().Length == 0 || bicChanged)
                         {
@@ -2844,7 +2933,7 @@ namespace UbsBusiness
                     }
                 }
 
-                if (tabPageTax.Visible && m_isSecondPayment == 2)
+                if (IsTabPageShown(tabPageTax) && m_isSecondPayment == 2)
                 {
                     intTypeSend = 0;
                 }

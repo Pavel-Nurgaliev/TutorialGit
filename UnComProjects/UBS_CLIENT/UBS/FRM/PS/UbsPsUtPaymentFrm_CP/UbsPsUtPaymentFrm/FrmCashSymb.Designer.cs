@@ -53,13 +53,15 @@
             // uciHelp
             // 
             this.uciHelp.AutoSize = true;
+            this.uciHelp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.uciHelp.ForeColor = System.Drawing.SystemColors.Highlight;
             this.uciHelp.Interval = 500;
             this.uciHelp.Location = new System.Drawing.Point(12, 304);
             this.uciHelp.Name = "uciHelp";
-            this.uciHelp.Size = new System.Drawing.Size(446, 13);
+            this.uciHelp.Size = new System.Drawing.Size(604, 13);
             this.uciHelp.TabIndex = 1;
-            this.uciHelp.Text = "Enter - вставить строку; Esc - удалить строку; BackSpace - стереть цифры; Delete - удалить запись";
-            this.uciHelp.Visible = true;
+            this.uciHelp.Text = "Enter - вставить строку; Esc - удалить строку; BackSpace - стереть цифры; Delete " +
+    "- удалить запись";
             // 
             // btnSave
             // 
@@ -85,7 +87,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(482, 376);
+            this.ClientSize = new System.Drawing.Size(610, 376);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.uciHelp);

@@ -162,6 +162,10 @@
       <DependentUpon>UbsPsUtPaymentFrm.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="UbsPsUtPaymentFrm.TabPages.cs">
+      <DependentUpon>UbsPsUtPaymentFrm.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UbsPsUtPaymentFrm.Designer.cs">
       <DependentUpon>UbsPsUtPaymentFrm.cs</DependentUpon>
     </Compile>

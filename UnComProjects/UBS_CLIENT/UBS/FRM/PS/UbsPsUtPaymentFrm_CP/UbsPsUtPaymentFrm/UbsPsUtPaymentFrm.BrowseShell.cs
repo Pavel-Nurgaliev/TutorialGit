@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using UbsService;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace UbsBusiness
 {
@@ -114,7 +115,7 @@ namespace UbsBusiness
                 if (txtContractCode.Text.Trim().Length > 0)
                     return;
 
-                string bic = txtRecipientBik.Text.Trim();
+                string bic = txtRecipientBic.Text.Trim();
                 string acc = ucaRecipientAccount.Text.Trim();
 
                 if (bic.Length == 0 && (acc.Length == 0 || acc == "00000000000000000000"))
@@ -179,8 +180,137 @@ namespace UbsBusiness
             catch (Exception ex) { this.Ubs_ShowError(ex); }
         }
 
+        /// <summary>
+        /// Builds <see cref="m_varUFArray"/> from the form state and writes it
+        /// so that <c>DefineRunUserForm</c> can pass it to <c>UTPUFT.vbs</c>
+        /// as the <c>InitArray</c> parameter. Port of VB6
+        /// <c>CreateUserFormArray</c> (UtPayment.dob lines 1482–1609).
+        ///
+        /// The script consumes the legacy VB6 control names, so column-0 keys
+        /// preserve the original VB6 identifiers even where the .NET control
+        /// was renamed (for example, <c>txtKSPayment</c> reads from the
+        /// renamed <c>txtCashSymbolPayment</c> TextBox).
+        ///
+        /// Three modes:
+        ///   <list type="bullet">
+        ///     <item>0 — control value (text, decimal, or synthesized period date)</item>
+        ///     <item>1 — variable (<c>IdClient</c> when non-zero)</item>
+        ///     <item>3 — additional field from <c>ucfAddProperties.Collection</c></item>
+        ///   </list>
+        /// </summary>
         private void CreateUserFormArray()
         {
+            try
+            {
+                const int modeControl = 0;
+                const int modeVariable = 1;
+                const int modeAddField = 3;
+
+                List<object[]> rows = new List<object[]>();
+
+                AppendControlString(rows, "txtFIOPay", txtPayerFullName.Text);
+                AppendControlString(rows, "txtINNPay", txtPayerInn.Text);
+                AppendControlString(rows, "txtAdressPay", txtPayerAddress.Text);
+                AppendControlString(rows, "txtCode", txtContractCode.Text);
+                AppendControlString(rows, "txtBic", txtRecipientBic.Text);
+                AppendControlString(rows, "AccClient", ucaRecipientAccount.Text);
+                AppendControlString(rows, "txtINN", txtRecipientInn.Text);
+                AppendControlString(rows, "cmbPurpose", cmbPurpose.Text);
+                AppendControlString(rows, "txtRecip", txtRecipientName.Text);
+                AppendControlString(rows, "txtKSPayment", txtCashSymbolPayment.Text);
+                AppendControlString(rows, "txtKSRate", txtCashSymbolCommission.Text);
+                AppendControlString(rows, "txtCodePayment", txtPaymentCode.Text);
+                AppendControlDecimal(rows, "curSumma", udcPaymentAmount.DecimalValue);
+                AppendControlPeriodDate(rows, "txtDateBegin",
+                    txtPeriodYearBeg.Text, txtPeriodMonthBeg.Text, txtPeriodDayBeg.Text);
+                AppendControlPeriodDate(rows, "txtDateEnd",
+                    txtPeriodYearEnd.Text, txtPeriodMonthEnd.Text, txtPeriodDayEnd.Text);
+                AppendControlString(rows, "AccPay", txtPayerAccount.Text);
+                AppendControlString(rows, "txtCheckSum", txtCheckSum.Text);
+                AppendControlString(rows, "cmbTariff", cmbTariff.Text);
+                AppendControlString(rows, "cmbPhone", cmbPhone.Text);
+                AppendControlString(rows, "txtNote", txtRecipientNote.Text);
+                AppendControlString(rows, "txtNameBank", txtRecipientBankName.Text);
+                AppendControlString(rows, "txtComment", txtRecipientComment.Text);
+                AppendControlString(rows, "AccKorr", ucaRecipientCorrAccount.Text);
+                AppendControlDecimal(rows, "curSummaRateSend", udcPayerRateAmount.DecimalValue);
+                AppendControlDecimal(rows, "curSummaTotal", udcAmountWithRate.DecimalValue);
+                AppendControlDecimal(rows, "curPeny", udcPenaltyAmount.DecimalValue);
+                AppendControlString(rows, "AccClientPay", ucaPayerAccount.Text);
+
+                // Tag every control row with mode = 0 (must run after appends).
+                for (int i = 0; i < rows.Count; i++)
+                {
+                    rows[i][2] = modeControl;
+                }
+
+                if (m_idClient != 0)
+                {
+                    rows.Add(new object[] { "IdClient", m_idClient, modeVariable });
+                }
+
+                if (ucfAddProperties.Collection.Count > 0)
+                {
+                    foreach (UbsControl.UbsCtrlFields.UbsAddField field in ucfAddProperties.Collection)
+                    {
+                        rows.Add(new object[] { field.Name, field.Value, modeAddField });
+                    }
+                }
+
+                m_varUFArray = new object[rows.Count, 3];
+                for (int r = 0; r < rows.Count; r++)
+                {
+                    m_varUFArray[r, 0] = rows[r][0];
+                    m_varUFArray[r, 1] = rows[r][1];
+                    m_varUFArray[r, 2] = rows[r][2];
+                }
+            }
+            catch (Exception ex) { this.Ubs_ShowError(ex); }
+        }
+
+        /// <summary>
+        /// Appends a control-text row only when the trimmed text is non-empty,
+        /// matching VB6 <c>If Len(Trim(Controls(...).Text)) &gt; 0</c>.
+        /// Mode column is left as null and is set by the caller in bulk.
+        /// </summary>
+        private static void AppendControlString(List<object[]> rows, string key, string value)
+        {
+            if (value == null) return;
+            if (value.Trim().Length == 0) return;
+            rows.Add(new object[] { key, value, null });
+        }
+
+        /// <summary>
+        /// Appends a decimal/currency row only when the value is non-zero,
+        /// matching VB6 <c>If Controls(...).CurrencyValue &lt;&gt; 0</c>.
+        /// </summary>
+        private static void AppendControlDecimal(List<object[]> rows, string key, decimal value)
+        {
+            if (value == 0m) return;
+            rows.Add(new object[] { key, value, null });
+        }
+
+        /// <summary>
+        /// Synthesizes a period date from year / month / day text fields,
+        /// matching VB6 <c>DateSerial(CLng(txtYearX), CLng(txtMonthX), CLng(txtDayX))</c>.
+        /// Year &lt; 100 is resolved as 2000+year, matching <c>CollectPeriodDates</c>.
+        /// Skips the row when year is empty or any component fails to parse.
+        /// </summary>
+        private static void AppendControlPeriodDate(List<object[]> rows, string key,
+            string yearText, string monthText, string dayText)
+        {
+            if (yearText == null || yearText.Length == 0) return;
+            int year, month, day;
+            if (!int.TryParse(yearText, out year)) return;
+            if (!int.TryParse(monthText, out month)) return;
+            if (!int.TryParse(dayText, out day)) return;
+            if (year < 100) year += 2000;
+            try
+            {
+                DateTime value = new DateTime(year, month, day);
+                rows.Add(new object[] { key, value, null });
+            }
+            catch (ArgumentOutOfRangeException) { /* invalid date — skip row, matching VB6 Err_ */ }
         }
 
         #endregion
@@ -328,7 +458,7 @@ namespace UbsBusiness
                 var paramOut = new UbsParamCustom(this.IUbsChannel.ParamsOut);
 
                 txtRecipientName.Text = paramOut.GetParamOutString("Наименование получателя в плат. документах");
-                txtRecipientBik.Text = paramOut.GetParamOutString("BIC");
+                txtRecipientBic.Text = paramOut.GetParamOutString("BIC");
                 ucaRecipientCorrAccount.Text = paramOut.GetParamOutString("CORRACC");
                 txtRecipientBankName.Text = paramOut.GetParamOutString("Наименование банка");
                 ucaRecipientAccount.Text = paramOut.GetParamOutString("ACC");
@@ -359,7 +489,7 @@ namespace UbsBusiness
                 this.IUbsChannel.ParamIn("IdContract", m_idContract);
                 this.IUbsChannel.ParamIn("IdAttributeRecip", m_idAttributeRecip);
                 this.IUbsChannel.ParamIn("Наименование получателя в плат. документах", txtRecipientName.Text);
-                this.IUbsChannel.ParamIn("BIC", txtRecipientBik.Text);
+                this.IUbsChannel.ParamIn("BIC", txtRecipientBic.Text);
                 this.IUbsChannel.ParamIn("CORRACC", ucaRecipientCorrAccount.Text);
                 this.IUbsChannel.ParamIn("Наименование банка", txtRecipientBankName.Text);
                 this.IUbsChannel.ParamIn("ACC", ucaRecipientAccount.Text);
@@ -395,7 +525,7 @@ namespace UbsBusiness
 
         private void txtRecipientBik_Enter(object sender, EventArgs e)
         {
-            m_bicOld = txtRecipientBik.Text;
+            m_bicOld = txtRecipientBic.Text;
         }
 
         #endregion
@@ -499,7 +629,7 @@ namespace UbsBusiness
             {
                 if (chkThirdPerson.Checked)
                 {
-                    tabPageThirdPerson.Visible = true;
+                    ShowTabPage(tabPageThirdPerson);
                     txtTaxStatus.Enabled = true;
 
                     if (cmbThirdPersonKind.SelectedIndex >= 0)
@@ -509,7 +639,7 @@ namespace UbsBusiness
                 }
                 else
                 {
-                    tabPageThirdPerson.Visible = false;
+                    HideTabPage(tabPageThirdPerson);
                     if (m_forbidTaxStatusChanges)
                     {
                         txtTaxStatus.Text = m_savedTaxStatusValue;
@@ -573,11 +703,11 @@ namespace UbsBusiness
                 if (e.KeyChar == (char)Keys.Escape)
                 {
                     e.Handled = true;
-                    if (tabPageTax.Visible)
+                    if (IsTabPageShown(tabPageTax))
                     {
                         tabPayment.SelectedTab = tabPageTax;
                     }
-                    else if (tabPageThirdPerson.Visible)
+                    else if (IsTabPageShown(tabPageThirdPerson))
                     {
                         tabPayment.SelectedTab = tabPageThirdPerson;
                     }
@@ -625,7 +755,7 @@ namespace UbsBusiness
             txtRecipientName.TextChanged += txtRecipientName_TextChanged;
             cmbPurpose.TextChanged += cmbPurpose_TextChanged;
 
-            txtRecipientBik.Enter += txtRecipientBik_Enter;
+            txtRecipientBic.Enter += txtRecipientBik_Enter;
             ucaRecipientAccount.Leave += ucaRecipientAccount_Leave;
             cmbThirdPersonKind.Leave += cmbThirdPersonKind_Leave;
             chkBenefits.CheckedChanged += chkBenefits_CheckedChanged;
@@ -712,7 +842,7 @@ namespace UbsBusiness
 
                     if (!m_contractFilterLimitations)
                     {
-                        string bic = txtRecipientBik.Text.Trim();
+                        string bic = txtRecipientBic.Text.Trim();
                         string acc = ucaRecipientAccount.Text.Trim();
                         string inn = txtRecipientInn.Text.Trim();
 
@@ -769,7 +899,7 @@ namespace UbsBusiness
                         {
                             args.IUbs.Run("UbsItemSet", new UbsParam(new KeyValuePair<string, object>[] {
                                 new KeyValuePair<string, object>("наименование", "БИК"),
-                                new KeyValuePair<string, object>("значение по умолчанию", txtRecipientBik.Text),
+                                new KeyValuePair<string, object>("значение по умолчанию", txtRecipientBic.Text),
                                 new KeyValuePair<string, object>("условие по умолчанию", "="),
                                 new KeyValuePair<string, object>("скрытый", true) }));
                         }

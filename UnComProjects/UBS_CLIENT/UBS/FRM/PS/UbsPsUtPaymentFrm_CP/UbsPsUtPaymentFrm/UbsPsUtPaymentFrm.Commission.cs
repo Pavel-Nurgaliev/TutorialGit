@@ -101,7 +101,7 @@ namespace UbsBusiness
                 this.IUbsChannel.ParamIn("AccClient", ucaRecipientAccount.Text);
 
                 bool blnSecondPayment = true;
-                if (tabPageTax.Visible)
+                if (IsTabPageShown(tabPageTax))
                 {
                     blnSecondPayment = (m_isSecondPayment == 1);
                 }
