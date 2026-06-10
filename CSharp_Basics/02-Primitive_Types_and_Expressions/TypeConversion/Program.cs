@@ -1,4 +1,12 @@
-﻿int i = 1000;
-byte b = checked((byte)i);
+﻿try
+{
+    var number = "1234";
 
-Console.WriteLine(b);
+    byte b = Convert.ToByte(number);
+
+    Console.WriteLine(b);
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
