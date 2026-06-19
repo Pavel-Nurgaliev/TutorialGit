@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="../ConditionStatementPractice/ConditionStatementPractice.csproj" Id="36b23d26-3560-4ad9-b9eb-e18b236ac3d6" />
+  <Project Path="../IterationStatementPractice/IterationStatementPractice.csproj" Id="b8a4fb3a-d615-488c-a04e-846929f130b1" />
   <Project Path="ConditionStatements.csproj" />
 </Solution>
