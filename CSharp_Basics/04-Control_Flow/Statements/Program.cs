@@ -21,8 +21,6 @@ switch(variable)
 */
 
 
-using System.Net.NetworkInformation;
-
 ///1. Guard Clauses (Early Return)
 ///Instead of nesting your logic inside the multiple if cheks, check for invalid states first and return or throw an excetion immidiately
 
@@ -134,4 +132,15 @@ string GetZipCodeSimplified(Customer customer)
     string zipCode = customer?.Address?.ZipCode ?? "Unknown";
     
     return zipCode;
+}
+
+PrintAutumnSeasonName(Season.Autumn);
+void PrintAutumnSeasonName(Season season)
+{
+    switch (season)
+    {
+        case Season.Autumn:
+            Console.WriteLine("It is just {0}", Season.Autumn);
+            break;
+    }
 }

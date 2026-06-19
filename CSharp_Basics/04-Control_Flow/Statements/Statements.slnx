@@ -1,3 +1,4 @@
 <Solution>
-  <Project Path="Statements.csproj" />
+  <Project Path="../ConditionStatementPractice/ConditionStatementPractice.csproj" Id="36b23d26-3560-4ad9-b9eb-e18b236ac3d6" />
+  <Project Path="ConditionStatements.csproj" />
 </Solution>
