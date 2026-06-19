@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../RegexApp.Tests/RegexApp.Tests.csproj" />
+  <Project Path="RegexApp.csproj" />
+</Solution>
