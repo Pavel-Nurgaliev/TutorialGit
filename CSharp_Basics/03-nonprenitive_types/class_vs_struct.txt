@@ -1,0 +1,3 @@
+I would use a struct when I need a small, immutable, value-like type, for example Point, Money, DateRange, or Coordinates. A struct is copied by value and does not have object identity. I would use a class when the type represents an entity or object with identity, behavior, inheritance, or shared mutable state, for example User, Order, or Service.
+
+https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/classes
