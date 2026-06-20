@@ -36,8 +36,5 @@
 */
 
 // Run: dotnet test ..\RegexApp.Tests\RegexApp.Tests.csproj
-using RegexApp;
 
 Console.WriteLine("Implement the methods in RegexHelpers.cs, then run the tests.");
-
-RegexHelpers.CamelToSnakeCase("camelCase");

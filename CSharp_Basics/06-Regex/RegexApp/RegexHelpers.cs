@@ -59,14 +59,6 @@ public static class RegexHelpers
     }
 
     // Task 6
-    /*
-     * Password must be at least 8 characters and contain:
-     - At least one uppercase letter
-     - At least one lowercase letter
-     - At least one digit
-     - At least one special character (!@#$%^&*...)
-    Use lookaheads so the checks are independent of order.
-    */
     public static bool IsValidPassword(string input)
     {
         var pattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).{8,}$";
