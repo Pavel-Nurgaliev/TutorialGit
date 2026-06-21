@@ -1,0 +1,6 @@
+1. .NET is a secure, reliable, high-performance, cross-platform, free, open source developer platform
+2. .NET framework is an original implementation of .NET. It allows to create the windows based applications like desktop with Windows Forms
+and WPF. It is optimized framework for creating desktop applications.
+3. .NET Core is the primary implementation of the .NET. It allows to create Windows based desktop apps and cross-platform console apps, cloud services, and websites.
+4. ASP.NET Core is the modern, high-performanced, open-source, cross-platform free web development framework, that runs on Windows, MacOs,
+Linux, and Docker.

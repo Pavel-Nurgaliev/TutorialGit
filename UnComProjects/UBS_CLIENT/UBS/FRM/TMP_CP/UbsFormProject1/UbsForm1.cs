@@ -10,6 +10,7 @@ namespace UbsBusiness
     {
         #region Блок объявления переменных
 
+        private string m_command = string.Empty;    //параметер запуска формы
         private string m_command = "";    //параметер запуска формы
 
         #endregion
