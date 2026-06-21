@@ -11,6 +11,7 @@ namespace UbsBusiness
         #region Блок объявления переменных
 
         private string m_command = string.Empty;    //параметер запуска формы
+        private string m_command = "";    //параметер запуска формы
 
         #endregion
 
@@ -25,6 +26,8 @@ namespace UbsBusiness
 
             // установить имя ресурса, с которым будет работать канал
             this.IUbsChannel.LoadResource = "ASM:UBS_ASM\\Business\\DllName.dll->UbsBusiness.NameClass";
+
+            m_addFields(); //заполнить коллекцию полей формы
 
             base.Ubs_CommandLock = true;
         }
@@ -85,5 +88,12 @@ namespace UbsBusiness
         }
 
         #endregion
+
+        private void m_addFields()
+        {
+            base.IUbsFieldCollection.Add("Имя поля", new UbsFormField(btnSave, "Text"));
+            base.IUbsFieldCollection["Имя поля"].ReadOnly = true;
+        }
+
     }
 }
