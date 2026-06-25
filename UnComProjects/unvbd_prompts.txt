@@ -20,3 +20,12 @@ D:\Repositories\TutorialGit\UnComProjects\UBS_CLIENT\UBS\FRM\PS\UbsPsContractFrm
 /creative 
 
 /build 
+the .NET form is ..\[UbsFormProject] - Rename the form files according to this name
+the VB6 is ..\legacy-form\[legacy-form-name]\[legacy-form-name].dob
+
+the appearance of the legacy form is located in this folder ..\legacy-form\screens\
+
+the result of successful conversions (analyze their memory-bank for current conversion):
+- D:\Repositories\TutorialGit\UnComProjects\UBS_CLIENT\UBS\FRM\OP\UbsOpCommissionFrm_CP
+- D:\Repositories\TutorialGit\UnComProjects\UBS_CLIENT\UBS\FRM\OP\UbsOpBlankFrm_CP, 
+- D:\Repositories\TutorialGit\UnComProjects\UBS_CLIENT\UBS\FRM\PM\UbsPmTradeFrm_CP

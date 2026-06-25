@@ -18,3 +18,4 @@ for (int rowIndex = 0; rowIndex < n; rowIndex++)
 ```
 
 So **`arr[rowIndex, 0]`** corresponds to **`variant(0, i)`** and **`arr[rowIndex, 1]`** to **`variant(1, i)`** when `rowIndex == i`.
+While convert vb form to .net. If we expect object[,] it always object[row, column] (while vb variant is variant(column, row))
