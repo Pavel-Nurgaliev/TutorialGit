@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="../AbstractClassesAndMethodsProject/AbstractClassesAndMethodsProject.csproj" />
+  <Project Path="../DataBaseConnectionProject/DataBaseConnectionProject.csproj" />
+  <Project Path="MehodOverloadingProject.csproj" />
+</Solution>
