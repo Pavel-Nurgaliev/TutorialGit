@@ -35,6 +35,9 @@ string connectionString = "connect:db.something";
 var sqlCon = new SqlConnection(connectionString);
 var oracleCon = new OracleConnection(connectionString);
 
+sqlCon.Timeout = TimeSpan.FromSeconds(5);
+oracleCon.Timeout = TimeSpan.FromSeconds(5);
+
 sqlCon.OpenConnection();
 oracleCon.OpenConnection();
 
