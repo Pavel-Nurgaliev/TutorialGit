@@ -1,5 +1,6 @@
 <Solution>
-  <Project Path="../AbstractClassesAndMethodsProject/AbstractClassesAndMethodsProject.csproj" />
-  <Project Path="../DataBaseConnectionProject/DataBaseConnectionProject.csproj" />
-  <Project Path="MehodOverloadingProject.csproj" />
+  <Project Path="D:/Repositories/TutorialGit/CSharp_Basics/06-Classes/AbstractClassesAndMethodsProject/AbstractClassesAndMethodsProject.csproj" />
+  <Project Path="D:/Repositories/TutorialGit/CSharp_Basics/06-Classes/DatabaseCommandProject/DatabaseCommandProject.csproj" />
+  <Project Path="D:/Repositories/TutorialGit/CSharp_Basics/06-Classes/DataBaseConnectionProject/DataBaseConnectionProject.csproj" />
+  <Project Path="D:/Repositories/TutorialGit/CSharp_Basics/06-Classes/PolymorphismApp/MehodOverloadingProject.csproj" />
 </Solution>

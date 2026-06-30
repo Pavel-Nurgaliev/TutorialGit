@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DataBaseConnectionProject
+﻿namespace DataBaseConnectionProject
 {
     internal abstract class DbConnection
     {
