@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/Interfaces/">
+    <Project Path="../MessageNotification/MessageNotification.csproj" Id="c0ead4c2-9190-424c-8255-ab7e0314efb2" />
+    <Project Path="Interfaces/SemanticVersion/SemanticVersionEquality.csproj" />
+  </Folder>
+  <Folder Name="/ValRefEnums/">
+    <Project Path="ValRefEnums/MoneyControl/MoneyControl.csproj" />
+    <Project Path="ValRefEnums/PointPositionChange/PointPositionChange.csproj" />
+    <Project Path="ValRefEnums/TraficLightStateMachine/TraficLightStateMachine.csproj" />
+  </Folder>
+  <Project Path="KatasTests/KatasTests.csproj" />
+</Solution>
