@@ -22,7 +22,7 @@
         [Test]
         public void CountTest_FulfilledStack_PeekItem()
         {
-            Assert.That(_stack.Count(), Is.EqualTo(3));
+            Assert.That(_stack.Count, Is.EqualTo(3));
         }
         [Test]
         public void StackEnumerableTest_FulfilledStack_StringResult()
