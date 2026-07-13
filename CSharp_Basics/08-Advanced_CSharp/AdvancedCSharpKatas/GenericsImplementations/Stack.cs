@@ -13,7 +13,7 @@ namespace GenericsImplementations
 
         public void Push(T item)
         {
-            if (_count > _items.Length)
+            if (_count >= _items.Length)
             {
                 Array.Resize<T>(ref _items, _items.Length * 2);
             }
@@ -22,7 +22,7 @@ namespace GenericsImplementations
         }
         public T Pop()
         {
-            if (_items.Length == 0)
+            if (_count == 0)
             {
                 throw new InvalidOperationException("Stack empty");
             }

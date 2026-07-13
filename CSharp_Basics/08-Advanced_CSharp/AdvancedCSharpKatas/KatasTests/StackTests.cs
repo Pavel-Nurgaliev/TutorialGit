@@ -1,6 +1,6 @@
 ﻿namespace KatasTests
 {
-    internal class StackTests
+    public class StackTests
     {
         GenericsImplementations.Stack<int> _stack = new GenericsImplementations.Stack<int>();
         public StackTests()
