@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/GenericsAndConstraints/">
+    <Project Path="GenericsImplementations/GenericsImplementations.csproj" Id="52424e3d-557f-458b-9b83-6e07299095a4" />
+  </Folder>
   <Folder Name="/Interfaces/">
     <Project Path="../MessageNotification/MessageNotification.csproj" Id="c0ead4c2-9190-424c-8255-ab7e0314efb2" />
     <Project Path="Interfaces/SemanticVersion/SemanticVersionEquality.csproj" />

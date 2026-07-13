@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\MessageNotification\MessageNotification.csproj" />
+    <ProjectReference Include="..\GenericsImplementations\GenericsImplementations.csproj" />
     <ProjectReference Include="..\Interfaces\SemanticVersion\SemanticVersionEquality.csproj" />
     <ProjectReference Include="..\ValRefEnums\MoneyControl\MoneyControl.csproj" />
     <ProjectReference Include="..\ValRefEnums\PointPositionChange\PointPositionChange.csproj" />
