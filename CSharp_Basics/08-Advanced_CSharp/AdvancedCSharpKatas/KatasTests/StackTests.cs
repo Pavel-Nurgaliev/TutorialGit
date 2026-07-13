@@ -2,9 +2,11 @@
 {
     public class StackTests
     {
-        GenericsImplementations.Stack<int> _stack = new GenericsImplementations.Stack<int>();
-        public StackTests()
+        GenericsImplementations.Stack<int> _stack;
+        [SetUp]
+        public void Setup()
         {
+            _stack = new GenericsImplementations.Stack<int>();
             FulfillStack(_stack);
         }
         [Test]

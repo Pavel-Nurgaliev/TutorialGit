@@ -28,18 +28,20 @@ namespace GenericsImplementations
             }
 
             var item = _items[--_count];
-            _items[_count] = default;
+            _items[_count] = default!;
 
             return item;
         }
         public T Peek()
         {
+            if (_count == 0)
+            {
+                throw new InvalidOperationException("Stack empty");
+            }
+
             return _items[_count - 1];
         }
-        public int Count()
-        {
-            return _count;
-        }
+        public int Count => _count;
         public IEnumerator<T> GetEnumerator()
         {
             for (int i = _count - 1; i >= 0; i--)
