@@ -1,4 +1,15 @@
 <Solution>
+  <Folder Name="/Capstone/">
+    <Project Path="InventoryServiceApp/InventoryServiceApp.csproj" Id="9362ab46-2ad4-488b-9810-438cc57f6b16" />
+  </Folder>
+  <Folder Name="/Collections/">
+    <Project Path="AnagramApp/AnagramApp.csproj" Id="602bca94-b9e1-452d-a918-e41c090f4647" />
+    <Project Path="SetOperationsApp/SetOperationsApp.csproj" Id="6b421868-6f63-4267-8fd5-fe23a423039c" />
+    <Project Path="WordCounter/WordCounter.csproj" Id="ac1e01cb-3fc4-4347-a9b6-791beca31e75" />
+  </Folder>
+  <Folder Name="/DeferredExec/">
+    <Project Path="DeferredExecutionApp/DeferredExecutionApp.csproj" Id="b1d0683e-1768-4777-b2ea-538672fc1732" />
+  </Folder>
   <Folder Name="/GenericsAndConstraints/">
     <Project Path="GenericsImplementations/GenericsImplementations.csproj" Id="52424e3d-557f-458b-9b83-6e07299095a4" />
   </Folder>

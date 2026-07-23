@@ -4,6 +4,7 @@
     {
         private Dictionary<int, T>_data = new Dictionary<int, T>();
         //by using T with constraits IEntity, we can use the property Id
+        public int Count => _data.Count;
         public void Add(T item)
         {
             if (item is null)

@@ -240,7 +240,7 @@ FirstDuplicate(new[]{1,2,3}) == null;
 Intersection(new[]{1,2,3}, new[]{2,3,4}) -> {2,3}
 OnlyInFirst(new[]{1,2,3}, new[]{2,3,4}) -> {1}
 ```
-**Gotcha:** `IntersectWith` / `ExceptWith` mutate the set in place — clone first if you need the original. Explain why `HashSet` makes `FirstDuplicate` O(n) vs O(n²) with a `List.Contains`.
+**Gotcha:**`IntersectWith` / `ExceptWith` mutate the set in place — clone first if you need the original. Explain why `HashSet` makes `FirstDuplicate` O(n) vs O(n²) with a `List.Contains`.
 
 ---
 

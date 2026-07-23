@@ -17,11 +17,15 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\MessageNotification\MessageNotification.csproj" />
+    <ProjectReference Include="..\AnagramApp\AnagramApp.csproj" />
+    <ProjectReference Include="..\DeferredExecutionApp\DeferredExecutionApp.csproj" />
     <ProjectReference Include="..\GenericsImplementations\GenericsImplementations.csproj" />
     <ProjectReference Include="..\Interfaces\SemanticVersion\SemanticVersionEquality.csproj" />
+    <ProjectReference Include="..\SetOperationsApp\SetOperationsApp.csproj" />
     <ProjectReference Include="..\ValRefEnums\MoneyControl\MoneyControl.csproj" />
     <ProjectReference Include="..\ValRefEnums\PointPositionChange\PointPositionChange.csproj" />
     <ProjectReference Include="..\ValRefEnums\TraficLightStateMachine\TraficLightStateMachine.csproj" />
+    <ProjectReference Include="..\WordCounter\WordCounter.csproj" />
   </ItemGroup>
 
   <ItemGroup>
