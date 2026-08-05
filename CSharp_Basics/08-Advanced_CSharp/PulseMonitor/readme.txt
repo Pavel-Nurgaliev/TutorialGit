@@ -1,0 +1,1 @@
+A source emits readings — CPU %, temperature, request latency, whatever — and independent modules react to them. That "source doesn't know who's listening" decoupling is the whole point of going event-driven.
