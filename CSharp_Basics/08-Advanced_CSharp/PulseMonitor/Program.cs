@@ -56,8 +56,68 @@ ms.ReadingTaken += alertRulesNotification;
 
 foreach (var reading in readingList)
 {
-    ms.Emit(reading);   
+    ms.Emit(reading);
 }
 
 ms.ReadingTaken -= loginAppliancesNotification;
+
+readingList.Add(new Reading(Metrics.Cpu, 95, t0.AddSeconds(7)));
+
+foreach (var reading in readingList)
+{
+    ms.Emit(reading);
+}
+
+alertRulesList.Add(new()
+{
+    Condition = r => r.Metric == Metrics.Cpu && r.Value < 50,
+    Description = r => $"LOWER CPU {r.Value}% at {r.At:HH:mm:ss}",
+    NotifyPrefix = r => "[PAGER]"
+});
+
+foreach (var reading in readingList)
+{
+    ms.Emit(reading);
+}
+
+alertRulesList.Remove(alertRulesList[alertRulesList.Count - 1]);
+
 ms.ReadingTaken -= alertRulesNotification;
+
+Console.WriteLine("//////////////////////////////////////////////////////");
+readingList.Remove(new Reading(Metrics.Cpu, 95, t0.AddSeconds(7)));
+
+Func<Reading, Severity> grader = (r) =>
+r switch
+{
+    _ when r.Metric == Metrics.Cpu && r.Value >= 98 => Severity.Critical,
+    _ when r.Metric == Metrics.Cpu && r.Value >= 90 => Severity.Warning,
+    _ when r.Metric == Metrics.Temp && r.Value >= 85 => Severity.Critical,
+    _ when r.Metric == Metrics.Temp && r.Value >= 75 => Severity.Warning,
+    _ when r.Metric == Metrics.Latency && r.Value >= 500 => Severity.Critical,
+    _ when r.Metric == Metrics.Latency && r.Value >= 300 => Severity.Warning,
+    _ => Severity.Info
+};
+
+var dicSeverity = new Dictionary<Severity, Action<string>>();
+dicSeverity.Add(Severity.Critical, (s) => Console.WriteLine($"[CRIT] {s}"));
+dicSeverity.Add(Severity.Warning, (s) => Console.WriteLine($"[WARN] {s}"));
+dicSeverity.Add(Severity.Info, (s) => Console.WriteLine($"[INFO] {s}"));
+
+Action<Reading> notifications = (r) =>
+{
+    foreach (var rule in alertRulesList)
+    {
+        if (rule.Condition(r))
+        {
+            dicSeverity[grader.Invoke(r)].Invoke(rule.Description(r));
+        }
+    }
+};
+
+ms.ReadingTaken += notifications;
+
+foreach (var reading in readingList)
+{
+    ms.Emit(reading);
+}

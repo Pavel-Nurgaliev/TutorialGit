@@ -1,0 +1,7 @@
+[
+  { "id": 1, "name": "Leanne Graham",  "username": "bret",     "email": "leanne@example.com",  "address": { "city": "Gwenborough" }, "company": { "name": "Romaguera-Crona" } },
+  { "id": 2, "name": "Ervin Howell",   "username": "antonette", "email": "ervin@example.com",   "address": { "city": "Wisokyburgh" }, "company": { "name": "Deckow-Crist" } },
+  { "id": 3, "name": "Clementine Bauch","username": "samantha",  "email": "clementine@example.com","address": { "city": "McKenziehaven" }, "company": { "name": "Romaguera-Crona" } },
+  { "id": 4, "name": "Patricia Lebsack","username": "karianne",  "email": "patricia@example.com","address": { "city": "South Elvis" },  "company": { "name": "Robel-Corkery" } },
+  { "id": 5, "name": "Chelsey Dietrich","username": "kamren",    "email": "chelsey@example.com","address": { "city": "Roscoeview" },   "company": { "name": "Keebler LLC" } }
+]
