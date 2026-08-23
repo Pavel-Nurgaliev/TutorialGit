@@ -1,0 +1,40 @@
+@FirstWebApiApplication_HostAddress = https://localhost:7149
+
+GET {{FirstWebApiApplication_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+POST {{FirstWebApiApplication_HostAddress}}/api/todoitems
+Content-Type: application/json
+
+{
+  "name": "walk dog",
+  "isComplete": true
+}
+
+###
+
+GET {{FirstWebApiApplication_HostAddress}}/api/todoitems
+
+###
+
+@id=1
+GET {{FirstWebApiApplication_HostAddress}}/api/todoitems/{{id}}
+
+###
+
+PUT {{FirstWebApiApplication_HostAddress}}/api/todoitems/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "feed fish",
+  "isComplete": false
+}
+
+###
+
+DELETE {{FirstWebApiApplication_HostAddress}}/api/todoitems/1
+
+###
