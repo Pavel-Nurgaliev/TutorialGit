@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using Vidly.Models;
-using Vidly.Models.Movies;
+using Vidly.Models.Customers;
 
 namespace Vidly.ViewModels
 {

@@ -18,14 +18,3 @@ select,
 textarea {
     max-width: 280px;
 }
-
-table.movies-table,
-table.customers-table {
-    border: 1px solid black; /* Sets width, style, and color */
-    border-collapse: collapse; /* Merges cell borders into single lines */
-    width: 100%;
-
-    th, td {
-        border: 1px solid black; /* Sets width, style, and color */
-    }
-}
