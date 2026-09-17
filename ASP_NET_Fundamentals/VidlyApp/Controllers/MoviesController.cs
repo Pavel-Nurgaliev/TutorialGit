@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Runtime.Remoting.Messaging;
 using System.Web.Mvc;
 using VidlyApp.Models;
 
@@ -19,6 +16,26 @@ namespace VidlyApp.Controllers
             //return HttpNotFound();
             //return RedirectToAction("Index", "Home", new {page = 1, sortBy = "name"});
             return new EmptyResult();
+        }
+
+        public ActionResult Edit(int movieId)
+        {
+            return Content("movieId=" + movieId);
+        }
+
+        public ActionResult Index(int? pageIndex, string sortBy)
+        {
+            if (pageIndex.HasValue)
+            {
+                pageIndex = 1;
+            }
+
+            if (string.IsNullOrEmpty(sortBy))
+            {
+                sortBy = "Name";
+            }
+
+            return Content($"PageIndex = {pageIndex}, SortBy = {sortBy}");
         }
     }
 }
