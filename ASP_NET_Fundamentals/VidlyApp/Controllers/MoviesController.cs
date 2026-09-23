@@ -1,4 +1,5 @@
-﻿using System.Runtime.Remoting.Messaging;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using VidlyApp.Models;
 
@@ -6,41 +7,16 @@ namespace VidlyApp.Controllers
 {
     public class MoviesController : Controller
     {
-        // GET: Movies
-        public ActionResult Random()
-        {
-            var movie = new Movie() { Name = "Shrek!" };
 
-            //return View(movie);
-            //return Content("Hello world");
-            //return HttpNotFound();
-            //return RedirectToAction("Index", "Home", new {page = 1, sortBy = "name"});
-            return new EmptyResult();
-        }
-
-        public ActionResult Edit(int movieId)
-        {
-            return Content("movieId=" + movieId);
-        }
-
-        public ActionResult Index(int? pageIndex, string sortBy)
-        {
-            if (pageIndex.HasValue)
+        private List<Movie> _movies = new List<Movie>
             {
-                pageIndex = 1;
-            }
-
-            if (string.IsNullOrEmpty(sortBy))
-            {
-                sortBy = "Name";
-            }
-
-            return Content($"PageIndex = {pageIndex}, SortBy = {sortBy}");
-        }
-
-        public ActionResult ByReleaseDate(int year, int month)
+                new Movie { Id = 1, Name = "The Shawshank Redemption" },
+                new Movie { Id = 2, Name = "The Godfather" },
+                new Movie { Id = 3, Name = "The Dark Knight" }
+            };
+        public ActionResult Index()
         {
-            return Content($"Year = {year}, Month = {month}");
+            return View(_movies);
         }
     }
 }
